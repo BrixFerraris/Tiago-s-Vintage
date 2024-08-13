@@ -2,7 +2,7 @@
 Capstone project
 
 # Members
--Alex Cueto
--Clarence Escoto
--Darius Gavino
--Brix Ferraris
+1.Alex Cueto
+2.Clarence Escoto
+2.Darius Gavino
+2.Brix Ferraris
