@@ -8,7 +8,6 @@ include_once 'header.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>landing</title>
-    <link rel="stylesheet" href="../CSS/landing.css">
 </head>
 <body>
 
@@ -48,5 +47,5 @@ setInterval(slider, 5000);
 </html>
 
 <?php
-include_once 'footer.html'
+include_once 'footer.php'
 ?>

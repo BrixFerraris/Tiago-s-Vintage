@@ -1,20 +1,29 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/header.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../CSS/landing.css">
+    <link rel="stylesheet" href="../CSS/footer.css">
     <title>Tiago's Vintage</title>
 </head>
 <body>
-    
-    <div id="Container">
-        
-    <style>
 
+<style>
+
+:root {
+  --bulma-primary-h: 120;
+  --bulma-primary-s: 100%;
+  --bulma-primary-l: 16%;
+  --bulma-link-h: 120;
+  --bulma-link-s: 92%;
+  --bulma-link-l: 57%;
+}
 
 .navbar img {
     max-height: 6rem; 
@@ -38,25 +47,17 @@
 
 
 </style>
-<nav class="navbar" role="navigation"
-         aria-label="main navigation"> 
+<nav class="navbar" role="navigation" aria-label="main navigation"> 
         <div class="navbar-brand"> 
-  
-          <!-- navbar items and navbar burger... -->
-          
-        <img src= "../images/tiagos.png" width="100" height="100"> 
-          
+          <img src= "../images/tiagos.png" width="100" height="100"> 
         </div> 
         <div class="navbar-menu"> 
-          <!-- navbar start, navbar end -->
           <div class="navbar-start">
-
-
           </div> 
           <div class="navbar-end"> 
             <a class="navbar-item" >Home</a> 
             <a class="navbar-item" >About</a>
-            <input class="input" type="text" name="" id="">
+            <input class="input" type="text" name="" id="search">
             <a class="navbar-item js-modal-trigger"  data-target="modal-js-example" >Register/Login</a>             
           </div> 
         </div> 
@@ -96,31 +97,7 @@
             </ul>
         </div>
         
-       
-    </div>
 
-
-
-
-
-
-
-
-<!-- loginasdasdasdasdasd -->
-
-
-
-<style>
-:root {
-  --bulma-primary-h: 120;
-  --bulma-primary-s: 100%;
-  --bulma-primary-l: 16%;
-  --bulma-link-h: 120;
-  --bulma-link-s: 92%;
-  --bulma-link-l: 57%;
-}
-
-</style>
 
 <div id="modal-js-example" class="modal">
         <div class="modal-background ">
@@ -231,9 +208,6 @@
         <button class="modal-close is-large" aria-label="close"></button>
       </div>
 
-        
-    </div>
-    
 <script>
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -333,11 +307,3 @@ document.addEventListener('DOMContentLoaded', () => {
   });
           
 </script>
-
-
-
-
-
-    
-</body>
-</html>
