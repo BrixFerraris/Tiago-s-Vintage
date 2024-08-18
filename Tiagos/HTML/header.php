@@ -26,23 +26,30 @@
 }
 
 .navbar img {
-    max-height: 6rem; 
+    max-height: 8rem; 
     padding: -10px
 }
 
 .navbar-item{
     color: white;
+    border-radius: 70px;
+    
 }
 
 .navbar{
+    font-family: 'Gill Sans MT';
+    font-size: 18px;
+    
     align-items: center;
-    background-color: darkgreen;
+    background-color: hsl(93, 100%, 9%);
+    
     color: green;
 }
 
 .navbar-item:hover {
     background-color: green;
-    color: hsl(0, 0%, 100%); 
+    border-radius: 70px;
+    background-color: hsl(93, 100%, 20%);
 }
 
 
