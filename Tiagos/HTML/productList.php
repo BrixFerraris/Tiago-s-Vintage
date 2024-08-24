@@ -1,116 +1,142 @@
 <?php
-    include './header.php';
+include './header.php';
 ?>
 
-
 <style>
+  body {
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
 
-.cell{
-  max-width: 300px;
-  max-height: 500px;
-  margin: auto;
-}
+  .box {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 1200px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
 
-.cell img{
-  height: 300px;
-  width: 300px;
-  align-items: center;
-}
+  .fixed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    justify-content: center;
+  }
 
+  .cell {
+    max-width: 300px;
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
 
-.cell p{
-  text-align: center;
-}
+  .cell img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
 
+  .cell:hover img {
+    transform: scale(1.1);
+  }
+
+  .cell p {
+    padding: 15px;
+  }
+
+  .cell .has-text-primary {
+    color: #28a745;
+  }
+
+  .cell .has-text-weight-bold {
+    font-weight: bold;
+  }
 </style>
-<div class="box" style="margin-bottom: 0; border-radius: 0;" >
-    <div class="fixed-grid has-3-cols" >
-      <div class="grid ">
 
-      <div class="cell">
-      <img src="../images/bg.png" alt="">
+<div class="box">
+  <div class="fixed-grid">
+    <div class="cell">
+      <img src="../images/bg.png" alt="Sample Product">
       <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span> <br>
+        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
         <span class="has-text-primary">PHP 999.00</span>
       </p>
-      </div>
+    </div>
 
-
-      <div class="cell">
-      <img src="../images/bg.png" alt="">
+    <div class="cell">
+      <img src="../images/bg.png" alt="Sample Product">
       <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span> <br>
+        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
         <span class="has-text-primary">PHP 999.00</span>
       </p>
-      </div>
+    </div>
 
-
-      <div class="cell">
-      <img src="../images/bg.png" alt="">
+    <div class="cell">
+      <img src="../images/bg.png" alt="Sample Product">
       <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span> <br>
+        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
         <span class="has-text-primary">PHP 999.00</span>
       </p>
-      </div>
+    </div>
 
-
-      <div class="cell">
-      <img src="../images/bg.png" alt="">
+    <div class="cell">
+      <img src="../images/bg.png" alt="Sample Product">
       <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span> <br>
+        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
         <span class="has-text-primary">PHP 999.00</span>
       </p>
-      </div>
+    </div>
 
-
-      <div class="cell">
-      <img src="../images/bg.png" alt="">
+    <div class="cell">
+      <img src="../images/bg.png" alt="Sample Product">
       <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span> <br>
+        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
         <span class="has-text-primary">PHP 999.00</span>
       </p>
-      </div>
+    </div>
 
-      <div class="cell">
-      <img src="../images/bg.png" alt="">
+    <div class="cell">
+      <img src="../images/bg.png" alt="Sample Product">
       <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span> <br>
+        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
         <span class="has-text-primary">PHP 999.00</span>
       </p>
-      </div>
+    </div>
 
-      <div class="cell">
-      <img src="../images/bg.png" alt="">
+    <div class="cell">
+      <img src="../images/bg.png" alt="Sample Product">
       <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span> <br>
+        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
         <span class="has-text-primary">PHP 999.00</span>
       </p>
-      </div>
+    </div>
 
-      <div class="cell">
-      <img src="../images/bg.png" alt="">
+    <div class="cell">
+      <img src="../images/bg.png" alt="Sample Product">
       <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span> <br>
+        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
         <span class="has-text-primary">PHP 999.00</span>
       </p>
-      </div>
+    </div>
 
-      <div class="cell">
-      <img src="../images/bg.png" alt="">
+    <div class="cell">
+      <img src="../images/bg.png" alt="Sample Product">
       <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span> <br>
+        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
         <span class="has-text-primary">PHP 999.00</span>
       </p>
-      </div>
-
-
     </div>
   </div>
-
 </div>
-
-
-
 
 <?php
 include 'footer.php';

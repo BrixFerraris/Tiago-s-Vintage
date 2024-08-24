@@ -12,40 +12,43 @@ include_once 'header.php';
 <body>
 
     <div class="slider">
-        <div id="img">
-             <img src="../images/bg.png"/>
-         </div>
+        <div class="slide fade in">
+            <img src="../images/bg1.png" alt="Slide 1">
+        </div>
+        <div class="slide fade">
+            <img src="../images/bg2.png" alt="Slide 2">
+        </div>
+        <div class="slide fade">
+            <img src="../images/bg3.png" alt="Slide 3">
+        </div>
     </div>
 
-<script>
-    
-var img = document.getElementById('img');
-var slides=['../images/bg1.png','../images/bg2.png','../images/bg3.png'];
-var Start=0;
+    <script>
+        let slides = document.querySelectorAll('.slide');
+        let currentIndex = 0;
+        let slideInterval = 5000; // 5 seconds
 
-function slider(){
-    if(Start<slides.length){
-        Start=Start+1;
-    }
-    else{
-        Start=1;
-    }
-    img.classList.add('slide-out');
-    setTimeout(function(){
-        img.innerHTML = "<img src="+slides[Start-1]+">";
-        img.classList.remove('slide-out');
-        img.classList.add('slide-in');
-    }, 500);
-    setTimeout(function(){
-        img.classList.remove('slide-in');
-    }, 1500);
-}
-setInterval(slider, 5000);
-</script>
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('in');
+                if (i === index) {
+                    slide.classList.add('in');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slides.length;
+            showSlide(currentIndex);
+        }
+
+        showSlide(currentIndex); // Show the first slide initially
+        setInterval(nextSlide, slideInterval); // Change slide every 5 seconds
+    </script>
 
 </body>
 </html>
 
 <?php
-include_once 'footer.php'
+include_once 'footer.php';
 ?>

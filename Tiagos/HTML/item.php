@@ -1,143 +1,172 @@
 <?php
 include 'header.php';
-
-
 ?>
 
 <style>
-  body{
-    background:white;
+  body {
+    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
   }
+
   .container {
     display: flex;
     justify-content: space-between;
-    flex-direction: row;
-    align: center;
-    gap:50px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 50px auto;
+    gap: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
   .box {
-    margin-top:30px;
-    height: 850px;
-    width: 700px;
-    gap:10px;
+    flex: 1;
+    max-width: 550px;
     box-sizing: border-box;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
   }
 
-  #box1 .haha{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 1px;
+  .box h1 {
+    font-family: 'Times New Roman', serif;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
   }
 
-  .box h1{
-    font-family:'Time new roman';
-    font-size:36px;
-    font-weight: bolder;
-    margin-left:30px;
-    margin-top:30px;
+  .box h2 {
+    font-family: 'Arial', sans-serif;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
   }
 
-  .box h2{
-    font-family:'Time new roman';
-    margin-left:30px;
-
+  .box p {
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #666;
   }
 
-  .box p{
-    font-family:'Time new roman';
-    font-size:24px;
-    margin-left:30px;
-
-  }
-
-  .box li{
-    font-family:'Time new roman';
-    font-size:24px;
+  .box li {
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
     color: #808080;
-    margin-left:30px;
-
+    margin-bottom: 10px;
   }
 
-
-  .box button {
-    font-family:'Time new roman';
-    font-size:24px;
-    color:white;
-    background-color:#152F00;
-    margin: 0 auto;
-    
-
+  .image1 img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   }
-  .box #add-to-cart {
-    display:flex;
 
+  .haha {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .haha figure {
+    flex: 1;
+    margin: 0 5px;
+  }
+
+  .haha img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .haha img:hover {
+    transform: scale(1.1);
+  }
+
+  .button {
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    color: white;
+    background-color: hsl(93, 100%, 20%);
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+
+  .button:hover {
+    background-color: hsl(93, 100%, 20%);
+  }
+
+  #add-to-cart {
+    width: 100%;
+    text-align: center;
   }
 </style>
 
-<div class="container" >
+<div class="container">
 
+    <!-- Product Images Section -->
     <form class="box" id="box1">
       <figure class="image1">
-        <img src="../images/sample-item.png" />
+        <img src="../images/sample-item.png" alt="Main product image" />
       </figure>
 
       <div class="haha">
-        <figure class="image is-256x256">
-          <img src="../images/sample-item.png" />
+        <figure>
+          <img src="../images/sample-item.png" alt="Additional product image 1" />
         </figure>
-        <figure class="image is-256x256">
-          <img src="../images/sample-item.png" />
+        <figure>
+          <img src="../images/sample-item.png" alt="Additional product image 2" />
         </figure>
-        <figure class="image is-256x256">
-          <img src="../images/sample-item.png" />
+        <figure>
+          <img src="../images/sample-item.png" alt="Additional product image 3" />
         </figure>
       </div>
-     
-        
     </form>
 
-    <form class="box" >
+    <!-- Product Details Section -->
+    <form class="box">
       <h1>Sample Product</h1>
-      <h2>PHP 999.99</h2><br><br>
-      <p>Size:<br><br>
+      <h2>PHP 999.99</h2>
+      <p>Select Size:</p>
 
-      <button class= "button" id="button1">size 1</button>
-      <button class= "button" id="button2">size 2</button>
-        <br><br>
-      </p>
+      <button class="button" id="button1">Size 1</button>
+      <button class="button" id="button2">Size 2</button>
 
       <ul>
-        <li>description</li>
-        <br>
-        <li>description</li>
-      </ul> 
-      <br><br><br><br><br><br><br><br><br>
+        <li>High-quality material and durable stitching.</li>
+        <li>Available in multiple sizes and colors.</li>
+      </ul>
 
       <button class="button" id="add-to-cart">Add To Cart</button>
     </form>
 
 </div>
 
-
-
-
-
 <script>
-        document.getElementById('button1').addEventListener('click', function() {
-            document.getElementById('button2').disabled = true;
-        });
+  document.getElementById('button1').addEventListener('click', function() {
+    document.getElementById('button2').disabled = true;
+    this.classList.toggle('active');
+  });
 
-        document.getElementById('button2').addEventListener('click', function() {
-            document.getElementById('button1').disabled = true;
-        });
-    </script>
-
+  document.getElementById('button2').addEventListener('click', function() {
+    document.getElementById('button1').disabled = true;
+    this.classList.toggle('active');
+  });
+</script>
 
 <?php
 include 'footer.php';
-
-
 ?>
