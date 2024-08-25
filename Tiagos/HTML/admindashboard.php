@@ -58,6 +58,11 @@
             </a>
           </li>
           <li class="sidebar-list-item">
+            <a href="../test/testmenu.php" target="_blank">
+              <span class="material-icons-outlined">add</span> Add Product
+            </a>
+          </li>
+          <li class="sidebar-list-item">
             <a href="#" target="_blank">
               <span class="material-icons-outlined">fact_check</span> Inventory
             </a>
