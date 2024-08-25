@@ -58,6 +58,7 @@
           </li>
           <li class="sidebar-list-item">
             <a href="../HTML/addproduct.php" target="_blank">
+
               <span class="material-icons-outlined">add</span> Add Product
             </a>
           </li>
