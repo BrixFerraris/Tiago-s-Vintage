@@ -54,59 +54,131 @@
 
 
 </style>
-<nav class="navbar" role="navigation" aria-label="main navigation"> 
-        <div class="navbar-brand"> 
-          <img src= "../images/tiagos.png" width="100" height="100"> 
-        </div> 
-        <div class="navbar-menu"> 
-          <div class="navbar-start">
+
+
+
+<?php
+session_start();
+$isLoggedIn = $_SESSION["isLoggedIn"];
+
+if ($isLoggedIn) {
+  echo "
+  <nav class='navbar' role='navigation' aria-label='main navigation'> 
+      <div class='navbar-brand'> 
+          <img src='../images/tiagos.png' width='100' height='100'> 
+      </div> 
+      <div class='navbar-menu'> 
+          <div class='navbar-start'>
           </div> 
-          <div class="navbar-end"> 
-            <a class="navbar-item" >Home</a> 
-            <a class="navbar-item" >About</a>
-            <input class="input" type="text" name="" id="search">
-            <a class="navbar-item js-modal-trigger"  data-target="modal-js-example" >Register/Login</a>             
+          <div class='navbar-end'> 
+              <a class='navbar-item'>Home</a> 
+              <a class='navbar-item'>About</a>
+              <input class='input' type='text' name='' id='search'>
+              <a class='navbar-item js-modal-trigger is-hidden' data-target='modal-js-example'>Register/Login</a>         
           </div> 
+      </div> 
+  </nav>
+          
+  <div id='variety'>
+      <ul class='type'>
+          <li><a href=''>New Arrivals</a></li>
+          <li><a href=''>Tops</a>
+              <ul id='subclass1'>
+                  <li><a href=''>All tops</a></li>
+                  <li><a href=''>T-shirt</a></li>
+                  <li><a href=''>Longsleeves</a></li>
+                  <li><a href=''>Hoodie</a></li>
+              </ul>
+          </li>
+          <li><a href=''>Bottoms</a>
+              <ul id='subclass1'>
+                  <li><a href=''>All Bottoms</a></li>
+                  <li><a href=''>Shorts</a></li>
+                  <li><a href=''>Pants</a></li>
+                  <li><a href=''>Double Knee</a></li>
+                  <li><a href=''>Jeans</a></li>
+              </ul></li>
+          <li><a href=''>Shoes</a>
+              <ul id='subclass1'>
+                  <li><a href=''>All shoes</a></li>
+                  <li><a href=''>Running Shoes</a></li>
+                  <li><a href=''>Casual Shoes</a></li>
+              </ul></li>
+          <li><a href=''>Accessories</a>
+              <ul id='subclass1'>
+                  <li><a href=''>All Accessories</a></li>
+                  <li><a href=''>Caps</a></li>
+                  <li><a href=''>Glasses</a></li>
+              </ul></li>           
+      </ul>
+  </div>
+  ";
+}
+else {
+  echo "
+<nav class='navbar' role='navigation' aria-label='main navigation'> 
+    <div class='navbar-brand'> 
+        <img src='../images/tiagos.png' width='100' height='100'> 
+    </div> 
+    <div class='navbar-menu'> 
+        <div class='navbar-start'>
         </div> 
-    </nav>
+        <div class='navbar-end'> 
+            <a class='navbar-item'>Home</a> 
+            <a class='navbar-item'>About</a>
+            <input class='input' type='text' name='' id='search'>
+            <a class='navbar-item js-modal-trigger' data-target='modal-js-example'>Register/Login</a>             
+        </div> 
+    </div> 
+</nav>
         
-        <div id="variety">
-            <ul class="type">
-                <li><a href="">New Arrivals</a></li>
-                <li><a href="">Tops</a>
-                    <ul id="subclass1">
-                        <li><a href="">All tops</a></li>
-                        <li><a href="">T-shirt</a></li>
-                        <li><a href="">Longsleeves</a></li>
-                        <li><a href="">Hoodie</a></li>
-                    </ul>
-                </li>
-                <li><a href="">Bottoms</a>
-                    <ul id="subclass1">
-                        <li><a href="">All Bottoms</a></li>
-                        <li><a href="">Shorts</a></li>
-                        <li><a href="">Pants</a></li>
-                        <li><a href="">Double Knee</a></li>
-                        <li><a href="">Jeans</a></li>
-                    </ul></li>
-                <li><a href="">Shoes</a>
-                    <ul id="subclass1">
-                        <li><a href="">All shoes</a></li>
-                        <li><a href="">Running Shoes</a></li>
-                        <li><a href="">Casual Shoes</a></li>
-                    </ul></li>
-                <li><a href="">Accessories</a>
-                    <ul id="subclass1">
-                        <li><a href="">All Accessories</a></li>
-                        <li><a href="">Caps</a></li>
-                        <li><a href="">Glasses</a></li>
-                    </ul></li>           
+<div id='variety'>
+    <ul class='type'>
+        <li><a href=''>New Arrivals</a></li>
+        <li><a href=''>Tops</a>
+            <ul id='subclass1'>
+                <li><a href=''>All tops</a></li>
+                <li><a href=''>T-shirt</a></li>
+                <li><a href=''>Longsleeves</a></li>
+                <li><a href=''>Hoodie</a></li>
             </ul>
-        </div>
+        </li>
+        <li><a href=''>Bottoms</a>
+            <ul id='subclass1'>
+                <li><a href=''>All Bottoms</a></li>
+                <li><a href=''>Shorts</a></li>
+                <li><a href=''>Pants</a></li>
+                <li><a href=''>Double Knee</a></li>
+                <li><a href=''>Jeans</a></li>
+            </ul></li>
+        <li><a href=''>Shoes</a>
+            <ul id='subclass1'>
+                <li><a href=''>All shoes</a></li>
+                <li><a href=''>Running Shoes</a></li>
+                <li><a href=''>Casual Shoes</a></li>
+            </ul></li>
+        <li><a href=''>Accessories</a>
+            <ul id='subclass1'>
+                <li><a href=''>All Accessories</a></li>
+                <li><a href=''>Caps</a></li>
+                <li><a href=''>Glasses</a></li>
+            </ul></li>           
+    </ul>
+</div>
+";
+}
+
+?>
+
+
+
+
+
+
+
+
         
-
-
-<div id="modal-js-example" class="modal">
+        <div id="modal-js-example" class="modal">
         <div class="modal-background ">
 
         </div>
@@ -114,42 +186,45 @@
         <div class="modal-content">
           <div class="box has-background-primary">
             <div class="form">
-                <p class="has-text-centered title is-size-2 has-text-white">Log in</p>
+                <p class="has-text-centered title is-size-2 has-text-white">Login</p>
+<form action="./includes/login.php" method="post">
 
 
-                <div class="field">
-                    <div class="control">
-                        <label for="username" class="has-text-white">Username</label>
-                        <input type="text" class = "input" id="username" placeholder="Enter Username">
-                    </div>
-                </div>
 
                <div class="field">
                     <div class="control">
-                    <label for="password" class="has-text-white">Password</label>
-                    <input type="text" class = "input" id="password" placeholder="Enter Password">
+                    <label for="username" class="has-text-white">Username</label>
+                    <input type="text" class = "input" id="username" name="username" placeholder="Enter Username">
                     </div>
                 </div>
+                
+                <div class="field">
+                    <div class="control">
+                    <label for="password" class="has-text-white">Password</label>
+                    <input type="password" class = "input" id="password" name="password" placeholder="Enter Password">
+                    </div>
+                </div>
+
 
                <div class="field">
                     <div class="control has-text-centered">
-                        <button class="button">Log in</button>
+                        <button type="Login" name="Login" class="button">Login</button>
                     </div>
                </div>
                 
-    
                 <div class="form-element has-text-centered" >
-                    <a class="js-modal-trigger-sign-up" data-target="modal-js-example-sign-up">Don't have an account? Click here to Sign Up </a>
+                    <a class="js-modal-trigger" data-target="modal-js-example-sign-up">Does not have an account yet? Register here</a>
                 </div>
 
             </div>
-
+            </form>
             
           </div>
         </div>
       
         <button class="modal-close is-large" aria-label="close"></button>
       </div>
+
 
 
 
@@ -166,39 +241,53 @@
           <div class="box has-background-primary">
             <div class="form">
                 <p class="has-text-centered title is-size-2 has-text-white">Register</p>
-
+<form action="./includes/register.php" method="post">
 
                 <div class="field">
                     <div class="control">
-                        <label for="fullname" class="has-text-white">Full Name</label>
-                        <input type="text" class = "input" id="fullname" placeholder="Enter Full name">
+                        <label for="fName" class="has-text-white">First Name</label>
+                        <input type="text" class = "input" id="fName" name="firstName" placeholder="Enter First name">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <label for="lName" class="has-text-white">Last Name</label>
+                        <input type="text" class = "input" id="lName" name="lastName" placeholder="Enter Last name">
                     </div>
                 </div>
 
                <div class="field">
                     <div class="control">
                     <label for="username" class="has-text-white">Username</label>
-                    <input type="text" class = "input" id="username" placeholder="Enter Username">
+                    <input type="text" class = "input" id="username" name="username" placeholder="Enter Username">
                     </div>
                 </div>
                 
                 <div class="field">
                     <div class="control">
                     <label for="password" class="has-text-white">Password</label>
-                    <input type="password" class = "input" id="password" placeholder="Enter Password">
+                    <input type="password" class = "input" id="password" name="password" placeholder="Enter Password">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                    <label for="password" class="has-text-white">Confirm Password</label>
+                    <input type="password" class = "input" id="password" name="ConfPassword" placeholder="Confirm Password">
                     </div>
                 </div>
 
                 <div class="field">
                     <div class="control">
                     <label for="contact" class="has-text-white">Contact#</label>
-                    <input type="tel" class = "input" id="contact" pattern="[0]{1},[9]{1},[0-9]{9}" placeholder="Enter Contact number">
+                    <input type="tel" class = "input" id="contact" name="contact" placeholder="Enter Contact number">
                     </div>
                 </div>
 
                <div class="field">
                     <div class="control has-text-centered">
-                        <button class="button">Register</button>
+                        <button type="register" name="register" class="button">Register</button>
                     </div>
                </div>
                 
@@ -207,7 +296,7 @@
                 </div>
 
             </div>
-
+            </form>
             
           </div>
         </div>
