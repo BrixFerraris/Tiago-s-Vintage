@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Products</title>
 
     <!-- Montserrat Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../CSS/admindashboard.css">
+    <link rel="stylesheet" href="../CSS/product.css">
   </head>
   <body>
     <div class="grid-container">
@@ -52,13 +52,12 @@
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="../HTML/product.php" target="_blank">
+            <a href="#" target="_blank">
               <span class="material-icons-outlined">inventory_2</span> Products
             </a>
           </li>
           <li class="sidebar-list-item">
             <a href="../HTML/addproduct.php" target="_blank">
-
               <span class="material-icons-outlined">add</span> Add Product
             </a>
           </li>
@@ -99,66 +98,52 @@
       <!-- Main -->
       <main class="main-container">
         <div class="main-title">
-          <p class="font-weight-bold">DASHBOARD</p>
+          <p class="font-weight-bold">PRODUCTS</p>
         </div>
 
-        <div class="main-cards">
-
-          <div class="card">
-            <div class="card-inner">
-              <p class="text-primary">PRODUCTS</p>
-              <span class="material-icons-outlined text-blue">inventory_2</span>
+        <div class="content">
+            <h1>Products</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Id</th>
+                        <th>Product Image</th>
+                        <th>Product Name</th>
+                        <th>Product Price</th>
+                        <th>Product Offer</th>
+                        <th>Product Category</th>
+                        <th>Product Color</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><img src="../images/white-shoes.jpg" alt="White Shoes"></td>
+                        <td>White Shoes</td>
+                        <td>$155.00</td>
+                        <td>0%</td>
+                        <td>shoes</td>
+                        <td>white</td>
+                        <td><button class="edit-btn">Edit</button></td>
+                        <td><button class="delete-btn">Delete</button></td>
+                    </tr>
+                    <!-- Add additional product rows here -->
+                </tbody>
+            </table>
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="prev">Previous</a>
+                <a href="#" class="page-num">1</a>
+                <a href="#" class="page-num">2</a>
+                <a href="#" class="next">Next</a>
             </div>
-            <span class="text-primary font-weight-bold">249</span>
-          </div>
-
-          <div class="card">
-            <div class="card-inner">
-              <p class="text-primary">PURCHASE ORDERS</p>
-              <span class="material-icons-outlined text-orange">add_shopping_cart</span>
-            </div>
-            <span class="text-primary font-weight-bold">83</span>
-          </div>
-
-          <div class="card">
-            <div class="card-inner">
-              <p class="text-primary">SALES ORDERS</p>
-              <span class="material-icons-outlined text-green">shopping_cart</span>
-            </div>
-            <span class="text-primary font-weight-bold">79</span>
-          </div>
-
-          <div class="card">
-            <div class="card-inner">
-              <p class="text-primary">INVENTORY ALERTS</p>
-              <span class="material-icons-outlined text-red">notification_important</span>
-            </div>
-            <span class="text-primary font-weight-bold">56</span>
-          </div>
-
-        </div>
-
-        <div class="charts">
-
-          <div class="charts-card">
-            <p class="chart-title">Top 5 Products</p>
-            <div id="bar-chart"></div>
-          </div>
-
-          <div class="charts-card">
-            <p class="chart-title">Purchase and Sales Orders</p>
-            <div id="area-chart"></div>
-          </div>
-
-        </div>
-      </main>
       <!-- End Main -->
 
     </div>
 
     <!-- Scripts -->
-    <!-- ApexCharts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
     <!-- Custom JS -->
     <script>
 
@@ -181,108 +166,8 @@ function closeSidebar() {
   }
 }
 
-// ---------- CHARTS ----------
 
-// BAR CHART
-const barChartOptions = {
-  series: [
-    {
-      data: [10, 8, 6, 4, 2],
-    },
-  ],
-  chart: {
-    type: 'bar',
-    height: 350,
-    toolbar: {
-      show: false,
-    },
-  },
-  colors: ['#246dec', '#cc3c43', '#367952', '#f5b74f', '#4f35a1'],
-  plotOptions: {
-    bar: {
-      distributed: true,
-      borderRadius: 4,
-      horizontal: false,
-      columnWidth: '40%',
-    },
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  legend: {
-    show: false,
-  },
-  xaxis: {
-    categories: ['Laptop', 'Phone', 'Monitor', 'Headphones', 'Camera'],
-  },
-  yaxis: {
-    title: {
-      text: 'Count',
-    },
-  },
-};
-
-const barChart = new ApexCharts(
-  document.querySelector('#bar-chart'),
-  barChartOptions
-);
-barChart.render();
-
-// AREA CHART
-const areaChartOptions = {
-  series: [
-    {
-      name: 'Purchase Orders',
-      data: [31, 40, 28, 51, 42, 109, 100],
-    },
-    {
-      name: 'Sales Orders',
-      data: [11, 32, 45, 32, 34, 52, 41],
-    },
-  ],
-  chart: {
-    height: 350,
-    type: 'area',
-    toolbar: {
-      show: false,
-    },
-  },
-  colors: ['#4f35a1', '#246dec'],
-  dataLabels: {
-    enabled: false,
-  },
-  stroke: {
-    curve: 'smooth',
-  },
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-  markers: {
-    size: 0,
-  },
-  yaxis: [
-    {
-      title: {
-        text: 'Purchase Orders',
-      },
-    },
-    {
-      opposite: true,
-      title: {
-        text: 'Sales Orders',
-      },
-    },
-  ],
-  tooltip: {
-    shared: true,
-    intersect: false,
-  },
-};
-
-const areaChart = new ApexCharts(
-  document.querySelector('#area-chart'),
-  areaChartOptions
-);
-areaChart.render();
 
     </script>
-  </body>
+</body>
 </html>
