@@ -232,6 +232,17 @@ body {
   box-shadow: 0 0 5px rgba(102, 102, 102, 0.5);
 }
 
+.form-group input[type="number"] {
+    width: 100%;
+    max-width: 120px; /* Control the max width of the inputs */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
 /* Media Query for Small Screens */
 @media screen and (max-width: 576px) {
   .dimes-entry {

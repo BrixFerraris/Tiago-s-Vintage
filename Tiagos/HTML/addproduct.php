@@ -169,6 +169,11 @@
             </div>
 
             <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quantity" name="quantity[]" placeholder="Quantity" required>
+            </div>
+
+            <div class="form-group">
                 <label for="image1">Image 1</label>
                 <input type="file" id="image1" name="image1" accept="image/*" required>
             </div>
