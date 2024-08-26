@@ -114,7 +114,7 @@ body {
     cursor: pointer;
   }
   
-  .sidebar-list-item > a {
+  .sidebar-list > a {
     text-decoration: none;
     color: white;
   }

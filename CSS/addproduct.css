@@ -62,6 +62,17 @@ body {
     box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
 }
 
+.form-group input[type="number"] {
+    width: 100%;
+    max-width: 120px; /* Control the max width of the inputs */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
 .menu-icon {
     display: none;
 }

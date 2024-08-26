@@ -77,6 +77,10 @@
                         <input type="number" name="width[]" placeholder="Width" required>
                     </div>
             </div>
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quantity" name="quantity[]" placeholder="Quantity" required>
+            </div>
 
             <div class="form-group">
                 <label for="image1">Image 1</label>
