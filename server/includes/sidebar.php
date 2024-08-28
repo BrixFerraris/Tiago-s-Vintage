@@ -14,6 +14,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../CSS/addproduct.css">
     <link rel="stylesheet" href="../CSS/admindashboard.css">
+    <link rel="stylesheet" href="../CSS/adminProduct.css">
   </head>
   <body>
     <div class="grid-container">
@@ -33,7 +34,7 @@
                     
                 </li>
             </a>
-            <a href="#">
+            <a href="./product.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">inventory_2</span> Products
                 </li>

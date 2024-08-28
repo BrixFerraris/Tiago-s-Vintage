@@ -13,7 +13,7 @@
 
     <!-- form add products -->
     <div class="form-container">
-        <form action="#" method="post" enctype="multipart/form-data">
+        <form action="./includes/uploadSingleProduct.php" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Product Title</label>
                 <input type="text" id="title" name="title" placeholder="Title" required>
@@ -31,8 +31,8 @@
             </div>
 
             <div class="form-group">
-                <label for="sale">Special Offer/Sale</label>
-                <input type="text" id="sale" name="sale" placeholder="Sale %" required>
+                <label for="discount">Special Offer/Sale</label>
+                <input type="text" id="discount" name="discount" placeholder="Sale %" required>
             </div>
 
             <div class="form-group">
@@ -73,36 +73,36 @@
             <div class="form-group dimes-container">
                 <label for="dimes">Dimes</label>
                     <div class="dimes-entry">
-                        <input type="number" name="length[]" placeholder="Length" required>
-                        <input type="number" name="width[]" placeholder="Width" required>
+                        <input type="number" name="length" placeholder="Length" required>
+                        <input type="number" name="width" placeholder="Width" required>
                     </div>
             </div>
             <div class="form-group">
                 <label for="quantity">Quantity</label>
-                <input type="number" id="quantity" name="quantity[]" placeholder="Quantity" required>
+                <input type="number" id="qty" name="qty" placeholder="Quantity" required>
             </div>
 
             <div class="form-group">
-                <label for="image1">Image 1</label>
-                <input type="file" id="image1" name="image1" accept="image/*" required>
+                <label for="img1">Image 1</label>
+                <input type="file" id="img1" name="img1" accept="image/*" required>
             </div>
 
             <div class="form-group">
-                <label for="image2">Image 2</label>
-                <input type="file" id="image2" name="image2" accept="image/*">
+                <label for="img2">Image 2</label>
+                <input type="file" id="img2" name="img2" accept="image/*">
             </div>
 
             <div class="form-group">
-                <label for="image2">Image 3</label>
-                <input type="file" id="image2" name="image2" accept="image/*">
+                <label for="img3">Image 3</label>
+                <input type="file" id="img3" name="img3" accept="image/*">
             </div>
 
             <div class="form-group">
-                <label for="image2">Image 4</label>
-                <input type="file" id="image2" name="image2" accept="image/*">
+                <label for="img4">Image 4</label>
+                <input type="file" id="img4" name="img4" accept="image/*">
             </div>
 
-            <button type="submit">Add Product</button>
+            <button name="submit" type="submit">Add Product</button>
         </form>
     </div>
       </main>

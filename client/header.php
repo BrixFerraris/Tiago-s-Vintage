@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../CSS/landing.css">
     <link rel="stylesheet" href="../CSS/footer.css">
+    <link rel="stylesheet" href="../CSS/product.css">
     <title>Tiago's Vintage</title>
 </head>
 <body>
@@ -82,38 +83,13 @@
 </style>
 
 
-<!-- LOG OUT -->
-<!-- <div class="dropdown">
-        <a>
-            <span class="material-icons-outlined">person</span>
-        </a>
-        <div class="dropdown-content">
-            <a href="#">Settings</a>
-            <a href="#">Log Out</a>
-        </div>
-    </div>
-    <script>
-        // JavaScript to toggle dropdown on click
-        document.querySelector('.dropdown').addEventListener('click', function(event) {
-            event.stopPropagation();
-            var dropdownContent = this.querySelector('.dropdown-content');
-            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-        });
-        // Close the dropdown if the user clicks outside of it
-        window.addEventListener('click', function(event) {
-            var dropdowns = document.querySelectorAll('.dropdown-content');
-            dropdowns.forEach(function(dropdown) {
-                if (dropdown.style.display === 'block') {
-                    dropdown.style.display = 'none';
-                }
-            });
-        });
-    </script> -->
+
 <?php
 session_start();
-$isLoggedIn = $_SESSION["isLoggedIn"];
 
-if ($isLoggedIn) {
+
+if (isset($_SESSION["username"])) {
+
   echo "
   <nav class='navbar' role='navigation' aria-label='main navigation'> 
       <div class='navbar-brand'> 
@@ -126,7 +102,15 @@ if ($isLoggedIn) {
               <a class='navbar-item'>Home</a> 
               <a class='navbar-item'>About</a>
               <input class='input' type='text' name='' id='search'>
-              <a class='navbar-item js-modal-trigger is-hidden' data-target='modal-js-example'>Register/Login</a>         
+               <div class='dropdown'>
+        <a>
+            <span class='material-icons-outlined'>person</span>
+        </a>
+        <div class='dropdown-content'>
+            <a href='#'>Settings</a>
+            <a href='#'>Log Out</a>
+        </div>
+    </div>         
           </div> 
       </div> 
   </nav>
@@ -219,6 +203,7 @@ else {
 </div>
 ";
 }
+
 
 ?>
 

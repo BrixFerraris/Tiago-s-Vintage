@@ -1,99 +1,6 @@
 <?php
+  include_once './includes/sidebar.php';
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Products</title>
-
-    <!-- Montserrat Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="../CSS/product.css">
-  </head>
-  <body>
-    <div class="grid-container">
-
-      <!-- Header -->
-      <header class="header">
-        <div class="menu-icon" onclick="openSidebar()">
-          <span class="material-icons-outlined">menu</span>
-        </div>
-        <div class="header-left">
-          <span class="material-icons-outlined">search</span>
-        </div>
-        <div class="header-right">
-          <span class="material-icons-outlined">notifications</span>
-          <span class="material-icons-outlined">email</span>
-          <span class="material-icons-outlined">account_circle</span>
-        </div>
-      </header>
-      <!-- End Header -->
-
-      <!-- Sidebar -->
-      <aside id="sidebar">
-        <div class="sidebar-title">
-          <div class="sidebar-brand">
-            <span class="material-icons-outlined">store</span> Tiago's Vintage
-          </div>
-          <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
-        </div>
-
-        <ul class="sidebar-list">
-          <li class="sidebar-list-item">
-            <a href="#" target="_blank">
-              <span class="material-icons-outlined">dashboard</span> Dashboard
-            </a>
-          </li>
-          <li class="sidebar-list-item">
-            <a href="#" target="_blank">
-              <span class="material-icons-outlined">inventory_2</span> Products
-            </a>
-          </li>
-          <li class="sidebar-list-item">
-            <a href="../HTML/addproduct.php" target="_blank">
-              <span class="material-icons-outlined">add</span> Add Product
-            </a>
-          </li>
-          <li class="sidebar-list-item">
-            <a href="#" target="_blank">
-              <span class="material-icons-outlined">fact_check</span> Inventory
-            </a>
-          </li>
-          <li class="sidebar-list-item">
-            <a href="#" target="_blank">
-              <span class="material-icons-outlined">group</span> Admin profile
-            </a>
-          </li>
-          <li class="sidebar-list-item">
-            <a href="#" target="_blank">
-              <span class="material-icons-outlined">add_shopping_cart</span> Purchase Orders
-            </a>
-          </li>
-          <li class="sidebar-list-item">
-            <a href="#" target="_blank">
-              <span class="material-icons-outlined">shopping_cart</span> Sales Orders
-            </a>
-          </li>
-          <li class="sidebar-list-item">
-            <a href="#" target="_blank">
-              <span class="material-icons-outlined">poll</span> Reports
-            </a>
-          </li>
-          <li class="sidebar-list-item">
-            <a href="#" target="_blank">
-              <span class="material-icons-outlined">web</span> Page management
-            </a>
-          </li>
-        </ul>
-      </aside>
-      <!-- End Sidebar -->
 
       <!-- Main -->
       <main class="main-container">
@@ -103,7 +10,7 @@
 
         <div class="content">
             <h1>Products</h1>
-            <table>
+            <table id="products" >
                 <thead>
                     <tr>
                         <th>Product Id</th>
@@ -117,19 +24,8 @@
                         <th>Delete</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td><img src="../images/white-shoes.jpg" alt="White Shoes"></td>
-                        <td>White Shoes</td>
-                        <td>$155.00</td>
-                        <td>0%</td>
-                        <td>shoes</td>
-                        <td>white</td>
-                        <td><button class="edit-btn">Edit</button></td>
-                        <td><button class="delete-btn">Delete</button></td>
-                    </tr>
-                    <!-- Add additional product rows here -->
+                <tbody id="products-body" >
+
                 </tbody>
             </table>
             <!-- Pagination -->
@@ -166,6 +62,54 @@ function closeSidebar() {
   }
 }
 
+// WebSocket connection
+var conn = new WebSocket('ws://localhost:8080');
+conn.onopen = function() {
+    conn.send(JSON.stringify({ type: 'loadProducts' }));
+};
+
+conn.onmessage = function(e) {
+    var product = JSON.parse(e.data);
+    if (product.type === 'product') {
+      var product = JSON.parse(e.data);
+      var table = document.getElementById('products').getElementsByTagName('tbody')[0];
+      var newRow = table.insertRow();
+      newRow.insertCell(0).innerText = product.id;
+      newRow.insertCell(1).innerHTML = '<img src="./includes/uploads/' + product.img1 + '" alt="Product Image">';
+      newRow.insertCell(2).innerText = product.title;
+      newRow.insertCell(3).innerText = product.price;
+      newRow.insertCell(4).innerText = product.discount;
+      newRow.insertCell(5).innerText = product.cat1;
+      newRow.insertCell(6).innerText = product.color;
+      newRow.insertCell(7).innerHTML = '<button class="edit-btn">Edit</button>';
+      newRow.insertCell(8).innerHTML = '<button class="delete-btn" data-id="' + product.id + '">Delete</button>';
+    } else if (product.type === 'productDeleted') {
+        var table = document.getElementById('products').getElementsByTagName('tbody')[0];
+        var rows = table.rows;
+        for (var i = 0; i < rows.length; i++) {
+            if (rows[i].cells[0].innerText === product.id) {
+                table.deleteRow(i);
+                break;
+            }
+        }
+    }
+};
+
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('delete-btn')) {
+        var id = event.target.getAttribute('data-id');
+        console.log('Sending deleteProduct message:', { type: 'deleteProduct', id: id });
+        conn.send(JSON.stringify({ type: 'deleteProduct', id: id }));
+    }
+});
+
+conn.onerror = function(error) {
+    console.error('WebSocket Error: ', error);
+};
+
+conn.onclose = function() {
+    console.log('WebSocket connection closed');
+};
 
 
     </script>
