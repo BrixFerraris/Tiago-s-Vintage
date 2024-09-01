@@ -47,19 +47,19 @@
                 </li>
             </a>
 
-            <a href="#">
+            <a href="./Inventory.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">fact_check</span> Inventory
                 </li>
             </a>
 
-            <a href="#">
+            <a href="./adminProfile.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">group</span> Admin profile
                 </li>
             </a>
 
-            <a href="#">
+            <a href="./purchaseOrders.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">add_shopping_cart</span> Purchase Orders
                 </li>
@@ -71,13 +71,13 @@
                 </li>
             </a>
 
-            <a href="#">
+            <a href="./reports.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">poll</span> Reports
                 </li>
             </a>
 
-            <a href="#">
+            <a href="./pageManagement.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">web</span> Page management
                 </li>

@@ -3,7 +3,6 @@
 include_once './includes/sidebar.php';
 ?>
 
-
       <!-- Main -->
       <main class="main-container">
         <div class="main-title">
