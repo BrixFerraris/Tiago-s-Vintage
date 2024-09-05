@@ -36,21 +36,17 @@
             </div>
 
             <div class="form-group">
-    <label for="category1">Category 1</label>
-    <select id="category1" name="category1" required>
-        <option value="tops">Tops</option>
-        <option value="bottoms">Bottoms</option>
-        <option value="shoes">Shoes</option>
-        <option value="accessories">Accessories</option>
-    </select>
-</div>
+                <label for="category1">Category 1</label>
+                <input list="categories" id="category1" name="category1">
+                <datalist id="categories">
+                    <option value="Tops">
+                    <option value="Bottoms">
+                    <option value="Shoes">
+                    <option value="Date">
+                    <option value="Accessories">
+                </datalist>
+            </div>
 
-<div class="form-group">
-    <label for="category2">Category 2</label>
-    <select id="category2" name="category2" required>
-        <!-- Options will be populated dynamically -->
-    </select>
-</div>
 
             <div class="form-group">
                 <label for="color">Color</label>
@@ -105,8 +101,8 @@
             <button name="submit" type="submit">Add Product</button>
         </form>
     </div>
-      </main>
-      <!-- End Main -->
+    </main>
+    <!-- End Main -->
 
     </div>
 
@@ -136,53 +132,7 @@ function closeSidebar() {
 
 //category
 document.addEventListener('DOMContentLoaded', function () {
-    const category1 = document.getElementById('category1');
-    const category2 = document.getElementById('category2');
 
-    const options = {
-        tops: [
-            { value: 'tshirt', text: 'T-shirt' },
-            { value: 'longsleeve', text: 'Long Sleeve' },
-            { value: 'hoodie', text: 'Hoodie' },
-            { value: 'jackets', text: 'Jackets' },
-            { value: 'vest', text: 'Vest' }
-        ],
-        bottoms: [
-            { value: 'short', text: 'Short' },
-            { value: 'pants', text: 'Pants' },
-            { value: 'doubleknee', text: 'Double Knee' }
-        ],
-
-        shoes: [
-            { value: 'running shoes', text: 'Running Shoes' },
-            { value: 'cashual shoes', text: 'Casual Shoes' },
-        ],
-
-        accessories: [
-            { value: 'caps', text: 'Caps' },
-            { value: 'glasses', text: 'Glasses' },
-        ]
-        // You can add more categories and their options here
-    };
-
-    category1.addEventListener('change', function () {
-        const selectedCategory = this.value;
-        // Clear existing options
-        category2.innerHTML = '';
-
-        // Populate new options
-        if (options[selectedCategory]) {
-            options[selectedCategory].forEach(function (option) {
-                const opt = document.createElement('option');
-                opt.value = option.value;
-                opt.textContent = option.text;
-                category2.appendChild(opt);
-            });
-        }
-    });
-
-    // Trigger change event on page load to populate Category 2 based on default Category 1 value
-    category1.dispatchEvent(new Event('change'));
 });
 
 </script>
