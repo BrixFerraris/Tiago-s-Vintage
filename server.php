@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
-require __DIR__ . '/server/includes/dbCon.php'; // Include your dbCon.php file
+require __DIR__ . '/server/includes/dbCon.php'; 
 
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;

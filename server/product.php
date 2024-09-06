@@ -49,12 +49,13 @@
           <p id="edit-id"></p>
         </div>
 
-    <!-- form add products -->
+    <!-- form edit products -->
     <div class="form-container">
-        <!-- <form action="./includes/uploadSingleProduct.php" method="post" enctype="multipart/form-data"> -->
+        <form action="./includes/editProduct.php" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Product Title</label>
                 <input type="text" id="title" name="title" placeholder="Title" required>
+                <input type="hidden" name="id" id="product-id">
             </div>
 
             <div class="form-group">
@@ -116,8 +117,27 @@
                 <input type="number" id="qty" name="qty" placeholder="Quantity" required>
             </div>
 
+            <div class="form-group">
+                <label for="img1">Image 1</label>
+                <input type="file" id="img1" name="img1" accept="image/*" required>
+            </div>
+
+            <div class="form-group">
+                <label for="img2">Image 2</label>
+                <input type="file" id="img2" name="img2" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label for="img3">Image 3</label>
+                <input type="file" id="img3" name="img3" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label for="img4">Image 4</label>
+                <input type="file" id="img4" name="img4" accept="image/*">
+            </div>
             <button class="edit-product" name="submit" type="submit">Submit</button>
-        <!-- </form> -->
+        </form>
     </div>
       </main>
 <!-- End Main -->
@@ -156,19 +176,19 @@ conn.onmessage = function(e) {
     var product = JSON.parse(e.data);
     var id = document.getElementById("edit-id").value;
     if (product.type === 'product') {
-      var table = document.getElementById('products').getElementsByTagName('tbody')[0];
-      var newRow = table.insertRow();
-      var id = product.id;
-      newRow.insertCell(0).setAttribute("product-id", id);
-      newRow.insertCell(0).innerText = product.id;
-      newRow.insertCell(1).innerHTML = '<img src="./includes/uploads/' + product.img1 + '" alt="Product Image">';
-      newRow.insertCell(2).innerText = product.title;
-      newRow.insertCell(3).innerText = product.price;
-      newRow.insertCell(4).innerText = product.discount;
-      newRow.insertCell(5).innerText = product.category;
-      newRow.insertCell(6).innerText = product.color;
-      newRow.insertCell(7).innerHTML = '<button class="edit-btn" data-id="' + product.id + '">Edit</button>';
-      newRow.insertCell(8).innerHTML = '<button class="delete-btn" data-id="' + product.id + '">Delete</button>';
+        var table = document.getElementById('products').getElementsByTagName('tbody')[0];
+        var newRow = table.insertRow();
+        var id = product.id;
+        newRow.insertCell(0).setAttribute("product-id", id);
+        newRow.insertCell(0).innerText = product.id;
+        newRow.insertCell(1).innerHTML = '<img src="./includes/uploads/' + product.img1 + '" alt="Product Image">';
+        newRow.insertCell(2).innerText = product.title;
+        newRow.insertCell(3).innerText = product.price;
+        newRow.insertCell(4).innerText = product.discount;
+        newRow.insertCell(5).innerText = product.category;
+        newRow.insertCell(6).innerText = product.color;
+        newRow.insertCell(7).innerHTML = '<button class="edit-btn" data-id="' + product.id + '">Edit</button>';
+        newRow.insertCell(8).innerHTML = '<button class="delete-btn" data-id="' + product.id + '">Delete</button>';
     } else if (product.type === 'productDeleted') {
         var table = document.getElementById('products').getElementsByTagName('tbody')[0];
         var rows = table.rows;
@@ -179,32 +199,30 @@ conn.onmessage = function(e) {
             }
         }
     } else if (product.type === 'edit-product') {
-      var title = document.getElementById("title");
-      var price = document.getElementById("price");
-      var discount = document.getElementById("discount");
-      var category = document.getElementById("category1");
-      var color = document.getElementById("color");
-      var size = document.getElementById("size");
-      var length = document.getElementById("length");
-      var width = document.getElementById("width");
-      var qty = document.getElementById("qty");
-      var img1 = document.getElementById("img1");
-      var img2 = document.getElementById("img2");
-      var img3 = document.getElementById("img3");
-      var img4 = document.getElementById("img4");
-      var description = document.getElementById("description");
-      title.value = product.title;
-      price.value = product.price;
-      discount.value = product.discount;
-      category.value = product.category;
-      color.value = product.color;
-      size.value = product.size;
-      length.value = product.length;
-      width.value = product.width;
-      qty.value = product.qty;
-      description.value = product.description;
+        var title = document.getElementById("title");
+        var price = document.getElementById("price");
+        var discount = document.getElementById("discount");
+        var category = document.getElementById("category1");
+        var color = document.getElementById("color");
+        var size = document.getElementById("size");
+        var length = document.getElementById("length");
+        var width = document.getElementById("width");
+        var qty = document.getElementById("qty");
+        var id = document.getElementById("product-id");
+        var description = document.getElementById("description");
+        title.value = product.title;
+        id.value = product.id;
+        price.value = product.price;
+        discount.value = product.discount;
+        category.value = product.category;
+        color.value = product.color;
+        size.value = product.size;
+        length.value = product.length;
+        width.value = product.width;
+        qty.value = product.qty;
+        description.value = product.description;
     } else if (product.type === 'productEdited') {
-      window.location.href = 'product.php';
+        window.location.href = 'product.php';
     }
 };
 
@@ -225,36 +243,53 @@ document.addEventListener('click', function(event) {
       container.classList.add('is-invisible');
       editForm.classList.remove('is-invisible');
       conn.send(JSON.stringify({ type: 'loadEdits', id:id }));
-    }
-    else if (event.target.classList.contains('edit-product')) {
-      var id = document.getElementById("edit-id").getAttribute('data-id');
-      var title = document.getElementById("title").value;
-      var price = document.getElementById("price").value;
-      var discount = document.getElementById("discount").value;
-      var category = document.getElementById("category1").value;
-      var color = document.getElementById("color").value;
-      var size = document.getElementById("size").value;
-      var length = document.getElementById("length").value;
-      var width = document.getElementById("width").value;
-      var qty = document.getElementById("qty").value;
-      var description = document.getElementById("description").value;
+    } else if (event.target.classList.contains('edit-product')) {
+    var id = document.getElementById("product-id").getAttribute('data-id');
+    var title = document.getElementById("title").value;
+    var price = document.getElementById("price").value;
+    var discount = document.getElementById("discount").value;
+    var category = document.getElementById("category1").value;
+    var color = document.getElementById("color").value;
+    var size = document.getElementById("size").value;
+    var length = document.getElementById("length").value;
+    var width = document.getElementById("width").value;
+    var qty = document.getElementById("qty").value;
+    var description = document.getElementById("description").value;
 
-      console.log('Sending editProduct message:', { type: 'editProduct', id: id });
-      conn.send(JSON.stringify({
-          type: 'editProduct',
-          id: id,
-          title: title,
-          price: price,
-          discount: discount,
-          category: category,
-          color: color,
-          size: size,
-          length: length,
-          width: width,
-          qty: qty,
-          description: description
-          }));
-    }
+    console.log('Sending editProduct message:', { type: 'editProduct', id: id });
+    conn.send(JSON.stringify({
+        type: 'editProduct',
+        id: id,
+        title: title,
+        price: price,
+        discount: discount,
+        category: category,
+        color: color,
+        size: size,
+        length: length,
+        width: width,
+        qty: qty,
+        description: description
+    }));
+
+    var formData = new FormData();
+    console.log(id);
+    console.log(document.getElementById('product-id').value);
+    formData.append('id', document.getElementById('product-id').value);
+    formData.append('img1', document.getElementById('img1').files[0]);
+    formData.append('img2', document.getElementById('img2').files[0]);
+    formData.append('img3', document.getElementById('img3').files[0]);
+    formData.append('img4', document.getElementById('img4').files[0]);
+
+    fetch('./includes/editProduct.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => console.log('POST request successful:', data))
+    .catch(error => console.error('Error in POST request:', error));
+}
+
 });
 
 });
