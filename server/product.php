@@ -221,9 +221,7 @@ conn.onmessage = function(e) {
         width.value = product.width;
         qty.value = product.qty;
         description.value = product.description;
-    } else if (product.type === 'productEdited') {
-        window.location.href = 'product.php';
-    }
+    } 
 };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -235,16 +233,16 @@ document.addEventListener('click', function(event) {
         conn.send(JSON.stringify({ type: 'deleteProduct', id: id }));
     } 
     else if (event.target.classList.contains('edit-btn')) {
-      var id = event.target.getAttribute('data-id');
-      var container = document.getElementById('container');
-      var editForm = document.getElementById('edit-container');
-      document.getElementById("edit-id").innerText = event.target.getAttribute('data-id');
-      document.getElementById("edit-id").setAttribute('data-id', id);
-      container.classList.add('is-invisible');
-      editForm.classList.remove('is-invisible');
-      conn.send(JSON.stringify({ type: 'loadEdits', id:id }));
+    var id = event.target.getAttribute('data-id');
+        var container = document.getElementById('container');
+        var editForm = document.getElementById('edit-container');
+        document.getElementById("edit-id").innerText = event.target.getAttribute('data-id');
+        document.getElementById("edit-id").setAttribute('data-id', id);
+        container.classList.add('is-invisible');
+        editForm.classList.remove('is-invisible');
+        conn.send(JSON.stringify({ type: 'loadEdits', id:id }));
     } else if (event.target.classList.contains('edit-product')) {
-    var id = document.getElementById("product-id").getAttribute('data-id');
+    var id = document.getElementById("product-id").value;
     var title = document.getElementById("title").value;
     var price = document.getElementById("price").value;
     var discount = document.getElementById("discount").value;
@@ -273,13 +271,14 @@ document.addEventListener('click', function(event) {
     }));
 
     var formData = new FormData();
-    console.log(id);
-    console.log(document.getElementById('product-id').value);
-    formData.append('id', document.getElementById('product-id').value);
-    formData.append('img1', document.getElementById('img1').files[0]);
-    formData.append('img2', document.getElementById('img2').files[0]);
-    formData.append('img3', document.getElementById('img3').files[0]);
-    formData.append('img4', document.getElementById('img4').files[0]);
+    formData.append('id', id);
+    var files = ['img1', 'img2', 'img3', 'img4'];
+    files.forEach(function(fileId) {
+        var fileInput = document.getElementById(fileId);
+        if (fileInput.files.length > 0) {
+            formData.append(fileId, fileInput.files[0]);
+        }
+    });
 
     fetch('./includes/editProduct.php', {
         method: 'POST',
@@ -289,6 +288,7 @@ document.addEventListener('click', function(event) {
     .then(data => console.log('POST request successful:', data))
     .catch(error => console.error('Error in POST request:', error));
 }
+
 
 });
 

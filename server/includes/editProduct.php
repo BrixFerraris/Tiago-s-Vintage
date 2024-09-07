@@ -3,21 +3,24 @@ include_once './dbCon.php';
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-$data = json_decode(file_get_contents('php://input'), true);
-
-$id = $_POST['id'];
 $targetDir = "uploads/";
 
 function handleFileUpload($fileKey, $targetDir) {
     if (isset($_FILES[$fileKey]) && $_FILES[$fileKey]['error'] === UPLOAD_ERR_OK) {
         $fileExtension = pathinfo($_FILES[$fileKey]['name'], PATHINFO_EXTENSION);
         $newFileName = uniqid('', true) . '.' . $fileExtension;
-        move_uploaded_file($_FILES[$fileKey]['tmp_name'], $targetDir . $newFileName);
-        return $newFileName;
+        if (move_uploaded_file($_FILES[$fileKey]['tmp_name'], $targetDir . $newFileName)) {
+            return $newFileName;
+        } else {
+            echo "Failed to move file: " . $_FILES[$fileKey]['name'];
+        }
+    } else {
+        echo "Error uploading file: " . $_FILES[$fileKey]['name'] . " with error code: " . $_FILES[$fileKey]['error'];
     }
     return null;
 }
 
+$id = $_POST['id'];
 $img1 = handleFileUpload('img1', $targetDir);
 $img2 = handleFileUpload('img2', $targetDir);
 $img3 = handleFileUpload('img3', $targetDir);
@@ -36,3 +39,4 @@ mysqli_stmt_execute($stmt);
 mysqli_stmt_close($stmt);
 
 echo json_encode(["status" => "success", "message" => "Product images updated successfully"]);
+header("Location: ../product.php");
