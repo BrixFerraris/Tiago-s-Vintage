@@ -10,6 +10,7 @@
 
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="icon" href="../assets/icons.ico" type="image/x-icon">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../CSS/addproduct.css">
