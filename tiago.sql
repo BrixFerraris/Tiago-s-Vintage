@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 29, 2024 at 07:10 AM
+-- Generation Time: Sep 05, 2024 at 07:26 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -32,8 +32,7 @@ CREATE TABLE `tbl_products` (
   `title` varchar(255) NOT NULL,
   `price` decimal(65,0) NOT NULL,
   `discount` decimal(65,0) NOT NULL,
-  `cat1` varchar(100) NOT NULL,
-  `cat2` varchar(100) NOT NULL,
+  `category` varchar(100) NOT NULL,
   `color` varchar(255) NOT NULL,
   `size` varchar(255) NOT NULL,
   `length` decimal(65,0) NOT NULL,
@@ -45,6 +44,13 @@ CREATE TABLE `tbl_products` (
   `img4` varchar(255) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_products`
+--
+
+INSERT INTO `tbl_products` (`id`, `title`, `price`, `discount`, `category`, `color`, `size`, `length`, `width`, `qty`, `img1`, `img2`, `img3`, `img4`, `description`) VALUES
+(10, 'Editedwweqweqeahahahaqweqwe', 6, 6, 'Edited', 'hahaha', 'XLArge', 232, 232, 11, '66cf9b73b3ebc5.66529542.png', '66d8c9ebb739e7.30469450.png', '66d8c9ebb73a00.86152561.png', '66d8c9ebb73a31.26657079.png', 'Editedwadawd ewqabawdawdww');
 
 -- --------------------------------------------------------
 
@@ -95,7 +101,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_products`
 --
 ALTER TABLE `tbl_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`

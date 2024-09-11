@@ -53,7 +53,7 @@
                 </li>
             </a>
 
-            <a href="./adminProfile.php">
+            <a href="./superadmin_AdminProfile.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">group</span> Admin profile
                 </li>
@@ -82,6 +82,13 @@
                     <span class="material-icons-outlined">web</span> Page management
                 </li>
             </a>
+
+            <a href="./adminReviews.php">
+                <li class="sidebar-list-item">
+                    <span class="material-icons-outlined">rate_review</span> Reviews
+                </li>
+            </a>
+
         </ul>
       </aside>
       <!-- End Sidebar -->

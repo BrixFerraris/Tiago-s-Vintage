@@ -2,6 +2,13 @@
 include_once '../server/includes/sidebar.php';
 ?>
 
+<!-- makikita lang to ng owner/super admins, 
+ bale yung ibang admin di nila makikita yung admin profile sa sidebar
+ -->
+
+
+
+
 <main class="main-container">
     <div class="main-title">
         <p class="font-weight-bold">ADMIN PROFILE</p>
@@ -10,7 +17,7 @@ include_once '../server/includes/sidebar.php';
     <div class="content">
         <div class="aa">
             <h1>Admin Profile</h1>
-            <button class="add-btn">Add Admin</button>
+            <button class="add-btn" >Add Admin </button>
         </div>
         <table>
             <thead>
@@ -71,11 +78,12 @@ include_once '../server/includes/sidebar.php';
     .buttons {
         display: flex;
         justify-content: flex-end;
-        margin-top: 10px;
+        
     }
 
     .save-btn, .cancel-btn {
         border: none;
+        margin: 10px;
         padding: 8px 16px;
         font-size: 14px;
         cursor: pointer;
@@ -83,9 +91,9 @@ include_once '../server/includes/sidebar.php';
         transition: background-color 0.3s;
         color: #fff;
     }
-
+    
     .save-btn {
-        background-color: #0057E1;
+        background-color: rgb(76, 175, 80);
     }
 
     .cancel-btn {
