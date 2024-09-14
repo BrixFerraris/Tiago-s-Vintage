@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 footer{
-    background-color: hsl(93, 100%, 9%);
+    background-color: hsl(93, 100%, 20%);
 }
 .footerContainer{
     width: 100%;
@@ -17,7 +17,7 @@ footer{
 .socialIcons a{
     text-decoration: none;
     padding: 10px;
-    background-color: hsl(93, 100%, 9%);
+    background-color: hsl(93, 100%, 20%);
     margin: 10px;
     border-radius: 50%;
 }
@@ -28,7 +28,7 @@ footer{
 }
 /* Hover affect on social media icon */
 .socialIcons a:hover{
-    background-color: #2E6600;
+    background-color: hsl(93, 100%, 9%);
     transition: 0.5s;
 }
 .socialIcons a:hover i{

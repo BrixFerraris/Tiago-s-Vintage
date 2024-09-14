@@ -104,7 +104,7 @@
     </main>
     <!-- End Main -->
 
-    </div>
+</div>
 
     <!-- Scripts -->
     <!-- Custom JS -->

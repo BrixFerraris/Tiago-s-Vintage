@@ -35,7 +35,7 @@
                                     <li><a href="">Reviews</a></li>
                                     <li><img class="search" src="../assets/Search.png" alt=""></li>
                                     <li><img class="shopping" src="../assets/Shopping Cart.png" alt=""></li>
-                                    <li><a href="">Register/Login</a></li>
+                                    <li><a href="./register.php">Register/Login</a></li>
                                 </ul>
                         </nav>
                         
@@ -108,7 +108,9 @@
         </div>
     </div>
 </div>
-
+<?php
+include 'footer.php';
+?>
              </div>
 
     <script>
