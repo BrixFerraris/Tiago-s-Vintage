@@ -43,48 +43,71 @@
                             <img src="../assets/Component 2.png" alt="">
                         </div>
 
-                            <div class="products">
-                                <p>PRODUCTS</p>
-                                    <div class="product-items" >
-                                            <div>
-                                                <img src="../assets/tshirt.png" alt="" width="252" height="320">
-                                            </div>
-                                            <div>
-                                                <img src="../assets/tshirt2.png" alt="" width="252" height="320">
-                                            </div>
-                                            <div>
-                                                <img src="../assets/tshirt3.png" alt="" width="252" height="320">
-                                            </div>
-                                            <div>
-                                                <img src="../assets/pants.png" alt="" width="252" height="320">
-                                            </div>
-                                            <div>
-                                                <img src="../assets/tshirt4.png" alt="" width="252" height="320">
-                                            </div>
-                                            <div>
-                                                <img src="../assets/tshirt5.png" alt="" width="252" height="320">
-                                            </div>
-                                            <div>
-                                                <img src="../assets/pants2.png" alt="" width="252" height="320">
-                                            </div>
-                                            <div>
-                                                <img src="../assets/tshirt6.png" alt="" width="252" height="320">
-                                            </div>
-                                            <div>
-                                                <img src="../assets/sleeve.png" alt="" width="252" height="320">
-                                            </div>
-                                            <div>
-                                                <img src="../assets/tshirt7.png" alt="" width="252" height="320">
-                                            </div>
-                                            <div>
-                                                <img src="../assets/jorts.png" alt="" width="252" height="320">
-                                            </div>
-                                            <div>
-                                                <img src="../assets/tshirt8.png" alt="" width="252" height="320">
-                                            </div>
-
-                                    </div>
-                            </div>
+                        <div class="products">
+    <p>PRODUCTS</p>
+    <div class="product-items">
+        <div>
+            <a href="#">
+                <img src="../assets/tshirt.png" alt="" width="252" height="320">
+            </a>
+        </div>
+        <div>
+            <a href="#">
+                <img src="../assets/tshirt2.png" alt="" width="252" height="320">
+            </a>
+        </div>
+        <div>
+            <a href="#">
+                <img src="../assets/tshirt3.png" alt="" width="252" height="320">
+            </a>
+        </div>
+        <div>
+            <a href="#">
+                <img src="../assets/pants.png" alt="" width="252" height="320">
+            </a>
+        </div>
+        <div>
+            <a href="#">
+                <img src="../assets/tshirt4.png" alt="" width="252" height="320">
+            </a>
+        </div>
+        <div>
+            <a href="#">
+                <img src="../assets/tshirt5.png" alt="" width="252" height="320">
+            </a>
+        </div>
+        <div>
+            <a href="#">
+                <img src="../assets/pants2.png" alt="" width="252" height="320">
+            </a>
+        </div>
+        <div>
+            <a href="#">
+                <img src="../assets/tshirt6.png" alt="" width="252" height="320">
+            </a>
+        </div>
+        <div>
+            <a href="#">
+                <img src="../assets/sleeve.png" alt="" width="252" height="320">
+            </a>
+        </div>
+        <div>
+            <a href="#">
+                <img src="../assets/tshirt7.png" alt="" width="252" height="320">
+            </a>
+        </div>
+        <div>
+            <a href="#">
+                <img src="../assets/jorts.png" alt="" width="252" height="320">
+            </a>
+        </div>
+        <div>
+            <a href="#">
+                <img src="../assets/tshirt8.png" alt="" width="252" height="320">
+            </a>
+        </div>
+    </div>
+</div>
 
              </div>
 

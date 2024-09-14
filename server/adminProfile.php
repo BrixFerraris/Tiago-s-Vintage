@@ -80,4 +80,11 @@ function closeSidebar() {
     sidebarOpen = false;
   }
 }
+document.addEventListener('DOMContentLoaded', function(){
+  document.addEventListener('click', function(event) {
+  if (event.target.classList.contains("add-btn")) {
+    window.location.href = 'adminAddAdminProfile.php';  }
+});
+});
+
 </script>
