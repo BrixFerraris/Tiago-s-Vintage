@@ -14,14 +14,8 @@
                 <link rel="stylesheet" href="../CSS/landing.css">
                 
             <title>Tiago's Vintage Boutique</title>
-        </head>
-        <body>
-            
-    
-        </body>
-    </html>
 
-<div clas="container">
+    <div clas="container">
                         <nav class ="topnav">
                             <label class="title">Tiago's Vintage</label>
                             <img class="logo" src="../assets/tiagos-removebg-preview 1.png" alt="">
@@ -106,12 +100,12 @@
                 <img src="../assets/tshirt8.png" alt="" width="252" height="320">
             </a>
         </div>
-    </div>
-</div>
-<?php
-include 'footer.php';
-?>
-             </div>
+        </div>
+            </div>
+        </div>
+    </body>
+</html>
+
 
     <script>
         let slides = document.querySelectorAll('.slide');
