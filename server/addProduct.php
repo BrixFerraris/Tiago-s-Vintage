@@ -31,51 +31,14 @@
             </div>
 
             <div class="form-group">
-                <label for="discount">Special Offer/Sale</label>
-                <input type="text" id="discount" name="discount" placeholder="Sale %" required>
-            </div>
-
-            <div class="form-group">
                 <label for="category1">Category 1</label>
                 <input list="categories" id="category1" name="category1">
                 <datalist id="categories">
                     <option value="Tops">
                     <option value="Bottoms">
                     <option value="Shoes">
-                    <option value="Date">
                     <option value="Accessories">
                 </datalist>
-            </div>
-
-
-            <div class="form-group">
-                <label for="color">Color</label>
-                <input type="text" id="color" name="color" placeholder="Color" required>
-            </div>
-
-            <div class="form-group sizes-container">
-                <label for="sizes">Sizes</label>
-                    <div class="size-entry">
-                        <select id="size" name="size" required>
-                            <option value="Kids">Kids</option>
-                            <option value="Small">Small</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Large">Large</option>
-                            <option value="XLArge">XLarge</option>
-                            <option value="XXLarge">XXLarge & up</option>
-                        </select>
-                    </div>
-            </div>
-            <div class="form-group dimes-container">
-                <label for="dimes">Dimes</label>
-                    <div class="dimes-entry">
-                        <input type="number" name="length" placeholder="Length" required>
-                        <input type="number" name="width" placeholder="Width" required>
-                    </div>
-            </div>
-            <div class="form-group">
-                <label for="quantity">Quantity</label>
-                <input type="number" id="qty" name="qty" placeholder="Quantity" required>
             </div>
 
             <div class="form-group">
