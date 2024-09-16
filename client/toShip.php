@@ -144,10 +144,9 @@ include './header.php';
           </div>
         </div>
         <div class="shipping-info">
-          <p>Shipped via: LBC Express</p>
-          <p>Tracking Number: 1234567890</p>
+          <p>Status: Packed</p>
         </div>
-        <button class="confirm-button">Confirm</button>
+        <button class="confirm-button">Status</button>
       </div>
 
       <!-- Second Order Item -->
@@ -161,13 +160,15 @@ include './header.php';
           </div>
         </div>
         <div class="shipping-info">
-          <p>Shipped via: J&T Express</p>
-          <p>Tracking Number: 0987654321</p>
+          <p>Status: Preparing</p>
         </div>
-        <button class="confirm-button">Confirm</button>
+        <button class="confirm-button">Status</button>
       </div>
     </div>
   </div>
 
 </body>
 </html>
+<?php
+include_once 'footer.php';
+?>

@@ -1,146 +1,129 @@
+/* General page setup */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f9f9f9;
     margin: 0;
     padding: 0;
 }
 
-.header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px 0;
-    text-align: center;
-}
-
-.header h2 {
-    margin: 0;
-}
-
-nav {
-    margin-top: 10px;
-}
-
-nav a {
-    color: white;
-    margin: 0 15px;
-    text-decoration: none;
-}
-
-nav button {
-    background-color: white;
-    color: #4CAF50;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 3px;
-    margin-left: 20px;
-}
-
-.order-status-container {
-    background-color: white;
+/* Main checkout container */
+.checkout-page {
     width: 80%;
-    margin: 20px auto;
+    margin: 30px auto;
+    background-color: white;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Order tabs (Shopee-style navigation) */
 .order-tabs {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-bottom: 20px;
 }
 
-.order-tabs button {
-    flex: 1;
-    background-color: #E3E3E3;
+.order-tabs a {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: #f1f1f1;
     color: #333;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
 
-.order-tabs button.active-tab {
+.order-tabs a:hover, .order-tabs a.active {
     background-color: #4CAF50;
     color: white;
 }
 
-.order-items {
+/* Order summary */
+.order-summary h2 {
     margin-bottom: 20px;
 }
 
 .order-item {
     display: flex;
-    justify-content: space-between;
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+    align-items: center;
 }
 
-.order-item img {
-    max-width: 100px;
+.product-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
     margin-right: 20px;
+    border: 1px solid #ddd;
 }
 
 .item-details {
-    flex: 1;
+    flex-grow: 1;
 }
 
-.item-details h3 {
-    margin: 0 0 5px;
-}
-
-.item-price {
-    font-size: 18px;
+.product-name {
+    font-size: 16px;
     font-weight: bold;
 }
 
-.order-summary {
+.product-price {
+    font-size: 16px;
+    color: #4CAF50;
+}
+
+/* Status and total section */
+.status-summary {
+    margin-top: 20px;
+    padding: 15px 0;
+    border-top: 1px solid #ddd;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.order-summary p {
-    margin: 0;
-}
-
-.pending-status {
-    color: #4CAF50;
+.status-pending {
+    color: orange;
     font-weight: bold;
 }
 
-.order-total {
-    font-size: 20px;
-    font-weight: bold;
-}
-
+/* Action buttons */
 .action-buttons {
+    margin-top: 20px;
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
 }
 
-.pay-button {
+.btn-pay {
     background-color: #4CAF50;
     color: white;
-    border: none;
     padding: 10px 20px;
-    cursor: pointer;
+    border: none;
     border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.pay-button:hover {
+.btn-cancel {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-pay:hover {
     background-color: #45a049;
 }
 
-.cancel-button {
-    background-color: white;
-    color: #4CAF50;
-    border: 2px solid #4CAF50;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
+.btn-cancel:hover {
+    background-color: #e53935;
 }
 
-.cancel-button:hover {
-    background-color: #f0f0f0;
+/* Icons for navigation (use font-awesome or similar) */
+.icon-shopping-bag, .icon-truck, .icon-box, .icon-check, .icon-x-circle, .icon-wallet {
+    margin-right: 8px;
 }

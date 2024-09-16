@@ -1,125 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout - Tiago's Vintage</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-
-    .container {
-      margin: 50px auto;
-      max-width: 700px;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-    }
-
-    h1 {
-      color: #2d6a4f;
-      margin-bottom: 20px;
-    }
-
-    form {
-      text-align: left;
-      margin: 0 auto;
-      max-width: 600px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    label {
-      font-size: 14px;
-      color: #333;
-    }
-
-    input[type="text"], input[type="email"], input[type="file"], select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 14px;
-    }
-
-    .btn {
-      background-color: #40916c;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 20px;
-      width: 100%;
-    }
-
-    .btn:hover {
-      background-color: #2d6a4f;
-    }
-
-    .message {
-      margin-top: 20px;
-      color: green;
-    }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="../CSS/checkout.css"> 
 </head>
 <body>
-  <div class="container">
-    <h1>Checkout - Tiago's Vintage</h1>
 
-    <form action="process_checkout.php" method="POST" enctype="multipart/form-data">
-      
-      <!-- User Information -->
-      <div class="form-group">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" required>
-      </div>
+    <div class="checkout-container">
+        <!-- PHP Logic to Fetch the Cart Data -->
+        <?php
+            // This is a dummy data structure. Replace it with a database fetch or session cart system.
+            $orderItems = [
+                ["name" => "Davey Allison 28 Big Print", "size" => "Large", "price" => 1500],
+                ["name" => "Essential Shirt", "size" => "Large", "price" => 1500],
+                ["name" => "Holy Spirit Kanye West Shirt", "size" => "Large", "price" => 1500]
+            ];
 
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-      </div>
+            $totalPrice = 0;
+            foreach ($orderItems as $item) {
+                $totalPrice += $item['price'];
+            }
+        ?>
 
-      <div class="form-group">
-        <label for="address">Shipping Address</label>
-        <input type="text" id="address" name="address" required>
-      </div>
+        <!-- Order Summary -->
+        <div class="order-summary">
+            <h2>Order Summary</h2>
+            <ul>
+                <?php foreach ($orderItems as $item): ?>
+                    <li><?php echo $item['name']; ?> (<?php echo $item['size']; ?>) - ₱<?php echo number_format($item['price'], 2); ?></li>
+                <?php endforeach; ?>
+            </ul>
+            <p><strong>Total: ₱<?php echo number_format($totalPrice, 2); ?></strong></p>
+        </div>
 
-      <!-- Payment Method -->
-      <div class="form-group">
-        <label for="payment-method">Payment Method</label>
-        <select id="payment-method" name="payment-method" required>
-          <option value="gcash">GCASH</option>
-        </select>
-      </div>
+        <!-- Shipping Info -->
+        <div class="shipping-info">
+            <h2>Shipping Information</h2>
+            <form method="POST" action="process_order.php"> <!-- Action to handle the form submission -->
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                
+                <label for="address">Shipping Address</label>
+                <input type="text" id="address" name="address" placeholder="Enter your shipping address" required>
+                
+                <label for="contact">Contact Number</label>
+                <input type="text" id="contact" name="contact" placeholder="Enter your contact number" required>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button type="submit" class="place-order">Place Order</button>
+                    <button type="button" class="cancel-order" onclick="window.location.href='cart.php';">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-      <!-- Receipt Upload -->
-      <div class="form-group">
-        <label for="receipt-upload">Upload Payment Receipt</label>
-        <input type="file" id="receipt-upload" name="receipt" accept="image/*" required>
-      </div>
-
-      <!-- Submit Button -->
-      <button class="btn" type="submit" name="submit">Submit Order</button>
-    </form>
-
-    <?php
-      if (isset($_GET['message'])) {
-        echo "<p class='message'>" . htmlspecialchars($_GET['message']) . "</p>";
-      }
-    ?>
-  </div>
 </body>
 </html>
