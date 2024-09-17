@@ -1,5 +1,4 @@
-
-    <footer>
+ <footer>
     <div class="footerContainer">
         <div class="socialIcons">
             <a href="https://www.facebook.com/profile.php?id=100063803240125"><i class="fa-brands fa-facebook"></i></a>

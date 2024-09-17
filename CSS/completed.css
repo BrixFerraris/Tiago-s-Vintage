@@ -1,0 +1,117 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+}
+
+.header h2 {
+    margin: 0;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+nav button {
+    background-color: white;
+    color: #4CAF50;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-left: 20px;
+}
+
+/* Order Status Container */
+.order-status-container {
+    background-color: white;
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.order-tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.order-tabs button {
+    flex: 1;
+    background-color: #E3E3E3;
+    color: #333;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.order-tabs button.active-tab {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.order-items {
+    margin-bottom: 20px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-item img {
+    max-width: 100px;
+    margin-right: 20px;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-details h3 {
+    margin: 0 0 5px;
+}
+
+.item-price {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.order-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-summary p {
+    margin: 0;
+}
+
+.completed-status {
+    color: #4CAF50; /* Green color for "Completed" status */
+    font-weight: bold;
+}
+
+.order-total {
+    font-size: 20px;
+    font-weight: bold;
+}

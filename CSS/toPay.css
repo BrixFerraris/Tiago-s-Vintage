@@ -1,0 +1,129 @@
+/* General page setup */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main checkout container */
+.checkout-page {
+    width: 80%;
+    margin: 30px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Order tabs (Shopee-style navigation) */
+.order-tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.order-tabs a {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+    color: #333;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.order-tabs a:hover, .order-tabs a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Order summary */
+.order-summary h2 {
+    margin-bottom: 20px;
+}
+
+.order-item {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.product-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    margin-right: 20px;
+    border: 1px solid #ddd;
+}
+
+.item-details {
+    flex-grow: 1;
+}
+
+.product-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.product-price {
+    font-size: 16px;
+    color: #4CAF50;
+}
+
+/* Status and total section */
+.status-summary {
+    margin-top: 20px;
+    padding: 15px 0;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status-pending {
+    color: orange;
+    font-weight: bold;
+}
+
+/* Action buttons */
+.action-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-pay {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-cancel {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-pay:hover {
+    background-color: #45a049;
+}
+
+.btn-cancel:hover {
+    background-color: #e53935;
+}
+
+/* Icons for navigation (use font-awesome or similar) */
+.icon-shopping-bag, .icon-truck, .icon-box, .icon-check, .icon-x-circle, .icon-wallet {
+    margin-right: 8px;
+}
