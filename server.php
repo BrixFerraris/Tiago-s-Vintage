@@ -1,6 +1,8 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/server/includes/dbCon.php'; 
+// require __DIR__ . '/client/includes/clientFunctions.php'; 
+
 
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
@@ -31,7 +33,7 @@ class ProductLoader implements MessageComponentInterface {
         } elseif ($data['type'] === 'deleteProduct') {
             $this->deleteProduct($from, $data['id']);
         } elseif ($data['type'] === 'editProduct') {
-            $this->editProduct($from, $data['id'], $data['title'], $data['price'], $data['discount'], $data['category'], $data['color'], $data['size'], $data['length'], $data['width'], $data['qty'], $data['description']);
+            $this->editProduct($from, $data['id'], $data['title'], $data['price'], $data['category']);
         } elseif ($data['type'] === 'loadEdits') {
             $this->loadEditProducts($from, $data['id']);
         }
@@ -60,12 +62,20 @@ class ProductLoader implements MessageComponentInterface {
         }
     }
 
-    private function editProduct(ConnectionInterface $conn, $id, $title, $price, $discount, $category, $color, $size, $length, $width, $qty, $desc) {
-        $query = "UPDATE tbl_products SET title = ?, price = ?, discount = ?, category = ?, color = ?, size = ?, length = ?, width = ?, qty = ?, description = ? WHERE id = ?";
+    private function editProduct(ConnectionInterface $conn, $id, $title, $price, $category) {
+        $query = "UPDATE tbl_products SET title = ?, price = ?, category = ? WHERE id = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("siisssiiisi", $title, $price, $discount, $category, $color, $size, $length, $width, $qty, $desc, $id);
+        $stmt->bind_param("sisi", $title, $price, $category, $id);
         $stmt->execute();
         $conn->send(json_encode(['type' => 'productEdited', 'id' => $id]));
+        $stmt->close();
+    }
+
+    private function addVariation(ConnectionInterface $conn, $id, $name, $width, $length, $quantity){
+        $query = "INSERT INTO tbl_variation(product_id, name, width, length, quantity) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("isiii", $id, $name, $width, $length, $quantity);
+        $stmt->execute();
         $stmt->close();
     }
 

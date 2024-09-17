@@ -5,23 +5,23 @@ include 'header.php';
 <!-- Main -->
 <main class="main-container">
         <div class="main-title">
-          <p class="font-weight-bold">Log in</p>
+            <p class="font-weight-bold">Log in</p>
         </div>
 
     <!-- form add products -->
     <div class="form-container">
-        <form action=" " method="post" enctype=" ">
+        <form action="./includes/login.php" method="post" enctype=" ">
             <div class="form-group">
 
 
             <div class="form-group">
-                <label for="title">Username:</label>
-                <input type="text" id="title" name="title" placeholder="Username" required>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Username" required>
             </div>
 
             <div class="form-group">
-                <label for="title">Password:</label>
-                <input type="text" id="title" name="title" placeholder="Password" required>
+                <label for="password">Password:</label>
+                <input type="password" id="title" name="password" placeholder="Password" required>
             </div>
 
             <button name="submit" type="submit">Log in</button>

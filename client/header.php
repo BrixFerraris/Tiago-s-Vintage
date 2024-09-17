@@ -48,7 +48,7 @@ if (isset($_SESSION["username"])) {
         </a>
         <div class='dropdown-content'>
             <a href='#'>Settings</a>
-            <a href='#'>Log Out</a>
+            <a href='./includes/logout.php'>Log Out</a>
         </div>
     </div>         
           </div> 

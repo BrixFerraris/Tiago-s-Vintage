@@ -5,6 +5,152 @@
   .is-invisible {
     display: none;
   }
+  body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+
+
+/* Main Container */
+.main-container {
+  flex: 1;
+  padding: 20px;
+}
+
+.main-title {
+  margin-bottom: 20px;
+}
+
+.main-title p {
+  font-size: 24px;
+}
+
+/* Edit Product */
+.edit-product {
+  display: flex;
+  gap: 20px;
+}
+
+.edit-product-left {
+  width: 50%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.edit-product-right {
+  width: 50%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.edit-product-images {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.edit-product-images img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.edit-product-variations {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-product-variation {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.edit-product-variation label {
+  font-weight: bold;
+}
+
+.edit-product-variation input[type="text"] {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 50px;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.quantity-control button {
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-variation {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-product-title, .edit-product-price, .edit-product-category {
+  margin-bottom: 10px;
+}
+
+.edit-product-title input, .edit-product-price input, .edit-product-category input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.edit-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.save-button, .discard-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.add-variation-btn {
+  margin-top: 20px;
+}
+
+
+.discard-button {
+  background-color: #dc3545;
+}
 </style>
 
       <!-- Main -->
@@ -43,103 +189,85 @@
     </div>
     </main>
 
-    <main id="edit-container" class="main-container is-invisible">
+      <!-- edit Main -->
+      <main id="edit-container" class="is-invisible main-container">
         <div class="main-title">
-          <p class="font-weight-bold">Edit Product</p>
+          <p class="font-weight-bold">Edit Products</p>
           <p id="edit-id"></p>
         </div>
 
-    <!-- form edit products -->
-    <div class="form-container">
-        <form action="./includes/editProduct.php" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="title">Product Title</label>
-                <input type="text" id="title" name="title" placeholder="Title" required>
-                <input type="hidden" name="id" id="product-id">
-            </div>
-
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea id="description" name="description" placeholder="Description" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="price">Price (PHP)</label>
-                <input type="text" id="price" name="price" placeholder="Price (PHP)" required
-                pattern="^\d+(\.\d{2})?$" title="Enter a valid amount in PHP, e.g., 123.45">
-            </div>
-
-            <div class="form-group">
-                <label for="discount">Special Offer/Sale</label>
-                <input type="text" id="discount" name="discount" placeholder="Sale %" required>
-            </div>
-
-            <div class="form-group">
-                <label for="category1">Category 1</label>
-                <input list="categories" id="category1" name="category1">
-                <datalist id="categories">
-                    <option value="Tops">
-                    <option value="Bottoms">
-                    <option value="Shoes">
-                    <option value="Date">
-                    <option value="Accessories">
-                </datalist>
-            </div>
+    <!-- edit products -->
 
 
-            <div class="form-group">
-                <label for="color">Color</label>
-                <input type="text" id="color" name="color" placeholder="Color" required>
+    <div class="edit-product">
+      <div class="edit-product-left">
+       <input type="hidden" name="id" id="product-id">
+
+
+        <p class="font-weight-bold">Variations:</p>
+        <div class="edit-product-variations">
+          
+          <div class="edit-product-variation">
+            <label for="Name">Name:</label>
+	    <input type="text" id="Name" name="Name" placeholder="Name" required>
+          </div>
+
+          <div class="edit-product-variation">
+            <label for="width">Width:</label>
+            <input id="width" type="number" name="width" placeholder="Width" required>
+          </div>
+
+          <div class="edit-product-variation">
+            <label for="length">Length:</label>
+            <input id="length" type="number" name="length" placeholder="Length" required>
+          </div>
+
+          <div class="edit-product-variation">
+            <label for="quantity">Quantity:</label>
+            <div class="quantity-control">
+              
+               <input type="number" id="qty" name="qty" placeholder="Quantity" required>
+              
             </div>
 
-            <div class="form-group sizes-container">
-                <label for="sizes">Sizes</label>
-                    <div class="size-entry">
-                        <select id="size" name="size" required>
-                            <option value="Kids">Kids</option>
-                            <option value="Small">Small</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Large">Large</option>
-                            <option value="XLArge">XLarge</option>
-                            <option value="XXLarge">XXLarge & up</option>
-                        </select>
-                    </div>
-            </div>
-            <div class="form-group dimes-container">
-                <label for="dimes">Dimes</label>
-                    <div class="dimes-entry">
-                        <input id="length" type="number" name="length" placeholder="Length" required>
-                        <input id="width" type="number" name="width" placeholder="Width" required>
-                    </div>
-            </div>
-            <div class="form-group">
-                <label for="quantity">Quantity</label>
-                <input type="number" id="qty" name="qty" placeholder="Quantity" required>
-            </div>
+          </div>
 
-            <div class="form-group">
-                <label for="img1">Image 1</label>
-                <input type="file" id="img1" name="img1" accept="image/*" required>
-            </div>
+          
 
-            <div class="form-group">
-                <label for="img2">Image 2</label>
-                <input type="file" id="img2" name="img2" accept="image/*">
-            </div>
+        </div>
+      </div>
 
-            <div class="form-group">
-                <label for="img3">Image 3</label>
-                <input type="file" id="img3" name="img3" accept="image/*">
-            </div>
+      <div class="edit-product-right">
 
-            <div class="form-group">
-                <label for="img4">Image 4</label>
-                <input type="file" id="img4" name="img4" accept="image/*">
-            </div>
-            <button class="edit-product" name="submit" type="submit">Submit</button>
-        </form>
+        <div class="edit-product-title">
+          <p class="font-weight-bold">Product Title</p>
+          <input type="text" id="title" placeholder="Product Title">
+          <i class="fas fa-edit edit-icon"></i>
+        </div>
+
+        <div class="edit-product-price">
+          <p class="font-weight-bold">Price</p>
+          <input type="text" id="price" placeholder="Price">
+          <i class="fas fa-edit edit-icon"></i>
+        </div>
+
+        <div class="edit-product-category">
+          <p class="font-weight-bold">Category</p>
+          <input type="text" id="category1" placeholder="Category">
+          <i class="fas fa-edit edit-icon"></i>
+        </div>
+
+        <button class="save-button">Save</button>
+        <button class="discard-button">Discard</button>
+
+      </div>
+      
     </div>
-      </main>
+    <div class="add-variation-btn">
+      <button class="add-variation">Add Variation</button>
+    </div>
+    
+    </main>
 <!-- End Main -->
     <!-- Scripts -->
 
@@ -201,26 +329,14 @@ conn.onmessage = function(e) {
     } else if (product.type === 'edit-product') {
         var title = document.getElementById("title");
         var price = document.getElementById("price");
-        var discount = document.getElementById("discount");
         var category = document.getElementById("category1");
-        var color = document.getElementById("color");
-        var size = document.getElementById("size");
-        var length = document.getElementById("length");
-        var width = document.getElementById("width");
         var qty = document.getElementById("qty");
         var id = document.getElementById("product-id");
-        var description = document.getElementById("description");
         title.value = product.title;
         id.value = product.id;
         price.value = product.price;
-        discount.value = product.discount;
         category.value = product.category;
-        color.value = product.color;
-        size.value = product.size;
-        length.value = product.length;
-        width.value = product.width;
         qty.value = product.qty;
-        description.value = product.description;
     } 
 };
 
@@ -241,18 +357,11 @@ document.addEventListener('click', function(event) {
         container.classList.add('is-invisible');
         editForm.classList.remove('is-invisible');
         conn.send(JSON.stringify({ type: 'loadEdits', id:id }));
-    } else if (event.target.classList.contains('edit-product')) {
+    } else if (event.target.classList.contains('save-button')) {
     var id = document.getElementById("product-id").value;
     var title = document.getElementById("title").value;
     var price = document.getElementById("price").value;
-    var discount = document.getElementById("discount").value;
     var category = document.getElementById("category1").value;
-    var color = document.getElementById("color").value;
-    var size = document.getElementById("size").value;
-    var length = document.getElementById("length").value;
-    var width = document.getElementById("width").value;
-    var qty = document.getElementById("qty").value;
-    var description = document.getElementById("description").value;
 
     console.log('Sending editProduct message:', { type: 'editProduct', id: id });
     conn.send(JSON.stringify({
@@ -260,33 +369,35 @@ document.addEventListener('click', function(event) {
         id: id,
         title: title,
         price: price,
-        discount: discount,
         category: category,
-        color: color,
-        size: size,
-        length: length,
-        width: width,
-        qty: qty,
-        description: description
     }));
 
-    var formData = new FormData();
-    formData.append('id', id);
-    var files = ['img1', 'img2', 'img3', 'img4'];
-    files.forEach(function(fileId) {
-        var fileInput = document.getElementById(fileId);
-        if (fileInput.files.length > 0) {
-            formData.append(fileId, fileInput.files[0]);
-        }
-    });
+    // var formData = new FormData();
+    // formData.append('id', id);
+    // var files = ['img1', 'img2', 'img3', 'img4'];
+    // files.forEach(function(fileId) {
+    //     var fileInput = document.getElementById(fileId);
+    //     if (fileInput.files.length > 0) {
+    //         formData.append(fileId, fileInput.files[0]);
+    //     }
+    // });
 
-    fetch('./includes/editProduct.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => console.log('POST request successful:', data))
-    .catch(error => console.error('Error in POST request:', error));
+    // fetch('./includes/editProduct.php', {
+    //     method: 'POST',
+    //     body: formData
+    // })
+    // .then(response => response.json())
+    // .then(data => console.log('POST request successful:', data))
+    // .catch(error => console.error('Error in POST request:', error));
+} else if (event.target.classList.contains('add-variation')){
+    console.log('Sending editProduct message:', { type: 'editProduct', id: id });
+    conn.send(JSON.stringify({
+        type: 'editProduct',
+        id: id,
+        title: title,
+        price: price,
+        category: category,
+    }));
 }
 
 
