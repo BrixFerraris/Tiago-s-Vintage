@@ -13,7 +13,7 @@
 
     <!-- form add products -->
     <div class="form-container">
-        <form action="#" method="post" enctype="multipart/form-data">
+        <form action="./includes/uploadSingleProduct.php" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Product Title</label>
                 <input type="text" id="title" name="title" placeholder="Title" required>
@@ -31,84 +31,43 @@
             </div>
 
             <div class="form-group">
-                <label for="sale">Special Offer/Sale</label>
-                <input type="text" id="sale" name="sale" placeholder="Sale %" required>
+                <label for="category1">Category 1</label>
+                <input list="categories" id="category1" name="category1">
+                <datalist id="categories">
+                    <option value="Tops">
+                    <option value="Bottoms">
+                    <option value="Shoes">
+                    <option value="Accessories">
+                </datalist>
             </div>
 
             <div class="form-group">
-    <label for="category1">Category 1</label>
-    <select id="category1" name="category1" required>
-        <option value="tops">Tops</option>
-        <option value="bottoms">Bottoms</option>
-        <option value="shoes">Shoes</option>
-        <option value="accessories">Accessories</option>
-    </select>
-</div>
-
-<div class="form-group">
-    <label for="category2">Category 2</label>
-    <select id="category2" name="category2" required>
-        <!-- Options will be populated dynamically -->
-    </select>
-</div>
-
-            <div class="form-group">
-                <label for="color">Color</label>
-                <input type="text" id="color" name="color" placeholder="Color" required>
-            </div>
-
-            <div class="form-group sizes-container">
-                <label for="sizes">Sizes</label>
-                    <div class="size-entry">
-                        <select id="size" name="size" required>
-                            <option value="Kids">Kids</option>
-                            <option value="Small">Small</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Large">Large</option>
-                            <option value="XLArge">XLarge</option>
-                            <option value="XXLarge">XXLarge & up</option>
-                        </select>
-                    </div>
-            </div>
-            <div class="form-group dimes-container">
-                <label for="dimes">Dimes</label>
-                    <div class="dimes-entry">
-                        <input type="number" name="length[]" placeholder="Length" required>
-                        <input type="number" name="width[]" placeholder="Width" required>
-                    </div>
-            </div>
-            <div class="form-group">
-                <label for="quantity">Quantity</label>
-                <input type="number" id="quantity" name="quantity[]" placeholder="Quantity" required>
+                <label for="img1">Image 1</label>
+                <input type="file" id="img1" name="img1" accept="image/*" required>
             </div>
 
             <div class="form-group">
-                <label for="image1">Image 1</label>
-                <input type="file" id="image1" name="image1" accept="image/*" required>
+                <label for="img2">Image 2</label>
+                <input type="file" id="img2" name="img2" accept="image/*">
             </div>
 
             <div class="form-group">
-                <label for="image2">Image 2</label>
-                <input type="file" id="image2" name="image2" accept="image/*">
+                <label for="img3">Image 3</label>
+                <input type="file" id="img3" name="img3" accept="image/*">
             </div>
 
             <div class="form-group">
-                <label for="image2">Image 3</label>
-                <input type="file" id="image2" name="image2" accept="image/*">
+                <label for="img4">Image 4</label>
+                <input type="file" id="img4" name="img4" accept="image/*">
             </div>
 
-            <div class="form-group">
-                <label for="image2">Image 4</label>
-                <input type="file" id="image2" name="image2" accept="image/*">
-            </div>
-
-            <button type="submit">Add Product</button>
+            <button name="submit" type="submit">Add Product</button>
         </form>
     </div>
-      </main>
-      <!-- End Main -->
+    </main>
+    <!-- End Main -->
 
-    </div>
+</div>
 
     <!-- Scripts -->
     <!-- Custom JS -->
@@ -136,53 +95,7 @@ function closeSidebar() {
 
 //category
 document.addEventListener('DOMContentLoaded', function () {
-    const category1 = document.getElementById('category1');
-    const category2 = document.getElementById('category2');
 
-    const options = {
-        tops: [
-            { value: 'tshirt', text: 'T-shirt' },
-            { value: 'longsleeve', text: 'Long Sleeve' },
-            { value: 'hoodie', text: 'Hoodie' },
-            { value: 'jackets', text: 'Jackets' },
-            { value: 'vest', text: 'Vest' }
-        ],
-        bottoms: [
-            { value: 'short', text: 'Short' },
-            { value: 'pants', text: 'Pants' },
-            { value: 'doubleknee', text: 'Double Knee' }
-        ],
-
-        shoes: [
-            { value: 'running shoes', text: 'Running Shoes' },
-            { value: 'cashual shoes', text: 'Casual Shoes' },
-        ],
-
-        accessories: [
-            { value: 'caps', text: 'Caps' },
-            { value: 'glasses', text: 'Glasses' },
-        ]
-        // You can add more categories and their options here
-    };
-
-    category1.addEventListener('change', function () {
-        const selectedCategory = this.value;
-        // Clear existing options
-        category2.innerHTML = '';
-
-        // Populate new options
-        if (options[selectedCategory]) {
-            options[selectedCategory].forEach(function (option) {
-                const opt = document.createElement('option');
-                opt.value = option.value;
-                opt.textContent = option.text;
-                category2.appendChild(opt);
-            });
-        }
-    });
-
-    // Trigger change event on page load to populate Category 2 based on default Category 1 value
-    category1.dispatchEvent(new Event('change'));
 });
 
 </script>

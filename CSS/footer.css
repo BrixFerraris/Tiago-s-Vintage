@@ -1,14 +1,23 @@
 *{
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
 }
-footer{
-    background-color: hsl(93, 100%, 9%);
+body {
+  margin-top: 0;
+  margin: 0;
+  overflow-x: hidden;
+  padding: 0;
+  min-height: 100vh; /* added */
+
 }
+footer {
+background-color: hsl(93, 100%, 20%);
+margin-top: 200px; /* added */
+}
+
 .footerContainer{
     width: 100%;
-
+    bottom: 0%;
 }
 .socialIcons{
     display: flex;
@@ -16,8 +25,8 @@ footer{
 }
 .socialIcons a{
     text-decoration: none;
-    padding:  10px;
-    background-color: hsl(93, 100%, 9%);
+    padding: 10px;
+    background-color: hsl(93, 100%, 20%);
     margin: 10px;
     border-radius: 50%;
 }
@@ -28,7 +37,7 @@ footer{
 }
 /* Hover affect on social media icon */
 .socialIcons a:hover{
-    background-color: #2E6600;
+    background-color: hsl(93, 100%, 9%);
     transition: 0.5s;
 }
 .socialIcons a:hover i{
