@@ -7,7 +7,6 @@
 
     <!-- Montserrat Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link rel="icon" href="../assets/icons.ico" type="image/x-icon">
@@ -15,6 +14,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../CSS/addproduct.css">
     <link rel="stylesheet" href="../CSS/admindashboard.css">
+    <link rel="stylesheet" href="../CSS/adminProduct.css">
   </head>
   <body>
     <div class="grid-container">
@@ -34,7 +34,7 @@
                     
                 </li>
             </a>
-            <a href="#">
+            <a href="./product.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">inventory_2</span> Products
                 </li>
@@ -47,19 +47,19 @@
                 </li>
             </a>
 
-            <a href="#">
+            <a href="./Inventory.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">fact_check</span> Inventory
                 </li>
             </a>
 
-            <a href="#">
+            <a href="./superadmin_AdminProfile.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">group</span> Admin profile
                 </li>
             </a>
 
-            <a href="#">
+            <a href="./purchaseOrders.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">add_shopping_cart</span> Purchase Orders
                 </li>
@@ -71,17 +71,24 @@
                 </li>
             </a>
 
-            <a href="#">
+            <a href="./reports.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">poll</span> Reports
                 </li>
             </a>
 
-            <a href="#">
+            <a href="./pageManagement.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">web</span> Page management
                 </li>
             </a>
+
+            <a href="./adminReviews.php">
+                <li class="sidebar-list-item">
+                    <span class="material-icons-outlined">rate_review</span> Reviews
+                </li>
+            </a>
+
         </ul>
       </aside>
       <!-- End Sidebar -->

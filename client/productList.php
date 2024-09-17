@@ -65,19 +65,23 @@ include './header.php';
 <div class="box">
   <div class="fixed-grid">
     <div class="cell">
+    <a href="../client/item.php">
       <img src="../images/bg.png" alt="Sample Product">
       <p>
         <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
         <span class="has-text-primary">PHP 999.00</span>
       </p>
+      </a>
     </div>
-
+  
     <div class="cell">
+    <a href="../client/item.php">
       <img src="../images/bg.png" alt="Sample Product">
       <p>
         <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
         <span class="has-text-primary">PHP 999.00</span>
       </p>
+      </a>
     </div>
 
     <div class="cell">

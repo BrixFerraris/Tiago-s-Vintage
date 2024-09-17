@@ -4,7 +4,9 @@ include 'header.php';
 
 <!-- Main -->
 
+
 <link rel="stylesheet" href="../CSS/loginClient.css">
+
 
 <main class="main-container">
         <div class="main-title">
@@ -12,12 +14,14 @@ include 'header.php';
         </div>
 
     <!-- login -->
+
     <div class="form-container">
         <form action=" " method="post" enctype=" ">
             <div class="form-group">
 
 
             <div class="form-group">
+
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" placeholder="Username" required>
             </div>
@@ -25,6 +29,7 @@ include 'header.php';
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="title" placeholder="Password" required>
+
             </div>
 
             <button name="submit" type="submit">Log in</button>
@@ -40,6 +45,8 @@ include 'header.php';
     <!-- End Main -->
 
     <style>
+
+
 
     </style>
 

@@ -3,7 +3,9 @@ include 'header.php';
 ?>
 
 <!-- Main -->
+
 <link rel="stylesheet" href="../CSS/registerClient.css">
+
 
 <main class="main-container">
         <div class="main-title">
@@ -13,6 +15,7 @@ include 'header.php';
     <!-- form add products -->
     <div class="form-container">
         <form action=" " method="post" enctype=" ">
+
 
             <div class="form-group">
                 <label for="firstName">First Name:</label>
@@ -42,6 +45,7 @@ include 'header.php';
             <div class="form-group">
                 <label for="confPassword">Confirm Password:</label>
                 <input type="password" id="confPassword" name="confPassword" placeholder="Confirm Password" required>
+
             </div>
 
             <button name="submit" type="submit">Register</button>
@@ -57,6 +61,8 @@ include 'header.php';
     <!-- End Main -->
 
     <style>
+
+
 
     </style>
 
