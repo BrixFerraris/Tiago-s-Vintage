@@ -12,13 +12,15 @@ include './header.php';
 </head>
 <body>
 
-<div class="order-status-container">
-    <div class="order-tabs">
-        <button class="tab-btn active-tab" onclick="showTab('to-pay')">To Pay</button>
-        <button class="tab-btn" onclick="showTab('to-ship')">To Ship</button>
-        <button class="tab-btn" onclick="showTab('to-receive')">To Receive</button>
-        <button class="tab-btn" onclick="showTab('completed')">Completed</button>
-        <button class="tab-btn" onclick="showTab('cancelled')">Cancelled</button>
+<!-- Main Content -->
+<div class="container">
+    <!-- Order Tabs -->
+    <div class="tabs">
+        <button class="tab-button">To Pay</button>
+        <button class="tab-button">To Ship</button>
+        <button class="tab-button active">To Receive</button>
+        <button class="tab-button">Completed</button>
+        <button class="tab-button">Cancelled</button>
     </div>
 
     <!-- To Receive Section -->
@@ -32,7 +34,6 @@ include './header.php';
                     <h3>Davey Allison 28 Big Print</h3>
                     <p>Size: 25W X 35L (Large)</p>
                     <p>Quantity: 1</p>
-                    <p>Total Items: 1</p>
                 </div>
             </div>
             <div class="item-status">
@@ -47,7 +48,7 @@ include './header.php';
         </div>
 
         <!-- Add more order items here as needed -->
-         
+
         <div class="order-item">
             <div class="item-details">
                 <img src="shirt.png" alt="Product Image">
@@ -55,7 +56,6 @@ include './header.php';
                     <h3>Davey Allison 28 Big Print</h3>
                     <p>Size: 25W X 35L (Large)</p>
                     <p>Quantity: 1</p>
-                    <p>Total Items: 1</p>
                 </div>
             </div>
             <div class="item-status">
@@ -69,16 +69,15 @@ include './header.php';
             </div>
         </div>
 
-         <!-- Add more order items here as needed -->
-         
-         <div class="order-item">
+        <!-- Add more order items here as needed -->
+
+        <div class="order-item">
             <div class="item-details">
                 <img src="shirt.png" alt="Product Image">
                 <div>
                     <h3>Davey Allison 28 Big Print</h3>
                     <p>Size: 25W X 35L (Large)</p>
                     <p>Quantity: 1</p>
-                    <p>Total Items: 1</p>
                 </div>
             </div>
             <div class="item-status">
@@ -94,6 +93,10 @@ include './header.php';
 
     </div>
 </div>
+
+</body>
+</html>
+
 
 <?php
 include_once 'footer.php';
