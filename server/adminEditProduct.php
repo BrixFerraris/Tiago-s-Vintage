@@ -12,6 +12,7 @@
   <!-- edit products -->
   <!-- input code here -->
 
+
   <div class="edit-product">
     <div class="edit-product-left">
       <p class="font-weight-bold">Variations:</p>
@@ -21,6 +22,7 @@
           <label for="name">Name:</label>
           <input type="text" id="name" value="White" readonly="readonly">
         </div>
+
 
         <div class="edit-product-variation">
           <label for="width">Width:</label>
@@ -138,6 +140,7 @@
 
 
 <style>
+
 
 </style>
 

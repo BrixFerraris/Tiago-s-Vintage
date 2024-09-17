@@ -10,18 +10,17 @@ include 'header.php';
 
 <main class="main-container">
         <div class="main-title">
-          <p class="font-weight-bold">Log in</p>
+            <p class="font-weight-bold">Log in</p>
         </div>
 
     <!-- login -->
 
     <div class="form-container">
-        <form action=" " method="post" enctype=" ">
+        <form action="./includes/login.php" method="post" enctype=" ">
             <div class="form-group">
 
 
             <div class="form-group">
-
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" placeholder="Username" required>
             </div>

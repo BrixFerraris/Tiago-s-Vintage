@@ -36,99 +36,37 @@
                         <div class="background">
                             <img src="../assets/Component 2.png" alt="">
                         </div>
+    <div class="products">
+        <p>PRODUCTS</p>
+            <div id="products" class="product-items">
 
-                        <div class="products">
-    <p>PRODUCTS</p>
-    <div class="product-items">
-        <div>
-            <a href="#">
-                <img src="../assets/tshirt.png" alt="" width="252" height="320">
-            </a>
-        </div>
-        <div>
-            <a href="#">
-                <img src="../assets/tshirt2.png" alt="" width="252" height="320">
-            </a>
-        </div>
-        <div>
-            <a href="#">
-                <img src="../assets/tshirt3.png" alt="" width="252" height="320">
-            </a>
-        </div>
-        <div>
-            <a href="#">
-                <img src="../assets/pants.png" alt="" width="252" height="320">
-            </a>
-        </div>
-        <div>
-            <a href="#">
-                <img src="../assets/tshirt4.png" alt="" width="252" height="320">
-            </a>
-        </div>
-        <div>
-            <a href="#">
-                <img src="../assets/tshirt5.png" alt="" width="252" height="320">
-            </a>
-        </div>
-        <div>
-            <a href="#">
-                <img src="../assets/pants2.png" alt="" width="252" height="320">
-            </a>
-        </div>
-        <div>
-            <a href="#">
-                <img src="../assets/tshirt6.png" alt="" width="252" height="320">
-            </a>
-        </div>
-        <div>
-            <a href="#">
-                <img src="../assets/sleeve.png" alt="" width="252" height="320">
-            </a>
-        </div>
-        <div>
-            <a href="#">
-                <img src="../assets/tshirt7.png" alt="" width="252" height="320">
-            </a>
-        </div>
-        <div>
-            <a href="#">
-                <img src="../assets/jorts.png" alt="" width="252" height="320">
-            </a>
-        </div>
-        <div>
-            <a href="#">
-                <img src="../assets/tshirt8.png" alt="" width="252" height="320">
-            </a>
-        </div>
-        </div>
             </div>
-        </div>
+    </div>
     </body>
 </html>
 
 
-    <script>
-        let slides = document.querySelectorAll('.slide');
-        let currentIndex = 0;
-        let slideInterval = 5000; // 5 seconds
+<script>
+    //Websocket connection
+    var conn = new WebSocket('ws://localhost:8080');
+    var productDiv =document.getElementById('products');
+    conn.onopen = function() {
+        conn.send(JSON.stringify({ type: 'loadProducts' }));
+    };
 
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.classList.remove('in');
-                if (i === index) {
-                    slide.classList.add('in');
-                }
-            });
-        }
-
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % slides.length;
-            showSlide(currentIndex);
-        }
-
-        showSlide(currentIndex); // Show the first slide initially
-        setInterval(nextSlide, slideInterval); // Change slide every 5 seconds
-    </script>
+    conn.onmessage = function(e) {
+            var product = JSON.parse(e.data);
+            if (product.type === 'product') {
+                var newDiv = document.createElement('div');
+                newDiv.innerHTML = `
+                    <a href="#">
+                        <img src="../server/includes/uploads/${product.img1}" alt="" width="252" height="320">
+                    </a>
+                `;
+                productDiv.appendChild(newDiv);
+            }
+        };
+</script>
 
 </body>
 </html>

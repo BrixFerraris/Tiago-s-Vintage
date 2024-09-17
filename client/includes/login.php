@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-if (isset($_POST["Login"])) {
+if (isset($_POST["submit"])) {
     $uName = $_POST["username"];
     $pwd = $_POST["password"];
     echo "Login button clicked"; 
