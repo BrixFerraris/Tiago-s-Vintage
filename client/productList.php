@@ -65,7 +65,7 @@ include './header.php';
 <div class="box">
   <div class="fixed-grid">
     <div class="cell">
-    <a href="../client/item.php">
+    <a href="../client/newItem.php">
       <img src="../images/bg.png" alt="Sample Product">
       <p>
         <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
@@ -75,7 +75,7 @@ include './header.php';
     </div>
   
     <div class="cell">
-    <a href="../client/item.php">
+    <a href="../client/newItem.php">
       <img src="../images/bg.png" alt="Sample Product">
       <p>
         <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
