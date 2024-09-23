@@ -14,22 +14,48 @@
                 <link rel="stylesheet" href="../CSS/landing.css">
                 
             <title>Tiago's Vintage Boutique</title>
+            <style>
+                .is-invis {
+                    display: none;
+                }
+
+                .meron {
+                    display: block;
+                }
+            </style>
 
     <div clas="container">
                         <nav class ="topnav">
                             <label class="title">Tiago's Vintage</label>
                             <img class="logo" src="../assets/tiagos-removebg-preview 1.png" alt="">
                                 <ul>
-                                    <li><a href="">Home</a></li>
-                                    <li><a href="">New arrivals</a></li>
-                                    <li><a href="">Tops</a></li>
-                                    <li><a href="">Bottom</a></li>
-                                    <li><a href="">Shoes</a></li>
-                                    <li><a href="">Accessories</a></li>
-                                    <li><a href="">Reviews</a></li>
-                                    <li><img class="search" src="../assets/Search.png" alt=""></li>
-                                    <li><img class="shopping" src="../assets/Shopping Cart.png" alt=""></li>
-                                    <li><a href="./register.php">Register/Login</a></li>
+                                    <?php
+                                    session_start();
+                                    if (isset($_SESSION["username"])) {
+                                        echo '<li><a href="">Home</a></li>';
+                                        echo '<li><a href="">New arrivals</a></li>';
+                                        echo '<li><a href="">Tops</a></li>';
+                                        echo '<li><a href="">Bottom</a></li>';
+                                        echo '<li><a href="">Shoes</a></li>';
+                                        echo '<li><a href="">Accessories</a></li>';
+                                        echo '<li><a href="">Reviews</a></li>';
+                                        echo '<li><img class="search" src="../assets/Search.png" alt=""></li>';
+                                        echo '<li><img class="shopping" src="../assets/Shopping Cart.png" alt=""></li>';
+                                        echo '<li class = "is-invis"><a href="./register.php">Register/Login</a></li>';
+                                    } else {
+                                        echo '<li><a href="">Home</a></li>';
+                                        echo '<li><a href="">New arrivals</a></li>';
+                                        echo '<li><a href="">Tops</a></li>';
+                                        echo '<li><a href="">Bottom</a></li>';
+                                        echo '<li><a href="">Shoes</a></li>';
+                                        echo '<li><a href="">Accessories</a></li>';
+                                        echo '<li><a href="">Reviews</a></li>';
+                                        echo '<li><img class="search" src="../assets/Search.png" alt=""></li>';
+                                        echo '<li><img class="shopping" src="../assets/Shopping Cart.png" alt=""></li>';
+                                        echo '<li class = "meron"><a href="./register.php">Register/Login</a></li>';
+                                    }
+                                    
+                                    ?>
                                 </ul>
                         </nav>
                         
