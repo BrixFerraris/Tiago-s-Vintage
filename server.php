@@ -36,6 +36,8 @@ class ProductLoader implements MessageComponentInterface {
             $this->editProduct($from, $data['id'], $data['title'], $data['price'], $data['category']);
         } elseif ($data['type'] === 'loadEdits') {
             $this->loadEditProducts($from, $data['id']);
+        } elseif ($data['type'] === 'qeqeq') {
+            $this->loadCategories($from);
         }
     }
     
@@ -51,6 +53,14 @@ class ProductLoader implements MessageComponentInterface {
         foreach ($products as $product) {
             $product['type'] = 'product';
             $conn->send(json_encode($product));
+        }
+    }
+
+    private function loadCategories(ConnectionInterface $conn) {
+        $categories = getCategories($this->db);
+        foreach ($categories as $category) {
+            $category['type'] = 'categories';
+            $conn->send(json_encode($category));
         }
     }
 
@@ -71,6 +81,7 @@ class ProductLoader implements MessageComponentInterface {
         $stmt->close();
     }
 
+<<<<<<< Updated upstream
     private function addVariation(ConnectionInterface $conn, $id, $name, $width, $length, $quantity){
         $query = "INSERT INTO tbl_variation(product_id, name, width, length, quantity) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
@@ -78,6 +89,11 @@ class ProductLoader implements MessageComponentInterface {
         $stmt->execute();
         $stmt->close();
     }
+=======
+
+    
+
+>>>>>>> Stashed changes
 
     public function onClose(ConnectionInterface $conn) {
         $this->clients->detach($conn);
@@ -120,4 +136,12 @@ function getSingleProduct($db, $id) {
     $product = $result->fetch_assoc();
     $stmt->close();
     return $product;
+}
+function getCategories($db) {
+    $result = $db->query('SELECT * FROM tbl_categories');
+    $categories = [];
+    while ($row = $result->fetch_assoc()) {
+        $categories[] = $row;
+    }
+    return $categories;
 }
