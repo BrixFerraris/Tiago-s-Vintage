@@ -38,6 +38,10 @@ class ProductLoader implements MessageComponentInterface {
             $this->loadEditProducts($from, $data['id']);
         } elseif ($data['type'] === 'qeqeq') {
             $this->loadCategories($from);
+        } elseif ($data['type'] === 'deleteCategory') {
+            $this->deleteCategory($from, $data['id']);
+        } elseif ($data['type'] === 'updateCategory') {
+            $this->editCategory($from, $data['id'], $data['newValue']);
         }
     }
     
@@ -45,6 +49,21 @@ class ProductLoader implements MessageComponentInterface {
         $query = "DELETE FROM tbl_products WHERE id = '$id'";
         $this->db->query($query);
         $conn->send(json_encode(['type' => 'productDeleted', 'id' => $id]));
+    }
+
+    private function deleteCategory(ConnectionInterface $conn, $id) {
+        $query = "DELETE FROM tbl_categories WHERE id = '$id'";
+        $this->db->query($query);
+        $conn->send(json_encode(['type' => 'categoryDeleted', 'id' => $id]));
+    }
+
+    private function editCategory(ConnectionInterface $conn, $id, $child) {
+        $query = "UPDATE tbl_categories SET child = ? WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("si", $child, $id);
+        $stmt->execute();
+        $conn->send(json_encode(['type' => 'CategoryEdited', 'id' => $id]));
+        $stmt->close();
     }
 
 
@@ -81,7 +100,6 @@ class ProductLoader implements MessageComponentInterface {
         $stmt->close();
     }
 
-<<<<<<< Updated upstream
     private function addVariation(ConnectionInterface $conn, $id, $name, $width, $length, $quantity){
         $query = "INSERT INTO tbl_variation(product_id, name, width, length, quantity) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
@@ -89,11 +107,6 @@ class ProductLoader implements MessageComponentInterface {
         $stmt->execute();
         $stmt->close();
     }
-=======
-
-    
-
->>>>>>> Stashed changes
 
     public function onClose(ConnectionInterface $conn) {
         $this->clients->detach($conn);
