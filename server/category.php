@@ -34,6 +34,7 @@
                 <input type="text" name="category" placeholder="Add new Bottoms category" required>
                 <input type="hidden" name="parent" value="Bottoms">
                 <button type="submit" name="submit" class="add-btn">Add Category</button>
+
             </form>
         </div>
 
@@ -139,5 +140,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
     </script>
+
 </body>
 </html>
