@@ -67,6 +67,22 @@
     </div>
 </main>
 <!-- End Main -->
+ <script>
+    document.addEventListener('DOMContentLoaded', function(){
+        //Websocket connection
+        var conn = new WebSocket('ws://localhost:8080');
+        conn.onopen = function(e) {
+            conn.send(JSON.stringify({ type: 'loadProducts' }));
+        };
+        conn.onmessage = function(e) {
+            var product = JSON.parse(e.data);
+            if (product.type === 'product') {
+                var table = document.getElementById('products').getElementsByTagName('tbody')[0];
+                var newRow = table.insertRow();
+            }
+        };
+    });
+ </script>
 
 <!-- Custom Styles -->
 <style>

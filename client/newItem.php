@@ -4,19 +4,18 @@ include 'header.php';
 <div class="img-item">
         <div class="img-container">
             <div class="main-img">
-                <img src="../assets/samplepic1.png" alt="" width="582" height="450">
+                <img id="img1" src="../assets/samplepic1.png" alt="" width="582" height="450">
                 </div>
                 <div class="sub-img">
-                        <img src="../assets/samplepic1.png" alt="" width="150" height="200">
-                        <img src="../assets/samplepic1.png" alt="" width="150" height="200">
-                        <img src="../assets/samplepic1.png" alt="" width="150" height="200">
+                        <img id="img2" src="../assets/samplepic1.png" alt="" width="150" height="200">
+                        <img id="img3" src="../assets/samplepic1.png" alt="" width="150" height="200">
+                        <img id="img4" src="" alt="" width="150" height="200">
                 </div>
          </div>
                 <div class="details">
-                            <h1>Vintage Carhartt Double Knee Suspender Buttons(B01 BLK)
+                            <h1 id="title" >
                             </h1>
-                            <p>
-                                ₱1500
+                            <p id="price" >
                             </p>
 
                             <div class="sizes">
@@ -33,16 +32,19 @@ include 'header.php';
                                 </div>
                             </div>
                                     <div class="incdec">
+                                      <form action="./includes/addToCart.php" method="post">
+                                      <input type="hidden" name="id" id="product_id">
                                         <p>Quantity</p>
-                                        <input type="number" name="points" step="1"> 
+                                        <input type="number" id="quantity" min="1" name="quantity" step="1"> 
                                     </div>
                                 <div class="description">
                                     <p>Condition:</p>
-                                    <p>This is the best condition you'll see of the product</p>
+                                    <p id="description" ></p>
                                 </div>
                                 <div class="btncart">
-                                    <button>Add To Cart</button>
+                                    <button id="btn-addCart" name="add">Add To Cart</button>
                                 </div>
+                                      </form>
                         </div>
                     </div>
 
@@ -59,6 +61,42 @@ include 'header.php';
                     </div>
 
                 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+      // WebSocket connection
+      var conn = new WebSocket('ws://localhost:8080');
+      const url = new URL(window.location.href);
+      const productID = url.searchParams.get('productID');
+      var prodID =productID;
+      var hidden = document.getElementById('product_id');
+      hidden.value = productID;
+      console.log(productID);
+      conn.onopen = function() {
+          conn.send(JSON.stringify({ type: 'loadSingleProduct', id: productID}));
+      };
+      
+      conn.onmessage = function(e) {
+        var product = JSON.parse(e.data);
+        console.log(product);
+        var title =document.getElementById('title');
+        var price = document.getElementById('price');
+        var description = document.getElementById('description');
+        var img1 = document.getElementById('img1');
+        var img2 = document.getElementById('img2');
+        var img3 = document.getElementById('img3');
+        var img4 = document.getElementById('img4');
+        if (product.type === 'edit-product') {
+          title.innerText = product.title;
+          price.innerText = '₱' + product.price;
+          description.innerText = product.description;
+          img1.src = '../server/includes/uploads/' + product.img1;
+          img2.src = '../server/includes/uploads/' + product.img2;
+          img3.src = '../server/includes/uploads/' + product.img3;
+          img4.src = '../server/includes/uploads/' + product.img4;
+        }
+      };
+    });
+                </script>
 
     <style>
 *{

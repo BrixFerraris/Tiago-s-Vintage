@@ -6,7 +6,7 @@ include 'header.php';
 <div class="cart-container">
             <div class="cart-text">
                 <h2>Your Shopping Cart</h2>
-                <p>Total Items: 3</p>
+                <input type="hidden" name="user_id" id="user_id" value="<?php echo $_SESSION["uID"];?>">
             </div>
             
             <!-- Cart Items -->
@@ -20,57 +20,62 @@ include 'header.php';
                         <h2>Davey Allison 28 Big Print</h2>
                         <p>25W X 35L (Large)</p>
                         <p>₱1500</p>
-                        <div class="incdec">
-                            <button class="dec-btn">-</button>
-                            <input type="number" value="1" min="1">
-                            <button class="inc-btn">+</button>
-                        </div>
-                        <p>₱1500</p> <!-- Price per item -->
-                    </div>
-                </div>
 
-                <div class="cart-purchase">
-                    <div class="cart-image">
-                        <img src="../assets/tshirt4.png" alt="T-shirt image">
-                    </div>
-                    <div class="item-info">
-                        <h2>Davey Allison 28 Big Print</h2>
-                        <p>25W X 35L (Large)</p>
-                        <p>₱1500</p>
-                        <div class="incdec">
-                            <button class="dec-btn">-</button>
-                            <input type="number" value="1" min="1">
-                            <button class="inc-btn">+</button>
-                        </div>
-                        <p>₱1500</p> 
-                    </div>
-                </div>
-
-                <div class="cart-purchase">
-                    <div class="cart-image">
-                        <img src="../assets/tshirt4.png" alt="T-shirt image">
-                    </div>
-                    <div class="item-info">
-                        <h2>Davey Allison 28 Big Print</h2>
-                        <p>25W X 35L (Large)</p>
-                        <p>₱1500</p>
-                        <div class="incdec">
-                            <button class="dec-btn">-</button>
-                            <input type="number" value="1" min="1">
-                            <button class="inc-btn">+</button>
-                        </div>
-                        <p>₱1500</p> 
                     </div>
                 </div>
                 
             </div>
-
             <div class="item-total">
                 <p>Subtotal: ₱4500</p>
-                <button class="btnCheckout">CHECKOUT</button>
-                <button class="btnCancel">CONTINUE SHOPPING</button>
+                <!-- <button class="btnCancel">CONTINUE SHOPPING</button> -->
             </div>
         </div>
+        <script>
+document.addEventListener('DOMContentLoaded', function(){
+    // Websocket connection
+    var conn = new WebSocket('ws://localhost:8080');
+    var user_id = document.getElementById('user_id').value;
+    console.log(user_id);
+    conn.onopen = function(e) {
+        conn.send(JSON.stringify({ type: 'loadCart', user_id: user_id}));
+    };
+    conn.onmessage = function(e) {
+        var cart = JSON.parse(e.data);
+        console.log(cart);
+        var subtotal = 0;
+        var cartItemsContainer = document.querySelector('.cart-items');
+        cartItemsContainer.innerHTML = ''; 
+        cart.forEach(function(item) {
+            var cartItemHtml = `
+                <div class="cart-purchase">
+                    <div class="cart-image">
+                        <img src="../server/includes/uploads/${item.img1}" alt="${item.name} image">
+                    </div>
+                    <div class="item-info">
+                        <h2>${item.title}</h2>
+                        <p>${item.size}</p>
+                        <p>₱${item.price}</p>
+                    </div>
+                </div>
+            `;
+            cartItemsContainer.insertAdjacentHTML('beforeend', cartItemHtml);
+            subtotal += item.price * item.quantity;
+        });
+        var subtotalHtml = `
+    <p>Subtotal: ₱${subtotal}</p>
+    <button class="btnCheckout">CHECKOUT</button>
+`;
+document.querySelector('.item-total').innerHTML = subtotalHtml;
+        document.querySelector('.item-total').innerHTML = subtotalHtml;
+    };
+
+    document.addEventListener('click', function(e){
+    if (e.target.classList.contains('btnCheckout')) {
+        window.location.href = 'checkout.php?userID='+user_id;
+    }
+});
+});
+        </script>
 <style>
 
 * {

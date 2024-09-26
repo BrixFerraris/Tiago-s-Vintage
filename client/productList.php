@@ -39,7 +39,7 @@ include './header.php';
   }
 
   .cell img {
-    width: 100%;
+    width: 220px;
     height: 200px;
     object-fit: cover;
     transition: transform 0.3s ease;
@@ -63,84 +63,48 @@ include './header.php';
 </style>
 
 <div class="box">
-  <div class="fixed-grid">
-    <div class="cell">
-    <a href="../client/item.php">
-      <img src="../images/bg.png" alt="Sample Product">
-      <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
-        <span class="has-text-primary">PHP 999.00</span>
-      </p>
-      </a>
-    </div>
-  
-    <div class="cell">
-    <a href="../client/item.php">
-      <img src="../images/bg.png" alt="Sample Product">
-      <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
-        <span class="has-text-primary">PHP 999.00</span>
-      </p>
-      </a>
-    </div>
-
-    <div class="cell">
-      <img src="../images/bg.png" alt="Sample Product">
-      <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
-        <span class="has-text-primary">PHP 999.00</span>
-      </p>
-    </div>
-
-    <div class="cell">
-      <img src="../images/bg.png" alt="Sample Product">
-      <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
-        <span class="has-text-primary">PHP 999.00</span>
-      </p>
-    </div>
-
-    <div class="cell">
-      <img src="../images/bg.png" alt="Sample Product">
-      <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
-        <span class="has-text-primary">PHP 999.00</span>
-      </p>
-    </div>
-
-    <div class="cell">
-      <img src="../images/bg.png" alt="Sample Product">
-      <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
-        <span class="has-text-primary">PHP 999.00</span>
-      </p>
-    </div>
-
-    <div class="cell">
-      <img src="../images/bg.png" alt="Sample Product">
-      <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
-        <span class="has-text-primary">PHP 999.00</span>
-      </p>
-    </div>
-
-    <div class="cell">
-      <img src="../images/bg.png" alt="Sample Product">
-      <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
-        <span class="has-text-primary">PHP 999.00</span>
-      </p>
-    </div>
-
-    <div class="cell">
-      <img src="../images/bg.png" alt="Sample Product">
-      <p>
-        <span class="has-text-primary has-text-weight-bold">Sample Product</span><br>
-        <span class="has-text-primary">PHP 999.00</span>
-      </p>
-    </div>
+  <div id="fixed-grid" class="fixed-grid">
+    <!-- Existing product cells will be dynamically added here -->
   </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // WebSocket connection
+    var conn = new WebSocket('ws://localhost:8080');
+    var productDiv = document.getElementById('fixed-grid');
+    var products = [];
+
+    conn.onopen = function() {
+        conn.send(JSON.stringify({ type: 'loadProducts' }));
+    };
+
+    conn.onmessage = function(e) {
+        var product = JSON.parse(e.data);
+        products.push(product);
+        productDiv.innerHTML = '';
+        products.forEach(function(product) {
+            var newDiv = document.createElement('div');
+            newDiv.className = 'cell';
+            newDiv.innerHTML = `
+                <a href="./newItem.php?productID=${product.id}">
+                    <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
+                    <p>
+                        <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
+                        <span class="has-text-primary is-subtitle">${product.description}</span><br>
+                        <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
+                    </p>
+                </a>
+            `;
+            productDiv.appendChild(newDiv);
+        });
+    };
+});
+</script>
+
+
+
+
 
 <?php
 include 'footer.php';

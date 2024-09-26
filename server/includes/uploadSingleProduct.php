@@ -3,14 +3,9 @@ include_once './dbCon.php';
 
 $title = $_POST['title'];
 $price = $_POST['price'];
-$discount = $_POST['discount'];
-$category1 = $_POST['category1'];
-$color = $_POST['color'];
-$size = $_POST['size'];
-$length = $_POST['length'];
-$width = $_POST['width'];
-$qty = $_POST['qty'];
+$category1 = $_POST['category'];
 $description = $_POST['description'];
+$sub_category = $_POST['sub_category'];
 
 $targetDir = "uploads/";
 $fileExtension = pathinfo($_FILES['img1']['name'], PATHINFO_EXTENSION);
@@ -26,7 +21,7 @@ move_uploaded_file($_FILES['img1']['tmp_name'], $targetDir . $img1);
 move_uploaded_file($_FILES['img2']['tmp_name'], $targetDir . $img2);
 move_uploaded_file($_FILES['img3']['tmp_name'], $targetDir . $img3);
 move_uploaded_file($_FILES['img4']['tmp_name'], $targetDir . $img4);
-$sql = "INSERT INTO tbl_products (title, price, discount, category, color, size, length, width, qty, img1, img2, img3, img4, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO tbl_products (title, price, category, sub_category, img1, img2, img3, img4, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 $stmt = mysqli_stmt_init($conn);
 
 if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -34,7 +29,7 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
     exit();
 }
 
-mysqli_stmt_bind_param($stmt, "siisssiiisssss", $title, $price, $discount, $category1, $color, $size, $length, $width, $qty, $img1, $img2, $img3, $img4, $description);
+mysqli_stmt_bind_param($stmt, "sisssssss", $title, $price, $category1, $sub_category, $img1, $img2, $img3, $img4, $description);
 mysqli_stmt_execute($stmt);
 mysqli_stmt_close($stmt);
 
