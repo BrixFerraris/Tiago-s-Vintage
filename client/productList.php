@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var newDiv = document.createElement('div');
             newDiv.className = 'cell';
             newDiv.innerHTML = `
-                <a href="./newItem.php">
+                <a href="./newItem.php?productID=${product.id}">
                     <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
                     <p>
                         <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>

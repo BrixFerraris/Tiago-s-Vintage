@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // WebSocket connection
     var conn = new WebSocket('ws://localhost:8080');
     conn.onopen = function(e) {
-        conn.send(JSON.stringify({ type: 'qeqeq'}));
+        conn.send(JSON.stringify({ type: 'loadCategories'}));
     };
     conn.onmessage = function(e) {
         var category = JSON.parse(e.data);
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
             conn.send(JSON.stringify({ type: 'deleteCategory', id: id }));
             alert('Category deleted successfully');
             location.reload();
-            conn.send(JSON.stringify({ type: 'qeqeq'}));
+            conn.send(JSON.stringify({ type: 'loadCategories'}));
         } else if (event.target.classList.contains('edit-btn')) {
             var id = event.target.getAttribute('data-id');
             var categoryItem = event.target.closest('.category-item');
