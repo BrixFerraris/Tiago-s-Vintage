@@ -27,6 +27,7 @@ class ProductLoader implements MessageComponentInterface {
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
+        date_default_timezone_set('Asia/Manila');
         $data = json_decode($msg, true);
         if ($data['type'] === 'loadProducts') {
             $this->loadProducts($from);
@@ -126,7 +127,7 @@ class ProductLoader implements MessageComponentInterface {
     private function editCart(ConnectionInterface $conn, $address, $user_id) {
         $timestamp = time();
         $transactionId = $timestamp . '_' . $user_id;
-        $query = "UPDATE tbl_transactions SET status = 'Pending', address = ?, transaction_id = ? WHERE user_id =?";
+        $query = "UPDATE tbl_transactions SET status = 'Pending', address = ?, transaction_id = ? WHERE user_id =? AND status = 'Cart'";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("sss", $address, $transactionId, $user_id);
         $stmt->execute();
@@ -212,4 +213,8 @@ function getCart($db, $user_id) {
         $cart[] = $row;
     }
     return $cart;
+}
+
+function loadPurchaseOrders() {
+    
 }

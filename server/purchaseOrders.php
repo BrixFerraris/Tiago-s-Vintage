@@ -18,7 +18,7 @@
         </div>
 
         <div class="content">
-            <table>
+            <table id="products" >
                 <thead>
                     <tr>
                         <th>Order Number</th>
@@ -56,7 +56,14 @@
         </div>
     </div>
     <script>
-        
+        document.addEventListener('DOMContentLoaded', function(){
+            //Websocket connection
+            var conn = new WebSocket('ws://localhost:8080');
+            var table = document.getElementById('products');
+            conn.onopen = function() {
+                conn.send(JSON.stringify({ type: 'loadPurchaseOrders' }));
+            };
+        });
     </script>
 </body>
 </html>
