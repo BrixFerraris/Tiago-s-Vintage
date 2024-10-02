@@ -51,6 +51,10 @@ class ProductLoader implements MessageComponentInterface {
             $this->loadCart($from, $data['user_id']);
         } elseif ($data['type'] === 'order') {
             $this->editCart($from,  $data['address'], $data['user_id']);
+        } elseif ($data['type'] === 'loadPurchaseOrders') {
+            $this->getTransactions($from);
+        } elseif ($data['type'] === 'loadPODetails') {
+            $this->getTransactionOrderItems($from, $data['transaction_id']);
         }
     }
     
@@ -83,6 +87,36 @@ class ProductLoader implements MessageComponentInterface {
             $conn->send(json_encode($category));
         }
     }
+
+    
+
+    private function getTransactions(ConnectionInterface $conn){
+        $transactions = loadPurchaseOrders($this->db);
+        foreach ($transactions as $transaction) {
+            $transaction['type'] = 'purchase-order';
+            $conn->send(json_encode($transaction));
+        }
+    }
+
+
+
+    private function getTransactionOrderItems(ConnectionInterface $conn, $transactionId) {
+        $query = $this->db->prepare('SELECT t.*, p.*, u.* FROM tbl_transactions t INNER JOIN tbl_products p ON t.product_id = p.id INNER JOIN tbl_users u ON t.user_id = u.id WHERE transaction_id = ?');
+        $query->bind_param('s', $transactionId);
+        $query->execute();
+        $result = $query->get_result();
+        $orderItems = [];
+        $total = 0;
+        while ($row = $result->fetch_assoc()) {
+            $orderItems[] = $row;
+            $total += $row['total'];
+            $name = $row["firstName"]." ".$row["lastName"];
+            $address = $row["address"];
+            $contact = $row["contact"];
+        }
+        $conn->send(json_encode(['order_items' => $orderItems, 'order_total' => $total, 'name' => $name, 'address' => $address, 'contact' => $contact])); 
+    }
+
     private function loadProducts(ConnectionInterface $conn) {
         $products = getProducts($this->db);
         foreach ($products as $product) {
@@ -90,6 +124,7 @@ class ProductLoader implements MessageComponentInterface {
             $conn->send(json_encode($product));
         }
     }
+
 
     private function loadCart(ConnectionInterface $conn, $user_id) {
         $cart = array_map(function ($product) {
@@ -215,6 +250,21 @@ function getCart($db, $user_id) {
     return $cart;
 }
 
-function loadPurchaseOrders() {
-    
+function getSingleOrder($db, $transactionId) {
+    $query = $db->query("SELECT t.*, p.*, u.* FROM tbl_transactions t INNER JOIN tbl_products p ON t.product_id = p.id INNER JOIN tbl_users u ON t.user_id = u.id WHERE transaction_id = '$transactionId'");
+    $transaction = [];
+    while ($row = $query->fetch_assoc()) {
+      $transaction[] = $row;
+    }
+    return $transaction;
+  }
+
+function loadPurchaseOrders($db) {
+    $query = $db->query('SELECT t.*, p.*, u.* FROM tbl_transactions t INNER JOIN tbl_products p ON t.product_id = p.id INNER JOIN tbl_users u ON t.user_id = u.id');
+    $transaction = [];
+    while ($row = $query->fetch_assoc()) {
+        $transaction[] = $row;
+    }
+    return $transaction;
 }
+

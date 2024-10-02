@@ -23,8 +23,6 @@
                     <tr>
                         <th>Order Number</th>
                         <th>Buyer's Name</th>
-                        <th>Items</th>
-                        <th>Quantity</th>
                         <th>Address</th>
                         <th>Status</th>
                         <th>Accept</th>
@@ -35,8 +33,6 @@
                     <tr>
                         <td>PO12345</td>
                         <td>Alex Cueto</td>
-                        <td>Shoes</td>
-                        <td>5</td>
                         <td>Imus, Cavite</td>
                         <td>Pending</td>
                         <td><button class="accept-btn">Accept</button></td>
@@ -62,6 +58,31 @@
             var table = document.getElementById('products');
             conn.onopen = function() {
                 conn.send(JSON.stringify({ type: 'loadPurchaseOrders' }));
+            };
+            conn.onmessage = function(e) { 
+                var purchaseOrder = JSON.parse(e.data);
+                const rows = {};
+                if (purchaseOrder.type === 'purchase-order') {
+                let rowExists = false;
+                for (let i = 0; i < table.rows.length; i++) {
+                    if (table.rows[i].cells[0].innerHTML === purchaseOrder.transaction_id) {
+                        rowExists = true;
+                        break;
+                    }
+                }
+                if (!rowExists) {
+                    var newRow = table.insertRow();
+                    newRow.insertCell().innerHTML = purchaseOrder.transaction_id;
+                    newRow.insertCell().innerHTML = purchaseOrder.firstName + ' ' + purchaseOrder.lastName;
+                    newRow.insertCell().innerHTML = purchaseOrder.address;
+                    newRow.insertCell().innerHTML = purchaseOrder.status;
+                    newRow.insertCell().innerHTML = `<button class="accept-btn">Accept</button>`;
+                    newRow.insertCell().innerHTML = `<button class="delete-btn">Delete</button>`;
+                    newRow.addEventListener('click', function() {
+                    window.location.href = 'adminPODetails.php?transaction_id=' + purchaseOrder.transaction_id;
+                    });
+                }
+            }
             };
         });
     </script>

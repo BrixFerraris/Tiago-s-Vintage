@@ -12,49 +12,15 @@
     <div class="order-container">
         <!-- Left side (Order Items in a container) -->
         <div class="order-items-container">
-            <div class="order-items">
-                <div class="item">
-                    <img src="images/davey-allison-shirt.png" alt="Davey Allison 28 Big Print" class="item-img">
-                    <div class="item-detail">
-                        <p class="item-name">Davey Allison 28 Big Print</p>
-                        <p>25W X 35L (Large)</p>
-                        <p>x1</p>
-                        <p>₱1500</p>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <img src="images/essential-shirt.png" alt="Essential Shirt" class="item-img">
-                    <div class="item-detail">
-                        <p class="item-name">Essential Shirt</p>
-                        <p>25W X 35L (Large)</p>
-                        <p>x1</p>
-                        <p>₱1500</p>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <img src="images/holy-spirit-shirt.png" alt="Holy Spirit Kanye West Shirt" class="item-img">
-                    <div class="item-detail">
-                        <p class="item-name">Holy Spirit Kanye West Shirt</p>
-                        <p>25W X 35L (Large)</p>
-                        <p>x1</p>
-                        <p>₱1500</p>
-                    </div>
-                </div>
-
-                <div class="order-total">
-                    <p>Order Total: ₱4500</p>
-                </div>
-            </div>
+            
         </div>
 
         <!-- Right side (Customer Details with buttons at the bottom) -->
         <div class="order-summary">
-            <p><strong>Order Number</strong><br>PO00001</p>
-            <p><strong>Name</strong><br>Juan Dela Cruz</p>
-            <p><strong>Address</strong><br>500 Villa Nicasia 4 Bayan<br>Iuma 23 Imus Cavite, 4103</p>
-            <p><strong>Contact No.</strong><br>(+63) 9772954101</p>
+            <p><strong>Order Number</strong><br><span id="trans_num"></span></p>
+            <p><strong>Name</strong><br><span id="customerName"></span></p>
+            <p><strong>Address</strong><br><span id="address"></span><br></p>
+            <p><strong>Contact No.</strong><br><span id="contact"></span></p>
 
             <!-- Move buttons to the bottom -->
             <div class="summary-actions">
@@ -71,16 +37,59 @@
     document.addEventListener('DOMContentLoaded', function(){
         //Websocket connection
         var conn = new WebSocket('ws://localhost:8080');
-        conn.onopen = function(e) {
-            conn.send(JSON.stringify({ type: 'loadProducts' }));
-        };
-        conn.onmessage = function(e) {
-            var product = JSON.parse(e.data);
-            if (product.type === 'product') {
-                var table = document.getElementById('products').getElementsByTagName('tbody')[0];
-                var newRow = table.insertRow();
-            }
-        };
+const url = new URL(window.location.href);
+const params = new URLSearchParams(url.search);
+const transactionId = params.get('transaction_id');
+console.log(transactionId);
+
+conn.onopen = function(e) {
+  conn.send(JSON.stringify({ type: 'loadPODetails', transaction_id: transactionId}));
+};
+
+conn.onmessage = function(e) {
+  const data = JSON.parse(e.data);
+  console.log(data);
+
+  const orderItemsContainer = document.querySelector('.order-items-container');
+  const orderItems = data.order_items;
+
+  orderItems.forEach((item, index) => {
+    const itemHTML = `
+      <div class="item">
+        <img src="./includes/uploads/${item.img1}" alt="${item.title}" class="item-img">
+        <div class="item-detail">
+          <p class="item-name">${item.title}</p>
+          <p>x${item.quantity}</p>
+          <p>₱${item.price}</p>
+        </div>
+      </div>
+    `;
+    orderItemsContainer.innerHTML += itemHTML;
+  });
+
+
+  const orderTotal = data.order_total;
+  const orderTotalHTML = `
+    <div class="order-total">
+      <p>Order Total: ₱${orderTotal}</p>
+    </div>
+  `;
+
+  orderItemsContainer.innerHTML += orderTotalHTML;
+  var summaryContainer = $(".order-summary");
+var customerName = $("#customerName");
+var address = $("#address");
+var contact = $("#contact");
+var trans_number = $("#trans_num");
+
+
+customerName.text(data.name);
+address.text(data.address);
+contact.text(data.contact);
+trans_number.text(transactionId);
+  
+  
+};
     });
  </script>
 

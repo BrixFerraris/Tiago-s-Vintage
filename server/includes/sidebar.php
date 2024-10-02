@@ -10,7 +10,8 @@
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link rel="icon" href="../assets/icons.ico" type="image/x-icon">
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../CSS/addproduct.css">
     <link rel="stylesheet" href="../CSS/admindashboard.css">

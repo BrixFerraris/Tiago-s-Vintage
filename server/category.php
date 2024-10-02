@@ -54,10 +54,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // WebSocket connection
     var conn = new WebSocket('ws://localhost:8080');
     conn.onopen = function(e) {
-        conn.send(JSON.stringify({ type: 'loadCategories'}));
+        conn.send(JSON.stringify({ type: 'loadParentCategory'}));
+        // conn.send(JSON.stringify({ type: 'loadCategories'}));
     };
     conn.onmessage = function(e) {
         var category = JSON.parse(e.data);
+        console.log(category);
         if (category.parent === 'Tops') {
             let categoryItemsContainer = document.querySelector('.category-items-tops');
             var categoryItem = document.createElement('div');
@@ -98,6 +100,9 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             categoryItemsContainer.appendChild(categoryItem);
             console.log(category);
+        }
+        else {
+            console.error('Unknown category parent:', category.parent);
         }
     };
     document.addEventListener('click', function(event) {
