@@ -229,7 +229,7 @@ function getCategories($db) {
 }
 
 function getParentCategories($db) {
-    $result = $db->query('SELECT parent FROM tbl_categories');
+    $result = $db->query('SELECT * FROM tbl_categories');
     $categories = [];
     while ($row = $result->fetch_assoc()) {
         $categories[] = $row;

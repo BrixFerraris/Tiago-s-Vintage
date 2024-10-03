@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     conn.onmessage = function(e) {
         var category = JSON.parse(e.data);
-        console.log(category);
+        console.log(category.parent);
         if (category.parent === 'Tops') {
             let categoryItemsContainer = document.querySelector('.category-items-tops');
             var categoryItem = document.createElement('div');
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(category);
         }
         else {
-            console.error('Unknown category parent:', category.parent);
+            // console.error('Unknown category parent:', category.parent);
         }
     };
     document.addEventListener('click', function(event) {
