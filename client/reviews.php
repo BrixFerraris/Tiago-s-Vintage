@@ -13,55 +13,17 @@ include_once 'header.php';
 
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #228B22; /* Dark Green Background */
-      color: #fff; /* White text */
+
+      background-color: hsl(93, 100%, 20%);
+      color: #ffffff; 
     }
 
     header {
-      background-color: #228B22;
+
       padding: 10px 0;
       text-align: center;
     }
 
-    .logo {
-      display: inline-block;
-      width: 100px;
-      height: 100px;
-      background-image: ("tiagos.png"); /* Replace with your logo */
-      background-size: cover;
-      margin-right: 20px;
-    }
-
-    nav {
-      background-color: #228B22;
-      padding: 10px 0;
-      text-align: center;
-    }
-
-    nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    nav li {
-      display: inline-block;
-      margin: 0 10px;
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      padding: 5px 10px;
-      border-bottom: 2px solid transparent; /* Add a border that appears on hover */
-      transition: border-bottom-color 0.3s ease; /* Smooth transition */
-    }
-
-    nav a:hover {
-      border-bottom-color: #fff; /* White border on hover */
-    }
 
     .container {
       width: 80%;
@@ -108,7 +70,7 @@ include_once 'header.php';
     }
 
     footer {
-      background-color: #228B22;
+      background-color: hsl(93, 100%, 20%);
       padding: 20px 0;
       text-align: center;
     }

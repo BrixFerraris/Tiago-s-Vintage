@@ -1,64 +1,6 @@
-<!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link href="https://fonts.cdnfonts.com/css/koulen" rel="stylesheet">
-                <link rel="preconnect" href="https://fonts.googleapis.com">
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-                <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-                <link rel="preconnect" href="https://fonts.googleapis.com">
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-                <link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-                <link rel="icon" href="../assets/icons.ico" type="image/x-icon">
-                <link rel="stylesheet" href="../CSS/landing.css">
-                
-            <title>Tiago's Vintage Boutique</title>
-            <style>
-                .is-invis {
-                    display: none;
-                }
-
-                .meron {
-                    display: block;
-                }
-            </style>
-
-    <div clas="container">
-                        <nav class ="topnav">
-                            <label class="title">Tiago's Vintage</label>
-                            <img class="logo" src="../assets/tiagos-removebg-preview 1.png" alt="">
-                                <ul>
-                                    <?php
-                                    session_start();
-                                    if (isset($_SESSION["username"])) {
-                                        echo '<li><a href="">Home</a></li>';
-                                        echo '<li><a href="">New arrivals</a></li>';
-                                        echo '<li><a href="">Tops</a></li>';
-                                        echo '<li><a href="">Bottom</a></li>';
-                                        echo '<li><a href="">Shoes</a></li>';
-                                        echo '<li><a href="">Accessories</a></li>';
-                                        echo '<li><a href="">Reviews</a></li>';
-                                        echo '<li><img class="search" src="../assets/Search.png" alt=""></li>';
-                                        echo '<li><img class="shopping" src="../assets/Shopping Cart.png" alt=""></li>';
-                                        echo '<li class = "is-invis"><a href="./register.php">Register/Login</a></li>';
-                                    } else {
-                                        echo '<li><a href="">Home</a></li>';
-                                        echo '<li><a href="">New arrivals</a></li>';
-                                        echo '<li><a href="">Tops</a></li>';
-                                        echo '<li><a href="">Bottom</a></li>';
-                                        echo '<li><a href="">Shoes</a></li>';
-                                        echo '<li><a href="">Accessories</a></li>';
-                                        echo '<li><a href="">Reviews</a></li>';
-                                        echo '<li><img class="search" src="../assets/Search.png" alt=""></li>';
-                                        echo '<li><img class="shopping" src="../assets/Shopping Cart.png" alt=""></li>';
-                                        echo '<li class = "meron"><a href="./register.php">Register/Login</a></li>';
-                                    }
-                                    
-                                    ?>
-                                </ul>
-                        </nav>
-                        
+<?php
+include 'header.php';
+?>          
                         <div class="background">
                             <img src="../assets/Component 2.png" alt="">
                         </div>

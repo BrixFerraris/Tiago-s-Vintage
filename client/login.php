@@ -42,14 +42,6 @@ include 'header.php';
     </div>
     </main>
     <!-- End Main -->
-
-    <style>
-
-
-
-    </style>
-
-
 <?php
 include 'footer.php';
 ?>
