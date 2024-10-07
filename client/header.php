@@ -31,7 +31,7 @@
                                         echo '<li><a href="../client/productList.php">Accessories</a></li>';
                                         echo '<li><a href="../client/reviews.php">Reviews</a></li>';
                                         echo '<li><img class="search" src="../assets/Search.png" alt=""></li>';
-                                        echo '<li><a href="./shopcart.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
+                                        echo '<li><a href="../client/shopcart.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
                                         echo '<li class = "is-invis"><a href="./register.php">Register/Login</a></li>';
                                         echo '<li><a href="./includes/logout.php">Log Out</a></li>';
                                     } else {

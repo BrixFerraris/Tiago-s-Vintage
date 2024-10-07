@@ -90,6 +90,12 @@
                 </li>
             </a>
 
+            <a href="./category.php">
+                <li class="sidebar-list-item">
+                    <span class="material-icons-outlined">category</span> Category
+                </li>
+            </a>
+
         </ul>
       </aside>
       <!-- End Sidebar -->
