@@ -168,9 +168,7 @@
                         <th>Product Image</th>
                         <th>Product Name</th>
                         <th>Product Price</th>
-                        <th>Product Offer</th>
                         <th>Product Category</th>
-                        <th>Product Color</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
