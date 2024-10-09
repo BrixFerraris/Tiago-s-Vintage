@@ -22,7 +22,7 @@ include 'header.php';
 
                                 <p>Size</p>
 
-                                <div class="buttons">
+                                <div id="buttons" class="buttons">
                                     <button>35 X 40 (Large)</button>
                                     <button>35 X 40 (Large)</button>
                                     <button>35 X 40 (Large)</button>
@@ -73,6 +73,7 @@ include 'header.php';
       console.log(productID);
       conn.onopen = function() {
           conn.send(JSON.stringify({ type: 'loadSingleProduct', id: productID}));
+          conn.send(JSON.stringify({ type: 'loadVariations', idProduct: productID}));
       };
       
       conn.onmessage = function(e) {
@@ -93,6 +94,22 @@ include 'header.php';
           img2.src = '../server/includes/uploads/' + product.img2;
           img3.src = '../server/includes/uploads/' + product.img3;
           img4.src = '../server/includes/uploads/' + product.img4;
+        }
+        if (product.type === 'variations') {
+          var buttonDiv = document.getElementById('buttons');
+            buttonDiv.innerHTML = '';
+
+            product.variations.forEach(function(variation) {
+              console.log(variation.variationName);
+                var newDiv = document.createElement('div');
+                newDiv.classList.add('edit-product-variation');
+
+                newDiv.innerHTML = `
+                        <button>${variation.width} X ${variation.length} (${variation.variationName})</button>
+                `;
+
+                buttonDiv.appendChild(newDiv);
+          });
         }
       };
     });

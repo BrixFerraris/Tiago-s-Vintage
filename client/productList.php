@@ -176,7 +176,7 @@ include './header.php';
 
 <div class="box">
   <div id="search-filters">
-    <input type="text" id="search-bar" placeholder="Search Products...">
+    <input type="text" id="search-input" placeholder="Search Products...">
     
     <select id="category-filter">
       <option value="" disabled selected>Category</option>
@@ -204,6 +204,52 @@ include './header.php';
 </div>
 
 <script>
+
+  //Search itu sa admin Products
+document.getElementById('search-input').addEventListener('input', function() {
+    var searchValue = this.value;
+    fetchProducts(searchValue);
+});
+
+function fetchProducts(searchValue) {
+    var conn = new WebSocket('ws://localhost:8080');
+    conn.onopen = function() {
+        conn.send(JSON.stringify({ type: 'searchProducts', title: searchValue }));
+    };
+
+    conn.onmessage = function(e) {
+        var data = JSON.parse(e.data);
+        // console.log(data);
+        if (data.type === 'searchResults') {
+            displayProducts(data.products);
+
+        }
+    };
+}
+
+function displayProducts(products) {
+  var productDiv = document.getElementById('fixed-grid');
+    products.forEach(product => {
+      var id = product.id;
+      products.push(product);
+      productDiv.innerHTML = '';
+            products.forEach(function(product) {
+                var newDiv = document.createElement('div');
+                newDiv.className = 'cell';
+                newDiv.innerHTML = ``;
+                newDiv.innerHTML = `
+                    <a href="./newItem.php?productID=${product.id}">
+                        <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
+                        <p>
+                            <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
+                            <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
+                        </p>
+                    </a>
+                `;
+                productDiv.appendChild(newDiv);
+            });
+    });
+}
 document.addEventListener('DOMContentLoaded', function() {
     // WebSocket connection
     var conn = new WebSocket('ws://localhost:8080');
@@ -219,86 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(product);
         const url = new URL(window.location.href);
         const productCategory = url.searchParams.get('category');
-        if (productCategory === 'Tops') {
-          if (product.category === 'Tops') {
-            products.push(product);
-            productDiv.innerHTML = '';
-            products.forEach(function(product) {
-                var newDiv = document.createElement('div');
-                newDiv.className = 'cell';
-                newDiv.innerHTML = `
-                    <a href="./newItem.php?productID=${product.id}">
-                        <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
-                        <p>
-                            <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
-                            <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
-                        </p>
-                    </a>
-                `;
-                productDiv.appendChild(newDiv);
-            });
-          }
-        }
-        else if (productCategory === 'Bottom') {
-          if (product.category === 'Bottoms') {
-            products.push(product);
-            productDiv.innerHTML = '';
-            products.forEach(function(product) {
-                var newDiv = document.createElement('div');
-                newDiv.className = 'cell';
-                newDiv.innerHTML = `
-                    <a href="./newItem.php?productID=${product.id}">
-                        <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
-                        <p>
-                            <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
-                            <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
-                        </p>
-                    </a>
-                `;
-                productDiv.appendChild(newDiv);
-            });
-          }
-        }
-        else if (productCategory === 'Shoes') {
-          if (product.category === 'Shoes') {
-            products.push(product);
-            productDiv.innerHTML = '';
-            products.forEach(function(product) {
-                var newDiv = document.createElement('div');
-                newDiv.className = 'cell';
-                newDiv.innerHTML = `
-                    <a href="./newItem.php?productID=${product.id}">
-                        <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
-                        <p>
-                            <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
-                            <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
-                        </p>
-                    </a>
-                `;
-                productDiv.appendChild(newDiv);
-            });
-          }
-        }
-        else if (productCategory === 'Accessories') {
-          if (product.category === 'Accessories') {
-            products.push(product);
-            productDiv.innerHTML = '';
-            products.forEach(function(product) {
-                var newDiv = document.createElement('div');
-                newDiv.className = 'cell';
-                newDiv.innerHTML = `
-                    <a href="./newItem.php?productID=${product.id}">
-                        <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
-                        <p>
-                            <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
-                            <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
-                        </p>
-                    </a>
-                `;
-                productDiv.appendChild(newDiv);
-            });
-          }
-        }
+        
     };
 });
 </script>

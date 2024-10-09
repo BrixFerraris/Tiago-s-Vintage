@@ -25,6 +25,7 @@
                                     if (isset($_SESSION["username"])) {
                                         echo '<li><a href="../client/landing.php">Home</a></li>';
                                         // echo '<li><a href="../client/productList.php">New arrivals</a></li>';
+                                        echo '<li><a href="../client/productList.php">All products</a></li>';
                                         echo '<li><a href="../client/productList.php?category=Tops">Tops</a></li>';
                                         echo '<li><a href="../client/productList.php?category=Bottom">Bottom</a></li>';
                                         echo '<li><a href="../client/productList.php?category=Shoes">Shoes</a></li>';

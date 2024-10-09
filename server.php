@@ -34,7 +34,7 @@ class ProductLoader implements MessageComponentInterface {
         } elseif ($data['type'] === 'deleteProduct') {
             $this->deleteProduct($from, $data['id']);
         } elseif ($data['type'] === 'editProduct') {
-            $this->editProduct($from, $data['id'], $data['title'], $data['price'], $data['category']);
+            $this->editProduct($from, $data['id'], $data['title'], $data['price'], $data['category'], $data['subCategory']);
         } elseif ($data['type'] === 'loadEdits') {
             $this->loadEditProducts($from, $data['id']);
         } elseif ($data['type'] === 'loadCategories') {
@@ -55,14 +55,59 @@ class ProductLoader implements MessageComponentInterface {
             $this->getTransactions($from);
         } elseif ($data['type'] === 'loadPODetails') {
             $this->getTransactionOrderItems($from, $data['transaction_id']);
+        } elseif ($data['type'] === 'searchProducts') {
+            $this->searchProducts($from, $data['title']);
+        } elseif ($data['type'] === 'loadVariations') {
+            $this->loadVariations($from, $data['idProduct']);
+        } elseif ($data['type'] === 'loadEditVariation') {
+            $this->loadEditVariation($from, $data['id']);
         }
     }
+
+
+    private function loadEditVariation(ConnectionInterface $conn, $id) {
+        $variations = loadVariation($this->db, $id);
+        $response = [
+            'type' => 'variation',
+            'variation' => $variations
+        ];
+        $conn->send(json_encode($response));
+    }
+    
+    private function loadVariations(ConnectionInterface $conn, $productID) {
+        $variations = loadVariation($this->db, $productID);
+        $response = [
+            'type' => 'variations',
+            'variations' => $variations
+        ];
+        $conn->send(json_encode($response));
+    }
+    
     
     private function deleteProduct(ConnectionInterface $conn, $id) {
         $query = "DELETE FROM tbl_products WHERE id = '$id'";
         $this->db->query($query);
         $conn->send(json_encode(['type' => 'productDeleted', 'id' => $id]));
     }
+
+    private function searchProducts(ConnectionInterface $conn, $title) {
+        $stmt = $this->db->prepare('SELECT * FROM tbl_products WHERE title LIKE ?');
+        $searchTerm = "%{$title}%";
+        $stmt->bind_param('s', $searchTerm);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $products = [];
+        while ($row = $result->fetch_assoc()) {
+            $products[] = $row;
+        }
+        $stmt->close();
+    
+        if ($conn->send(json_encode([
+            'type' => 'searchResults',
+            'products' => $products
+        ])));
+    }
+    
 
     private function deleteCategory(ConnectionInterface $conn, $id) {
         $query = "DELETE FROM tbl_categories WHERE id = '$id'";
@@ -150,10 +195,10 @@ class ProductLoader implements MessageComponentInterface {
         }
     }
 
-    private function editProduct(ConnectionInterface $conn, $id, $title, $price, $category) {
-        $query = "UPDATE tbl_products SET title = ?, price = ?, category = ? WHERE id = ?";
+    private function editProduct(ConnectionInterface $conn, $id, $title, $price, $category, $subCategory) {
+        $query = "UPDATE tbl_products SET title = ?, price = ?, category = ?, sub_category = ? WHERE id = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("sisi", $title, $price, $category, $id);
+        $stmt->bind_param("sissi", $title, $price, $category, $subCategory, $id);
         $stmt->execute();
         $conn->send(json_encode(['type' => 'productEdited', 'id' => $id]));
         $stmt->close();
@@ -268,3 +313,28 @@ function loadPurchaseOrders($db) {
     return $transaction;
 }
 
+function loadVariation($db, $productID) {
+    if (is_array($productID)) {
+        $productID = reset($productID); 
+    }
+    
+    $query = $db->query("SELECT * FROM tbl_variations WHERE product_id = '$productID'");
+    $variation = [];
+    while ($row = $query->fetch_assoc()) {
+        $variation[] = $row;
+    }
+    return $variation;
+}
+
+function loadEditsVariation($db, $id) {
+    if (is_array($id)) {
+        $id = reset($id); 
+    }
+    
+    $query = $db->query("SELECT * FROM tbl_variations WHERE id = '$id'");
+    $variation = [];
+    while ($row = $query->fetch_assoc()) {
+        $variation[] = $row;
+    }
+    return $variation;
+}

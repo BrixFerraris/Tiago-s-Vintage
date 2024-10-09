@@ -219,6 +219,9 @@
                         <th>Product Image</th>
                         <th>Product Name</th>
                         <th>Product Price</th>
+                        <th>Product Category</th>
+                        <th>Edit Product</th>
+                        <th>Delete Product</th>
                     </tr>
                 </thead>
                 <tbody id="products-body" >
@@ -247,15 +250,17 @@
 
     <div class="edit-product">
       <div class="edit-product-left">
-       <input type="hidden" name="id" id="product-id">
-
-
+        <form action="./includes/addVariation.php" method="post">
+       <input type="text" name="product_id" id="product-id">
         <p class="font-weight-bold">Variations:</p>
         <div class="edit-product-variations">
           
+        <div id="variations">
+
+        </div>
           <div class="edit-product-variation">
             <label for="Name">Name:</label>
-	    <input type="text" id="Name" name="Name" placeholder="Name" required>
+	          <input type="text" id="Name" name="Name" placeholder="Name" required>
           </div>
 
           <div class="edit-product-variation">
@@ -271,15 +276,9 @@
           <div class="edit-product-variation">
             <label for="quantity">Quantity:</label>
             <div class="quantity-control">
-              
-               <input type="number" id="qty" name="qty" placeholder="Quantity" required>
-              
+               <input type="number" id="qty" name="qty" placeholder="Quantity" required>  
             </div>
-
           </div>
-
-          
-
         </div>
       </div>
 
@@ -299,7 +298,13 @@
 
         <div class="edit-product-category">
           <p class="font-weight-bold">Category</p>
-          <input type="text" id="category1" placeholder="Category">
+          <select name="categories" id="categories">
+            <option>Select Main Category</option>
+          </select>
+          <select name="sub_category" id="sub_category">
+            <option>Select Sub Category</option>
+          </select>
+
           <i class="fas fa-edit edit-icon"></i>
         </div>
 
@@ -310,11 +315,11 @@
       
     </div>
     <div class="add-variation-btn">
-      <button class="add-variation">Add Variation</button>
+      <input type="submit" name="add" value="Add Variation" class="add-variation"></input>
     </div>
-    
+    </form>
     </main>
-<!-- End Main -->
+<!-- End EDIT -->
     <!-- Scripts -->
 
     <script>
@@ -338,6 +343,43 @@ function closeSidebar() {
   }
 }
 
+//Search itu sa admin Products
+document.getElementById('search-input').addEventListener('input', function() {
+    var searchValue = this.value;
+    fetchProducts(searchValue);
+});
+
+function fetchProducts(searchValue) {
+    var conn = new WebSocket('ws://localhost:8080');
+    conn.onopen = function() {
+        conn.send(JSON.stringify({ type: 'searchProducts', title: searchValue }));
+    };
+
+    conn.onmessage = function(e) {
+        var data = JSON.parse(e.data);
+        // console.log(data);
+        if (data.type === 'searchResults') {
+            displayProducts(data.products);
+        }
+    };
+}
+
+function displayProducts(products) {
+    var table = document.getElementById('products').getElementsByTagName('tbody')[0];
+    table.innerHTML = ''; 
+    products.forEach(product => {
+      var newRow = table.insertRow();
+      var id = product.id;
+      newRow.insertCell(0).setAttribute("product-id", id);
+      newRow.insertCell(0).innerText = id;
+      newRow.insertCell(1).innerHTML = '<img src="./includes/uploads/' + product.img1 + '" alt="Product Image">';
+      newRow.insertCell(2).innerText = product.title;
+      newRow.insertCell(3).innerText = product.price;
+      newRow.insertCell(4).innerText = product.category;
+      newRow.insertCell(5).innerHTML = '<button class="edit-btn" data-id="' + product.id + '">Edit</button>';
+      newRow.insertCell(6).innerHTML = '<button class="delete-btn" data-id="' + product.id + '">Delete</button>';
+    });
+}
 
 
 // WebSocket connection
@@ -345,10 +387,19 @@ var conn = new WebSocket('ws://localhost:8080');
 conn.onopen = function() {
     conn.send(JSON.stringify({ type: 'loadProducts' }));
 };
-
+var products = [];
 conn.onmessage = function(e) {
     var product = JSON.parse(e.data);
-    var id = document.getElementById("edit-id").value;
+    if (product.type === 'productDeleted') {
+        var table = document.getElementById('products').getElementsByTagName('tbody')[0];
+        var rows = table.rows;
+        for (var i = 0; i < rows.length; i++) {
+            if (rows[i].cells[0].innerText === product.id) {
+                table.deleteRow(i);
+                break;
+            }
+        }
+    }
     if (product.type === 'product') {
         var table = document.getElementById('products').getElementsByTagName('tbody')[0];
         var newRow = table.insertRow();
@@ -358,32 +409,10 @@ conn.onmessage = function(e) {
         newRow.insertCell(1).innerHTML = '<img src="./includes/uploads/' + product.img1 + '" alt="Product Image">';
         newRow.insertCell(2).innerText = product.title;
         newRow.insertCell(3).innerText = product.price;
-        newRow.insertCell(4).innerText = product.discount;
-        newRow.insertCell(5).innerText = product.category;
-        newRow.insertCell(6).innerText = product.color;
-        newRow.insertCell(7).innerHTML = '<button class="edit-btn" data-id="' + product.id + '">Edit</button>';
-        newRow.insertCell(8).innerHTML = '<button class="delete-btn" data-id="' + product.id + '">Delete</button>';
-    } else if (product.type === 'productDeleted') {
-        var table = document.getElementById('products').getElementsByTagName('tbody')[0];
-        var rows = table.rows;
-        for (var i = 0; i < rows.length; i++) {
-            if (rows[i].cells[0].innerText === product.id) {
-                table.deleteRow(i);
-                break;
-            }
-        }
-    } else if (product.type === 'edit-product') {
-        var title = document.getElementById("title");
-        var price = document.getElementById("price");
-        var category = document.getElementById("category1");
-        var qty = document.getElementById("qty");
-        var id = document.getElementById("product-id");
-        title.value = product.title;
-        id.value = product.id;
-        price.value = product.price;
-        category.value = product.category;
-        qty.value = product.qty;
-    } 
+        newRow.insertCell(4).innerText = product.category;
+        newRow.insertCell(5).innerHTML = '<button class="edit-btn" data-id="' + product.id + '">Edit</button>';
+        newRow.insertCell(6).innerHTML = '<button class="delete-btn" data-id="' + product.id + '">Delete</button>';
+    }   
 };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -391,63 +420,16 @@ document.addEventListener('click', function(event) {
 
     if (event.target.classList.contains('delete-btn')) {
         var id = event.target.getAttribute('data-id');
-        console.log('Sending deleteProduct message:', { type: 'deleteProduct', id: id });
         conn.send(JSON.stringify({ type: 'deleteProduct', id: id }));
     } 
-    else if (event.target.classList.contains('edit-btn')) {
-    var id = event.target.getAttribute('data-id');
-        var container = document.getElementById('container');
-        var editForm = document.getElementById('edit-container');
-        document.getElementById("edit-id").innerText = event.target.getAttribute('data-id');
-        document.getElementById("edit-id").setAttribute('data-id', id);
-        container.classList.add('is-invisible');
-        editForm.classList.remove('is-invisible');
-        conn.send(JSON.stringify({ type: 'loadEdits', id:id }));
-    } else if (event.target.classList.contains('save-button')) {
-    var id = document.getElementById("product-id").value;
-    var title = document.getElementById("title").value;
-    var price = document.getElementById("price").value;
-    var category = document.getElementById("category1").value;
-
-    console.log('Sending editProduct message:', { type: 'editProduct', id: id });
-    conn.send(JSON.stringify({
-        type: 'editProduct',
-        id: id,
-        title: title,
-        price: price,
-        category: category,
-    }));
-
-    // var formData = new FormData();
-    // formData.append('id', id);
-    // var files = ['img1', 'img2', 'img3', 'img4'];
-    // files.forEach(function(fileId) {
-    //     var fileInput = document.getElementById(fileId);
-    //     if (fileInput.files.length > 0) {
-    //         formData.append(fileId, fileInput.files[0]);
-    //     }
-    // });
-
-    // fetch('./includes/editProduct.php', {
-    //     method: 'POST',
-    //     body: formData
-    // })
-    // .then(response => response.json())
-    // .then(data => console.log('POST request successful:', data))
-    // .catch(error => console.error('Error in POST request:', error));
-} else if (event.target.classList.contains('add-variation')){
-    console.log('Sending editProduct message:', { type: 'editProduct', id: id });
-    conn.send(JSON.stringify({
-        type: 'editProduct',
-        id: id,
-        title: title,
-        price: price,
-        category: category,
-    }));
-}
+    if (event.target.classList.contains('edit-btn')) {
+      var id = event.target.getAttribute('data-id'); 
+      window.location.href = "adminEditProduct.php?product_id=" + id;
+    }
 
 
 });
+
 
 });
 conn.onerror = function(error) {

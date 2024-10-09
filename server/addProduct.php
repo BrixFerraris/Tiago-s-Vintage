@@ -108,50 +108,46 @@ document.addEventListener('DOMContentLoaded', function () {
   };
   conn.onmessage = function(e) {
     var data = JSON.parse(e.data);
-    if (Array.isArray(data)) {
-        categories.push(...data);
-    } else {
-        categories.push(data);
-    }
-
-    console.log(categories);
-    select1.innerHTML = '';
-    categories.forEach(function(category) {
-        var optionExists = false;
-        for (var i = 0; i < select1.options.length; i++) {
-            if (select1.options[i].value === category.parent) {
-                optionExists = true;
-                break;
+        if (Array.isArray(data)) {
+            categories.push(...data);
+        } else {
+            categories.push(data);
+        }
+        console.log(categories);
+        select1.innerHTML = '';
+        categories.forEach(function(category) {
+            var optionExists = false;
+            for (var i = 0; i < select1.options.length; i++) {
+                if (select1.options[i].value === category.parent) {
+                    optionExists = true;
+                    break;
+                }
             }
-        }
-        if (!optionExists) {
-            var option = document.createElement('option');
-            option.text = category.parent;
-            option.value = category.parent;
-            select1.add(option);
-        }
-    });
-    select1.addEventListener('change', function() {
-    var selectedValue = select1.value;
+            if (!optionExists) {
+                var option = document.createElement('option');
+                option.text = category.parent;
+                option.value = category.parent;
+                select1.add(option);
+            }
+        });
+            select1.addEventListener('change', function() {
+            var selectedValue = select1.value;
+            select2.innerHTML = '';
+            var filteredOptions = categories.filter(function(category) {
+                return category.parent === selectedValue;
+            });
 
-    select2.innerHTML = '';
-
-    var filteredOptions = categories.filter(function(category) {
-        return category.parent === selectedValue;
-    });
-
-    filteredOptions.forEach(function(category) {
-        var option = document.createElement('option');
-        option.text = category.child;
-        option.value = category.child;
-        select2.add(option);
-    });
-
-    var select2Instance = select2.select2;
-    select2Instance.destroy();
-    select2Instance.init();
-});
-};
+            filteredOptions.forEach(function(category) {
+                var option = document.createElement('option');
+                option.text = category.child;
+                option.value = category.child;
+                select2.add(option);
+            });
+            var select2Instance = select2.select2;
+            select2Instance.destroy();
+            select2Instance.init();
+        });
+    };
 });
 
 </script>
