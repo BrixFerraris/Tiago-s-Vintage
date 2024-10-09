@@ -48,6 +48,9 @@ document.addEventListener('DOMContentLoaded', function(){
         cart.forEach(function(item) {
             var cartItemHtml = `
                 <div class="cart-purchase">
+                        <div class="checkbox-container">
+                            <input type="checkbox" class="item-checkbox" data-item-id="1">
+                        </div>
                     <div class="cart-image">
                         <img src="../server/includes/uploads/${item.img1}" alt="${item.name} image">
                     </div>
@@ -56,6 +59,18 @@ document.addEventListener('DOMContentLoaded', function(){
                         <p>${item.size}</p>
                         <p>₱${item.price}</p>
                     </div>
+                    <div class="item-quantity">
+                <div class="incdec">
+                <button class="btnMinus" data-item-id="1">-</button>
+                <input type="text" value="1" id="quantity_1" readonly>
+                <button class="btnPlus" data-item-id="1">+</button>
+                <div class="btnremove">
+                <button class="btnRemove" data-item-id="1">Remove</button>
+                </div>
+                </div>
+                    <!-- Remove Button -->
+                    
+                </div>
                 </div>
             `;
             cartItemsContainer.insertAdjacentHTML('beforeend', cartItemHtml);
@@ -180,4 +195,8 @@ body {
 .btnCancel {
     background-color: #ccc;
 }
+.btnremove{
+    margin-left: 20px;
+}
+
 </style>

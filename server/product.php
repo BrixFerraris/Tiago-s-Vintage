@@ -19,7 +19,6 @@
 }
 
 
-
 /* Main Container */
 .main-container {
   flex: 1;
@@ -151,16 +150,68 @@
 .discard-button {
   background-color: #dc3545;
 }
+/* Container for search and sort */
+.search-sort-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Search bar styling */
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+#search-input {
+    border: none;
+    padding: 10px;
+    outline: none;
+    width: 200px;
+}
+
+#search-btn {
+    background-color: hsl(93, 100%, 20%);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+#search-btn:hover {
+    background-color: #0056b3;
+}
+
+#search-btn i {
+    font-size: 16px;
+}
+
+
 </style>
 
       <!-- Main -->
       <main id="container" class="main-container ">
         <div class="main-title">
           <p class="font-weight-bold">PRODUCTS</p>
+          
         </div>
 
         <div class="content">
-            <h1>Products</h1>
+              <!-- input code here -->
+            <!-- Search and Sort Container -->
+    <div class="search-sort-container">
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search products..." />
+            <button id="search-btn"> <span class="material-icons-outlined">search</span></button>
+        </div>
+
+    </div>
+
             <table id="products" >
                 <thead>
                     <tr>
@@ -168,9 +219,6 @@
                         <th>Product Image</th>
                         <th>Product Name</th>
                         <th>Product Price</th>
-                        <th>Product Category</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody id="products-body" >

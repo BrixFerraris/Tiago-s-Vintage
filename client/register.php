@@ -14,7 +14,7 @@ include 'header.php';
 
     <!-- form add products -->
     <div class="form-container">
-        <form action=" " method="post" enctype=" ">
+        <form action="./includes/register.php" method="post" enctype=" ">
 
 
             <div class="form-group">
@@ -44,11 +44,11 @@ include 'header.php';
 
             <div class="form-group">
                 <label for="confPassword">Confirm Password:</label>
-                <input type="password" id="confPassword" name="confPassword" placeholder="Confirm Password" required>
+                <input type="password" id="confPassword" name="ConfPassword" placeholder="Confirm Password" required>
 
             </div>
 
-            <button name="submit" type="submit">Register</button>
+            <button name="register" type="submit">Register</button>
             <div class="aabtm">
 
                 <a href="./login.php">Already have an account? Click here to Log on! </a>
