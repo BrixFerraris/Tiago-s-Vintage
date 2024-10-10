@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="../CSS/checkout.css"> 
 </head>
 <body>
-
+<?php
+    session_start();
+?>
     <div class="checkout-container">
-
+<input type="hidden" name="user_id" id="user_id" value="<?php echo $_SESSION['uID'] ;?>">
         <!-- Order Summary -->
         <div class="order-summary">
             <h2>Order Summary</h2>
@@ -34,16 +36,22 @@
                 <!-- Action Buttons -->
                 <div class="action-buttons">
                     <button type="submit" id="place-order" class="place-order">Place Order</button>
-                    <button type="button" class="cancel-order" onclick="window.location.href='cart.php';">Cancel</button>
+                    <button type="button" class="cancel-order" onclick="window.location.href='shopcart.php';">Cancel</button>
                 </div>
         </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function(){
+
             //Websocket connection
             var conn = new WebSocket('ws://localhost:8080');
             const url = new URL(window.location.href);
             const userID = url.searchParams.get('userID');
+            var uID =  document.getElementById('user_id').value;
+            if (userID != uID) {
+                window.location.href = "./checkout.php?uID="+uID;
+                userID =uID;
+            }
             conn.onopen = function(e) {
                 conn.send(JSON.stringify({ type: 'loadCart', user_id: userID }));
             };

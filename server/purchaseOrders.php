@@ -35,7 +35,7 @@
                         <td>Alex Cueto</td>
                         <td>Imus, Cavite</td>
                         <td>Pending</td>
-                        <td><button class="accept-btn">Accept</button></td>
+                        <td><button class="acc-btn">Accept</button></td>
                         <td><button class="delete-btn">Delete</button></td>
                     </tr>
                     <!-- Add additional product rows here -->
