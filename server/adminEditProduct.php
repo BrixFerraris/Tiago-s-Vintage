@@ -295,6 +295,7 @@ loadCategory();
                         </div>
                       </div>
                       <br>
+                     
                   `;
 
       variationDiv.appendChild(newDiv);
