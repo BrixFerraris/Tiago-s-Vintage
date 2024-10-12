@@ -14,7 +14,7 @@
 <body>
     <main class="main-container">
         <div class="main-title">
-          <p class="font-weight-bold">Inventory</p>
+          <p class="font-weight-bold">INVENTORY</p>
         </div>
 
         <div class="content">

@@ -16,12 +16,14 @@ include './header.php';
 <div class="container">
     <!-- Order Tabs -->
     <div class="tabs">
-        <button class="tab-button">To Pay</button>
-        <button class="tab-button">To Ship</button>
-        <button class="tab-button">To Receive</button>
-        <button class="tab-button">Completed</button>
-        <button class="tab-button active">Cancelled</button>
+        <button class="tab-button" onclick="window.location.href='toPay.php'">To Pay</button>
+        <button class="tab-button" onclick="window.location.href='toShip.php'">To Ship</button>
+        <button class="tab-button" onclick="window.location.href='toReceived.php'">To Receive</button>
+        <button class="tab-button" onclick="window.location.href='completed.php'">Completed</button>
+        <button class="tab-button active" onclick="window.location.href='cancelled.php'">Cancelled</button>
     </div>
+
+
 
     <!-- Cancelled Orders Section -->
     <div class="order-section" id="cancelled">

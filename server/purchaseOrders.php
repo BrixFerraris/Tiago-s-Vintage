@@ -14,7 +14,7 @@
 <body>
 <main class="main-container">
         <div class="main-title">
-          <p class="font-weight-bold">Purchase Orders</p>
+          <p class="font-weight-bold">PURCHASE ORDERS</p>
         </div>
 
         <div class="content">
@@ -35,7 +35,7 @@
                         <td>Alex Cueto</td>
                         <td>Imus, Cavite</td>
                         <td>Pending</td>
-                        <td><button class="acc-btn">Accept</button></td>
+                        <td><button class="accept-btn">Accept</button></td>
                         <td><button class="delete-btn">Delete</button></td>
                     </tr>
                     <!-- Add additional product rows here -->

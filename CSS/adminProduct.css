@@ -193,7 +193,7 @@ td img {
 }
 
 /* Button Styles */
-.edit-btn, .delete-btn {
+.edit-btn, .delete-btn , .accept-btn{
   border: none;
   padding: 8px 16px;
   font-size: 14px;
@@ -214,6 +214,11 @@ td img {
 
 .edit-btn:hover {
   background-color: #45a049;
+}
+
+.accept-btn{
+  background-color: #28a745;
+  color: white;
 }
 
 .delete-btn:hover {

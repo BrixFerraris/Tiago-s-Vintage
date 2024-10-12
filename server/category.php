@@ -48,6 +48,18 @@
                 <button type="submit" name="submit" class="add-btn">Add Category</button>
             </form>
         </div>
+
+
+        <!-- add new main Category -->
+        <div class="category-section">
+            <div class="new-category"></div> 
+            <form method="" action="">
+                <input type="text" name="category" placeholder="Add New Main Category" required>
+                <button type="submit" name="submit" class="add-btn">Add New Main Category</button>
+            </form>
+        </div>
+
+        
     </div>
     <script>
 document.addEventListener('DOMContentLoaded', function() {

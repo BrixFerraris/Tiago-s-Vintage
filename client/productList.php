@@ -71,7 +71,7 @@ include './header.php';
   }
 
   /* Styled search bar */
-  #search-bar {
+  #search-input {
     padding: 10px;
     width: 250px;
     border-radius: 25px;
@@ -82,7 +82,7 @@ include './header.php';
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  #search-bar:focus {
+  #search-input:focus {
     border-color: #4CAF50;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }

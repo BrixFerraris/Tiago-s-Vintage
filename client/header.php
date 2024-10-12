@@ -34,7 +34,6 @@
                                         echo '<li><a href="../client/productList.php?category=Shoes">Shoes</a></li>';
                                         echo '<li><a href="../client/productList.php?category=Accessories">Accessories</a></li>';
                                         echo '<li><a href="../client/reviews.php">Reviews</a></li>';
-                                        echo '<li><img class="search" src="../assets/Search.png" alt=""></li>';
                                         echo '<li><a href="../client/shopcart.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
                                         echo'<li><div class="dropdown">
                                             <a class="btn dropdown-toggle" style="background-color: #FFFFFF;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,12 +49,12 @@
                                     } else {
                                       echo '<li><a href="../client/landing.php">Home</a></li>';
                                       // echo '<li><a href="../client/productList.php">New arrivals</a></li>';
+                                      echo '<li><a href="../client/productList.php">All products</a></li>';
                                       echo '<li><a href="../client/productList.php">Tops</a></li>';
                                       echo '<li><a href="../client/productList.php">Bottom</a></li>';
                                       echo '<li><a href="../client/productList.php">Shoes</a></li>';
                                       echo '<li><a href="../client/productList.php">Accessories</a></li>';
                                       echo '<li><a href="../client/reviews.php">Reviews</a></li>';
-                                      echo '<li><img class="search" src="../assets/Search.png" alt=""></li>';
                                       echo '<li><a href="../client/login.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
                                       echo '<li class = "meron"><a href="./register.php">Register/Login</a></li>';
                                     }

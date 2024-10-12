@@ -5,6 +5,8 @@ include 'header.php';
 <!-- Main -->
 
 <link rel="stylesheet" href="../CSS/registerClient.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
 
 
 <main class="main-container">
@@ -12,7 +14,6 @@ include 'header.php';
           <p class="font-weight-bold">Register</p>
         </div>
 
-    <!-- form add products -->
     <div class="form-container">
         <form action="./includes/register.php" method="post" enctype=" ">
 
@@ -47,20 +48,59 @@ include 'header.php';
                 <input type="password" id="confPassword" name="ConfPassword" placeholder="Confirm Password" required>
 
             </div>
+            <!-- Checkbox and Terms & Conditions Modal -->
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="termsCheckbox" required>
+                <label class="form-check-label" for="termsCheckbox">
+                    I agree to the <span style="color: blue; cursor: pointer;" data-toggle="modal" data-target="#termsModal">Terms & Conditions</span>
+                </label>
+            </div>
 
             <button name="register" type="submit">Register</button>
             <div class="aabtm">
 
-                <a href="./login.php">Already have an account? Click here to Log on! </a>
+            <a href="./login.php">Already have an account? Click here to Log on! </a>
             </div>
             
-
+            
         </form>
     </div>
-    </main>
-    <!-- End Main -->
 
-    <style>
+
+    </main>
+
+
+<!-- Modal for Terms & Conditions -->
+       <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termsModalLabel">Terms & Conditions</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS</p>
+                    <!-- You can add your actual terms and conditions here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+    <!-- End Main -->
+     <style>
 
 
 

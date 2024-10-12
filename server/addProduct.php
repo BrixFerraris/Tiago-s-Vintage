@@ -8,7 +8,7 @@
       <!-- Main -->
       <main class="main-container">
         <div class="main-title">
-          <p class="font-weight-bold">Add Products</p>
+          <p class="font-weight-bold">ADD PRODUCT</p>
         </div>
 
     <!-- form add products -->
@@ -32,7 +32,7 @@
 
             <div class="form-group">
                 <label for="categories">Category</label>
-                <select name="category" id="categories">
+                <select name="category" id="categories" required>
                     <option value="Tops">
                     <option value="Bottoms">
                     <option value="Shoes">
@@ -41,7 +41,7 @@
             </div>
             <div class="form-group">
                 <label for="sub_category">Sub Category</label>
-                <select name="sub_category" id="sub_category">
+                <select name="sub_category" id="sub_category" required>
 
                 </select>
             </div>
@@ -53,17 +53,17 @@
 
             <div class="form-group">
                 <label for="img2">Image 2</label>
-                <input type="file" id="img2" name="img2" accept="image/*">
+                <input type="file" id="img2" name="img2" accept="image/*" required>
             </div>
 
             <div class="form-group">
                 <label for="img3">Image 3</label>
-                <input type="file" id="img3" name="img3" accept="image/*">
+                <input type="file" id="img3" name="img3" accept="image/*" required>
             </div>
 
             <div class="form-group">
                 <label for="img4">Image 4</label>
-                <input type="file" id="img4" name="img4" accept="image/*">
+                <input type="file" id="img4" name="img4" accept="image/*" required>
             </div>
 
             <button name="submit" type="submit">Add Product</button>
