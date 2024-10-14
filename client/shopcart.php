@@ -56,18 +56,19 @@ document.addEventListener('DOMContentLoaded', function(){
                     </div>
                     <div class="item-info">
                         <h2>${item.title}</h2>
-                        <p>${item.size}</p>
+                        <p>${item.description}</p>
                         <p>₱${item.price}</p>
                     </div>
                     <div class="item-quantity">
                 <div class="incdec">
-                <button class="btnMinus" data-item-id="1">-</button>
-                <input type="text" value="1" id="quantity_1" readonly>
-                <button class="btnPlus" data-item-id="1">+</button>
-                <div class="btnremove">
-                <button class="btnRemove" data-item-id="1">Remove</button>
-                </div>
-                </div>
+                            <button class="btnMinus" data-item-id="${item.id}">-</button>
+                            <input type="text" value="${item.quantity}" id="quantity_${item.id}" readonly>
+                            <button class="btnPlus" data-item-id="${item.id}">+</button>
+                            <div class="btnremove">
+                                <button class="btnRemove" data-item-id="${item.id}">Remove</button>
+                            </div>
+                        </div>
+
                     <!-- Remove Button -->
                     
                 </div>
@@ -90,6 +91,30 @@ document.querySelector('.item-total').innerHTML = subtotalHtml;
     }
 });
 });
+
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('btnPlus')) {
+            var itemId = e.target.getAttribute('data-item-id');
+            var quantityInput = document.getElementById('quantity_' + itemId);
+            var currentValue = parseInt(quantityInput.value, 10);
+            currentValue++;
+            quantityInput.value = currentValue;
+
+        }
+
+        if (e.target.classList.contains('btnMinus')) {
+            var itemId = e.target.getAttribute('data-item-id');
+            var quantityInput = document.getElementById('quantity_' + itemId);
+            var currentValue = parseInt(quantityInput.value, 10);
+            if (currentValue > 1) {
+                currentValue--;
+                quantityInput.value = currentValue;
+
+            }
+        }
+    });
+
+  
         </script>
 <style>
 

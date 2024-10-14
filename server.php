@@ -283,7 +283,7 @@ function getParentCategories($db) {
 }
 
 function getCart($db, $user_id) {
-    $query = "SELECT t.*, p.*, u.* FROM tbl_transactions t INNER JOIN tbl_products p ON t.product_id = p.id INNER JOIN tbl_users u ON t.user_id = u.id WHERE t.user_id = ? AND t.status = 'Cart'";
+    $query = "SELECT t.*, p.*, v.*, u.* FROM tbl_transactions t INNER JOIN tbl_products p ON t.product_id = p.id INNER JOIN tbl_variations v ON t.product_id = v.product_id INNER JOIN tbl_users u ON t.user_id = u.id WHERE t.user_id = ? AND t.status = 'Cart'";
     $stmt = $db->prepare($query);
     $stmt->bind_param("s", $user_id);
     $stmt->execute();

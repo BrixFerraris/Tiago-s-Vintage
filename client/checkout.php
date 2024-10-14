@@ -25,13 +25,13 @@
         <div class="shipping-info">
             <h2>Shipping Information</h2>
                 <label for="name">Full Name</label>
-                <input type="text" readonly="readonly" id="name" name="name" placeholder="Enter your full name" required>
+                <p id="name"></p>
                 
                 <label for="address">Shipping Address</label>
                 <input type="text" id="address" name="address" placeholder="Enter your shipping address" required>
                 
                 <label for="contact">Contact Number</label>
-                <input type="text" readonly="readonly" id="contact" name="contact" placeholder="Enter your contact number" required>
+                <p id="contact"></p>
                 
                 <!-- Action Buttons -->
                 <div class="action-buttons">
@@ -64,9 +64,9 @@
                     
                     var itemList = '';
                     orderSummary.forEach(function(item) {
-                    itemList += `<li>${item.title} - ₱${item.price}</li>`;
-                    name.value = item.firstName+' '+item.lastName;
-                    contact.value = item.contact;
+                    itemList += `<li> <img width="80px" height="80px" src="../server/includes/uploads/${item.img1}" alt="">${item.title} - ₱${item.price}</li>`;
+                    name.innerText = item.firstName+' '+item.lastName;
+                    contact.innerText = item.contact;
                     });
                     
                     document.querySelector('.order-summary ul').innerHTML = itemList;
