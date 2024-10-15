@@ -184,6 +184,11 @@ include './header.php';
       <option value="bottoms">Bottoms</option>
       <option value="shoes">Shoes</option>
     </select>
+    <select id="sort-filter">
+      <option value="" disabled selected>Sub-Category</option>
+      <option value="price-low-high">Sample 1</option>
+      <option value="price-high-low">Sample 2</option>
+    </select>
 
     <select id="sort-filter">
       <option value="" disabled selected>Sort</option>

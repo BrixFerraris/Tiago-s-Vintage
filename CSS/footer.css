@@ -12,7 +12,8 @@ body {
 }
 footer {
 background-color: hsl(93, 100%, 20%);
-margin-top: 200px; /* added */
+margin-top: 200px;
+margin-bottom: 20px; /* added */
 }
 
 .footerContainer{

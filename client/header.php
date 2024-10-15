@@ -12,9 +12,10 @@
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                 <link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-                
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
                 <link rel="icon" href="../assets/icons.ico" type="image/x-icon">
-                <link rel="stylesheet" href="../CSS/landing.css">
+                <link rel="stylesheet" href="../CSS/header.css">
+
                 
             <title>Tiago's Vintage Boutique</title>
 
@@ -29,10 +30,6 @@
                                         echo '<li><a href="../client/landing.php">Home</a></li>';
                                         // echo '<li><a href="../client/productList.php">New arrivals</a></li>';
                                         echo '<li><a href="../client/productList.php">All products</a></li>';
-                                        echo '<li><a href="../client/productList.php?category=Tops">Tops</a></li>';
-                                        echo '<li><a href="../client/productList.php?category=Bottom">Bottom</a></li>';
-                                        echo '<li><a href="../client/productList.php?category=Shoes">Shoes</a></li>';
-                                        echo '<li><a href="../client/productList.php?category=Accessories">Accessories</a></li>';
                                         echo '<li><a href="../client/reviews.php">Reviews</a></li>';
                                         echo '<li><a href="../client/shopcart.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
                                         echo'<li><div class="dropdown">
@@ -50,10 +47,6 @@
                                       echo '<li><a href="../client/landing.php">Home</a></li>';
                                       // echo '<li><a href="../client/productList.php">New arrivals</a></li>';
                                       echo '<li><a href="../client/productList.php">All products</a></li>';
-                                      echo '<li><a href="../client/productList.php">Tops</a></li>';
-                                      echo '<li><a href="../client/productList.php">Bottom</a></li>';
-                                      echo '<li><a href="../client/productList.php">Shoes</a></li>';
-                                      echo '<li><a href="../client/productList.php">Accessories</a></li>';
                                       echo '<li><a href="../client/reviews.php">Reviews</a></li>';
                                       echo '<li><a href="../client/login.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
                                       echo '<li class = "meron"><a href="./register.php">Register/Login</a></li>';

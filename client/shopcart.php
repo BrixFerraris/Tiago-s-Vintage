@@ -26,7 +26,7 @@ include 'header.php';
                 
             </div>
             <div class="item-total">
-                <p>Subtotal: ₱4500</p>
+                <p>Subtotal:</p>
                 <!-- <button class="btnCancel">CONTINUE SHOPPING</button> -->
             </div>
             
@@ -218,6 +218,7 @@ body {
     padding: 5px 10px;
     font-size: 16px;
     cursor: pointer;
+    
 }
 
 .item-total {
