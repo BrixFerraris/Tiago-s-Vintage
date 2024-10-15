@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 10, 2024 at 06:06 PM
+-- Generation Time: Oct 15, 2024 at 03:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,14 +38,46 @@ CREATE TABLE `tbl_categories` (
 --
 
 INSERT INTO `tbl_categories` (`id`, `parent`, `child`) VALUES
-(20, 'Tops', 'T-Shirt'),
-(21, 'Tops', 'Long Sleeves'),
-(22, 'Tops', 'Hoodies'),
-(23, 'Bottoms', 'Shorts'),
-(24, 'Bottoms', 'Pants'),
-(25, 'Shoes', 'Sneakers'),
-(26, 'Shoes', 'Sandals'),
-(27, 'Shoes', 'Casual ');
+(2, 'Tops', 'T-Shirt yata haha'),
+(3, 'Tops', 'Hoodies bwahha'),
+(14, 'Bottoms', 'Bottomsawdqw'),
+(15, 'Tops', 'hehe'),
+(16, 'Bottoms', 'jk lang po hehe'),
+(17, 'Shoes', 'qweqwewq'),
+(18, 'Shoes', 'wqwqe'),
+(19, 'Tops', 'Tops ito'),
+(21, 'sample', 'hehehezz'),
+(22, 'hello', 'sample pobwhaha');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_images`
+--
+
+CREATE TABLE `tbl_images` (
+  `id` int(255) NOT NULL,
+  `img1` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_parent`
+--
+
+CREATE TABLE `tbl_parent` (
+  `id` int(255) NOT NULL,
+  `parent` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_parent`
+--
+
+INSERT INTO `tbl_parent` (`id`, `parent`) VALUES
+(1, 'sample'),
+(2, 'hello');
 
 -- --------------------------------------------------------
 
@@ -60,11 +92,6 @@ CREATE TABLE `tbl_products` (
   `discount` decimal(65,0) NOT NULL,
   `category` varchar(100) NOT NULL,
   `sub_category` varchar(255) NOT NULL,
-  `color` varchar(255) NOT NULL,
-  `size` varchar(255) NOT NULL,
-  `length` decimal(65,0) NOT NULL,
-  `width` decimal(65,0) NOT NULL,
-  `qty` int(255) NOT NULL,
   `img1` varchar(255) NOT NULL,
   `img2` varchar(255) NOT NULL,
   `img3` varchar(255) NOT NULL,
@@ -76,17 +103,10 @@ CREATE TABLE `tbl_products` (
 -- Dumping data for table `tbl_products`
 --
 
-INSERT INTO `tbl_products` (`id`, `title`, `price`, `discount`, `category`, `sub_category`, `color`, `size`, `length`, `width`, `qty`, `img1`, `img2`, `img3`, `img4`, `description`) VALUES
-(15, 'Addidas T-Shirt', 450, 0, 'Bottoms', 'Pants', '', '', 0, 0, 0, '67076612a77367.84348681.png', '67076612a77494.07502610.png', '67076612a774b3.04805800.png', '67076612a774c7.05271610.png', 'Color not faded\r\nCrispy Condition\r\n\r\n'),
-(16, 'Ralph Lauren Board Shorts', 350, 0, 'Bottoms', 'Shorts', '', '', 0, 0, 0, '67076b058e63a0.32027391.png', '67076b058e6523.49261947.png', '67076b058e6539.54292170.png', '67076b058e6550.09562143.png', 'Issue: Faded Spots\r\nGood Condition'),
-(17, 'Carhartt Double Knee', 3500, 0, 'Bottoms', 'Pants', '', '', 0, 0, 0, '67076bcb89bf51.84651377.png', '67076bcb89c146.42349210.png', '67076bcb89c158.61689485.png', '67076bcb89c171.73134913.png', 'No Issue\r\nExcellent Condition\r\nCrispy Condition'),
-(18, 'Nike Small Logo', 1200, 0, 'Tops', 'T-Shirt', '', '', 0, 0, 0, '67076cc519c715.04588971.png', '67076cc519c8b8.84582187.png', '67076cc519c8d1.79595043.png', '67076cc519c8e3.96060849.png', 'No Issue\r\nExcellent Condition\r\n'),
-(19, 'Ralph Lauren Maong Shorts', 450, 0, 'Bottoms', 'Shorts', '', '', 0, 0, 0, '67076de4651bb8.34919020.png', '67076de4651d51.76844539.png', '67076de4651d60.56618775.png', '67076de4651d83.86781127.png', 'Issue: Washable Stain\r\nGood Condition'),
-(20, 'Doc Martens Loafers', 900, 0, 'Shoes', 'Casual ', '', '', 0, 0, 0, '67076fceb62346.89826181.png', '67076fceb625b6.29013847.png', '67076fceb625f7.37321988.png', '67076fceb62645.12667646.png', 'No Issue\r\nGreat Condition'),
-(21, 'Vans Potato', 1200, 0, 'Shoes', 'Casual ', '', '', 0, 0, 0, '670770079329f3.08160960.png', '67077007932ad5.55183482.png', '67077007932af3.53182673.png', '67077007932b01.73398490.png', 'Issue: Washable Stains\r\nGood Condition'),
-(22, 'Huf World Wide ', 300, 0, 'Tops', 'T-Shirt', '', '', 0, 0, 0, '670781d4d6f3f4.38320982.png', '670781d4d6f606.42767399.png', '670781d4d6f626.58525005.png', '670781d4d6f631.76196328.png', 'No Issue\r\nExcellent Condition'),
-(23, 'Ralph Lauren Half-Zip', 1200, 0, 'Tops', 'Long Sleeves', '', '', 0, 0, 0, '6707827f10e2a9.73794505.png', '6707827f10e439.48581936.png', '6707827f10e458.48820994.png', '6707827f10e464.01991944.png', 'No Issue\r\nGreat Condition'),
-(24, 'Ralph Lauren Hoodie', 1250, 0, 'Tops', 'Hoodies', '', '', 0, 0, 0, '670782de796644.87634175.png', '670782de796786.00473638.png', '670782de7967b7.07774765.png', '670782de7967e1.19009252.png', 'No Issue\r\nGreat Condition');
+INSERT INTO `tbl_products` (`id`, `title`, `price`, `discount`, `category`, `sub_category`, `img1`, `img2`, `img3`, `img4`, `description`) VALUES
+(11, 'Sample', 123, 0, 'Shoes', 'wqwqe', '66f1a1b8d8b787.16174887.png', '66f1a1b8d8b857.13120490.png', '66f1a1b8d8b879.53036138.png', '66f1a1b8d8b894.25958641.png', 'waqe'),
+(12, 'wqeqzzxc', 1123, 0, 'Tops', 'T-Shirt yata haha', '66f1a1cc6c9455.35440060.png', '66f1a1cc6c9581.71558382.png', '66f1a1cc6c95a1.01039445.png', '66f1a1cc6c95c5.76015324.png', '12qwsdas'),
+(13, 'Shoes', 121, 0, 'Shoes', 'wqwqe', '66f478594a7301.68824789.png', '66f478594a73d2.50142593.png', '66f478594a73f6.26140937.png', '66f478594a7410.80062691.png', 'Testing');
 
 -- --------------------------------------------------------
 
@@ -98,6 +118,7 @@ CREATE TABLE `tbl_transactions` (
   `id` int(255) NOT NULL,
   `transaction_id` varchar(255) NOT NULL,
   `product_id` varchar(255) NOT NULL,
+  `variation_id` varchar(255) NOT NULL,
   `quantity` int(11) NOT NULL,
   `user_id` varchar(255) NOT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -111,19 +132,8 @@ CREATE TABLE `tbl_transactions` (
 -- Dumping data for table `tbl_transactions`
 --
 
-INSERT INTO `tbl_transactions` (`id`, `transaction_id`, `product_id`, `quantity`, `user_id`, `date`, `total`, `grand_total`, `status`, `address`) VALUES
-(12, '1727312557_1', '11', 2, '1', '2024-09-26 01:02:37', 422, 0, 'Pending', 'Imus, 80bucksw13asczzxcaw'),
-(13, '1727312528_1', '12', 3, '1', '2024-09-26 01:02:08', 3369, 0, 'Pending', 'Imus, 80bucksw13asc'),
-(14, '1728540952_4', '16', 1, '4', '2024-10-10 06:15:52', 350, 0, 'Pending', 'asdddddd'),
-(15, '1728540952_4', '20', 2, '4', '2024-10-10 06:15:52', 1800, 0, 'Pending', 'asdddddd'),
-(16, '', '16', 1, '4', '2024-10-10 06:24:50', 350, 0, 'Cart', ''),
-(17, '', '18', 1, '4', '2024-10-10 06:25:09', 1200, 0, 'Cart', ''),
-(18, '', '20', 1, '4', '2024-10-10 06:25:17', 900, 0, 'Cart', ''),
-(19, '', '17', 1, '4', '2024-10-10 07:33:37', 3500, 0, 'Cart', ''),
-(20, '1728547299_1', '24', 2, '1', '2024-10-10 08:01:39', 2500, 0, 'Pending', 'happy hello'),
-(21, '', '16', 2, '4', '2024-10-10 07:37:18', 700, 0, 'Cart', ''),
-(22, '1728547299_1', '15', 1, '1', '2024-10-10 08:01:39', 450, 0, 'Pending', 'happy hello'),
-(23, '1728547528_1', '16', 3, '1', '2024-10-10 08:05:28', 1050, 0, 'Pending', 'happy hello');
+INSERT INTO `tbl_transactions` (`id`, `transaction_id`, `product_id`, `variation_id`, `quantity`, `user_id`, `date`, `total`, `grand_total`, `status`, `address`) VALUES
+(42, '1728955818_1', '11', '12', 1, '1', '2024-10-15 01:30:18', 123, 0, 'Pending', 'Emoes haha');
 
 -- --------------------------------------------------------
 
@@ -149,7 +159,7 @@ INSERT INTO `tbl_users` (`id`, `username`, `password`, `firstName`, `lastName`, 
 (1, 'amiel', '$2y$10$cG4nZjbbyJRC2iLt8SDNYefmKf9BSG2kZC20oydBv.qzjDv1ItSgi', 'Amiel Carhyl', 'Lapid', '12312312312', 'Customer'),
 (2, 'heart', '$2y$10$0JtU36KlvBlUhldp1BjZ3ulKa.sRWWRZFTPdaeCsknLefVKVbxBmC', 'Nicole Heart', 'Mendoza', '123123123', 'Customer'),
 (3, 'asczxc', '$2y$10$tShTNevKd4P/v.Pe2N48leBNGmdgRxoLY3OSyLGIHbxIfNepI6s2a', 'awdz', 'qweqwe', '3232323', 'Customer'),
-(4, 'clark', '$2y$10$t7cQPkveWnqAsLIL.R.0P.7p171bJU1uQvQgFI06Kf/awAyQeYk4y', 'clark', 'escoto', '0912393923', 'Customer');
+(4, 'daduk', '$2y$10$cV2r.OZ888dIYWxacJedwePKnilihnKm./7CNax1AhMpVd7GjHMgm', 'Darius', 'Gavino', '099940576891', 'Customer');
 
 -- --------------------------------------------------------
 
@@ -158,12 +168,12 @@ INSERT INTO `tbl_users` (`id`, `username`, `password`, `firstName`, `lastName`, 
 --
 
 CREATE TABLE `tbl_variations` (
-  `id` int(255) NOT NULL,
-  `product_id` varchar(255) NOT NULL,
+  `id` int(11) NOT NULL,
+  `product_id` int(255) NOT NULL,
   `variationName` varchar(255) NOT NULL,
-  `width` int(255) NOT NULL,
-  `length` int(255) NOT NULL,
-  `quantity` int(255) NOT NULL,
+  `width` int(11) NOT NULL,
+  `length` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
   `imgVar` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -172,18 +182,8 @@ CREATE TABLE `tbl_variations` (
 --
 
 INSERT INTO `tbl_variations` (`id`, `product_id`, `variationName`, `width`, `length`, `quantity`, `imgVar`) VALUES
-(3, '15', 'Green', 24, 29, 4, '670769d098c171.38758091.png'),
-(4, '15', 'Blue', 23, 28, 3, '670769f4945b85.03698717.png'),
-(5, '16', 'Navy Blue', 30, 30, 1, '67076b29cd6398.67518969.png'),
-(6, '18', 'White', 30, 25, 2, '67076d05c4ca33.17635038.png'),
-(7, '17', 'Black', 40, 34, 1, '67076d21701b83.29811813.png'),
-(8, '19', 'White', 30, 25, 1, '6707702cc5cc41.64845783.png'),
-(9, '20', 'Black', 41, 8, 1, '670770572fa984.98027728.png'),
-(10, '21', 'Black', 41, 8, 1, '67077078739142.38180197.png'),
-(11, '22', 'White', 23, 30, 1, '670781ee043856.46192764.png'),
-(12, '23', 'White', 28, 30, 3, '6707829db88ae0.84992536.png'),
-(13, '24', 'Red', 29, 30, 3, '670783080359e4.99029658.png'),
-(14, '15', 'White', 25, 30, 6, '67078a57e99bd7.65458430.png');
+(11, 11, 'hehe', 23, 21, 12, ''),
+(12, 11, 'sample po', 21, 32, 3, '6706fc6b341d33.46212256.png');
 
 --
 -- Indexes for dumped tables
@@ -193,6 +193,18 @@ INSERT INTO `tbl_variations` (`id`, `product_id`, `variationName`, `width`, `len
 -- Indexes for table `tbl_categories`
 --
 ALTER TABLE `tbl_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_images`
+--
+ALTER TABLE `tbl_images`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_parent`
+--
+ALTER TABLE `tbl_parent`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -227,19 +239,31 @@ ALTER TABLE `tbl_variations`
 -- AUTO_INCREMENT for table `tbl_categories`
 --
 ALTER TABLE `tbl_categories`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `tbl_images`
+--
+ALTER TABLE `tbl_images`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_parent`
+--
+ALTER TABLE `tbl_parent`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_products`
 --
 ALTER TABLE `tbl_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_transactions`
 --
 ALTER TABLE `tbl_transactions`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
@@ -251,7 +275,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_variations`
 --
 ALTER TABLE `tbl_variations`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
