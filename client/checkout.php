@@ -64,7 +64,7 @@
                     
                     var itemList = '';
                     orderSummary.forEach(function(item) {
-                    itemList += `<li> <img width="80px" height="80px" src="../server/includes/uploads/${item.img1}" alt="">${item.title} - ₱${item.price}</li>`;
+                    itemList += `<li> <img width="80px" height="80px" src="../server/includes/uploads/${item.img1}" alt="">${item.title} - ₱${item.price} <br> x${item.quantity}</li>`;
                     name.innerText = item.firstName+' '+item.lastName;
                     contact.innerText = item.contact;
                     });

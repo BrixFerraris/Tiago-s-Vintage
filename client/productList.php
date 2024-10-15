@@ -206,7 +206,7 @@ include './header.php';
 <script>
 
   //Search itu sa admin Products
-document.getElementById('search-input').addEventListener('input', function() {
+  document.getElementById('search-input').addEventListener('input', function() {
     var searchValue = this.value;
     fetchProducts(searchValue);
 });
@@ -222,32 +222,33 @@ function fetchProducts(searchValue) {
         // console.log(data);
         if (data.type === 'searchResults') {
             displayProducts(data.products);
-
         }
     };
 }
 
 function displayProducts(products) {
-  var productDiv = document.getElementById('fixed-grid');
+    var productDiv = document.getElementById('fixed-grid');
+    productDiv.innerHTML = ''; 
+
+    var uniqueProducts = new Set();
+
     products.forEach(product => {
-      var id = product.id;
-      products.push(product);
-      productDiv.innerHTML = '';
-            products.forEach(function(product) {
-                var newDiv = document.createElement('div');
-                newDiv.className = 'cell';
-                newDiv.innerHTML = ``;
-                newDiv.innerHTML = `
-                    <a href="./newItem.php?productID=${product.id}">
-                        <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
-                        <p>
-                            <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
-                            <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
-                        </p>
-                    </a>
-                `;
-                productDiv.appendChild(newDiv);
-            });
+        if (!uniqueProducts.has(product.id)) { 
+            uniqueProducts.add(product.id); 
+
+            var newDiv = document.createElement('div');
+            newDiv.className = 'cell';
+            newDiv.innerHTML = `
+                <a href="./newItem.php?productID=${product.id}">
+                    <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
+                    <p>
+                        <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
+                        <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
+                    </p>
+                </a>
+            `;
+            productDiv.appendChild(newDiv);
+        }
     });
 }
 document.addEventListener('DOMContentLoaded', function() {
@@ -262,109 +263,49 @@ document.addEventListener('DOMContentLoaded', function() {
 
     conn.onmessage = function(e) {
         var product = JSON.parse(e.data);
-        console.log(product);
+        // console.log(product);
         const url = new URL(window.location.href);
         const productCategory = url.searchParams.get('category');
-        var product = JSON.parse(e.data);
-        console.log(product);
+
         if (productCategory === 'Tops') {
-          if (product.category === 'Tops') {
-            products.push(product);
-            productDiv.innerHTML = '';
-            products.forEach(function(product) {
-                var newDiv = document.createElement('div');
-                newDiv.className = 'cell';
-                newDiv.innerHTML = `
-                    <a href="./newItem.php?productID=${product.id}">
-                        <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
-                        <p>
-                            <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
-                            <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
-                        </p>
-                    </a>
-                `;
-                productDiv.appendChild(newDiv);
-            });
-          }
+            if (product.category === 'Tops') {
+                products.push(product);
+            }
         }
         else if (productCategory === 'Bottom') {
-          if (product.category === 'Bottoms') {
-            products.push(product);
-            productDiv.innerHTML = '';
-            products.forEach(function(product) {
-                var newDiv = document.createElement('div');
-                newDiv.className = 'cell';
-                newDiv.innerHTML = `
-                    <a href="./newItem.php?productID=${product.id}">
-                        <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
-                        <p>
-                            <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
-                            <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
-                        </p>
-                    </a>
-                `;
-                productDiv.appendChild(newDiv);
-            });
-          }
+            if (product.category === 'Bottoms') {
+                products.push(product);
+            }
         }
         else if (productCategory === 'Shoes') {
-          if (product.category === 'Shoes') {
-            products.push(product);
-            productDiv.innerHTML = '';
-            products.forEach(function(product) {
-                var newDiv = document.createElement('div');
-                newDiv.className = 'cell';
-                newDiv.innerHTML = `
-                    <a href="./newItem.php?productID=${product.id}">
-                        <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
-                        <p>
-                            <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
-                            <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
-                        </p>
-                    </a>
-                `;
-                productDiv.appendChild(newDiv);
-            });
-          }
+            if (product.category === 'Shoes') {
+                products.push(product);
+            }
         }
         else if (productCategory === 'Accessories') {
-          if (product.category === 'Accessories') {
-            products.push(product);
-            productDiv.innerHTML = '';
-            products.forEach(function(product) {
-                var newDiv = document.createElement('div');
-                newDiv.className = 'cell';
-                newDiv.innerHTML = `
-                    <a href="./newItem.php?productID=${product.id}">
-                        <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
-                        <p>
-                            <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
-                            <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
-                        </p>
-                    </a>
-                `;
-                productDiv.appendChild(newDiv);
-            });
-          }
+            if (product.category === 'Accessories') {
+                products.push(product);
+            }
         }
         else {
-          products.push(product);
-            productDiv.innerHTML = '';
-            products.forEach(function(product) {
-                var newDiv = document.createElement('div');
-                newDiv.className = 'cell';
-                newDiv.innerHTML = `
-                    <a href="./newItem.php?productID=${product.id}">
-                        <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
-                        <p>
-                            <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
-                            <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
-                        </p>
-                    </a>
-                `;
-                productDiv.appendChild(newDiv);
-            });
+            products.push(product);
         }
+
+        productDiv.innerHTML = '';
+        products.forEach(function(product) {
+            var newDiv = document.createElement('div');
+            newDiv.className = 'cell';
+            newDiv.innerHTML = `
+                <a href="./newItem.php?productID=${product.id}">
+                    <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
+                    <p>
+                        <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
+                        <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
+                    </p>
+                </a>
+            `;
+            productDiv.appendChild(newDiv);
+        });
     };
 });
 </script>

@@ -29,8 +29,13 @@ include 'header.php';
                 <p>Subtotal: ₱4500</p>
                 <!-- <button class="btnCancel">CONTINUE SHOPPING</button> -->
             </div>
+            
         </div>
         <script>
+var maxQty = 0;
+var current_Qty = 0;
+var subtotal = 0;
+var price = 0;
 document.addEventListener('DOMContentLoaded', function(){
     // Websocket connection
     var conn = new WebSocket('ws://localhost:8080');
@@ -41,31 +46,29 @@ document.addEventListener('DOMContentLoaded', function(){
     };
     conn.onmessage = function(e) {
         var cart = JSON.parse(e.data);
-        console.log(cart);
-        var subtotal = 0;
+        // console.log(cart);
         var cartItemsContainer = document.querySelector('.cart-items');
         cartItemsContainer.innerHTML = ''; 
+
         cart.forEach(function(item) {
             var cartItemHtml = `
                 <div class="cart-purchase">
-                        <div class="checkbox-container">
-                            <input type="checkbox" class="item-checkbox" data-item-id="1">
-                        </div>
                     <div class="cart-image">
-                        <img src="../server/includes/uploads/${item.img1}" alt="${item.name} image">
+                        <img src="../server/includes/uploads/${item.img1}" alt="${item.title} image">
                     </div>
                     <div class="item-info">
                         <h2>${item.title}</h2>
-                        <p>${item.description}</p>
+                        <p>${item.variationName}</p>
                         <p>₱${item.price}</p>
                     </div>
                     <div class="item-quantity">
                 <div class="incdec">
                             <button class="btnMinus" data-item-id="${item.id}">-</button>
-                            <input type="text" value="${item.quantity}" id="quantity_${item.id}" readonly>
+                            <input type="hidden" value="${item.transactionId}" id="transID">
+                            <input type="text" class="qnty" max="${item.variantQuantity}" value="${item.quantity}" id="quantity_${item.id}" readonly>
                             <button class="btnPlus" data-item-id="${item.id}">+</button>
                             <div class="btnremove">
-                                <button class="btnRemove" data-item-id="${item.id}">Remove</button>
+                                <button class="btnRemove btn-remove" data-id="${item.transactionId}">Remove</button>
                             </div>
                         </div>
 
@@ -75,21 +78,37 @@ document.addEventListener('DOMContentLoaded', function(){
                 </div>
             `;
             cartItemsContainer.insertAdjacentHTML('beforeend', cartItemHtml);
-            subtotal += item.price * item.quantity;
+            price = item.price;
+            maxQty = item.variantQuantity;
+            current_Qty = item.quantity;
+            subtotal += price * current_Qty;
+
         });
+        var transID = document.getElementById('transID').getAttribute('value');
         var subtotalHtml = `
-    <p>Subtotal: ₱${subtotal}</p>
-    <button class="btnCheckout">CHECKOUT</button>
+    <p id="subtotal">Subtotal: ₱${subtotal}</p>
+    <button data-id="${transID}" class="btnCheckout">CHECKOUT</button>
 `;
-document.querySelector('.item-total').innerHTML = subtotalHtml;
-        document.querySelector('.item-total').innerHTML = subtotalHtml;
-    };
+    document.querySelector('.item-total').innerHTML = subtotalHtml;
+    document.querySelector('.item-total').innerHTML = subtotalHtml;
+
+};
 
     document.addEventListener('click', function(e){
-    if (e.target.classList.contains('btnCheckout')) {
-        window.location.href = 'checkout.php?userID='+user_id;
-    }
-});
+        if (e.target.classList.contains('btnCheckout')) {
+             window.location.href = 'checkout.php?userID='+user_id;
+            var transactionID = e.target.getAttribute('data-id');
+            console.log(transactionID + current_Qty + subtotal);
+            conn.send(JSON.stringify({ type: 'checkOut', quantity: current_Qty, total: subtotal, transactionID: transactionID}));
+        }
+        if (e.target.classList.contains('btn-remove')) {
+            var itemId = e.target.getAttribute('data-id');
+
+            conn.send(JSON.stringify({ type: 'removeCart', transactionID: itemId}));
+            alert('Removed item from cart');
+            window.location.reload();
+        }
+    });
 });
 
     document.addEventListener('click', function(e) {
@@ -97,19 +116,27 @@ document.querySelector('.item-total').innerHTML = subtotalHtml;
             var itemId = e.target.getAttribute('data-item-id');
             var quantityInput = document.getElementById('quantity_' + itemId);
             var currentValue = parseInt(quantityInput.value, 10);
-            currentValue++;
-            quantityInput.value = currentValue;
-
+            var subtotalText = document.getElementById('subtotal');
+            if (currentValue < maxQty ) {
+                currentValue++;
+                quantityInput.value = currentValue;
+                current_Qty = currentValue;
+                subtotal = price * currentValue;
+                subtotalText.innerText = "Subtotal: ₱"+subtotal;
+            }
         }
 
         if (e.target.classList.contains('btnMinus')) {
             var itemId = e.target.getAttribute('data-item-id');
             var quantityInput = document.getElementById('quantity_' + itemId);
             var currentValue = parseInt(quantityInput.value, 10);
+            var subtotalText = document.getElementById('subtotal');
             if (currentValue > 1) {
                 currentValue--;
                 quantityInput.value = currentValue;
-
+                current_Qty = currentValue;
+                subtotal = price * currentValue;
+                subtotalText.innerText = "Subtotal: ₱"+subtotal;
             }
         }
     });

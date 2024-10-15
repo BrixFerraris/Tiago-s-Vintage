@@ -11,49 +11,16 @@
     <link rel="stylesheet" href="../CSS/category.css">
 </head>
 <body>
-    <div class="content">
+    <div id="ewan" class="content">
         <h1>Category Management</h1>
         
-        <!-- Tops Category -->
-        <div class="category-section">
-            <h2>Tops</h2>
-            <div class="category-items-tops"></div> 
-            <form method="POST" action="./includes/addCategory.php">
-                <input type="text" name="category" placeholder="Add new Tops category" required>
-                <input type="hidden" name="parent" value="Tops">
-                <button type="submit" name="submit" class="add-btn">Add Category</button>
-            </form>
-        </div>
-
-
-        <!-- Bottoms Category -->
-        <div class="category-section">
-            <h2>Bottoms</h2>
-            <div class="category-items-bottoms"></div> 
-            <form method="POST" action="./includes/addCategory.php">
-                <input type="text" name="category" placeholder="Add new Bottoms category" required>
-                <input type="hidden" name="parent" value="Bottoms">
-                <button type="submit" name="submit" class="add-btn">Add Category</button>
-
-            </form>
-        </div>
-
-        <!-- Shoes Category -->
-        <div class="category-section">
-            <h2>Shoes</h2>
-            <div class="category-items-shoes"></div> 
-            <form method="POST" action="./includes/addCategory.php">
-                <input type="text" name="category" placeholder="Add new Shoes category" required>
-                <input type="hidden" name="parent" value="Shoes">
-                <button type="submit" name="submit" class="add-btn">Add Category</button>
-            </form>
-        </div>
+   
 
 
         <!-- add new main Category -->
         <div class="category-section">
             <div class="new-category"></div> 
-            <form method="" action="">
+            <form action="./includes/addMainCategory.php" method="POST">
                 <input type="text" name="category" placeholder="Add New Main Category" required>
                 <button type="submit" name="submit" class="add-btn">Add New Main Category</button>
             </form>
@@ -67,56 +34,72 @@ document.addEventListener('DOMContentLoaded', function() {
     var conn = new WebSocket('ws://localhost:8080');
     conn.onopen = function(e) {
         conn.send(JSON.stringify({ type: 'loadParentCategory'}));
-        // conn.send(JSON.stringify({ type: 'loadCategories'}));
+        conn.send(JSON.stringify({ type: 'loadCategories'}));
     };
     conn.onmessage = function(e) {
-        var category = JSON.parse(e.data);
-        console.log(category.parent);
-        if (category.parent === 'Tops') {
-            let categoryItemsContainer = document.querySelector('.category-items-tops');
-            var categoryItem = document.createElement('div');
-            categoryItem.className = 'category-item';
-            categoryItem.innerHTML = `
-                <span class="child">${category.child}</span>
-                <div class="action-buttons">
-                    <button class="edit-btn" data-id="${category.id}">✏️</button>
-                    <button class="delete-btn" data-id="${category.id}">🗑️</button>
-                </div>
-            `;
-            categoryItemsContainer.appendChild(categoryItem);
+    var category = JSON.parse(e.data);
+    console.log(category);
+    category.forEach(function(cat) {
+        if (cat.type === 'parentCategory') {
+            const parentCategory = cat.parent.toLowerCase();
+            const categorySection = document.createElement('div');
+            categorySection.className = 'category-section';
+
+            const h2 = document.createElement('h2');
+            h2.textContent = cat.parent;
+
+            const categoryItemsContainer = document.createElement('div');
+            categoryItemsContainer.className = `category-items-${parentCategory}`;
+
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = './includes/addCategory.php';
+
+            const inputCategory = document.createElement('input');
+            inputCategory.type = 'text';
+            inputCategory.name = 'category';
+            inputCategory.placeholder = `Add new ${cat.parent} category`;
+            inputCategory.required = true;
+
+            const inputParent = document.createElement('input');
+            inputParent.type = 'hidden';
+            inputParent.name = 'parent';
+            inputParent.value = cat.parent;
+
+            const submitBtn = document.createElement('button');
+            submitBtn.type = 'submit';
+            submitBtn.name = 'submit';
+            submitBtn.className = 'add-btn';
+            submitBtn.textContent = 'Add Category';
+
+            form.appendChild(inputCategory);
+            form.appendChild(inputParent);
+            form.appendChild(submitBtn);
+
+            categorySection.appendChild(h2);
+            categorySection.appendChild(categoryItemsContainer);
+            categorySection.appendChild(form);
+
+            var container = document.getElementById('ewan');
+            container.appendChild(categorySection); // or append to a specific container
+        } else if (cat.type === "categories") {
+            const parentCategory = cat.parent.toLowerCase();
+            const categoryItemsContainer = document.querySelector(`.category-items-${parentCategory}`);
+            if (categoryItemsContainer) {
+                let categoryItem = document.createElement('div');
+                categoryItem.className = 'category-item';
+                categoryItem.innerHTML = `
+                    <span class="child">${cat.child}</span>
+                    <div class="action-buttons">
+                        <button class="edit-btn" data-id="${cat.id}">✏️</button>
+                        <button class="delete-btn" data-id="${cat.id}">🗑️</button>
+                    </div>
+                `;
+                categoryItemsContainer.appendChild(categoryItem);
+            }
         }
-        if (category.parent === 'Bottoms') {
-            let categoryItemsContainer = document.querySelector('.category-items-bottoms');
-            var categoryItem = document.createElement('div');
-            categoryItem.className = 'category-item';
-            categoryItem.innerHTML = `
-                <span class="child">${category.child}</span>
-                <div class="action-buttons">
-                    <button class="edit-btn" data-id="${category.id}">✏️</button>
-                    <button class="delete-btn" data-id="${category.id}">🗑️</button>
-                </div>
-            `;
-            categoryItemsContainer.appendChild(categoryItem);
-            console.log(category);
-        }
-        if (category.parent === 'Shoes') {
-            let categoryItemsContainer = document.querySelector('.category-items-shoes');
-            var categoryItem = document.createElement('div');
-            categoryItem.className = 'category-item';
-            categoryItem.innerHTML = `
-                <span class="child">${category.child}</span>
-                <div class="action-buttons">
-                    <button class="edit-btn" data-id="${category.id}">✏️</button>
-                    <button class="delete-btn" data-id="${category.id}">🗑️</button>
-                </div>
-            `;
-            categoryItemsContainer.appendChild(categoryItem);
-            console.log(category);
-        }
-        else {
-            // console.error('Unknown category parent:', category.parent);
-        }
-    };
+    });
+};
     document.addEventListener('click', function(event) {
         if (event.target.classList.contains('delete-btn')) {
             var id = event.target.getAttribute('data-id');

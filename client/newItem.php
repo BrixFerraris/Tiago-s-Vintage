@@ -32,17 +32,18 @@ include 'header.php';
                                 </div>
                             </div>
                                     <div class="incdec">
-                                      <form action="./includes/addToCart.php" method="post">
-                                      <input type="hidden" name="id" id="product_id">
-                                        <p>Quantity</p>
-                                        <input type="number" id="quantity" min="1" name="quantity" step="1"> 
+                                      <form id="addToCart" action="./includes/addToCart.php" method="post">
+                                      <input type="hidden" name="id" id="product_id" required>
+                                      <input type="hidden" name="variationID" id="variationID" required>
+                                      <p>Quantity</p>
+                                        <input type="number" id="quantity" min="1" name="quantity" step="1" required> 
                                     </div>
                                 <div class="description">
                                     <p>Condition:</p>
                                     <p id="description" ></p>
                                 </div>
                                 <div class="btncart">
-                                    <button id="btn-addCart" name="add">Add To Cart</button>
+                                    <button type="submit" id="btn-addCart" name="add">Add To Cart</button>
                                 </div>
                                       </form>
                         </div>
@@ -62,13 +63,47 @@ include 'header.php';
 
                 </div>
 <script>
+  function validateForm() {
+    var productId = document.getElementById('product_id').getAttribute('value');
+    var variationId = document.getElementById('variationID').getAttribute('value');
+    var quantity = document.getElementById('quantity').value;
+
+    var errors = [];
+
+    if (!productId) {
+      errors.push('Please select a product!');
+    }
+
+    if (!variationId) {
+      errors.push('Please select a variation!');
+    }
+
+    if (!quantity || quantity < 1) {
+      errors.push('Please enter a valid quantity!');
+    }
+
+    if (errors.length > 0) {
+      alert(errors.join('\n'));
+      return false;
+    }
+
+    return true;
+  }
     document.addEventListener('DOMContentLoaded', function(){
+      var form = document.getElementById('addToCart');
+
+      form.addEventListener('submit', function(e) {
+        if (!validateForm()) {
+          e.preventDefault();
+        }
+      });
       // WebSocket connection
       var conn = new WebSocket('ws://localhost:8080');
       const url = new URL(window.location.href);
       const productID = url.searchParams.get('productID');
       var prodID =productID;
       var hidden = document.getElementById('product_id');
+      var varID = document.getElementById('variationID');
       hidden.value = productID;
       console.log(productID);
       conn.onopen = function() {
@@ -97,23 +132,41 @@ include 'header.php';
         }
         if (product.type === 'variations') {
           var buttonDiv = document.getElementById('buttons');
-            buttonDiv.innerHTML = '';
+          var quantityInput = document.getElementById('quantity');
+          buttonDiv.innerHTML = '';
 
-            product.variations.forEach(function(variation) {
-              console.log(variation.variationName);
-                var newDiv = document.createElement('div');
-                newDiv.classList.add('edit-product-variation');
+          product.variations.forEach(function(variation) {
+            console.log(variation.variationName);
+            var newDiv = document.createElement('div');
+            newDiv.classList.add('edit-product-variation');
 
-                newDiv.innerHTML = `
-                        <button>${variation.width} X ${variation.length} (${variation.variationName})</button>
-                `;
+            newDiv.innerHTML = `
+              <button class="variation" data-id="${variation.id}" data-quantity="${variation.quantity}">${variation.width} X ${variation.length} (${variation.variationName})</button>
+            `;
 
-                buttonDiv.appendChild(newDiv);
+            buttonDiv.appendChild(newDiv);
+          });
+
+          document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('variation')) {
+              var variationID = e.target.getAttribute('data-id');
+              var variationQuantity = e.target.getAttribute('data-quantity');
+              varID.value = variationID;
+              quantityInput.max = variationQuantity;
+            }
           });
         }
+        
       };
-    });
-                </script>
+
+  document.addEventListener('click', function(e){
+    if (e.target.classList.contains('variation')) {
+      var variationID = e.target.getAttribute('data-id');
+      varID.value = variationID;
+    }
+  });
+});
+</script>
 
     <style>
 *{

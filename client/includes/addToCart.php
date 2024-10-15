@@ -6,7 +6,7 @@ $current_datetime = date('YmdHis');
 $base_transaction_id = $current_datetime;
 
 
-
+$variationID = $_POST['variationID'];
 $quantity = $_POST['quantity'];
 $product_id = $_POST['id'];
 $sql2 = "SELECT * FROM tbl_products WHERE id = $product_id";
@@ -17,11 +17,11 @@ $row2 = mysqli_fetch_assoc($result2);
 
 $total = $quantity * $row2['price'];
 
-$sql = 'INSERT INTO tbl_transactions( product_id, quantity, user_id, date, total) VALUES(?, ?, ?, NOW(), ?)';
+$sql = 'INSERT INTO tbl_transactions( product_id, quantity, user_id, date, total, variation_id) VALUES(?, ?, ?, NOW(), ?, ?)';
 
 $stmt = $conn->prepare($sql);
 
-$stmt->bind_param('sisi',  $product_id, $quantity, $user_id, $total);
+$stmt->bind_param('sisis',  $product_id, $quantity, $user_id, $total, $variationID);
 
 $stmt->execute();
 

@@ -61,9 +61,27 @@ class ProductLoader implements MessageComponentInterface {
             $this->loadVariations($from, $data['idProduct']);
         } elseif ($data['type'] === 'loadEditVariation') {
             $this->loadEditVariation($from, $data['id']);
+        } elseif ($data['type'] === 'removeCart') {
+            $this->removeFromCart($from, $data['transactionID']);
+        } elseif ($data['type'] === 'checkOut') {
+            $this->checkOut($from, $data['quantity'], $data['total'], $data['transactionID']);
         }
     }
 
+    private function checkOut(ConnectionInterface $conn, $quantity, $total, $transactionID) {
+        $query = "UPDATE tbl_transactions SET quantity = ?, total = ? WHERE id = '$transactionID'";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ii", $quantity, $total);
+        $stmt->execute();
+        $conn->send(json_encode(value: ['type' => 'checkout', 'transactionID' => $transactionID]));
+        $stmt->close();
+    }
+
+    private function removeFromCart(ConnectionInterface $conn, $transactionID) {
+        $query = "DELETE FROM tbl_transactions WHERE id = '$transactionID'";
+        $this->db->query($query);
+        $conn->send(json_encode(['type' => 'cartItemRemoved', 'TransactionID' => $transactionID]));
+    }
 
     private function loadEditVariation(ConnectionInterface $conn, $id) {
         $variations = loadVariation($this->db, $id);
@@ -127,10 +145,10 @@ class ProductLoader implements MessageComponentInterface {
 
     private function loadParentCategory(ConnectionInterface $conn) {
         $categories = getParentCategories($this->db);
-        foreach ($categories as $category) {
+        foreach ($categories as &$category) {
             $category['type'] = 'parentCategory';
-            $conn->send(json_encode($category));
         }
+        $conn->send(json_encode($categories));
     }
 
     
@@ -274,7 +292,7 @@ function getCategories($db) {
 }
 
 function getParentCategories($db) {
-    $result = $db->query('SELECT * FROM tbl_categories');
+    $result = $db->query('SELECT * FROM tbl_parent');
     $categories = [];
     while ($row = $result->fetch_assoc()) {
         $categories[] = $row;
@@ -283,7 +301,30 @@ function getParentCategories($db) {
 }
 
 function getCart($db, $user_id) {
-    $query = "SELECT t.*, p.*, v.*, u.* FROM tbl_transactions t INNER JOIN tbl_products p ON t.product_id = p.id INNER JOIN tbl_variations v ON t.product_id = v.product_id INNER JOIN tbl_users u ON t.user_id = u.id WHERE t.user_id = ? AND t.status = 'Cart'";
+    $query = "SELECT 
+    p.img1, 
+    p.title, 
+    v.variationName, 
+    p.price, 
+    p.id, 
+    t.quantity, 
+    u.firstName, 
+    u.lastName, 
+    u.contact, 
+    t.total, 
+    u.id AS userId, 
+    t.id  AS transactionId,
+    v.quantity AS variantQuantity
+FROM 
+    tbl_transactions t 
+INNER JOIN 
+    tbl_products p ON t.product_id = p.id 
+INNER JOIN 
+    tbl_variations v ON t.product_id = v.product_id AND t.variation_id = v.id 
+INNER JOIN 
+    tbl_users u ON t.user_id = u.id 
+WHERE 
+    t.user_id = ? AND t.status = 'Cart';";
     $stmt = $db->prepare($query);
     $stmt->bind_param("s", $user_id);
     $stmt->execute();
