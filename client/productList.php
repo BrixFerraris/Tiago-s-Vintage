@@ -178,27 +178,10 @@ include './header.php';
   <div id="search-filters">
     <input type="text" id="search-input" placeholder="Search Products...">
     
-    <select id="category-filter">
-      <option value="" disabled selected>Category</option>
-      <option value="tops">Tops</option>
-      <option value="bottoms">Bottoms</option>
-      <option value="shoes">Shoes</option>
-    </select>
-    <select id="sort-filter">
-      <option value="" disabled selected>Sub-Category</option>
-      <option value="price-low-high">Sample 1</option>
-      <option value="price-high-low">Sample 2</option>
+    <select id="categories">
+        <option value="" >Select a category</option>
     </select>
 
-    <select id="sort-filter">
-      <option value="" disabled selected>Sort</option>
-      <option value="price-low-high">Price: Low-High</option>
-      <option value="price-high-low">Price: High-Low</option>
-      <option value="a-z">A-Z</option>
-      <option value="z-a">Z-A</option>
-    </select>
-
-    <button id="apply-button">Apply</button>
 
   </div>
 
@@ -220,7 +203,9 @@ function fetchProducts(searchValue) {
     var conn = new WebSocket('ws://localhost:8080');
     conn.onopen = function() {
         conn.send(JSON.stringify({ type: 'searchProducts', title: searchValue }));
+
     };
+
 
     conn.onmessage = function(e) {
         var data = JSON.parse(e.data);
@@ -261,55 +246,122 @@ document.addEventListener('DOMContentLoaded', function() {
     var conn = new WebSocket('ws://localhost:8080');
     var productDiv = document.getElementById('fixed-grid');
     var products = [];
+    var select1 = document.getElementById('categories');
+    var select2 = document.getElementById('sub_category');
+    const url = new URL(window.location.href);
+    const productCategory = url.searchParams.get('category');
+    var categories = [];
+    
+    console.log(select1.value);
 
+ 
     conn.onopen = function() {
         conn.send(JSON.stringify({ type: 'loadProducts' }));
+        conn.send(JSON.stringify({ type: 'loadCategories' }));
     };
 
     conn.onmessage = function(e) {
-        var product = JSON.parse(e.data);
-        // console.log(product);
-        const url = new URL(window.location.href);
-        const productCategory = url.searchParams.get('category');
+        var data = JSON.parse(e.data);
+        // console.log(data);
+        if (data.type === 'product') {
+            productDiv.innerHTML = '';
+              products.forEach(function(data) {
+                  var newDiv = document.createElement('div');
+                  newDiv.className = 'cell';
+                  newDiv.innerHTML = `
+                      <a href="./newItem.php?productID=${data.id}">
+                          <img src="../server/includes/uploads/${data.img1}" alt="${data.title}" width="252" height="320">
+                          <p>
+                              <span class="has-text-primary has-text-weight-bold">${data.title}</span><br>
+                              <span class="has-text-primary has-text-weight-semibold">PHP ${data.price}</span>
+                          </p>
+                      </a>
+                  `;
+                  productDiv.appendChild(newDiv);
+          });
+        }
+
 
         if (productCategory === 'Tops') {
-            if (product.category === 'Tops') {
-                products.push(product);
+            if (data.category === 'Tops') {
+                products.push(data);
             }
         }
         else if (productCategory === 'Bottom') {
-            if (product.category === 'Bottoms') {
-                products.push(product);
+            if (data.category === 'Bottoms') {
+                products.push(data);
             }
         }
         else if (productCategory === 'Shoes') {
-            if (product.category === 'Shoes') {
-                products.push(product);
+            if (data.category === 'Shoes') {
+                products.push(data);
             }
         }
         else if (productCategory === 'Accessories') {
-            if (product.category === 'Accessories') {
-                products.push(product);
+            if (data.category === 'Accessories') {
+                products.push(data);
             }
         }
         else {
-            products.push(product);
+          products.push(data);
         }
+        
 
-        productDiv.innerHTML = '';
-        products.forEach(function(product) {
-            var newDiv = document.createElement('div');
-            newDiv.className = 'cell';
-            newDiv.innerHTML = `
-                <a href="./newItem.php?productID=${product.id}">
-                    <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
-                    <p>
-                        <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
-                        <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
-                    </p>
-                </a>
-            `;
-            productDiv.appendChild(newDiv);
+        
+        if (Array.isArray(data)) {
+            categories.push(...data);
+        } 
+        console.log(categories);
+        select1.innerHTML = '';
+        categories.forEach(function(category) {
+            var optionExists = false;
+            for (var i = 0; i < select1.options.length; i++) {
+                if (select1.options[i].value === category.parent) {
+                    optionExists = true;
+                    break;
+                }
+            }
+            if (!optionExists) {
+                var option = document.createElement('option');
+                option.text = category.parent;
+                option.value = category.parent;
+                select1.add(option);
+            }
+        });
+        select1.addEventListener('change', function() {
+    var selectedValue = select1.value;
+    window.location.href = "productList.php?category=" + selectedValue;
+
+    // Clear previous options from select2
+    select2.innerHTML = '';
+
+    // Re-add the default "Select a category" option to select2
+    var defaultOption = document.createElement('option');
+    defaultOption.text = 'Select a category';
+    defaultOption.value = ''; // Keep it empty to serve as the default placeholder
+    select2.add(defaultOption);
+
+    // Filter categories based on the selected value from select1
+    var filteredOptions = categories.filter(function(category) {
+        return category.parent === selectedValue;
+    });
+
+    // Populate select2 with filtered options
+    filteredOptions.forEach(function(category) {
+        var option = document.createElement('option');
+        option.text = category.child;
+        option.value = category.child;
+        select2.add(option);
+    });
+
+    // Destroy the select2 instance if it already exists
+    if ($.fn.select2) {
+        $(select2).select2('destroy');
+    }
+
+    // Re-initialize select2 after options are added
+    $(select2).select2();
+
         });
     };
 });

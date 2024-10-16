@@ -5,7 +5,7 @@ include 'header.php';
                             <img src="../assets/Component 2.png" alt="">
                         </div>
     <div class="products">
-        <p>PRODUCTS</p>
+        <p>NEW ARRIVALS</p>
             <div id="products" class="product-items">
 
             </div>
