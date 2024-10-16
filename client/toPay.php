@@ -38,8 +38,6 @@ include './header.php';
             </div>
         </div>
 
-        <!-- Add more orders to pay here as needed -->
-
         <div class="order-item">
             <div class="item-details">
                 <img src="shirt.png" alt="Product Image">
@@ -76,10 +74,8 @@ include './header.php';
         <div class="order-btn">
             <button class="btnSubmit">Submit</button>
             <button class="btnBack">Back</button>
-            <div class="order-btn">
+        </div>
     </div>
-</div>
-</div>
 </div>
 </body>
 </html>
@@ -220,7 +216,7 @@ body {
     color: #fff;
     border: none;
     border-radius: 5px;
-    cursor: pointer; /* Add this line */
+    cursor: pointer;
 }
 
 .btnCancel {

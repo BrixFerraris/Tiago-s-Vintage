@@ -26,72 +26,27 @@
             <div class="summary-actions">
                 <div class="action-buttons">
                     <button class="accept-btn">Accept</button>
+                    <button class="show-btn">Show Receipt</button>
                     <button class="decline-btn">Decline</button>
                 </div>
             </div>
         </div>
     </div>
 </main>
-<!-- End Main -->
- <script>
-    document.addEventListener('DOMContentLoaded', function(){
-        //Websocket connection
-        var conn = new WebSocket('ws://localhost:8080');
-const url = new URL(window.location.href);
-const params = new URLSearchParams(url.search);
-const transactionId = params.get('transaction_id');
-console.log(transactionId);
+</body>
+<div class="modal-receipt">
+    <div class="modals">
 
-conn.onopen = function(e) {
-  conn.send(JSON.stringify({ type: 'loadPODetails', transaction_id: transactionId}));
-};
-
-conn.onmessage = function(e) {
-  const data = JSON.parse(e.data);
-  console.log(data);
-
-  const orderItemsContainer = document.querySelector('.order-items-container');
-  const orderItems = data.order_items;
-
-  orderItems.forEach((item, index) => {
-    const itemHTML = `
-      <div class="item">
-        <img src="./includes/uploads/${item.img1}" alt="${item.title}" class="item-img">
-        <div class="item-detail">
-          <p class="item-name">${item.title}</p>
-          <p>x${item.quantity}</p>
-          <p>₱${item.price}</p>
-        </div>
-      </div>
-    `;
-    orderItemsContainer.innerHTML += itemHTML;
-  });
-
-
-  const orderTotal = data.order_total;
-  const orderTotalHTML = `
-    <div class="order-total">
-      <p>Order Total: ₱${orderTotal}</p>
+        <h2>Customer's Receipt</h2>
+        <img src="../images/sample-receipt.png" alt="" width="30%" height="45%">
+        <h4>Amount: 1500 </h4>
+      
+          <button class="btnBack">Back</button>
     </div>
-  `;
-
-  orderItemsContainer.innerHTML += orderTotalHTML;
-  var summaryContainer = $(".order-summary");
-var customerName = $("#customerName");
-var address = $("#address");
-var contact = $("#contact");
-var trans_number = $("#trans_num");
+</div>
 
 
-customerName.text(data.name);
-address.text(data.address);
-contact.text(data.contact);
-trans_number.text(transactionId);
-  
-  
-};
-    });
- </script>
+
 
 <!-- Custom Styles -->
 <style>
@@ -167,7 +122,9 @@ trans_number.text(transactionId);
     }
 
     .accept-btn,
-    .decline-btn {
+    .decline-btn,
+    .show-btn,
+    .btnBack {
         padding: 10px 20px;
         border: none;
         cursor: pointer;
@@ -179,14 +136,144 @@ trans_number.text(transactionId);
         color: white;
     }
 
+    .show-btn {
+        background-color: #0035d6;
+        color: white;
+    }
+
     .decline-btn {
         background-color: #dc3545;
         color: white;
     }
+
+
+
+
+    /* modal */
+    .modal-receipt {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease-in-out;
+}
+
+.modal-active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modals img{
+  width: 220px;
+  height: 340px;
+  object-fit: contain;
+}
+.modals{
+    background-color: white;
+    width: 50%;
+    height: 70%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btnBack{
+    margin-top: 5%;
+    justify-content: space-around;
+    background-color: #dc3545;
+    color: white;
+}
+
+    
+
 </style>
 
 <!-- Scripts -->
 <script>
+    document.addEventListener('DOMContentLoaded', function(){
+        //Websocket connection
+        var conn = new WebSocket('ws://localhost:8080');
+const url = new URL(window.location.href);
+const params = new URLSearchParams(url.search);
+const transactionId = params.get('transaction_id');
+console.log(transactionId);
+
+conn.onopen = function(e) {
+  conn.send(JSON.stringify({ type: 'loadPODetails', transaction_id: transactionId}));
+};
+
+conn.onmessage = function(e) {
+  const data = JSON.parse(e.data);
+  console.log(data);
+
+  const orderItemsContainer = document.querySelector('.order-items-container');
+  const orderItems = data.order_items;
+
+  orderItems.forEach((item, index) => {
+    const itemHTML = `
+      <div class="item">
+        <img src="./includes/uploads/${item.img1}" alt="${item.title}" class="item-img">
+        <div class="item-detail">
+          <p class="item-name">${item.title}</p>
+          <p>x${item.quantity}</p>
+          <p>₱${item.price}</p>
+        </div>
+      </div>
+    `;
+    orderItemsContainer.innerHTML += itemHTML;
+  });
+
+
+  const orderTotal = data.order_total;
+  const orderTotalHTML = `
+    <div class="order-total">
+      <p>Order Total: ₱${orderTotal}</p>
+    </div>
+  `;
+
+  orderItemsContainer.innerHTML += orderTotalHTML;
+  var summaryContainer = $(".order-summary");
+var customerName = $("#customerName");
+var address = $("#address");
+var contact = $("#contact");
+var trans_number = $("#trans_num");
+
+
+customerName.text(data.name);
+address.text(data.address);
+contact.text(data.contact);
+trans_number.text(transactionId);
+  
+  
+};
+    });
+
+
+// modal
+
+    var modalBtn = document.querySelector('.show-btn');
+    var modalBg = document.querySelector('.modal-receipt');
+    var modalClose = document.querySelector('.btnBack');
+    
+    modalBtn.addEventListener('click', function() {
+        modalBg.classList.add('modal-active');
+    });
+    modalClose.addEventListener('click', function(){
+        modalBg.classList.remove('modal-active');
+    });
+
+
 // SIDEBAR TOGGLE
 let sidebarOpen = false;
 const sidebar = document.getElementById('sidebar');
@@ -204,6 +291,8 @@ function closeSidebar() {
     sidebarOpen = false;
   }
 }
+
+
 </script>
-</body>
+
 </html>
