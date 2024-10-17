@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./CSS/pageManagement.css">
+    <link rel="stylesheet" href="../CSS/pageManagement.css">
     <title>Page Management</title>
 </head>
 <body>
@@ -19,49 +19,34 @@
         </div>
 
         <div class="content">
-            <h1>Page Management</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Page Title</th>
-                        <th>URL</th>
-                        <th>Status</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <!-- Static Report Data -->
-                        <td>Home</td>
-                        <td>/home</td>
-                        <td>Published</td>
-                        <td><button class="edit-btn">Edit</button></td>
-                        <td><button class="delete-btn">Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>About Us</td>
-                        <td>/about-us</td>
-                        <td>Draft</td>
-                        <td><button class="edit-btn">Edit</button></td>
-                        <td><button class="delete-btn">Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>Contact</td>
-                        <td>/contact</td>
-                        <td>Published</td>
-                        <td><button class="edit-btn">Edit</button></td>
-                        <td><button class="delete-btn">Delete</button></td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- Pagination -->
-            <div class="pagination">
-                <a href="#" class="prev">Previous</a>
-                <a href="#" class="page-num">1</a>
-                <a href="#" class="page-num">2</a>
-                <a href="#" class="next">Next</a>
+            
+            <div class="card">
+                <div class="title">
+                    <h1>Header Title</h2>
+                    <button class="edit-btn">Edit</button>
+                </div>
+
+                <h2>Tiago's Vintage</h2> <!-- preview ng header title -->
+
             </div>
+
+            <div class="card">
+                <div class="title">
+                    <h1>Header Title</h2>
+                    <button class="edit-btn">Edit</button>
+                </div>
+                <img src="../images/tiagos.png" alt="" width="200px" height="200px">
+            </div>
+
+            <div class="card">
+                <div class="title">
+                    <h1>Header Title</h2>
+                    <button class="edit-btn">Edit</button>
+                </div>
+                <img src="../images/tiagos.png" alt="" width="200px" height="200px">
+            </div>
+
+
       <!-- End Main -->
         </div>
     </div>

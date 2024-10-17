@@ -1,38 +1,5 @@
 /* Basic reset */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
 
-/* Sidebar styling */
-.sidebar {
-    width: 200px;
-    background-color: #1d823b;
-    color: white;
-    padding: 20px;
-    height: 100vh;
-    box-sizing: border-box;
-}
-
-.sidebar h2 {
-    text-align: center;
-}
-
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.sidebar ul li {
-    padding: 15px 0;
-    cursor: pointer;
-}
-
-.sidebar ul li.active {
-    background-color: #145a2a;
-}
 
 /* Main content styling */
 .main-content {
@@ -42,44 +9,16 @@ body {
     box-sizing: border-box;
 }
 
-.main-content h1 {
-    margin-bottom: 20px;
+.title{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.table-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
 
-.add-page-btn {
-    background-color: #1d823b;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    border-radius: 5px;
-}
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
 
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
-    padding: 10px;
-    text-align: left;
-}
-
-th {
-    background-color: #f5f5f5;
-}
 
 .edit-btn, .delete-btn {
     padding: 5px 10px;
@@ -97,21 +36,3 @@ th {
     background-color: #f44336;
 }
 
-.pagination {
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.page-btn {
-    margin-left: 5px;
-    padding: 5px 10px;
-    background-color: #ddd;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.page-btn:hover {
-    background-color: #ccc;
-}
