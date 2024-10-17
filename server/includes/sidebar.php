@@ -48,12 +48,6 @@
                 </li>
             </a>
 
-            <a href="./Inventory.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">fact_check</span> Inventory
-                </li>
-            </a>
-
             <a href="./superadmin_AdminProfile.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">group</span> Admin profile
@@ -66,11 +60,6 @@
                 </li>
             </a>
 
-            <a href="#">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">shopping_cart</span> Sales Orders
-                </li>
-            </a>
 
             <a href="./reports.php">
                 <li class="sidebar-list-item">

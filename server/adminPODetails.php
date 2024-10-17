@@ -27,6 +27,7 @@
                 <div class="action-buttons">
                     <button class="accept-btn">Accept</button>
                     <button class="show-btn">Show Receipt</button>
+                    <button class="show-btn">Complete</button>
                     <button class="decline-btn">Decline</button>
                 </div>
             </div>
