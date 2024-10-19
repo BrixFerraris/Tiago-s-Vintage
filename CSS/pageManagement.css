@@ -20,7 +20,12 @@
 
 
 
-.edit-btn, .delete-btn {
+.edit-btn1,
+.edit-btn2,
+.edit-btn3,
+.edit-btn4,
+.edit-btn5,
+.delete-btn{
     padding: 5px 10px;
     border: none;
     border-radius: 5px;
@@ -28,7 +33,11 @@
     color: white;
 }
 
-.edit-btn {
+.edit-btn1,
+.edit-btn2,
+.edit-btn3,
+.edit-btn4,
+.edit-btn5 {
     background-color: #4CAF50;
 }
 
