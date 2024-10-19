@@ -80,7 +80,6 @@
 
         <tr>
             <td>
-                <!-- Example SVG Icon -->
                 <img src="../assets/fb_icon.svg" alt="">
             </td>
             <td>https://www.facebook.com/profile.php?id=100063803240125</td>
@@ -119,6 +118,109 @@
                 </div>
             </div>
       <!-- End Main -->
+
+      <!-- MODALS -->
+    <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="modals">
+        <h1>Header Title & Logo</h1>
+                <h4>Title: </h4>
+                <input class="input" type="text" placeholder="yung current value">
+                <h4>Logo:</h4>
+                <input class="input" type="file">
+            <div class="btns">
+                <button class="btnSave">Save</button>
+                <button class="btnCancel">Cancel</button>
+            </div>
+            
+        </div>
+</div>
+
+<!-- Modal Landing bg&txt -->
+    <div class="modal-landing">
+            <div class="modals">
+                <h1>Landing background & text</h1>
+                    <h4>Backgroud Photo:</h4>
+                    <input class="input" type="file">
+                    <h4>Text: </h4>
+                    <input class="input" type="text" placeholder="yung current value">
+                    <div class="btns">
+                        <button class="btnSave">Save</button>
+                        <button class="btnCancel">Cancel</button>
+                    </div>
+                
+            </div>
+    </div>
+
+    <!-- Modal About -->
+    <div class="modal-about">
+            <div class="modals">
+                <h1>About</h1>
+                    <h4>Text: </h4>
+                    <textarea name="comments" id="comments" rows="15" placeholder="yung current value"></textarea>
+                    <div class="btns">
+                        <button class="btnSave">Save</button>
+                        <button class="btnCancel">Cancel</button>
+                    </div>
+                
+            </div>
+    </div>
+
+    <!-- Modal T&C -->
+    <div class="modal-tandc">
+            <div class="modals">
+                <h1>Landing background & text</h1>
+                    <h4>Text: </h4>
+                    <textarea name="comments" id="comments" rows="15" placeholder="yung current value"></textarea>
+                    <div class="btns">
+                        <button class="btnSave">Save</button>
+                        <button class="btnCancel">Cancel</button>
+                    </div>
+                
+            </div>
+    </div>
+
+    <!-- Modal Contacs -->
+    <div class="modal-contacts">
+            <div class="modals">
+                <h1>Contacts</h1>
+                <table>
+                    <tr>
+                        <th>Icon</th>
+                        <th>Value</th>
+                    </tr>
+
+                    <tr>
+                        <td><img src="../assets/fb_icon.svg" alt=""></td>
+                        <td><input class="input" type="text" name="fb" placeholder="yung current value"></td>
+                    </tr>
+                    <tr>
+                        <td><img src="../assets/ig_icon.svg" alt=""></td>
+                        <td><input class="input" type="text" name="ig" placeholder="yung current value"></td>
+                    </tr>
+                    <tr>
+                        <td><img src="../assets/phone_icon.svg" alt=""></td>
+                        <td><input class="input" type="text" name="number" placeholder="yung current value"></td>
+                    </tr>
+                    <tr>
+                        <td><img src="../assets/email_icon.svg" alt=""></td>
+                        <td><input class="input" type="text" name="email" placeholder="yung current value"></td>
+                    </tr>
+                    <tr>
+                        <td><img src="../assets/location_icon.svg" alt=""></td>
+                        <td><input class="input" type="text" name="location" placeholder="yung current value"></td>
+                    </tr>
+                </table>
+                <div class="btns">
+                    <button class="btnSave">Save</button>
+                    <button class="btnCancel">Cancel</button>
+                </div>
+                
+            </div>
+    </div>
+
+
+
         </div>
     </div>
 </body>
@@ -131,8 +233,10 @@
 .edit-btn3,
 .edit-btn4,
 .edit-btn5,
-.delete-btn{
-    padding: 5px 10px;
+.delete-btn,
+.btnSave,
+.btnCancel {
+    padding: 15px 50px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -143,8 +247,137 @@
 .edit-btn2,
 .edit-btn3,
 .edit-btn4,
-.edit-btn5 {
+.edit-btn5,
+.btnSave,
+.btnCancel {
     background-color: #4CAF50;
 }
+
+/*MODAL */
+/* modal */
+.modal-header,
+.modal-landing,
+.modal-about,
+.modal-tandc,
+.modal-contacts {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease-in-out;
+}
+
+.modal-active {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+.modals{
+    background-color: white;
+    width: 50%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btnCancel{
+    background-color: #f44336;
+}
+.btns{
+    justify-content: space-evenly;
+    display: flex;
+    margin-top: auto;
+}
+
+.modals input[type="text"],[type="file"],
+.modals textarea,
+.modals select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+.modals input[type="file"] {
+    font-size: 16px;
+    border: none;
+}
+
 </style>
+<script>
+    // modal
+    // Modal for Header
+var modalBtn1 = document.querySelector('.edit-btn1');
+var modalBg1 = document.querySelector('.modal-header');
+var modalClose1 = modalBg1.querySelector('.btnCancel');
+
+modalBtn1.addEventListener('click', function() {
+    modalBg1.classList.add('modal-active');
+});
+modalClose1.addEventListener('click', function(){
+    modalBg1.classList.remove('modal-active');
+});
+
+// Modal for Landing
+var modalBtn2 = document.querySelector('.edit-btn2');
+var modalBg2 = document.querySelector('.modal-landing');
+var modalClose2 = modalBg2.querySelector('.btnCancel');
+
+modalBtn2.addEventListener('click', function() {
+    modalBg2.classList.add('modal-active');
+});
+modalClose2.addEventListener('click', function(){
+    modalBg2.classList.remove('modal-active');
+});
+
+// Modal for About Us
+var modalBtn3 = document.querySelector('.edit-btn3');
+var modalBg3 = document.querySelector('.modal-about');
+var modalClose3 = modalBg3.querySelector('.btnCancel');
+
+modalBtn3.addEventListener('click', function() {
+    modalBg3.classList.add('modal-active');
+});
+modalClose3.addEventListener('click', function(){
+    modalBg3.classList.remove('modal-active');
+});
+
+// Modal for Terms & Conditions
+var modalBtn4 = document.querySelector('.edit-btn4');
+var modalBg4 = document.querySelector('.modal-tandc');
+var modalClose4 = modalBg4.querySelector('.btnCancel');
+
+modalBtn4.addEventListener('click', function() {
+    modalBg4.classList.add('modal-active');
+});
+modalClose4.addEventListener('click', function(){
+    modalBg4.classList.remove('modal-active');
+});
+
+// Modal for Contacts
+var modalBtn5 = document.querySelector('.edit-btn5');
+var modalBg5 = document.querySelector('.modal-contacts');
+var modalClose5 = modalBg5.querySelector('.btnCancel');
+
+modalBtn5.addEventListener('click', function() {
+    modalBg5.classList.add('modal-active');
+});
+modalClose5.addEventListener('click', function(){
+    modalBg5.classList.remove('modal-active');
+});
+</script>
+
 </html>
