@@ -17,8 +17,8 @@
                         <th>Category Id</th>
                         <th>Image</th>
                         <th>Category Name</th>
-                        <th>Edit Product</th>
-                        <th>Delete Product</th>
+                        <th>Edit Category</th>
+                        <th>Delete Category</th>
                     </tr>
                 </thead>
                 <tbody id="products-body" >
@@ -126,6 +126,14 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+.btnaddBack, .btnBack{
+    background-color: #e53935;
+
+}
+.btnAddCat, .btnaddSubmit, .btnSubmit{
+    background-color: #28a745;
+
 }
 </style>
     <script>

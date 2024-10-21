@@ -1,66 +1,56 @@
-/* Basic reset */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
 
-/* Sidebar styling */
-.sidebar {
-    width: 200px;
-    background-color: #1d823b;
-    color: white;
-    padding: 20px;
-    height: 100vh;
-    box-sizing: border-box;
-}
 
-.sidebar h2 {
+.main-title {
     text-align: center;
-}
-
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.sidebar ul li {
-    padding: 15px 0;
-    cursor: pointer;
-}
-
-.sidebar ul li.active {
-    background-color: #145a2a;
-}
-
-/* Main content styling */
-.main-content {
-    flex-grow: 1;
-    padding: 20px;
-    background-color: #f1f3f6;
-    box-sizing: border-box;
-}
-
-.main-content h1 {
     margin-bottom: 20px;
 }
 
-.table-container {
-    background-color: white;
+.content {
     padding: 20px;
-    border-radius: 5px;
+}
+
+.charts-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.generate-btn {
-    background-color: #1d823b;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
+.chart {
+    flex: 1;
+    max-width: 700px; /* Limit the maximum width */
+    min-width: 500px; /* Minimum width to keep it responsive */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.chart canvas {
+    width: 100% !important; /* Ensure the canvas fits the container */
+    height: 250px; /* Adjust the height as needed */
+}
+
+.tables-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.table-section {
+    width: 30%;
+    min-width: 300px;
     margin-bottom: 20px;
-    border-radius: 5px;
+}
+
+.table-section h2 {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
 table {
@@ -68,29 +58,16 @@ table {
     border-collapse: collapse;
 }
 
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
+table th, table td {
     padding: 10px;
     text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
-th {
-    background-color: #f5f5f5;
+table th {
+    background-color: #f8f8f8;
 }
 
-.download-btn {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    text-decoration: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.download-btn:hover {
-    background-color: #45a049;
+table tbody tr:hover {
+    background-color: #f1f1f1;
 }

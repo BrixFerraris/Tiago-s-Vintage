@@ -52,19 +52,19 @@
 
             <div class="card">
                 <div class="title">
-                    <h1>About us</h2>
+                    <h1>About us</h1>
                     <button class="edit-btn3">Edit</button>
                 </div>
 
-                <h2>Sample about us Sample about us Sample about us Sample about us Sample about us Sample about us Sample about us Sample about us Sample about us</h2> <!-- preview ng header title -->
+                <h4>Sample about us Sample about us Sample about us Sample about us Sample about us Sample about us Sample about us Sample about us Sample about us</h4> <!-- preview ng header title -->
             </div>
 
             <div class="card">
                 <div class="title">
-                    <h1>Terms & Conditions</h2>
+                    <h1>Terms & Conditions</h1>
                     <button class="edit-btn4">Edit</button>
                 </div>
-                <h2>Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions </h2>
+                <h4>Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions </h4>
             </div>
 
             <div class="card">
@@ -290,6 +290,11 @@
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
+.card{
+    display: flex;
+    margin: 20px;
+}
+
 
 .btnCancel{
     background-color: #f44336;
