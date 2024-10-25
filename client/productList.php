@@ -27,7 +27,7 @@ include './header.php';
 });
 
 function fetchProducts(searchValue) {
-    var conn = new WebSocket('ws://localhost:8080');
+	var conn = new WebSocket('ws://65.19.154.77:8080/ws/');
     conn.onopen = function() {
         conn.send(JSON.stringify({ type: 'searchProducts', title: searchValue }));
 
@@ -70,7 +70,7 @@ function displayProducts(products) {
 }
 document.addEventListener('DOMContentLoaded', function() {
     // WebSocket connection
-    var conn = new WebSocket('ws://localhost:8080');
+    var conn = new WebSocket('ws://65.19.154.77:8080/ws/');
     var productDiv = document.getElementById('fixed-grid');
     var products = [];
     var select1 = document.getElementById('categories');

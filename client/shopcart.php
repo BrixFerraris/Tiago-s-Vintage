@@ -38,7 +38,7 @@ var subtotal = 0;
 var price = 0;
 document.addEventListener('DOMContentLoaded', function(){
     // Websocket connection
-    var conn = new WebSocket('ws://localhost:8080');
+	var conn = new WebSocket('ws://65.19.154.77:8080/ws/');
     var user_id = document.getElementById('user_id').value;
     console.log(user_id);
     conn.onopen = function(e) {

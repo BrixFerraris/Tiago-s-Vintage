@@ -254,7 +254,7 @@ function loadCategory() {
 }
 
 //Websocket connection
-var conn = new WebSocket('ws://localhost:8080');
+var conn = new WebSocket('ws://65.19.154.77:8080/ws/');
 const url = new URL(window.location.href);
 const productID = url.searchParams.get('product_id');
 loadCategory();

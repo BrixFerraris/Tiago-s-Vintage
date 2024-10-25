@@ -171,7 +171,7 @@ input[type="text"] {
 
 document.addEventListener('DOMContentLoaded', function() {
     // WebSocket connection
-    var conn = new WebSocket('ws://localhost:8080');
+	var conn = new WebSocket('ws://65.19.154.77:8080/ws/');
     conn.onopen = function(e) {
         conn.send(JSON.stringify({ type: 'loadParentCategory'}));
         conn.send(JSON.stringify({ type: 'loadCategories'}));

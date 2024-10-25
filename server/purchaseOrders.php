@@ -54,7 +54,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function(){
             //Websocket connection
-            var conn = new WebSocket('ws://localhost:8080');
+            var conn = new WebSocket('ws://65.19.154.77:8080/ws/');
             var table = document.getElementById('products');
             conn.onopen = function() {
                 conn.send(JSON.stringify({ type: 'loadPurchaseOrders' }));
