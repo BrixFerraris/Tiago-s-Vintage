@@ -44,7 +44,7 @@
         document.addEventListener('DOMContentLoaded', function(){
 
             //Websocket connection
-            var conn = new WebSocket('ws://65.19.154.77:8080/ws/');
+            var conn = new WebSocket('ws://65.19.154.77:6969/ws/');
             const url = new URL(window.location.href);
             const userID = url.searchParams.get('userID');
             var uID =  document.getElementById('user_id').value;
