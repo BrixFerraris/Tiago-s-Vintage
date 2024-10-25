@@ -6,6 +6,7 @@ include 'header.php';
 
 
 <link rel="stylesheet" href="../CSS/loginClient.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 
 <main class="main-container">

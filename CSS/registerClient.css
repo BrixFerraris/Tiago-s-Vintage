@@ -52,6 +52,7 @@ body {
 
 .font-weight-bold {
     font-weight: 600;
+    color: black;
 }
 
 /* Grid Layout */
@@ -65,16 +66,6 @@ body {
     height: 100vh;
 }
 
-/* Header */
-.header {
-    grid-area: header;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    background-color: #152f00;
-    box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
-}
 
 .form-group input[type="number"]{
     width: 100%;
@@ -91,60 +82,9 @@ body {
     display: none;
 }
 
-/* Sidebar */
-#sidebar {
-    grid-area: sidebar;
-    background-color: #2e6600;
-    color: white;
-    padding: 20px 0;
-    overflow-y: auto;
-    transition: transform 0.3s ease-in-out;
-    transform: translateX(0);
-}
-
-.sidebar-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    margin-bottom: 30px;
-}
-
-.sidebar-brand {
-    font-size: 20px;
-    font-weight: 700;
-    margin-top: 15px;
-}
-
-.sidebar-list {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 15px;
-}
-
-.sidebar-list-item {
-    padding: 20px;
-    transition: background-color 0.3s ease;
-}
-
-.sidebar-list-item:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    cursor: pointer;
-}
-
-.sidebar-list-item > a {
-    text-decoration: none;
-    color: white;
-}
-
-.sidebar-responsive {
-    position: absolute;
-    z-index: 12;
-    transform: translateX(-260px);
-}
-
 /* Main Container */
 .main-container {
+    background-color: #f0f2f5;
     grid-area: main;
     padding: 20px;
     overflow-y: auto;
@@ -189,8 +129,8 @@ body {
 /* Label Styling */
 .form-group label {
     display: block;
+    font-weight: bold;
     margin-bottom: 5px;
-    font-weight: 600;
     color: #333;
 }
 
@@ -219,43 +159,6 @@ body {
     border: none;
 }
 
-/* Dimes Container */
-.dimes-container {
-  margin-bottom: 20px; /* Space between form groups */
-}
-
-/* Dimes Label */
-.dimes-container label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #333;
-}
-
-/* Dimes Entry Container */
-.dimes-entry {
-  display: flex;
-  align-items: center;
-  gap: 15px; /* Space between length and width inputs */
-}
-
-/* Styling for the Length and Width Input Fields */
-.dimes-entry input[type="number"] {
-  width: 100%;
-  max-width: 120px; /* Control the max width of the inputs */
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Focus Effect for Input Fields */
-.dimes-entry input[type="number"]:focus {
-  border-color: #666;
-  box-shadow: 0 0 5px rgba(102, 102, 102, 0.5);
-}
 
 /* Media Query for Small Screens */
 @media screen and (max-width: 576px) {

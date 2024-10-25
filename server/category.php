@@ -135,6 +135,17 @@
     background-color: #28a745;
 
 }
+
+input[type="text"] {
+    width: 50%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
 </style>
     <script>
     var modalBtn = document.querySelector('.edit-btn');

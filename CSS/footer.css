@@ -10,10 +10,10 @@ body {
   min-height: 100vh; /* added */
 
 }
+
 footer {
 background-color: hsl(93, 100%, 20%);
-margin-top: 200px;
-margin-bottom: 20px; /* added */
+margin-top: 200px; /* added */
 }
 
 .footerContainer{
@@ -53,16 +53,17 @@ margin-bottom: 20px; /* added */
     justify-content: center;
     list-style-type: none;
 }
-.footerNav ul li a{
+.footerNav ul li a, p{
     color:white;
     margin: 20px;
     text-decoration: none;
     font-size: 1em;
     opacity: 0.85;
     transition: 0.5s;
-
+    cursor: pointer;
 }
-.footerNav ul li a:hover{
+.footerNav ul li a, p:hover{
+    text-decoration: none;
     opacity: 1;
 }
 
@@ -80,3 +81,91 @@ margin-bottom: 20px; /* added */
         margin: 4px;
     }
 }
+
+
+/*MODALS*/
+
+.modal-abt,
+.modal-contt{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease-in-out;
+}
+
+.modal-active {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+.modals{
+    background-color: white;
+    width: 50%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btnClose{
+    background-color: #f44336;
+    padding: 15px 50px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+}
+.btns{
+    justify-content: space-evenly;
+    display: flex;
+    margin-top: auto;
+}
+
+.modals h1{
+    color: black;
+    margin-top: 50px;
+}
+
+.modals h4{
+    margin-top: 30px;
+    max-width: inherit;
+    max-height: 50%;
+}
+table {
+    margin-top: 30px;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f4f4f4;
+    font-weight: 600;
+  }
+  
+  td img {
+    width: 50px;
+    height: auto;
+    border-radius: 4px;
+  }

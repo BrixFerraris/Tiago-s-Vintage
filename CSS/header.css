@@ -59,7 +59,28 @@
     color: white;
     font-family: 'Karla', sans-serif;
   }
+
+
+
+
+  .topnav ul li a, p{
+    color:white;
+    margin: 20px;
+    text-decoration: none;
+    font-size: 1em;
+    opacity: 0.85;
+    transition: 0.5s;
+    cursor: pointer;
+}
+.topnav ul li a, p:hover{
+    text-decoration: none;
+    opacity: 1;
+}
   
+
+
+
+
   .background img{
     height: 100vh;
     width: 100vw;
