@@ -1,8 +1,114 @@
 <?php
   include_once './includes/sidebar.php';
 ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
       <!-- Main -->
+      <div class="notification-container">
+  <div class="notification-icon">
+    <i class="fas fa-bell"></i> <!-- Font Awesome bell icon -->
+    <span class="notification-badge">3</span>
+  </div>
+  <div class="notification-dropdown">
+    <ul>
+      <li>
+        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
+        username, order id, status
+      </li>
+      <li>
+        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
+        username, order id, status (ordered)
+      </li>
+      <li>
+        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
+        username, order id, status (payment successful)
+      </li>
+      <li>
+        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
+        Clark | #1111 | Paid
+      </li>
+      <li>
+        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
+        Clark | #2222 | Ordered
+      </li>
+
+      <li>
+        <span class="notification-category sales"><i class="fas fa-dollar-sign"></i> Sales Order</span>
+        username, order id, status (completed)
+      </li>
+      <li>
+        <span class="notification-category sales"><i class="fas fa-dollar-sign"></i> Sales Order</span>
+        Clark | #3333 | Completed
+      </li>
+
+      <li>
+        <span class="notification-category stock"><i class="fas fa-exclamation-triangle"></i> Low Stock</span>
+        product id or name, current stock level
+      </li>
+      <li>
+        <span class="notification-category stock"><i class="fas fa-exclamation-triangle"></i> Low Stock</span>
+        Levi's Pants | #123 | Stock: 3
+      </li>
+
+      <li>
+        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
+        Clark | #1111 | Paid
+      </li>
+      <li>
+        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
+        Clark | #2222 | Ordered
+      </li>
+      <li>
+        <span class="notification-category stock"><i class="fas fa-exclamation-triangle"></i> Low Stock</span>
+        Levi's Pants | #123 | Stock: 3
+      </li>
+      <li>
+        <span class="notification-category sales"><i class="fas fa-dollar-sign"></i> Sales Order</span>
+        Clark | #3333 | Completed
+      </li>
+      <li>
+        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
+        Clark | #2222 | Ordered
+      </li>
+      <li>
+        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
+        Clark | #2222 | Ordered
+      </li>
+      <li>
+        <span class="notification-category stock"><i class="fas fa-exclamation-triangle"></i> Low Stock</span>
+        Levi's Pants | #123 | Stock: 3
+      </li>
+      <li>
+        <span class="notification-category sales"><i class="fas fa-dollar-sign"></i> Sales Order</span>
+        Clark | #3333 | Completed
+      </li>
+      <li>
+        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
+        Clark | #2222 | Ordered
+      </li>
+      <li>
+        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
+        Clark | #2222 | Ordered
+      </li>
+      <li>
+        <span class="notification-category stock"><i class="fas fa-exclamation-triangle"></i> Low Stock</span>
+        Levi's Pants | #123 | Stock: 3
+      </li>
+      <li>
+        <span class="notification-category sales"><i class="fas fa-dollar-sign"></i> Sales Order</span>
+        Clark | #3333 | Completed
+      </li>
+      <li>
+        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
+        Clark | #2222 | Ordered
+      </li>
+
+      
+    </ul>
+  </div>
+</div>
+
+      
       <main class="main-container">
         <div class="main-title">
           <p class="font-weight-bold">DASHBOARD</p>
@@ -13,7 +119,6 @@
           <div class="card">
             <div class="card-inner">
               <p class="text-primary">PRODUCTS</p>
-              <span class="material-icons-outlined text-blue">inventory_2</span>
             </div>
             <span class="text-primary font-weight-bold">249</span>
           </div>
@@ -21,7 +126,6 @@
           <div class="card">
             <div class="card-inner">
               <p class="text-primary">PURCHASE ORDERS</p>
-              <span class="material-icons-outlined text-orange">add_shopping_cart</span>
             </div>
             <span class="text-primary font-weight-bold">83</span>
           </div>
@@ -29,7 +133,6 @@
           <div class="card">
             <div class="card-inner">
               <p class="text-primary">SALES ORDERS</p>
-              <span class="material-icons-outlined text-green">shopping_cart</span>
             </div>
             <span class="text-primary font-weight-bold">79</span>
           </div>
@@ -37,7 +140,6 @@
           <div class="card">
             <div class="card-inner">
               <p class="text-primary">INVENTORY ALERTS</p>
-              <span class="material-icons-outlined text-red">notification_important</span>
             </div>
             <span class="text-primary font-weight-bold">56</span>
           </div>
@@ -188,6 +290,23 @@ const areaChart = new ApexCharts(
   areaChartOptions
 );
 areaChart.render();
+
+
+
+// notification
+document.querySelector('.notification-icon').addEventListener('click', function() {
+  const dropdown = document.querySelector('.notification-dropdown');
+  dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
+});
+
+// Close the dropdown if clicked outside
+document.addEventListener('click', function(event) {
+  const dropdown = document.querySelector('.notification-dropdown');
+  const icon = document.querySelector('.notification-icon');
+  if (!icon.contains(event.target)) {
+    dropdown.style.display = 'none';
+  }
+});
 
     </script>
   </body>

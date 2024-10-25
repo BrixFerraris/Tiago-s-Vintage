@@ -232,6 +232,108 @@ body {
     font-weight: 600;
   }
   
+/*NOTIFICATION*/
+/* Position the notification bell in the upper right */
+.notification-container {
+  position: absolute;
+  right: 30px;
+  top: 20px;
+}
+
+.notification-icon {
+  position: relative;
+  cursor: pointer;
+  font-size: 24px;
+  color: white; /* Dark green for the icon */
+  background-color: #2E6600; /* Light green background */
+  border-radius: 50%; /* Makes the background circular */
+  padding: 10px; /* Ensures enough space around the icon */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Set fixed width */
+  height: 40px; /* Set fixed height */
+}
+
+
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: 50%;
+  font-weight: bold;
+  z-index: 1;
+}
+
+.notification-dropdown {
+  display: none;
+  position: absolute;
+  top: 35px;
+  right: 0;
+  width: 400px;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 5px;
+  z-index: 1000;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+
+
+
+
+
+.notification-category {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.purchase {
+  color: #246dec; /* Blue for Purchase Orders */
+}
+
+.sales {
+  color: #367952; /* Green for Sales Orders */
+}
+
+.stock {
+  color: #cc3c43; /* Red for Low Stock Alerts */
+}
+
+.notification-dropdown ul {
+  padding-inline-start: 10px;
+}
+
+/* Style the notification list items for better readability */
+.notification-dropdown li {
+  padding: 10px;
+  border-bottom: 1px solid #f1f1f1;
+  display: flex;
+  flex-direction: column; /* Stack category and message vertically */
+}
+
+.notification-dropdown li:last-child {
+  border-bottom: none;
+}
+
+.notification-dropdown li:hover {
+  background-color: #f9f9f9;
+}
+
+/* Add a bit more space for each item */
+.notification-category i {
+  margin-right: 5px; /* Add some space between icon and text */
+}
+
+
   
   /* ---------- SCROLLBARS ---------- */
   
@@ -252,6 +354,7 @@ body {
   
   ::-webkit-scrollbar-thumb:hover {
     background-color: #a5aaad;
+    margin-right: auto;
   }
   
   

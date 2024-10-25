@@ -16,7 +16,6 @@ include_once '../server/includes/sidebar.php';
 
     <div class="content">
         <div class="aa">
-            <h1>Admin Profile</h1>
             <button class="add-btn" >Add Admin </button>
         </div>
         <table>
@@ -45,13 +44,7 @@ include_once '../server/includes/sidebar.php';
 </tbody>
 
         </table>
-        <div class="pagination">
-            <a href="#" class="prev">Previous</a>
-            <a href="#" class="page-num">1</a>
-            <a href="#" class="page-num">2</a>
-            <a href="#" class="page-num">...</a>
-            <a href="#" class="next">Next</a>
-        </div>
+
         <div class="buttons">
             <button class="save-btn">Save</button>
             <button class="cancel-btn">Cancel</button>
@@ -62,6 +55,8 @@ include_once '../server/includes/sidebar.php';
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top, margin-bottom: 30px;
+    margin-left: auto;
   }
 
   .add-btn {
@@ -73,6 +68,8 @@ include_once '../server/includes/sidebar.php';
     transition: background-color 0.3s;
     color: #fff;
     background-color: #0057E1;
+    margin-top, margin-bottom: 30px;
+    margin-left: auto;
   }
 
     .buttons {
