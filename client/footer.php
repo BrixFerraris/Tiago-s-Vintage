@@ -17,7 +17,7 @@
         </div>
         <div class="footerNav">
             <ul><li><a href="./landing.php">Home</a></li>
-                <li><a href="">About</a></li>
+                <li><a href="./about.php">About</a></li>
                 <li><a href="">Contact Us</a></li>
                 <li><a href="">Our Team</a></li>
             </ul>

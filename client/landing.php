@@ -1,9 +1,13 @@
 <?php
 include 'header.php';
 ?>          
+
+<link rel="stylesheet" href="../CSS/landing.css">
                         <div class="background">
                             <img src="../assets/Component 2.png" alt="">
+                            <h1 class="bgtxt">Tiago's Vintage</h1>
                         </div>
+
     <div class="products">
         <p>NEW ARRIVALS</p>
             <div id="products" class="product-items">

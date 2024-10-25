@@ -1,0 +1,25 @@
+.background {
+    position: relative; /* Make this container the reference for absolute positioning */
+    display: inline-block; /* Keeps it as per the image size */
+  }
+
+.txt{
+    text-align: center;
+    align-items: center;
+    position: absolute;
+    top: 40%; /* Adjust vertical positioning */
+    left: 50%; /* Adjust horizontal positioning */
+    transform: translate(-50%, -50%); /* Centers the text */
+    color: white; /* Text color */
+    -webkit-text-stroke: 2px black;
+    font-size: 40px; /* Adjust the font size */
+    font-family: 'Koulen', sans-serif;
+    margin: 0; /* Remove any default margins */
+    max-width: 70%;
+    max-height: 80%;
+}
+
+.abt{
+    font-size: 80px;
+    font-style: underline;
+}
