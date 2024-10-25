@@ -346,7 +346,7 @@ document.getElementById('search-input').addEventListener('input', function() {
 });
 
 function fetchProducts(searchValue) {
-	var conn = new WebSocket('ws://65.19.154.77:8080/ws/');
+  var conn = new WebSocket('ws://65.19.154.77:6969/ws/');
     conn.onopen = function() {
         conn.send(JSON.stringify({ type: 'searchProducts', title: searchValue }));
     };
@@ -379,7 +379,7 @@ function displayProducts(products) {
 
 
 // WebSocket connection
-var conn = new WebSocket('ws://65.19.154.77:8080/ws/');
+var conn = new WebSocket('ws://65.19.154.77:6969/ws/');
 conn.onopen = function() {
     conn.send(JSON.stringify({ type: 'loadProducts' }));
 };

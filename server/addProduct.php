@@ -98,7 +98,7 @@ function closeSidebar() {
 
 document.addEventListener('DOMContentLoaded', function () {
   // Websocket connection
-  var conn = new WebSocket('ws://65.19.154.77:8080/ws/');
+  var conn = new WebSocket('ws://65.19.154.77:6969/ws/');
   var select1 = document.getElementById('categories');
   var select2 = document.getElementById('sub_category');
   var categories = [];
