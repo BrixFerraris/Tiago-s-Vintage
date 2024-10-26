@@ -8,6 +8,8 @@ include 'header.php';
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 
+<body>
+    
 
 <main class="main-container">
         <div class="main-title">
@@ -59,7 +61,7 @@ include 'header.php';
             <button name="register" type="submit">Register</button>
             <div class="aabtm">
 
-            <a href="./login.php">Already have an account? Click here to Log on! </a>
+            <a href="./login.php" style="text-decoration: none; ">Already have an account? Click here to Log on! </a>
             </div>
             
             
@@ -80,8 +82,8 @@ include 'header.php';
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <p>SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS</p>
+                <div class="modal-body" >
+                    <p style="color: black;">SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS</p>
                     <!-- You can add your actual terms and conditions here -->
                 </div>
                 <div class="modal-footer">
@@ -91,8 +93,11 @@ include 'header.php';
         </div>
     </div>
 
-    
+    </body>
 
+    <?php
+include 'footer.php';
+?>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -106,7 +111,3 @@ include 'header.php';
 
     </style>
 
-
-<?php
-include 'footer.php';
-?>

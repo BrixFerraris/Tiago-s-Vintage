@@ -193,6 +193,3 @@ background-color: #e68a00;
 
 
 </style>
-<?php
-include_once 'footer.php';
-?>

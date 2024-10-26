@@ -167,6 +167,3 @@ body {
     font-size: small;
 }
 </style>
-<?php
-include_once 'footer.php';
-?>

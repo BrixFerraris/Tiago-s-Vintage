@@ -35,7 +35,7 @@ include 'header.php';
             <button name="submit" type="submit">Log in</button>
             <div class="aabtm">
 
-                <a href="./register.php">Doesn't have an account? Click here to Register! </a>
+                <a href="./register.php" style="text-decoration: none;">Doesn't have an account? Click here to Register! </a>
             </div>
             
 

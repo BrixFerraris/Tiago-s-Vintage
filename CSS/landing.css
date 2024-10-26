@@ -5,6 +5,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .background {
   position: relative; /* Make this container the reference for absolute positioning */
   display: inline-block; /* Keeps it as per the image size */
@@ -19,6 +20,9 @@
   font-size: 80px; /* Adjust the font size */
   font-family: 'Koulen', sans-serif;
   margin: 0; /* Remove any default margins */
+}
+.products{
+  margin-bottom: 100px;
 }
 .products p{
   text-align: center;

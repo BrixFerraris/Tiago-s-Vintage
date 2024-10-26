@@ -189,6 +189,3 @@ include './header.php';
 .item-details p{
     font-size: small;
 }</style>
-<?php
-include_once 'footer.php';
-?>

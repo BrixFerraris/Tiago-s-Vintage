@@ -266,7 +266,6 @@ body {
     margin-bottom: 10px;
     margin-top: 5%;
     justify-content: space-around;
-    
 }
 </style>
 <script>
@@ -282,6 +281,3 @@ body {
     });
 </script>
 
-<?php
-include_once 'footer.php';
-?>

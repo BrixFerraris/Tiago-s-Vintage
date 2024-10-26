@@ -204,6 +204,7 @@ overflow-x: hidden; /* added */
 }
 
 .img-item {
+  margin-bottom: 100px;
   display: flex;
   gap: 20px;
   margin-top: 30px;
@@ -272,6 +273,10 @@ overflow-x: hidden; /* added */
   margin-top: 20px;
   font-size: medium;
   color: grey;
+}
+.buttons button:focus{
+  background-color: darkgreen;
+  color: white;
 }
 
 .buttons button {

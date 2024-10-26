@@ -81,6 +81,7 @@
       </div>
     </div>
     </form>
+    
     <div class="edit-product-right">
       <div class="edit-product-title">
         <p class="font-weight-bold">Product Title</p>
@@ -98,9 +99,6 @@
         <select name="categories" id="categories">
             <option>Select Main Category</option>
           </select>
-          <select name="sub_category" id="sub_category">
-            <option>Select Sub Category</option>
-          </select>
       </div>
 
       <button class="save-button">Save</button>
@@ -108,40 +106,6 @@
     </div>
   </div>
 </main>
-
-<!-- Modal Structure -->
-<div id="editModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Edit Variation Details</h2>
-  <div class="modal-var">
-
-  
-    <div class="edit-variation">
-      <label for="modal-name">Name:</label>
-      <input type="text" id="modal-name" value="White">
-    </div>
-      
-    <div class="edit-variation">
-      <label for="modal-width">Width:</label>
-      <input type="number" id="modal-width" value="24">
-    </div>
-      
-    <div class="edit-variation">
-      <label for="modal-length">Length:</label>
-      <input type="number" id="modal-length" value="29">
-    </div>
-
-    <div class="edit-variation">
-      <label for="modal-quantity">Quantity:</label>
-      <input type="number" id="modal-quantity" value="3">
-    </div>
-
-    <button class="save-modal">Save Changes</button>
-  </div>
-</div>
-</div>
-
 
 <style>
 

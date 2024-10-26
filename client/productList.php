@@ -3,8 +3,6 @@ include './header.php';
 ?>
 
 <div class="box">
-
-
   <div class="search-filter" id="search-filters">
   <a href="../client/shop.php" style="text-decoration: none;"><button>Back</button></a>
     <input type="text" id="search-input" placeholder="Search Products...">
@@ -207,6 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   .box {
+    margin-bottom: 100px;
     margin: 20px auto;
     padding: 20px;
     max-width: 1500px;

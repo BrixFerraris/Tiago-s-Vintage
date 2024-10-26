@@ -77,7 +77,7 @@ include './header.php';
             <textarea class="comments" name="comments" id="comments" rows="10" placeholder="Share more thoughts on the products to help other buy."></textarea>
             <div class="order-btn">
             <button class="btnSubmitReview">Submit</button>
-            <button class="btnBack">Back</button>
+            <button class="btnCancel">Cancel</button>
             </div>
             </div>
     </div>
@@ -100,14 +100,13 @@ textarea{
     padding-left: 10px;
 }
 .order-btn{
-    display: flex; 
-    align-items: center;
-    margin-top: 1%;
-    justify-content: space-around;
-    
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
 }
 .modals 
-.btnSubmitReview, .btnBack{
+.btnSubmitReview{
     padding: 10px 20px;
     background-color: green;
     width: 200px;
@@ -116,7 +115,15 @@ textarea{
     border-radius: 5px;
     cursor: pointer; /* Add this line */
 }
-
+.modals .btnCancel{
+    padding: 10px 20px;
+    background-color: #f44336;
+    width: 200px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 .modal-review{
     position: fixed;
     width: 100%;
@@ -138,7 +145,7 @@ textarea{
 
 .modals{
     background-color: white;
-    width: 20%;
+    width: 32%;
     height: 70%;
     display: flex;
     justify-content: space-around;
@@ -200,9 +207,7 @@ textarea{
     background-color: #4CAF50;
     color: white;
 }
-.order-btn{
-    display: inline-block;
-}
+
 /* Order Section */
 .order-section {
     padding: 20px;
@@ -275,7 +280,7 @@ textarea{
 <script>
     var modalBtn = document.querySelector('.confirm-receive-btn');
     var modalBg = document.querySelector('.modal-review');
-    var modalClose = document.querySelector('.btnBack');
+    var modalClose = document.querySelector('.btnCancel');
     
     modalBtn.addEventListener('click', function() {
         modalBg.classList.add('modal-active');
@@ -284,7 +289,3 @@ textarea{
         modalBg.classList.remove('modal-active');
     });
 </script>
-
-<?php
-include_once 'footer.php';
-?>
