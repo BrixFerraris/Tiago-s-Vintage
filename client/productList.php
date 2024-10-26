@@ -3,7 +3,10 @@ include './header.php';
 ?>
 
 <div class="box">
-  <div id="search-filters">
+
+
+  <div class="search-filter" id="search-filters">
+  <a href="../client/shop.php" style="text-decoration: none;"><button>Back</button></a>
     <input type="text" id="search-input" placeholder="Search Products...">
     
     <select id="categories">
@@ -56,7 +59,7 @@ function displayProducts(products) {
             var newDiv = document.createElement('div');
             newDiv.className = 'cell';
             newDiv.innerHTML = `
-                <a href="./newItem.php?productID=${product.id}">
+                <a href="./newItem.php?productID=${product.id}" style="text-decoration: none;">
                     <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
                     <p>
                         <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
@@ -96,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   var newDiv = document.createElement('div');
                   newDiv.className = 'cell';
                   newDiv.innerHTML = `
-                      <a href="./newItem.php?productID=${data.id}">
+                      <a href="./newItem.php?productID=${data.id}" style="text-decoration: none;">
                           <img src="../server/includes/uploads/${data.img1}" alt="${data.title}" width="252" height="320">
                           <p>
                               <span class="has-text-primary has-text-weight-bold">${data.title}</span><br>
@@ -244,8 +247,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   .cell p {
     padding: 15px;
+    text-decoration: none;
   }
-
   .cell .has-text-primary {
     color: #28a745;
   }
@@ -254,7 +257,15 @@ document.addEventListener('DOMContentLoaded', function() {
     font-weight: bold;
   }
   /* search dropdown */ 
-
+  .search-filter button{
+    padding: 10px 20px;
+    background-color: green;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+  }
   /* Search filters styling */
   #search-filters {
     display: flex;
@@ -364,6 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
   /* Button hover effect */
   #apply-button:hover {
     background-color: #45a049; /* Darker green on hover */
+    
   }
 </style>
 

@@ -49,19 +49,14 @@ include 'header.php';
                         </div>
                     </div>
 
+                    <div id="myModal" class="modal">
+                    <span class="close">&times;</span>
+                    <img class="modal-content" id="img01">
+                    <div id="caption"></div>
+                  </div>
+               
 
-                <div class="recomendation">
-                    <p>
-                        POPULAR
-                    </p>
-                    <div class="img-rec">
-                        <img src="../assets/sampletpic2.png" alt="">
-                        <img src="../assets/samplepic3.png" alt="">
-                        <img src="../assets/samplepic4.png" alt="">
-                        <img src="../assets/samplepic5.png" alt="">
-                    </div>
-
-                </div>
+      
 <script>
   function validateForm() {
     var productId = document.getElementById('product_id').getAttribute('value');
@@ -166,6 +161,27 @@ include 'header.php';
     }
   });
 });
+
+
+var modal = document.getElementById("myModal");
+var img = document.getElementById("img1");
+var modalImg = document.getElementById("img01");
+var span = document.getElementsByClassName("close")[0];
+
+img.onclick = function(){
+    modal.style.display = "block";
+    modalImg.src = this.src;
+}
+
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 </script>
 
     <style>
@@ -196,12 +212,14 @@ overflow-x: hidden; /* added */
 
 
 .main-img img {
+
   width: 350px;
   margin-left: 40px;
   display: flex;
 }
 
 .sub-img {
+
   flex-direction: column;
   gap: 20px;
 }
@@ -213,10 +231,15 @@ overflow-x: hidden; /* added */
 
 /* Product details styles */
 .details {
+  background-color: rgba(240, 240, 240);
+  border-radius: 20px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  border: solid rgba(240, 240, 240);
+  padding: 30px;
   flex: 1;
   max-width: 700px;
   margin-right: 50px;
-  margin-top: 40px;
+  margin-top: 10px;
 }
 
 .details h1 {
@@ -227,10 +250,12 @@ overflow-x: hidden; /* added */
 }
 
 .details p {
+  cursor: default;
   font-family: "Inter", sans-serif;
   font-size: 20px;
   color: black;
   font-weight: normal;
+  margin-left: -0.5px;
 }
 
 .sizes{
@@ -243,20 +268,24 @@ overflow-x: hidden; /* added */
   margin-top: 5%;
 }
 .sizes p{
+  cursor: default;
   margin-top: 20px;
   font-size: medium;
   color: grey;
 }
 
 .buttons button {
+  margin-top: 5px;
   font-family: "Karla", sans-serif;
-  padding: 10px;
+  padding: 5px;
   background-color: '#ffffff';
   color: rgb(46, 102, 0);
   border: solid;
   cursor: pointer;
   font-weight: bold;
   border-width: thin;
+  height: 50px;
+  width: 180px;
 }
 
 .incdec {
@@ -264,6 +293,7 @@ overflow-x: hidden; /* added */
 }
 
 .incdec p {
+  cursor: default;
   margin-bottom: 10px;
   font-family: "Inter", sans-serif;
   font-size: medium;
@@ -283,6 +313,7 @@ overflow-x: hidden; /* added */
   font-family: "Inter", sans-serif;
   font-size: medium;
   color: grey;
+  cursor: default;
 }
 
 .btncart{
@@ -300,8 +331,6 @@ overflow-x: hidden; /* added */
   font-size: 16px;
   font-weight: bold;
 }
-
-
 
 .recomendation p {
   margin-top: 100px;
@@ -321,6 +350,79 @@ overflow-x: hidden; /* added */
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
   justify-items: center; 
   gap: 145px; 
+}
+
+
+#img1{
+  cursor: pointer;
+}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 500px;
+}
+
+/* Caption of Modal Image */
+
+
+/* Add Animation */
+.modal-content, #caption {  
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+  from {-webkit-transform:scale(0)} 
+  to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+  from {transform:scale(0)} 
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
 }
 
 

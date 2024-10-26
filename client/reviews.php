@@ -57,6 +57,7 @@ include_once 'header.php';
 
 
 <style>
+  
   body {
   margin: 0;
   padding: 0;
@@ -99,6 +100,9 @@ include_once 'header.php';
 
   .review-body {
     margin-bottom: 10px;
+  }
+  .review-body p{
+    color: black;
   }
 
   .review-image {

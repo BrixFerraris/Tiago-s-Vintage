@@ -53,7 +53,7 @@ margin-top: 200px; /* added */
     justify-content: center;
     list-style-type: none;
 }
-.footerNav ul li a, p{
+.foots ul li a{
     color:white;
     margin: 20px;
     text-decoration: none;
@@ -62,10 +62,7 @@ margin-top: 200px; /* added */
     transition: 0.5s;
     cursor: pointer;
 }
-.footerNav ul li a, p:hover{
-    text-decoration: none;
-    opacity: 1;
-}
+
 
 @media (max-width: 700px){
     .footerNav ul{
@@ -110,7 +107,7 @@ margin-top: 200px; /* added */
 .modals{
     background-color: white;
     width: 50%;
-    height: 70%;
+    height: 90%;
     display: flex;
     align-items: center;
     flex-direction: column;

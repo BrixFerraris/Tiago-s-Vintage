@@ -17,11 +17,13 @@
             <a href="https://www.instagram.com/tiagos_vintage_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class="fa-brands fa-instagram"></i></a>
         </div>
         <div class="footerNav">
+            <div class="foots">
             <ul><li><a href="../client/landing.php"><p>Home</p> </a></li>
                 <li><a> <p class="abtt"> About </p> </a></li>
                 <li><a> <p class="contt"> Contact Us </p> </a></li>
    
             </ul>
+            </div>
         </div>
         
     </div>

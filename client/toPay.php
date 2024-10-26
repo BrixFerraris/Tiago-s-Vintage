@@ -62,7 +62,7 @@ include './header.php';
     </div>
 </div>
 <div class="modal-payment">
-    <div class="modals">
+    <div class="modals1">
 
         <h2>Payment Method</h2>
         <h6>Scan to pay</h6>
@@ -84,7 +84,12 @@ include './header.php';
 body {
     background-color: #f0f0f5;
 }
-
+.container p{
+    color: black;
+}
+.container p:hover{
+    cursor: default;
+}
 .container {
     width: 80%;
     margin: 20px auto;
@@ -93,8 +98,6 @@ body {
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
-
-
 
 .menu {
     list-style: none;
@@ -149,6 +152,9 @@ body {
     align-items: center;
     border-bottom: 1px solid #ddd;
     padding: 15px 0;
+}
+.item-details p{
+    color: black;
 }
 
 .item-details {
@@ -217,6 +223,7 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: 100px;
 }
 
 .btnCancel {
@@ -242,7 +249,7 @@ body {
     opacity: 1;
 }
 
-.modals{
+.modals1{
     background-color: white;
     width: 50%;
     height: 70%;
@@ -256,6 +263,7 @@ body {
 }
 
 .order-btn{
+    margin-bottom: 10px;
     margin-top: 5%;
     justify-content: space-around;
     

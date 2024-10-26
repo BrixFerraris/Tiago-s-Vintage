@@ -64,10 +64,16 @@ include './header.php';
 </body>
 </html>
 <style>
+
     body {
     background-color: #f0f0f5;
 }
-
+.container p{
+    color: black;
+}
+.container p:hover{
+    cursor: default;
+}
 .container {
     width: 80%;
     margin: 20px auto;

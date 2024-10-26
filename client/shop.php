@@ -10,24 +10,26 @@ include 'header.php';
     <div class="wrapper-categories">
         
         <div class="parent-category">
+            <a href="../client/productList.php">
             <div class="details">
             <h2>All Items</h2>
             <p>View Product</p>
             </div>
             <div class="child bg-category">
             </div>
-
+            </a>
         </div>
 
         <div class="parent-category">
+        <a href="../client/productList.php">
         <div class="details">
             <h2>T-shirts</h2>
             <p>View Product</p>
             </div>
             <div class="child bg2-category">
-                <p></p>
+            
             </div>
-
+            </a>
         </div>
 
         <div class="parent-category">
@@ -98,8 +100,8 @@ include 'header.php';
         left: 40%;
         z-index: 2; /* Ensure text stays above the background image */
         color:white;
-    font-family: 'Koulen', sans-serif;
-    font-size: 25px;
+        font-family: 'Koulen', sans-serif;
+        font-size: 25px;
         text-align: center;
         pointer-events: none;
     }

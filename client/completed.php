@@ -74,7 +74,7 @@ include './header.php';
                 <span class="fa fa-star"></span>
                 <span class="fa fa-star"></span>
                 </div>
-            <textarea name="comments" id="comments" rows="7" placeholder="Share more thoughts on the products to help other buy."></textarea>
+            <textarea class="comments" name="comments" id="comments" rows="10" placeholder="Share more thoughts on the products to help other buy."></textarea>
             <div class="order-btn">
             <button class="btnSubmitReview">Submit</button>
             <button class="btnBack">Back</button>
@@ -84,8 +84,17 @@ include './header.php';
 </body>
 </html>
 <style>
+.comments{
+    width: 500px;
+}
 body {
     background-color: #f0f0f5;
+}
+.container p{
+    color: black;
+}
+.container p:hover{
+    cursor: default;
 }
 textarea{
     padding-left: 10px;
@@ -129,7 +138,7 @@ textarea{
 
 .modals{
     background-color: white;
-    width: 40%;
+    width: 20%;
     height: 70%;
     display: flex;
     justify-content: space-around;
@@ -191,7 +200,9 @@ textarea{
     background-color: #4CAF50;
     color: white;
 }
-
+.order-btn{
+    display: inline-block;
+}
 /* Order Section */
 .order-section {
     padding: 20px;
@@ -242,6 +253,7 @@ textarea{
 
 /* Button styles for "Confirm Receipt" */
 .confirm-receive-btn {
+    margin-left: 10px;
     background-color: #0066cc;
     color: white;
     padding: 8px 16px;

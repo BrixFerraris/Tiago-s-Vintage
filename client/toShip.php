@@ -81,7 +81,12 @@ box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 
 /* Navigation Bar */
 
-
+.container p{
+    color: black;
+}
+.container p:hover{
+    cursor: default;
+}
 .menu {
 list-style: none;
 display: flex;
