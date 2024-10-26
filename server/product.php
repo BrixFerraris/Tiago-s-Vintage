@@ -22,12 +22,13 @@
 }
 
 .main-title {
-  margin-bottom: 20px;
-}
-
-.main-title p {
-  font-size: 24px;
-}
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .main-title > p {
+    font-size: 20px;
+  }
 
 /* Edit Product */
 .edit-product {

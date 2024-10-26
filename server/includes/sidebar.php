@@ -54,12 +54,23 @@
                 </li>
             </a>
 
+            <a href="./adminLogs.php">
+                <li class="sidebar-list-item">
+                    <span class="material-icons-outlined">description</span> Admin Logs
+                </li>
+            </a>
+
             <a href="./purchaseOrders.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">add_shopping_cart</span> Purchase Orders
                 </li>
             </a>
 
+            <a href="./adminCustomerAccs.php">
+                <li class="sidebar-list-item">
+                    <span class="material-icons-outlined">groups</span> Customers Account
+                </li>
+            </a>
 
             <a href="./reports.php">
                 <li class="sidebar-list-item">

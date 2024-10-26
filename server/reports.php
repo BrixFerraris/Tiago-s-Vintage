@@ -21,9 +21,7 @@
             <p class="font-weight-bold">REPORTS</p>
             </div>
 
-            <div class="content">
-            <h1>Reports</h1>
-            
+            <div class="content">            
             
             <div class="charts-container">
     <!-- Monthly Sales Chart -->
