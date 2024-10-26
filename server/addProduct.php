@@ -39,13 +39,7 @@
                     <option value="Accessories">
                 </select>
             </div>
-            <div class="form-group">
-                <label for="sub_category">Sub Category</label>
-                <select name="sub_category" id="sub_category" required>
-
-                </select>
-            </div>
-
+            
             <div class="form-group">
                 <label for="img1">Image 1</label>
                 <input type="file" id="img1" name="img1" accept="image/*" required>
