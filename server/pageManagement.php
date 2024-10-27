@@ -29,9 +29,9 @@
                 </div>
                 <div class="">
                     <h2>Title</h2>
-                    <h1>Tiago's Vintage</h1>
+                    <h1 class="cms-title" >Tiago's Vintage</h1>
                     <h2>Logo</h2>
-                    <img src="../images/tiagos.png" alt="" width="200px" height="200px">
+                    <img class="cms-logo" src="../images/tiagos.png" alt="" width="200px" height="200px">
                 </div>
                 
             </div>
@@ -43,9 +43,9 @@
                 </div>
                 <div>
                     <h2>Background Photo</h2>
-                    <img src="../assets/Component 2.png" alt="" style="max-width: 50%; height: auto;">
+                    <img class="landing_bg" src="../assets/Component 2.png" alt="" style="max-width: 50%; height: auto;">
                     <h2>Text</h2>
-                    <h1>Sample Text Sample Text Sample Text </h1>
+                    <h1 class="landing_text" >Sample Text Sample Text Sample Text </h1>
                 </div>
                 
             </div>
@@ -55,8 +55,7 @@
                     <h1>About us</h1>
                     <button class="edit-btn3">Edit</button>
                 </div>
-
-                <h4>Sample about us Sample about us Sample about us Sample about us Sample about us Sample about us Sample about us Sample about us Sample about us</h4> <!-- preview ng header title -->
+                <h4 class="about-us">Sample about us Sample about us Sample about us Sample about us Sample about us Sample about us Sample about us Sample about us Sample about us</h4> <!-- preview ng header title -->
             </div>
 
             <div class="card">
@@ -64,7 +63,7 @@
                     <h1>Terms & Conditions</h1>
                     <button class="edit-btn4">Edit</button>
                 </div>
-                <h4>Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions </h4>
+                <h4 class="terms-conditions">Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions </h4>
             </div>
 
             <div class="card">
@@ -82,35 +81,35 @@
             <td>
                 <img src="../assets/fb_icon.svg" alt="">
             </td>
-            <td>https://www.facebook.com/profile.php?id=100063803240125</td>
+            <td class="fb" >https://www.facebook.com/profile.php?id=100063803240125</td>
         </tr>
 
         <tr>
             <td>
                 <img src="../assets/ig_icon.svg" alt="">
             </td>
-            <td>https://www.instagram.com/tiagos_vintage_/</td>
+            <td class="ig">https://www.instagram.com/tiagos_vintage_/</td>
         </tr>
 
         <tr>
             <td>
                 <img src="../assets/phone_icon.svg" alt="">
             </td>
-            <td>09999999999</td>
+            <td class="number">09999999999</td>
         </tr>
 
         <tr>
             <td>
                 <img src="../assets/email_icon.svg" alt="">
             </td>
-            <td>sample@gmail.com</td>
+            <td class="email">sample@gmail.com</td>
         </tr>
 
         <tr>
             <td>
                 <img src="../assets/location_icon.svg" alt="">
             </td>
-            <td>Bayan luma tiagos malapit kila duk sa harap</td>
+            <td class="address">Bayan luma tiagos malapit kila duk sa harap</td>
         </tr>
   
 
@@ -123,66 +122,71 @@
     <!-- Modal Header -->
       <div class="modal-header">
         <div class="modals">
+            <form action="./includes/editTitle.php" method="post" enctype="multipart/form-data">
         <h1>Header Title & Logo</h1>
                 <h4>Title: </h4>
-                <input class="input" type="text" placeholder="yung current value">
+                <input name="title" class="cms-title input" type="text" placeholder="yung current value">
                 <h4>Logo:</h4>
-                <input class="input" type="file">
+                <input name="logo" class="input" type="file" required>
             <div class="btns">
-                <button class="btnSave">Save</button>
-                <button class="btnCancel">Cancel</button>
+                <button type="submit" class="btnSave">Save</button>
+                <button type="button" class="btnCancel">Cancel</button>
             </div>
-            
+            </form>
         </div>
-</div>
+        </div>
 
 <!-- Modal Landing bg&txt -->
     <div class="modal-landing">
             <div class="modals">
+                <form action="./includes/editLanding.php" method="post" enctype="multipart/form-data">
                 <h1>Landing background & text</h1>
                     <h4>Backgroud Photo:</h4>
-                    <input class="input" type="file">
+                    <input name="landing_bg" class="input" type="file" required>
                     <h4>Text: </h4>
-                    <input class="input" type="text" placeholder="yung current value">
+                    <input name="landing_text" class="landing_text input" type="text" placeholder="yung current value">
                     <div class="btns">
-                        <button class="btnSave">Save</button>
-                        <button class="btnCancel">Cancel</button>
+                        <button type="submit" class="btnSave">Save</button>
+                        <button type="button" class="btnCancel">Cancel</button>
                     </div>
-                
+                </form>
             </div>
     </div>
 
     <!-- Modal About -->
     <div class="modal-about">
             <div class="modals">
+                <form action="./includes/editAbout.php" method="post">
                 <h1>About</h1>
                     <h4>Text: </h4>
-                    <textarea name="comments" id="comments" rows="15" placeholder="yung current value"></textarea>
+                    <textarea class="about-us" name="about" id="about" rows="15" placeholder="yung current value"></textarea>
                     <div class="btns">
-                        <button class="btnSave">Save</button>
-                        <button class="btnCancel">Cancel</button>
+                        <button type="submit" class="btnSave">Save</button>
+                        <button type="button" class="btnCancel">Cancel</button>
                     </div>
-                
+                </form>    
             </div>
     </div>
 
     <!-- Modal T&C -->
     <div class="modal-tandc">
             <div class="modals">
+                <form action="./includes/editTerms.php" method="post">
                 <h1>Landing background & text</h1>
                     <h4>Text: </h4>
-                    <textarea name="comments" id="comments" rows="15" placeholder="yung current value"></textarea>
+                    <textarea class="terms-conditions" name="terms" id="terms" rows="15" placeholder="yung current value"></textarea>
                     <div class="btns">
-                        <button class="btnSave">Save</button>
-                        <button class="btnCancel">Cancel</button>
+                        <button type="submit" class="btnSave">Save</button>
+                        <button type="button" class="btnCancel">Cancel</button>
                     </div>
-                
+                </form>    
             </div>
     </div>
 
     <!-- Modal Contacs -->
     <div class="modal-contacts">
             <div class="modals">
+                <form action="./includes/editSocials.php" method="post" enctype="multipart/form-data">
                 <h1>Contacts</h1>
                 <table>
                     <tr>
@@ -192,30 +196,30 @@
 
                     <tr>
                         <td><img src="../assets/fb_icon.svg" alt=""></td>
-                        <td><input class="input" type="text" name="fb" placeholder="yung current value"></td>
+                        <td><input class="fb input" type="text" name="fb" placeholder="yung current value"></td>
                     </tr>
                     <tr>
                         <td><img src="../assets/ig_icon.svg" alt=""></td>
-                        <td><input class="input" type="text" name="ig" placeholder="yung current value"></td>
+                        <td><input class="ig input" type="text" name="ig" placeholder="yung current value"></td>
                     </tr>
                     <tr>
                         <td><img src="../assets/phone_icon.svg" alt=""></td>
-                        <td><input class="input" type="text" name="number" placeholder="yung current value"></td>
+                        <td><input class="number input" type="text" name="number" placeholder="yung current value"></td>
                     </tr>
                     <tr>
                         <td><img src="../assets/email_icon.svg" alt=""></td>
-                        <td><input class="input" type="text" name="email" placeholder="yung current value"></td>
+                        <td><input class="email input" type="text" name="email" placeholder="yung current value"></td>
                     </tr>
                     <tr>
                         <td><img src="../assets/location_icon.svg" alt=""></td>
-                        <td><input class="input" type="text" name="location" placeholder="yung current value"></td>
+                        <td><input class="address input" type="text" name="location" placeholder="yung current value"></td>
                     </tr>
                 </table>
                 <div class="btns">
-                    <button class="btnSave">Save</button>
-                    <button class="btnCancel">Cancel</button>
+                    <button type="submit" class="btnSave">Save</button>
+                    <button type="button" class="btnCancel">Cancel</button>
                 </div>
-                
+                </form>             
             </div>
     </div>
 
@@ -383,6 +387,44 @@ modalBtn5.addEventListener('click', function() {
 modalClose5.addEventListener('click', function(){
     modalBg5.classList.remove('modal-active');
 });
+
+$(document).ready(function() {
+            $.ajax({
+                url: './includes/getCMS.php', 
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    if (data.error) {
+                        $('#cms-title').text('Error loading title');
+                    } else {
+                        $('.cms-title').text(data.title);
+                        $('.cms-logo').attr('src', './includes/uploads/' + data.logo).show();
+                        $('.landing_text').text(data.landing_text);
+                        $('.landing_bg').attr('src', './includes/uploads/' + data.landing_bg).show();
+                        $('.about-us').text(data.about);
+                        $('.terms-conditions').text(data.terms);
+                        $('.fb').text(data.fb);
+                        $('.ig').text(data.ig);
+                        $('.number').text(data.number);
+                        $('.email').text(data.email);
+                        $('.address').text(data.address);
+
+                        $('.cms-title').val(data.title);
+                        $('.landing_text').val(data.landing_text);
+                        $('.about-us').val(data.about);
+                        $('.terms-conditions').val(data.terms);
+                        $('.fb').val(data.fb);
+                        $('.ig').val(data.ig);
+                        $('.number').val(data.number);
+                        $('.email').val(data.email);
+                        $('.address').val(data.address);
+                    }
+                },
+                error: function() {
+                    $('#cms-title').text('Error loading data');
+                }
+            });
+        });
 </script>
 
 </html>

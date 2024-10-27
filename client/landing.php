@@ -4,8 +4,8 @@ include 'header.php';
 
 <link rel="stylesheet" href="../CSS/landing.css">
                         <div class="background">
-                            <img src="../assets/Component 2.png" alt="">
-                            <h1 class="bgtxt">Tiago's Vintage</h1>
+                        <img class="bghaha" src="../assets/Component 2.png" alt="">
+                            <h1 class="landing_text" class="bgtxt">Tiago's Vintage</h1>
                         </div>
 
     <div class="products">
@@ -36,6 +36,24 @@ include 'header.php';
                 productDiv.appendChild(newDiv);
             }
         };
+        $(document).ready(function() {
+            $.ajax({
+                url: '../server/includes/getCMS.php', 
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    if (data.error) {
+                        $('#cms-title').text('Error loading title');
+                    } else {
+                        $('.landing_text').text(data.landing_text);
+                        $('.bghaha').attr('src', '../server/includes/uploads/'+data.landing_bg).show();
+                    }
+                },
+                error: function() {
+                    $('#cms-title').text('Error loading data');
+                }
+            });
+        });
 </script>
 
 </body>

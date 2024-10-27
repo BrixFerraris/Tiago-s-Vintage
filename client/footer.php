@@ -33,7 +33,7 @@
     <div class="modal-abt">
             <div class="modals">
                     <h1>About Us</h1>
-                    <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </h4>
+                    <h4 class="about-us">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </h4>
                     <div class="btns">
                         <button class="btnClose">Close</button>
                     </div>
@@ -53,35 +53,35 @@
                         <td>
                             <img src="../assets/fb_icon.svg" alt="">
                         </td>
-                        <td>https://www.facebook.com/profile.php?id=100063803240125</td>
+                        <td class="fb" >https://www.facebook.com/profile.php?id=100063803240125</td>
                     </tr>
 
                     <tr>
                         <td>
                             <img src="../assets/ig_icon.svg" alt="">
                         </td>
-                        <td>https://www.instagram.com/tiagos_vintage_/</td>
+                        <td class="ig">https://www.instagram.com/tiagos_vintage_/</td>
                     </tr>
 
                     <tr>
                         <td>
                             <img src="../assets/phone_icon.svg" alt="">
                         </td>
-                        <td>09999999999</td>
+                        <td class="number">09999999999</td>
                     </tr>
 
                     <tr>
                         <td>
                             <img src="../assets/email_icon.svg" alt="">
                         </td>
-                        <td>sample@gmail.com</td>
+                        <td class="email">sample@gmail.com</td>
                     </tr>
 
                     <tr>
                         <td>
                             <img src="../assets/location_icon.svg" alt="">
                         </td>
-                        <td>Bayan luma tiagos malapit kila duk sa harap</td>
+                        <td class="address">Bayan luma tiagos malapit kila duk sa harap</td>
                     </tr>
 
                 </table>
@@ -122,7 +122,42 @@ modalClose2.addEventListener('click', function(){
     modalBg2.classList.remove('modal-active');
 });
 
+$(document).ready(function() {
+            $.ajax({
+                url: '../server/includes/getCMS.php', 
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    if (data.error) {
+                        $('#cms-title').text('Error loading title');
+                    } else {
 
+                        $('.landing_text').text(data.landing_text);
+                        $('.landing_bg').attr('src', './includes/uploads/' + data.landing_bg).show();
+                        $('.about-us').text(data.about);
+                        $('.terms-conditions').text(data.terms);
+                        $('.fb').text(data.fb);
+                        $('.ig').text(data.ig);
+                        $('.number').text(data.number);
+                        $('.email').text(data.email);
+                        $('.address').text(data.address);
+
+                        $('.cms-title').val(data.title);
+                        $('.landing_text').val(data.landing_text);
+                        $('.about-us').val(data.about);
+                        $('.terms-conditions').val(data.terms);
+                        $('.fb').val(data.fb);
+                        $('.ig').val(data.ig);
+                        $('.number').val(data.number);
+                        $('.email').val(data.email);
+                        $('.address').val(data.address);
+                    }
+                },
+                error: function() {
+                    $('#cms-title').text('Error loading data');
+                }
+            });
+        });
 
 
 
