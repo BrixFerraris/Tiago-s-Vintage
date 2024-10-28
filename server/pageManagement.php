@@ -138,7 +138,7 @@
                 <h4>Title: </h4>
                 <input name="title" class="cms-title input" type="text" placeholder="yung current value">
                 <h4>Logo:</h4>
-                <input name="logo" class="input" type="file" required>
+                <input name="logo" class="cms-logo input" type="file">
             <div class="btns">
                 <button type="submit" class="btnSave">Save</button>
                 <button type="button" class="btnCancel">Cancel</button>
@@ -153,7 +153,7 @@
                 <form action="./includes/editLanding.php" method="post" enctype="multipart/form-data">
                 <h1>Landing background & text</h1>
                     <h4>Backgroud Photo:</h4>
-                    <input name="landing_bg" class="input" type="file" required>
+                    <input name="landing_bg" class="input" type="file">
                     <h4>Text: </h4>
                     <input name="landing_text" class="landing_text input" type="text" placeholder="yung current value">
                     <div class="btns">
@@ -167,10 +167,10 @@
     <!-- Modal QR CODE -->
     <div class="modal-payment">
             <div class="modals">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="./includes/editQR.php" method="post" enctype="multipart/form-data">
                 <h1>Payment (GCash)</h1>
                     <h4>QR Code</h4>
-                    <input name="" class="input" type="file" required>
+                    <input name="qrCode" class="input" type="file" required>
                     <div class="btns">
                         <button type="submit" class="btnSave">Save</button>
                         <button type="button" class="btnCancel">Cancel</button>
@@ -460,6 +460,7 @@ $(document).ready(function() {
                         $('.number').text(data.number);
                         $('.email').text(data.email);
                         $('.address').text(data.address);
+                        $('.qr_code').attr('src', './includes/uploads/' + data.qr).show();
 
                         $('.cms-title').val(data.title);
                         $('.landing_text').val(data.landing_text);

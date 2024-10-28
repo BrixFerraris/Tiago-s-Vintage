@@ -161,7 +161,7 @@ include 'header.php';
                 $('#categories-wrapper').append('<p>Error loading categories.</p>');
             }
         });
-    }
+    },
 
     fetchCategories(); 
 });
