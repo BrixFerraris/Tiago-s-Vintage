@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2024 at 03:31 AM
+-- Generation Time: Oct 28, 2024 at 09:05 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,25 +29,16 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tbl_categories` (
   `id` int(255) NOT NULL,
-  `parent` varchar(255) NOT NULL,
-  `child` varchar(255) NOT NULL
+  `category` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_categories`
 --
 
-INSERT INTO `tbl_categories` (`id`, `parent`, `child`) VALUES
-(2, 'Tops', 'T-Shirt yata haha'),
-(3, 'Tops', 'Hoodies bwahha'),
-(14, 'Bottoms', 'Bottomsawdqw'),
-(15, 'Tops', 'hehe'),
-(16, 'Bottoms', 'jk lang po hehe'),
-(17, 'Shoes', 'qweqwewq'),
-(18, 'Shoes', 'wqwqe'),
-(19, 'Tops', 'Tops ito'),
-(21, 'sample', 'hehehezz'),
-(22, 'hello', 'sample pobwhaha');
+INSERT INTO `tbl_categories` (`id`, `category`, `image`) VALUES
+(28, 'weqqweqwe', '671f36925471e3.40369267.png');
 
 -- --------------------------------------------------------
 
@@ -91,7 +82,6 @@ CREATE TABLE `tbl_products` (
   `price` decimal(65,0) NOT NULL,
   `discount` decimal(65,0) NOT NULL,
   `category` varchar(100) NOT NULL,
-  `sub_category` varchar(255) NOT NULL,
   `img1` varchar(255) NOT NULL,
   `img2` varchar(255) NOT NULL,
   `img3` varchar(255) NOT NULL,
@@ -103,10 +93,38 @@ CREATE TABLE `tbl_products` (
 -- Dumping data for table `tbl_products`
 --
 
-INSERT INTO `tbl_products` (`id`, `title`, `price`, `discount`, `category`, `sub_category`, `img1`, `img2`, `img3`, `img4`, `description`) VALUES
-(11, 'Sample', 123, 0, 'Shoes', 'wqwqe', '66f1a1b8d8b787.16174887.png', '66f1a1b8d8b857.13120490.png', '66f1a1b8d8b879.53036138.png', '66f1a1b8d8b894.25958641.png', 'waqe'),
-(12, 'wqeqzzxc', 1123, 0, 'Tops', 'T-Shirt yata haha', '66f1a1cc6c9455.35440060.png', '66f1a1cc6c9581.71558382.png', '66f1a1cc6c95a1.01039445.png', '66f1a1cc6c95c5.76015324.png', '12qwsdas'),
-(13, 'Shoes', 121, 0, 'Shoes', 'wqwqe', '66f478594a7301.68824789.png', '66f478594a73d2.50142593.png', '66f478594a73f6.26140937.png', '66f478594a7410.80062691.png', 'Testing');
+INSERT INTO `tbl_products` (`id`, `title`, `price`, `discount`, `category`, `img1`, `img2`, `img3`, `img4`, `description`) VALUES
+(11, 'Sample', 123, 0, 'Shoes', '66f1a1b8d8b787.16174887.png', '66f1a1b8d8b857.13120490.png', '66f1a1b8d8b879.53036138.png', '66f1a1b8d8b894.25958641.png', 'waqe'),
+(12, 'wqeqzzxc', 1123, 0, 'Tops', '66f1a1cc6c9455.35440060.png', '66f1a1cc6c9581.71558382.png', '66f1a1cc6c95a1.01039445.png', '66f1a1cc6c95c5.76015324.png', '12qwsdas'),
+(13, 'Shoes', 121, 0, 'Shoes', '66f478594a7301.68824789.png', '66f478594a73d2.50142593.png', '66f478594a73f6.26140937.png', '66f478594a7410.80062691.png', 'Testing');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_settings`
+--
+
+CREATE TABLE `tbl_settings` (
+  `cms_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `logo` varchar(255) NOT NULL,
+  `landing_bg` varchar(255) NOT NULL,
+  `landing_text` varchar(255) NOT NULL,
+  `about` varchar(255) NOT NULL,
+  `terms` varchar(255) NOT NULL,
+  `fb` varchar(255) NOT NULL,
+  `ig` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `number` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_settings`
+--
+
+INSERT INTO `tbl_settings` (`cms_id`, `title`, `logo`, `landing_bg`, `landing_text`, `about`, `terms`, `fb`, `ig`, `email`, `number`, `address`) VALUES
+(1, 'jhjhjh', '671ea3955d9525.43683373-1730061205.png', '671ea249daf865.17396627-1730060873.png', 'Tiago\'s hahav', 'opo hahawhz', 'hahaha bwqhe', 'fbfbfbfb', 'iggigigig', 'adfagegege', '1313131', 'qeqe22');
 
 -- --------------------------------------------------------
 
@@ -214,6 +232,12 @@ ALTER TABLE `tbl_products`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_settings`
+--
+ALTER TABLE `tbl_settings`
+  ADD PRIMARY KEY (`cms_id`);
+
+--
 -- Indexes for table `tbl_transactions`
 --
 ALTER TABLE `tbl_transactions`
@@ -239,7 +263,7 @@ ALTER TABLE `tbl_variations`
 -- AUTO_INCREMENT for table `tbl_categories`
 --
 ALTER TABLE `tbl_categories`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `tbl_images`
@@ -258,6 +282,12 @@ ALTER TABLE `tbl_parent`
 --
 ALTER TABLE `tbl_products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `tbl_settings`
+--
+ALTER TABLE `tbl_settings`
+  MODIFY `cms_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_transactions`
