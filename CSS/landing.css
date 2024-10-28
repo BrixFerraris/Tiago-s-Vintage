@@ -10,7 +10,7 @@
   position: relative; /* Make this container the reference for absolute positioning */
   display: inline-block; /* Keeps it as per the image size */
 }
-.bgtxt {
+.landing_text {
   position: absolute;
   top: 50%; /* Adjust vertical positioning */
   left: 50%; /* Adjust horizontal positioning */

@@ -247,7 +247,7 @@ body {
 }
 
 /* Button Styling */
-button[type="submit"] {
+.form-container [type="submit"] {
     width: 100%;
     padding: 10px 15px;
     font-size: 16px;

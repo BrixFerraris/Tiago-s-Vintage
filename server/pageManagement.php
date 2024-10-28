@@ -52,6 +52,17 @@
 
             <div class="card">
                 <div class="title">
+                    <h1>Payment (GCash)</h2>
+                    <button class="edit-btn6">Edit</button>
+                </div>
+                <div>
+                    <h2>QR Code</h2>
+                    <img class="qr_code" src="../assets/QR.png" alt="" style="max-width: 30%; height: auto;">
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="title">
                     <h1>About us</h1>
                     <button class="edit-btn3">Edit</button>
                 </div>
@@ -153,6 +164,21 @@
             </div>
     </div>
 
+    <!-- Modal QR CODE -->
+    <div class="modal-payment">
+            <div class="modals">
+                <form action="" method="post" enctype="multipart/form-data">
+                <h1>Payment (GCash)</h1>
+                    <h4>QR Code</h4>
+                    <input name="" class="input" type="file" required>
+                    <div class="btns">
+                        <button type="submit" class="btnSave">Save</button>
+                        <button type="button" class="btnCancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
+    </div>
+
     <!-- Modal About -->
     <div class="modal-about">
             <div class="modals">
@@ -237,9 +263,11 @@
 .edit-btn3,
 .edit-btn4,
 .edit-btn5,
+.edit-btn6,
 .delete-btn,
 .btnSave,
-.btnCancel {
+.btnCancel,
+button[type="submit"] .btnSave {
     padding: 15px 50px;
     border: none;
     border-radius: 5px;
@@ -252,8 +280,11 @@
 .edit-btn3,
 .edit-btn4,
 .edit-btn5,
+.edit-btn6,
 .btnSave,
-.btnCancel {
+.btnCancel,
+button[type="submit"]
+ {
     background-color: #4CAF50;
 }
 
@@ -261,6 +292,7 @@
 /* modal */
 .modal-header,
 .modal-landing,
+.modal-payment,
 .modal-about,
 .modal-tandc,
 .modal-contacts {
@@ -303,6 +335,13 @@
 .btnCancel{
     background-color: #f44336;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
 .btns{
     justify-content: space-evenly;
     display: flex;
@@ -351,6 +390,19 @@ modalBtn2.addEventListener('click', function() {
 modalClose2.addEventListener('click', function(){
     modalBg2.classList.remove('modal-active');
 });
+
+// Modal for Payment
+var modalBtn6 = document.querySelector('.edit-btn6');
+var modalBg6 = document.querySelector('.modal-payment');
+var modalClose6 = modalBg6.querySelector('.btnCancel');
+
+modalBtn6.addEventListener('click', function() {
+    modalBg6.classList.add('modal-active');
+});
+modalClose6.addEventListener('click', function(){
+    modalBg6.classList.remove('modal-active');
+});
+
 
 // Modal for About Us
 var modalBtn3 = document.querySelector('.edit-btn3');
