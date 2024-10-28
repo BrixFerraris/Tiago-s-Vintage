@@ -75,12 +75,31 @@
                     } else {
                         $('.cms-title').text(data.title);
                         $('.cms-logo').attr('src', '../server/includes/uploads/' + data.logo).show();
-
+                        $('.terms').text(data.terms);
                     }
                 },
                 error: function() {
                     $('#cms-title').text('Error loading data');
                 }
             });
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+const error = getQueryParam('error');
+
+const errorMessages = {
+    none: "Success",
+    PassNotMatching: "Passwords do not match.",
+    EmptyInput: "Please fill in all fields.",
+    InvalidUsername: "The username provided is invalid.",
+    UsernameTaken: "This username is already taken."
+};
+
+if (error && errorMessages[error]) {
+    alert(errorMessages[error]);
+}
+
         });
 </script>

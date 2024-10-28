@@ -32,22 +32,27 @@
                 </tbody>
             </table>
 
-    <div class="modal-edit">
-        <div class="modals">
-            <h2>Edit Category</h2>
-            <img src="../images/bg1.png" alt="" width="20%"     height="25%">
-            <input type="file" id="myFile" name="filename">
-            <p>Category Name:</p>
-        <input type="text" placeholder="All Product">
-        <div class="order-btn">
-            <button class="btnSubmit">Submit</button>
-            <button class="btnBack">Back</button>
-        </div>
-    </div>
-</div>
+            <div class="modal-edit">
+                <div class="modals">
+                    <form action="./includes/editCategory.php" method="post" enctype="multipart/form-data">
+                        <input type="hidden" id="category-id" name="id">
+                    <h2>Edit Category</h2>
+                    <img id="categoryImage" src="../images/bg1.png" alt="Category Image" width="20%" height="25%">
+                    <input type="file" id="myFile" name="filename">
+                    <p>Category Name:</p>
+                    <input type="text" name="categoryName" id="categoryName" placeholder="All Product">
+                    <div class="order-btn">
+                        <button class="btnSubmit">Submit</button>
+                        <button class="btnBack">Back</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+
 
 <div class="modal-add">
         <div class="modals-addCat">
+            <form action="./includes/addCategory.php" method="post" enctype="multipart/form-data">
         <div class="form-group">
                 <label for="title">Category Title</label>
                 <input type="text" id="title" name="title" placeholder="Title" required>
@@ -60,6 +65,7 @@
             <button class="btnaddSubmit">Submit</button>
             <button class="btnaddBack">Back</button>
         </div>
+        </form>
         </div>
     </div>
 </div>
@@ -148,6 +154,9 @@ input[type="text"] {
 
 </style>
     <script>
+
+
+    $(document).ready(function() {
     var modalBtn = document.querySelector('.edit-btn');
     var modalBg = document.querySelector('.modal-edit');
     var modalClose = document.querySelector('.btnBack');
@@ -163,122 +172,85 @@ input[type="text"] {
     });
 
     modalBtn1.addEventListener('click', function() {
-        modalBg1.classList.add('modal-active');
     });
     modalClose1.addEventListener('click', function(){
         modalBg1.classList.remove('modal-active');
     });
-
-document.addEventListener('DOMContentLoaded', function() {
-    // WebSocket connection
-    var conn = new WebSocket('ws://65.19.154.77:6969/ws/');
-    conn.onopen = function(e) {
-        conn.send(JSON.stringify({ type: 'loadParentCategory'}));
-        conn.send(JSON.stringify({ type: 'loadCategories'}));
-    };
-    conn.onmessage = function(e) {
-    var category = JSON.parse(e.data);
-    console.log(category);
-    category.forEach(function(cat) {
-        if (cat.type === 'parentCategory') {
-            const parentCategory = cat.parent.toLowerCase();
-            const categorySection = document.createElement('div');
-            categorySection.className = 'category-section';
-
-            const h2 = document.createElement('h2');
-            h2.textContent = cat.parent;
-
-            const categoryItemsContainer = document.createElement('div');
-            categoryItemsContainer.className = `category-items-${parentCategory}`;
-
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = './includes/addCategory.php';
-
-            const inputCategory = document.createElement('input');
-            inputCategory.type = 'text';
-            inputCategory.name = 'category';
-            inputCategory.placeholder = `Add new ${cat.parent} category`;
-            inputCategory.required = true;
-
-            const inputParent = document.createElement('input');
-            inputParent.type = 'hidden';
-            inputParent.name = 'parent';
-            inputParent.value = cat.parent;
-
-            const submitBtn = document.createElement('button');
-            submitBtn.type = 'submit';
-            submitBtn.name = 'submit';
-            submitBtn.className = 'add-btn';
-            submitBtn.textContent = 'Add Category';
-
-            form.appendChild(inputCategory);
-            form.appendChild(inputParent);
-            form.appendChild(submitBtn);
-
-            categorySection.appendChild(h2);
-            categorySection.appendChild(categoryItemsContainer);
-            categorySection.appendChild(form);
-
-            var container = document.getElementById('ewan');
-            container.appendChild(categorySection); // or append to a specific container
-        } else if (cat.type === "categories") {
-            const parentCategory = cat.parent.toLowerCase();
-            const categoryItemsContainer = document.querySelector(`.category-items-${parentCategory}`);
-            if (categoryItemsContainer) {
-                let categoryItem = document.createElement('div');
-                categoryItem.className = 'category-item';
-                categoryItem.innerHTML = `
-                    <span class="child">${cat.child}</span>
-                    <div class="action-buttons">
-                        <button class="edit-btn" data-id="${cat.id}">✏️</button>
-                        <button class="delete-btn" data-id="${cat.id}">🗑️</button>
-                    </div>
-                `;
-                categoryItemsContainer.appendChild(categoryItem);
+    function fetchCategories() {
+        $.ajax({
+            url: './includes/getCategories.php',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                $('#products-body').empty();
+                console.log(data);
+                $.each(data, function(index, category) {
+                    $('#products-body').append(`
+                        <tr>
+                            <td>${category.id}</td>
+                            <td><img src="./includes/uploads/${category.image}" alt="${category.category}" style="width: 50px; height: auto;"></td>
+                            <td>${category.category}</td>
+                            <td><button class="edit-btn" data-id="${category.id}">Edit</button></td>
+                            <td><button class="delete-btn" data-id="${category.id}">Delete</button></td>
+                        </tr>
+                    `);
+                });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Error fetching categories: ", textStatus, errorThrown);
             }
-        }
-    });
-};
-    document.addEventListener('click', function(event) {
-        if (event.target.classList.contains('delete-btn')) {
-            var id = event.target.getAttribute('data-id');
-            conn.send(JSON.stringify({ type: 'deleteCategory', id: id }));
-            alert('Category deleted successfully');
-            location.reload();
-            conn.send(JSON.stringify({ type: 'loadCategories'}));
-        } else if (event.target.classList.contains('edit-btn')) {
-            var id = event.target.getAttribute('data-id');
-            var categoryItem = event.target.closest('.category-item');
-            var childElement = categoryItem.querySelector('.child');
-            var currentText = childElement.textContent;
-            var input = document.createElement('input');
-            input.type = 'text';
-            input.value = currentText;
-            input.className = 'edit-input';
-            childElement.replaceWith(input);
-            input.focus();
-
-            input.addEventListener('blur', function() {
-                saveChanges(input, id);
-            });
-            input.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    saveChanges(input, id);
+        });
+    }
+    $(document).on('click', '.delete-btn', function() {
+        
+        const id = $(this).data('id');
+        if (confirm("Are you sure you want to delete this category?")) {
+            $.ajax({
+                url: './includes/deleteCategory.php',
+                method: 'POST',
+                data: { id: id },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        alert(response.message);
+                        location.reload();
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error deleting category: ", textStatus, errorThrown);
                 }
             });
         }
     });
-    function saveChanges(input, id) {
-        var newValue = input.value;
-        var span = document.createElement('span');
-        span.className = 'child';
-        span.textContent = newValue;
-        input.replaceWith(span);
-        conn.send(JSON.stringify({ type: 'updateCategory', id: id, newValue: newValue }));
-    }
-});
+    $(document).on('click', '.edit-btn', function() {
+        modalBg.classList.add('modal-active');
+        const categoryId = $(this).data('id'); 
+        console.log(categoryId);
+        $.ajax({
+            url: './includes/getCategories.php', 
+            method: 'GET',
+            data: { id: categoryId }, 
+            dataType: 'json',
+            success: function(data) {
+                if (data) {
+                    $('#categoryImage').attr('src', `../server/includes/uploads/${data.image}`);
+                    $('#category-id').val(data.id);
+                    $('#categoryName').val(data.category);
+                    modalBg.classList.add('modal-active');
+                } else {
+                    alert('Category not found.');
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Error fetching category details: ", textStatus, errorThrown);
+            }
+        });
+    });
 
+    fetchCategories();
+});
     </script>
 
 </body>

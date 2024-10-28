@@ -9,7 +9,13 @@ include 'header.php';
 
 
 <body>
-    
+<style>
+.haha {
+    width: 100%;
+}
+
+
+    </style>
 
 <main class="main-container">
         <div class="main-title">
@@ -32,7 +38,7 @@ include 'header.php';
 
             <div class="form-group">
                 <label for="contact">ContactNum:</label>
-                <input type="text" id="contact" name="contact" placeholder="ContactNum" required>
+                <input class="haha" type="text" id="contact" name="contact" placeholder="Contact Number" required>
             </div>
 
             <div class="form-group">
@@ -83,7 +89,7 @@ include 'header.php';
                     </button>
                 </div>
                 <div class="modal-body" >
-                    <p style="color: black;">SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS</p>
+                    <p class="terms" style="color: black;">SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS SAMPLE TERMS AND CONDITIONS</p>
                     <!-- You can add your actual terms and conditions here -->
                 </div>
                 <div class="modal-footer">
@@ -105,9 +111,5 @@ include 'footer.php';
 
 
     <!-- End Main -->
-     <style>
 
-
-
-    </style>
 
