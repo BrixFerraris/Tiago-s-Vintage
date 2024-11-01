@@ -8,7 +8,7 @@
           <p class="font-weight-bold">CATEGORY</p>
         </div>
         <div class="add-category">
-        <button class="btnAddCat">Add Category</button>
+        <button class="add-btn btnAddCat">Add Category</button>
         </div>
 
             <table id="products" >
@@ -202,7 +202,6 @@ input[type="text"] {
         });
     }
     $(document).on('click', '.delete-btn', function() {
-        
         const id = $(this).data('id');
         if (confirm("Are you sure you want to delete this category?")) {
             $.ajax({
@@ -247,6 +246,9 @@ input[type="text"] {
                 console.error("Error fetching category details: ", textStatus, errorThrown);
             }
         });
+    });
+    $(document).on('click', '.add-btn', function() {
+        modalBg1.classList.add('modal-active');
     });
 
     fetchCategories();

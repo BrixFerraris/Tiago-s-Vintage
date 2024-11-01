@@ -89,59 +89,32 @@ function closeSidebar() {
   }
 }
 
-
-document.addEventListener('DOMContentLoaded', function () {
-  // Websocket connection
-  var conn = new WebSocket('ws://65.19.154.77:6969/ws/');
-  var select1 = document.getElementById('categories');
-  var select2 = document.getElementById('sub_category');
-  var categories = [];
-
-  conn.onopen = function() {
-    conn.send(JSON.stringify({ type: 'loadCategories' }));
-  };
-  conn.onmessage = function(e) {
-    var data = JSON.parse(e.data);
-        if (Array.isArray(data)) {
-            categories.push(...data);
-        } else {
-            categories.push(data);
-        }
-        console.log(categories);
-        select1.innerHTML = '';
-        categories.forEach(function(category) {
-            var optionExists = false;
-            for (var i = 0; i < select1.options.length; i++) {
-                if (select1.options[i].value === category.parent) {
-                    optionExists = true;
-                    break;
+$(document).ready(function() {
+    function fetchCategories() {
+        $.ajax({
+            url: '../server/includes/getCategories.php',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                $('#categories').empty(); 
+                if (Array.isArray(data) && data.length > 0) {
+                    $('#categories').append('<option value="">Select a category</option>'); 
+                    $.each(data, function(index, category) {
+                        $('#categories').append(`
+                            <option value="${category.category}">${category.category}</option>
+                        `);
+                    });
+                } else {
+                    $('#categories').append('<option value="">No categories found</option>');
                 }
-            }
-            if (!optionExists) {
-                var option = document.createElement('option');
-                option.text = category.parent;
-                option.value = category.parent;
-                select1.add(option);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Error fetching categories: ", textStatus, errorThrown);
+                $('#categories').append('<option value="">Error loading categories</option>');
             }
         });
-            select1.addEventListener('change', function() {
-            var selectedValue = select1.value;
-            select2.innerHTML = '';
-            var filteredOptions = categories.filter(function(category) {
-                return category.parent === selectedValue;
-            });
-
-            filteredOptions.forEach(function(category) {
-                var option = document.createElement('option');
-                option.text = category.child;
-                option.value = category.child;
-                select2.add(option);
-            });
-            var select2Instance = select2.select2;
-            select2Instance.destroy();
-            select2Instance.init();
-        });
-    };
+    }
+    fetchCategories(); 
 });
 
 </script>

@@ -114,193 +114,105 @@
 
 <!-- Scripts -->
 <script>
-// SIDEBAR TOGGLE
-let sidebarOpen = false;
-const sidebar = document.getElementById('sidebar');
+$(document).ready(function() {
+    const url = new URL(window.location.href);
+    const productID = url.searchParams.get('product_id');
 
-function openSidebar() {
-  if (!sidebarOpen) {
-    sidebar.classList.add('sidebar-responsive');
-    sidebarOpen = true;
-  }
-}
+    fetchCategories(productID);
+    loadVariations(productID);
 
-function closeSidebar() {
-  if (sidebarOpen) {
-    sidebar.classList.remove('sidebar-responsive');
-    sidebarOpen = false;
-  }
-}
+    function fetchCategories(productID) {
+        $.ajax({
+            url: '../server/includes/getCategories.php', 
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                var select = $('#categories');
+                select.empty(); 
 
-// MODAL LOGIC
-const modal = document.getElementById("editModal");
-const editIcons = document.querySelectorAll(".edit-iconn");
-const span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the edit icon, open the modal
-editIcons.forEach(icon => {
-  icon.onclick = function() {
-    modal.style.display = "block";
-  };
-});
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-};
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
-function loadCategory() {
-  var conn = new WebSocket('ws://65.19.154.77:6969/ws/');
-    var select1 = document.getElementById('categories');
-    var select2 = document.getElementById('sub_category');
-    var categories = [];
-
-    conn.onopen = function() {
-        conn.send(JSON.stringify({ type: 'loadCategories' }));
-    };
-
-    conn.onmessage = function(e) {
-        var data = JSON.parse(e.data);
-        if (Array.isArray(data)) {
-            categories.push(...data);
-        } else {
-            categories.push(data);
-        }
-        // console.log(categories);
-        select1.innerHTML = ''; 
-        categories.forEach(function(category) {
-            var optionExists = false;
-            for (var i = 0; i < select1.options.length; i++) {
-                if (select1.options[i].value === category.parent) {
-                    optionExists = true;
-                    break;
+                if (Array.isArray(data) && data.length > 0) {
+                    $.each(data, function(index, category) {
+                        select.append(`<option value="${category.category}">${category.category}</option>`);
+                    });
+                } else {
+                    select.append('<option>No categories found.</option>');
                 }
-            }
-            if (!optionExists) {
-                var option = document.createElement('option');
-                option.text = category.parent;
-                option.value = category.parent;
-                select1.add(option);
+                loadEdits(productID);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Error fetching categories: ", textStatus, errorThrown);
+                $('#categories').append('<option>Error loading categories.</option>');
             }
         });
+    }
 
-        select1.addEventListener('change', function() {
-            var selectedValue = select1.value;
-            select2.innerHTML = ''; 
-            var filteredOptions = categories.filter(function(category) {
-                return category.parent === selectedValue;
-            });
-
-            filteredOptions.forEach(function(category) {
-                var option = document.createElement('option');
-                option.text = category.child;
-                option.value = category.child;
-                select2.add(option);
-            });
-
-            // $(select2).select2();
+    function loadVariations(productID) {
+        $.ajax({
+            url: './includes/getVariations.php', 
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ idProduct: productID }),
+            success: function(data) {
+                if (typeof data === "string") {
+                    data = JSON.parse(data);
+                }
+                if (data.type === "variations") {
+                    var variationDiv = $('#variations');
+                    variationDiv.empty();
+                    data.variations.forEach(function(variation) {
+                        var newDiv = $(`
+                            <div class="edit-product-variation">
+                                <label for="name-${variation.id}">Name:</label>
+                                <input type="text" id="name-${variation.id}" value="${variation.variationName}" readonly>
+                            </div>
+                            <div class="edit-product-variation">
+                                <label for="width-${variation.id}">Width:</label>
+                                <input type="text" id="width-${variation.id}" value="${variation.width}" readonly>
+                            </div>
+                            <div class="edit-product-variation">
+                                <label for="length-${variation.id}">Length:</label>
+                                <input type="text" id="length-${variation.id}" value="${variation.length}" readonly>
+                            </div>
+                            <div class="edit-product-variation">
+                                <label for="quantity-${variation.id}">Quantity:</label>
+                                <input type="number" id="quantity-${variation.id}" value="${variation.quantity}" readonly>
+                                <span class="material-icons-outlined edit-iconn edit-variation" data-id="${variation.id}" style="cursor:pointer;"> edit </span>
+                            </div>
+                            <br>
+                        `);
+                        variationDiv.append(newDiv);
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading variations:', error);
+            }
         });
-    };
-
-    conn.onerror = function(error) {
-        console.error('WebSocket Error: ', error);
-    };
-
-    conn.onclose = function() {
-        console.log('WebSocket connection closed');
-    };
-}
-
-//Websocket connection
-var conn = new WebSocket('ws://65.19.154.77:6969/ws/');
-const url = new URL(window.location.href);
-const productID = url.searchParams.get('product_id');
-loadCategory();
-  conn.onopen = function() {
-    conn.send(JSON.stringify({ type: 'loadVariations', idProduct: productID }));
-    conn.send(JSON.stringify({ type: 'loadEdits', id: productID }));
-  };
-
-  conn.onmessage = function(e) {
-    var data = JSON.parse(e.data);
-    console.log(data);
-    if (data.type === 'variations') {
-      var variationDiv = document.getElementById('variations');
-      variationDiv.innerHTML = '';
-      data.variations.forEach(function(variation) {
-      var newDiv = document.createElement('div');
-      newDiv.classList.add('edit-product-variation');
-      newDiv.innerHTML = `
-                      <div class="edit-product-variation">
-                          <label for="name">Name:</label>
-                          <input type="text" id="name" value="${variation.variationName}" readonly>
-                      </div>
-                      <div class="edit-product-variation">
-                          <label for="width">Width:</label>
-                          <input type="text" id="width" value="${variation.width}" readonly>
-                      </div>
-                      <div class="edit-product-variation">
-                          <label for="length">Length:</label>
-                          <input type="text" id="length" value="${variation.length}" readonly>
-                      </div>
-                      <div class="edit-product-variation">
-                          <label for="quantity">Quantity:</label>
-                          <div class="quantity-control">
-                              <input type="number" id="quantity" value="${variation.quantity}" readonly>
-                          </div>
-                        <div class="edit-product-variation">
-                          <span class="material-icons-outlined edit-iconn edit-variation" data-id="${variation.id}" style="cursor:pointer;"> edit </span>
-                        </div>
-                      </div>
-                      <br>
-                     
-                  `;
-
-      variationDiv.appendChild(newDiv);
-      });
-    } 
-     if (data.type === 'edit-product') {
-        var title = document.getElementById("title");
-        var price = document.getElementById("price");
-        var category = document.getElementById("categories");
-        var sub_category = document.getElementById("sub_category");
-        title.value = data.title;
-        price.value = data.price;
-        category.value = data.category;
-        sub_category.value = data.sub_category;
-    } 
-    if (data.type === 'productEdited') {
-        alert('Product successfully updated');
-    } 
-  };
-document.addEventListener("DOMContentLoaded", function() {
-  document.addEventListener("click", function(event) {
-  const url = new URL(window.location.href);
-  const productID = url.searchParams.get('product_id');
-  document.getElementById('product_id').value = productID;
-    if (event.target.classList.contains('save-button')) {
-      var title = document.getElementById("title").value;
-      var price = document.getElementById("price").value;
-      var category = document.getElementById("categories").value;
-      var sub_category = document.getElementById("sub_category").value;
-      conn.send(JSON.stringify({ type: 'editProduct', id: productID, title: title, price: price, category: category, subCategory: sub_category, price}));
     }
-    if (event.target.classList.contains('discard-button')) {
-      window.location.href = "./product.php"
+
+    function loadEdits(productID) {
+        $.ajax({
+            url: './includes/loadEdit.php', 
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ id: productID }),
+            success: function(data) {
+                if (typeof data === "string") {
+                    data = JSON.parse(data); 
+                }
+                console.log(data);
+                if (data.type == "edit-product") {
+                    $('#title').val(data.title);
+                    $('#price').val(data.price);
+                    $('#categories').val(data.category).change();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading edits:', error);
+            }
+        });
     }
-    if (event.target.classList.contains('edit-variation')) {
-      var id = event.target.getAttribute('data-id');
-      conn.send(JSON.stringify({ type: 'loadEditVariation', id: id}));
-    }
-  });
 });
-
 </script>
 </body>
 </html>

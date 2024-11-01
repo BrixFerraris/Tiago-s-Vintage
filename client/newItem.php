@@ -37,7 +37,10 @@ include 'header.php';
                                       <input type="hidden" name="variationID" id="variationID" required>
                                       <p>Quantity</p>
                                         <input type="number" id="quantity" min="1" name="quantity" step="1" required> 
-                                    </div>
+                                        <div class="ewan">
+                                          <h3 id="quantity-message"></h3>
+                                        </div>
+                          </div>
                                 <div class="description">
                                     <p>Condition:</p>
                                     <p id="description" ></p>
@@ -58,130 +61,129 @@ include 'header.php';
 
       
 <script>
-  function validateForm() {
-    var productId = document.getElementById('product_id').getAttribute('value');
-    var variationId = document.getElementById('variationID').getAttribute('value');
-    var quantity = document.getElementById('quantity').value;
+$(document).ready(function() {
+    // WebSocket connection
+    const conn = new WebSocket('ws://localhost:8080/ws/');
+    const url = new URL(window.location.href);
+    var productID = url.searchParams.get('productID');
+    
+    // Set product ID in hidden input
+    $('#product_id').val(productID);
 
-    var errors = [];
+    // Load product details via WebSocket
+    conn.onopen = function() {
+        conn.send(JSON.stringify({ type: 'loadSingleProduct', id: productID }));
+    };
 
-    if (!productId) {
-      errors.push('Please select a product!');
-    }
-
-    if (!variationId) {
-      errors.push('Please select a variation!');
-    }
-
-    if (!quantity || quantity < 1) {
-      errors.push('Please enter a valid quantity!');
-    }
-
-    if (errors.length > 0) {
-      alert(errors.join('\n'));
-      return false;
-    }
-
-    return true;
-  }
-    document.addEventListener('DOMContentLoaded', function(){
-      var form = document.getElementById('addToCart');
-
-      form.addEventListener('submit', function(e) {
-        if (!validateForm()) {
-          e.preventDefault();
-        }
-      });
-      // WebSocket connection
-      var conn = new WebSocket('ws://65.19.154.77:6969/ws/');
-      const url = new URL(window.location.href);
-      const productID = url.searchParams.get('productID');
-      var prodID =productID;
-      var hidden = document.getElementById('product_id');
-      var varID = document.getElementById('variationID');
-      hidden.value = productID;
-      console.log(productID);
-      conn.onopen = function() {
-          conn.send(JSON.stringify({ type: 'loadSingleProduct', id: productID}));
-          conn.send(JSON.stringify({ type: 'loadVariations', idProduct: productID}));
-      };
-      
-      conn.onmessage = function(e) {
-        var product = JSON.parse(e.data);
-        console.log(product);
-        var title =document.getElementById('title');
-        var price = document.getElementById('price');
-        var description = document.getElementById('description');
-        var img1 = document.getElementById('img1');
-        var img2 = document.getElementById('img2');
-        var img3 = document.getElementById('img3');
-        var img4 = document.getElementById('img4');
+    conn.onmessage = function(e) {
+        const product = JSON.parse(e.data);
         if (product.type === 'edit-product') {
-          title.innerText = product.title;
-          price.innerText = '₱' + product.price;
-          description.innerText = product.description;
-          img1.src = '../server/includes/uploads/' + product.img1;
-          img2.src = '../server/includes/uploads/' + product.img2;
-          img3.src = '../server/includes/uploads/' + product.img3;
-          img4.src = '../server/includes/uploads/' + product.img4;
+            $('#title').text(product.title);
+            $('#price').text('₱' + product.price);
+            $('#description').text(product.description);
+            $('#img1').attr('src', '../server/includes/uploads/' + product.img1);
+            $('#img2').attr('src', '../server/includes/uploads/' + product.img2);
+            $('#img3').attr('src', '../server/includes/uploads/' + product.img3);
+            $('#img4').attr('src', '../server/includes/uploads/' + product.img4);
         }
-        if (product.type === 'variations') {
-          var buttonDiv = document.getElementById('buttons');
-          var quantityInput = document.getElementById('quantity');
-          buttonDiv.innerHTML = '';
+    };
+    function loadVariations() {
+        $.ajax({
+            url: '../server/includes/getVariations.php',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ idProduct: productID }),
+            success: function(product) {
+              if (typeof product === "string") {
+                  product = JSON.parse(product); 
+              }
+              console.log(product);
+              
+                if (product.type === 'variations') {
+                    const buttonDiv = $('#buttons');
+                    buttonDiv.empty();
 
-          product.variations.forEach(function(variation) {
-            console.log(variation.variationName);
-            var newDiv = document.createElement('div');
-            newDiv.classList.add('edit-product-variation');
+                    $.each(product.variations, function(index, variation) {
+                        const newDiv = $('<div>').addClass('edit-product-variation');
+                        newDiv.html(`
+                            <button class="variation" data-id="${variation.id}" data-quantity="${variation.quantity}">
+                                ${variation.width} X ${variation.length} (${variation.variationName})
+                            </button>
+                        `);
+                        buttonDiv.append(newDiv);
+                    });
 
-            newDiv.innerHTML = `
-              <button class="variation" data-id="${variation.id}" data-quantity="${variation.quantity}">${variation.width} X ${variation.length} (${variation.variationName})</button>
-            `;
-
-            buttonDiv.appendChild(newDiv);
-          });
-
-          document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('variation')) {
-              var variationID = e.target.getAttribute('data-id');
-              var variationQuantity = e.target.getAttribute('data-quantity');
-              varID.value = variationID;
-              quantityInput.max = variationQuantity;
+                    buttonDiv.on('click', '.variation', function() {
+                        const variationID = $(this).data('id');
+                        const variationQuantity = $(this).data('quantity');
+                        $('#variationID').val(variationID);
+                        $('#quantity').attr('max', variationQuantity);
+                        $('#quantity-message').text(`Stocks Left: ${variationQuantity}`);
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading variations:', error);
             }
-          });
+        });
+    }
+    loadVariations();
+
+
+
+    // Form validation
+    function validateForm() {
+        const productId = $('#product_id').val();
+        const variationId = $('#variationID').val();
+        const quantity = $('#quantity').val();
+        const errors = [];
+
+        if (!productId) {
+            errors.push('Please select a product!');
         }
-        
-      };
 
-  document.addEventListener('click', function(e){
-    if (e.target.classList.contains('variation')) {
-      var variationID = e.target.getAttribute('data-id');
-      varID.value = variationID;
+        if (!variationId) {
+            errors.push('Please select a variation!');
+        }
+
+        if (!quantity || quantity < 1) {
+            errors.push('Please enter a valid quantity!');
+        }
+
+        if (errors.length > 0) {
+            alert(errors.join('\n'));
+            return false;
+        }
+
+        return true;
     }
-  });
+
+    $('#addToCart').on('submit', function(e) {
+        if (!validateForm()) {
+            e.preventDefault();
+        }
+    });
+
+    const modal = $('#myModal');
+    const img = $('#img1');
+    const modalImg = $('#img01');
+    const span = $('.close');
+
+    img.on('click', function() {
+        modal.show();
+        modalImg.attr('src', this.src);
+    });
+
+    span.on('click', function() {
+        modal.hide();
+    });
+
+    $(window).on('click', function(event) {
+        if (event.target === modal[0]) {
+            modal.hide();
+        }
+    });
 });
-
-
-var modal = document.getElementById("myModal");
-var img = document.getElementById("img1");
-var modalImg = document.getElementById("img01");
-var span = document.getElementsByClassName("close")[0];
-
-img.onclick = function(){
-    modal.style.display = "block";
-    modalImg.src = this.src;
-}
-
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
 </script>
 
     <style>

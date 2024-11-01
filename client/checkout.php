@@ -29,7 +29,8 @@
                 
                 <label for="address">Shipping Address</label>
                 <input type="text" id="address" name="address" placeholder="Enter your shipping address" required>
-                
+                <input type="text" id="variation-id" name="v_id" required>
+
                 <label for="contact">Contact Number</label>
                 <p id="contact"></p>
                 
@@ -44,7 +45,8 @@
         document.addEventListener('DOMContentLoaded', function(){
 
             //Websocket connection
-            var conn = new WebSocket('ws://65.19.154.77:6969/ws/');
+            let varID;
+            var conn = new WebSocket('ws://localhost:8080/ws/');
             const url = new URL(window.location.href);
             const userID = url.searchParams.get('userID');
             var uID =  document.getElementById('user_id').value;
@@ -66,6 +68,7 @@
                     orderSummary.forEach(function(item) {
                     itemList += `<li> <img width="80px" height="80px" src="../server/includes/uploads/${item.img1}" alt="">${item.title} - ₱${item.price} <br> x${item.quantity}</li>`;
                     name.innerText = item.firstName+' '+item.lastName;
+                    varID = document.getElementById('variation-id').value = item.variationId;
                     contact.innerText = item.contact;
                     });
                     
@@ -81,14 +84,21 @@
                     console.error('Error parsing JSON:', error);
                 }
             };
-            document.addEventListener('click', function(e){
+            document.addEventListener('click', function(e) {
                 if (e.target.classList.contains('place-order')) {
                     var address = document.getElementById('address').value;
-                    conn.send(JSON.stringify({ type: 'order', user_id: userID, address: address }));
+                    var varIDArray = Array.isArray(varID) ? varID : [varID];
+                    conn.send(JSON.stringify({ 
+                        type: 'order', 
+                        user_id: userID, 
+                        address: address, 
+                        variationID: varIDArray 
+                    }));
                     alert('Order placed successfully!');
-                    window.location.href='landing.php';
+                    window.location.href = 'landing.php';
                 }
             });
+
         });
 
     </script>

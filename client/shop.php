@@ -29,7 +29,7 @@ include 'header.php';
             <p>View Product</p>
             </div>
             <div class="child bg2-category">
-            
+
             </div>
             </a>
         </div>
@@ -146,7 +146,7 @@ include 'header.php';
                                         <p>View Product</p>
                                     </div>
                                     <div class="child bg-category">
-                                        <img src="./includes/uploads/${category.image}" alt="${category.category}">
+                                        <img src="../server/includes/uploads/${category.image}" alt="${category.category}">
                                     </div>
                                 </a>
                             </div>
@@ -161,7 +161,7 @@ include 'header.php';
                 $('#categories-wrapper').append('<p>Error loading categories.</p>');
             }
         });
-    },
+    }
 
     fetchCategories(); 
 });

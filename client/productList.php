@@ -6,10 +6,7 @@ include './header.php';
   <div class="search-filter" id="search-filters">
   <a href="../client/shop.php" style="text-decoration: none;"><button>Back</button></a>
     <input type="text" id="search-input" placeholder="Search Products...">
-    
-    <select id="categories">
-        <option value="" >Select a category</option>
-    </select>
+
 
 
   </div>
@@ -24,22 +21,22 @@ include './header.php';
   //Search itu sa admin Products
   document.getElementById('search-input').addEventListener('input', function() {
     var searchValue = this.value;
-    fetchProducts(searchValue);
+    const url = new URL(window.location.href);
+    const productCategory = url.searchParams.get('category');
+    fetchProducts(searchValue, productCategory);
 });
 
-function fetchProducts(searchValue) {
-  var conn = new WebSocket('ws://65.19.154.77:6969/ws/');
+function fetchProducts(searchValue, productCategory) {
+    var conn = new WebSocket('ws://localhost:8080/ws/');
+
     conn.onopen = function() {
-        conn.send(JSON.stringify({ type: 'searchProducts', title: searchValue }));
-
+        conn.send(JSON.stringify({ type: 'searchProducts', title: searchValue, category: productCategory }));
     };
-
 
     conn.onmessage = function(e) {
         var data = JSON.parse(e.data);
-        // console.log(data);
         if (data.type === 'searchResults') {
-            displayProducts(data.products);
+            displayProducts(data.products || []);
         }
     };
 }
@@ -47,9 +44,7 @@ function fetchProducts(searchValue) {
 function displayProducts(products) {
     var productDiv = document.getElementById('fixed-grid');
     productDiv.innerHTML = ''; 
-
     var uniqueProducts = new Set();
-
     products.forEach(product => {
         if (!uniqueProducts.has(product.id)) { 
             uniqueProducts.add(product.id); 
@@ -70,129 +65,56 @@ function displayProducts(products) {
     });
 }
 document.addEventListener('DOMContentLoaded', function() {
-    // WebSocket connection
-    var conn = new WebSocket('ws://65.19.154.77:6969/ws/');
-    var productDiv = document.getElementById('fixed-grid');
-    var products = [];
-    var select1 = document.getElementById('categories');
-    var select2 = document.getElementById('sub_category');
+    var conn = new WebSocket('ws://localhost:8080/ws/');
+    const productDiv = document.getElementById('fixed-grid');
     const url = new URL(window.location.href);
     const productCategory = url.searchParams.get('category');
-    var categories = [];
-    
-    console.log(select1.value);
 
- 
     conn.onopen = function() {
-        conn.send(JSON.stringify({ type: 'loadProducts' }));
-        conn.send(JSON.stringify({ type: 'loadCategories' }));
+        conn.send(JSON.stringify({ type: 'getProductsByCategory', category: productCategory }));
     };
 
     conn.onmessage = function(e) {
         var data = JSON.parse(e.data);
-        // console.log(data);
-        if (data.type === 'product') {
-            productDiv.innerHTML = '';
-              products.forEach(function(data) {
-                  var newDiv = document.createElement('div');
-                  newDiv.className = 'cell';
-                  newDiv.innerHTML = `
-                      <a href="./newItem.php?productID=${data.id}" style="text-decoration: none;">
-                          <img src="../server/includes/uploads/${data.img1}" alt="${data.title}" width="252" height="320">
-                          <p>
-                              <span class="has-text-primary has-text-weight-bold">${data.title}</span><br>
-                              <span class="has-text-primary has-text-weight-semibold">PHP ${data.price}</span>
-                          </p>
-                      </a>
-                  `;
-                  productDiv.appendChild(newDiv);
-          });
+
+        if (data.type === 'categoryProducts') {
+            const products = Array.isArray(data.products) ? data.products : [data.products];
+            displayFilteredProducts(products, productCategory);
+        } else {
+            console.error("No products available or data format is incorrect", data);
+            productDiv.innerHTML = '<p>No products available.</p>';
         }
-
-
-        if (productCategory === 'Tops') {
-            if (data.category === 'Tops') {
-                products.push(data);
-            }
-        }
-        else if (productCategory === 'Bottom') {
-            if (data.category === 'Bottoms') {
-                products.push(data);
-            }
-        }
-        else if (productCategory === 'Shoes') {
-            if (data.category === 'Shoes') {
-                products.push(data);
-            }
-        }
-        else if (productCategory === 'Accessories') {
-            if (data.category === 'Accessories') {
-                products.push(data);
-            }
-        }
-        else {
-          products.push(data);
-        }
-        
-
-        
-        if (Array.isArray(data)) {
-            categories.push(...data);
-        } 
-        console.log(categories);
-        select1.innerHTML = '';
-        categories.forEach(function(category) {
-            var optionExists = false;
-            for (var i = 0; i < select1.options.length; i++) {
-                if (select1.options[i].value === category.parent) {
-                    optionExists = true;
-                    break;
-                }
-            }
-            if (!optionExists) {
-                var option = document.createElement('option');
-                option.text = category.parent;
-                option.value = category.parent;
-                select1.add(option);
-            }
-        });
-        select1.addEventListener('change', function() {
-    var selectedValue = select1.value;
-    window.location.href = "productList.php?category=" + selectedValue;
-
-    // Clear previous options from select2
-    select2.innerHTML = '';
-
-    // Re-add the default "Select a category" option to select2
-    var defaultOption = document.createElement('option');
-    defaultOption.text = 'Select a category';
-    defaultOption.value = ''; // Keep it empty to serve as the default placeholder
-    select2.add(defaultOption);
-
-    // Filter categories based on the selected value from select1
-    var filteredOptions = categories.filter(function(category) {
-        return category.parent === selectedValue;
-    });
-
-    // Populate select2 with filtered options
-    filteredOptions.forEach(function(category) {
-        var option = document.createElement('option');
-        option.text = category.child;
-        option.value = category.child;
-        select2.add(option);
-    });
-
-    // Destroy the select2 instance if it already exists
-    if ($.fn.select2) {
-        $(select2).select2('destroy');
-    }
-
-    // Re-initialize select2 after options are added
-    $(select2).select2();
-
-        });
     };
 });
+
+function displayFilteredProducts(products, category) {
+    const productDiv = document.getElementById('fixed-grid');
+    productDiv.innerHTML = ''; 
+
+    const filteredProducts = products.filter(product => 
+        product && product.category && (!category || product.category === category)
+    );
+
+    if (filteredProducts.length === 0) {
+        productDiv.innerHTML = '<p>No products available in this category.</p>';
+        return;
+    }
+
+    filteredProducts.forEach(product => {
+        var newDiv = document.createElement('div');
+        newDiv.className = 'cell';
+        newDiv.innerHTML = `
+            <a href="./newItem.php?productID=${product.id}" style="text-decoration: none;">
+                <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
+                <p>
+                    <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
+                    <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
+                </p>
+            </a>
+        `;
+        productDiv.appendChild(newDiv);
+    });
+}
 </script>
 
 
