@@ -204,7 +204,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function(){
         //Websocket connection
-        var conn = new WebSocket('ws://65.19.154.77:6969/ws/');
+        var conn = new WebSocket('ws://localhost:8080/ws/');
         const url = new URL(window.location.href);
 const params = new URLSearchParams(url.search);
 const transactionId = params.get('transaction_id');

@@ -31,12 +31,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>PO12345</td>
-                        <td>Alex Cueto</td>
-                        <td>Imus, Cavite</td>
-                        <td>Pending</td>
-                        <td><button class="accept-btn">Accept</button></td>
-                        <td><button class="delete-btn">Delete</button></td>
+
                     </tr>
                     <!-- Add additional product rows here -->
                 </tbody>
@@ -54,23 +49,14 @@
     <script>
         document.addEventListener('DOMContentLoaded', function(){
             //Websocket connection
-            var conn = new WebSocket('ws://65.19.154.77:6969/ws/');
+            var conn = new WebSocket('ws://localhost:8080/ws/');
             var table = document.getElementById('products');
             conn.onopen = function() {
                 conn.send(JSON.stringify({ type: 'loadPurchaseOrders' }));
             };
             conn.onmessage = function(e) { 
                 var purchaseOrder = JSON.parse(e.data);
-                const rows = {};
                 if (purchaseOrder.type === 'purchase-order') {
-                let rowExists = false;
-                for (let i = 0; i < table.rows.length; i++) {
-                    if (table.rows[i].cells[0].innerHTML === purchaseOrder.transaction_id) {
-                        rowExists = true;
-                        break;
-                    }
-                }
-                if (!rowExists) {
                     var newRow = table.insertRow();
                     newRow.insertCell().innerHTML = purchaseOrder.transaction_id;
                     newRow.insertCell().innerHTML = purchaseOrder.firstName + ' ' + purchaseOrder.lastName;
@@ -79,10 +65,9 @@
                     newRow.insertCell().innerHTML = `<button class="accept-btn">Accept</button>`;
                     newRow.insertCell().innerHTML = `<button class="delete-btn">Delete</button>`;
                     newRow.addEventListener('click', function() {
-                    window.location.href = 'adminPODetails.php?transaction_id=' + purchaseOrder.transaction_id;
+                        window.location.href = 'adminPODetails.php?transaction_id=' + purchaseOrder.transaction_id;
                     });
                 }
-            }
             };
         });
     </script>

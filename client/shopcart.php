@@ -1,5 +1,9 @@
 <?php
 include 'header.php';
+$isLoggedIn = false;
+if (isset($_SESSION["uID"])) {
+$isLoggedIn = true;
+}
 ?>
 
       
@@ -31,7 +35,12 @@ include 'header.php';
             </div>
             
         </div>
-        <script>
+<script>
+var isLoggedIn = <?php echo json_encode($isLoggedIn); ?>;
+if (!isLoggedIn) {
+    alert("Please log in to view your shopping cart.");
+    window.location.href = "./login.php";
+}
 var maxQty = 0;
 var current_Qty = 0;
 var subtotal = 0;
@@ -96,14 +105,12 @@ document.addEventListener('DOMContentLoaded', function(){
 
     document.addEventListener('click', function(e){
         if (e.target.classList.contains('btnCheckout')) {
-             window.location.href = 'checkout.php?userID='+user_id;
+            window.location.href = 'checkout.php?userID='+user_id;
             var transactionID = e.target.getAttribute('data-id');
-            console.log(transactionID + current_Qty + subtotal);
             conn.send(JSON.stringify({ type: 'checkOut', quantity: current_Qty, total: subtotal, transactionID: transactionID}));
         }
         if (e.target.classList.contains('btn-remove')) {
             var itemId = e.target.getAttribute('data-id');
-
             conn.send(JSON.stringify({ type: 'removeCart', transactionID: itemId}));
             alert('Removed item from cart');
             window.location.reload();
@@ -141,7 +148,6 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     });
 
-  
         </script>
 <style>
 

@@ -1,5 +1,9 @@
 <?php
 include 'header.php';
+$isLoggedIn = false;
+if (isset($_SESSION["uID"])) {
+  $isLoggedIn = true;
+}
 ?>
 <div class="img-item">
         <div class="img-container">
@@ -66,11 +70,9 @@ $(document).ready(function() {
     const conn = new WebSocket('ws://localhost:8080/ws/');
     const url = new URL(window.location.href);
     var productID = url.searchParams.get('productID');
-    
-    // Set product ID in hidden input
+    var isLoggedIn = <?php echo json_encode($isLoggedIn); ?>;
     $('#product_id').val(productID);
 
-    // Load product details via WebSocket
     conn.onopen = function() {
         conn.send(JSON.stringify({ type: 'loadSingleProduct', id: productID }));
     };
@@ -93,7 +95,7 @@ $(document).ready(function() {
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ idProduct: productID }),
-            success: function(product) {
+            success: function(product) {              
               if (typeof product === "string") {
                   product = JSON.parse(product); 
               }
@@ -114,6 +116,11 @@ $(document).ready(function() {
                     });
 
                     buttonDiv.on('click', '.variation', function() {
+                        if (!isLoggedIn) {
+                          alert('Please log in to add to cart!');
+                          window.location.href = "./register.php";
+                          return;
+                        }
                         const variationID = $(this).data('id');
                         const variationQuantity = $(this).data('quantity');
                         $('#variationID').val(variationID);
@@ -157,10 +164,16 @@ $(document).ready(function() {
 
         return true;
     }
-
     $('#addToCart').on('submit', function(e) {
+        if (!isLoggedIn) {
+            alert('Please log in to add to cart!');
+            window.location.href = "./register.php"; 
+            e.preventDefault(); 
+            return; 
+        }
         if (!validateForm()) {
-            e.preventDefault();
+            alert('Please fill out the form correctly.');
+            e.preventDefault(); 
         }
     });
 

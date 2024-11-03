@@ -50,7 +50,7 @@ class ProductLoader implements MessageComponentInterface {
         } elseif ($data['type'] === 'loadCart') {
             $this->loadCart($from, $data['user_id']);
         } elseif ($data['type'] === 'order') {
-            $this->editCart($from,  $data['address'], $data['user_id'], $data['variationID']);
+            $this->editCart($from,  $data['address'],$data['user_id'], $data['variationID'], $data['qty']);
         } elseif ($data['type'] === 'loadPurchaseOrders') {
             $this->getTransactions($from);
         } elseif ($data['type'] === 'loadPODetails') {
@@ -65,6 +65,51 @@ class ProductLoader implements MessageComponentInterface {
             $this->checkOut($from, $data['quantity'], $data['total'], $data['transactionID']);
         }  elseif ($data['type'] === 'getProductsByCategory') {
             $this->sendProductsByCategory($from, $data['category']);
+        }
+    }
+
+    private function editCart(ConnectionInterface $conn, $address, $userId, $variationData, $qtyData) {
+        $queryUpdateVariations = "UPDATE tbl_variations SET quantity = quantity - ? WHERE id = ?";
+        $stmtUpdateVariations = $this->db->prepare($queryUpdateVariations);
+        
+        $queryUpdateTransaction = "UPDATE tbl_transactions SET address = ?, status = 'Pending', transaction_id = ? WHERE user_id = ? AND status = 'Cart'";
+        $stmtUpdateTransaction = $this->db->prepare($queryUpdateTransaction);
+        
+        $this->db->autocommit(FALSE); 
+        $success = true;
+    
+        $transactionId = time() . "_" . $userId; 
+    
+        try {
+            foreach ($variationData as $index => $variationID) {
+                $qty = $qtyData[$index]; 
+                $stmtUpdateVariations->bind_param("ii", $qty, $variationID);
+                if (!$stmtUpdateVariations->execute()) {
+                    $success = false; 
+                    break; 
+                }
+            }
+            if ($success) {
+                $stmtUpdateTransaction->bind_param("ssi", $address, $transactionId, $userId);
+                if (!$stmtUpdateTransaction->execute()) {
+                    $success = false; 
+                }
+            }
+    
+            if ($success) {
+                $this->db->commit();
+                $conn->send(json_encode(['type' => 'editCart', 'status' => 'success', 'message' => 'Cart updated successfully.']));
+            } else {
+                $this->db->rollback();
+                $conn->send(json_encode(['type' => 'editCart', 'status' => 'error', 'message' => 'Failed to update cart.']));
+            }
+        } catch (Exception $e) {
+            $this->db->rollback();
+            $conn->send(json_encode(['type' => 'editCart', 'status' => 'error', 'message' => 'Error: ' . $e->getMessage()]));
+        } finally {
+            $stmtUpdateVariations->close();
+            $stmtUpdateTransaction->close();
+            $this->db->autocommit(TRUE); 
         }
     }
 
@@ -83,6 +128,7 @@ class ProductLoader implements MessageComponentInterface {
             'products' => $products
         ]));
     }
+
     
     private function checkOut(ConnectionInterface $conn, $quantity, $total, $transactionID) {
         $query = "UPDATE tbl_transactions SET quantity = ?, total = ? WHERE id = '$transactionID'";
@@ -221,37 +267,7 @@ class ProductLoader implements MessageComponentInterface {
         $stmt->close();
     }
 
-    private function editCart(ConnectionInterface $conn, $address, $user_id, $selectedProducts) {
-        $timestamp = time();
-        $transactionId = $timestamp . '_' . $user_id;
-            $this->db->begin_transaction();
     
-        try {
-            $query = "UPDATE tbl_transactions SET status = 'Pending', address = ?, transaction_id = ? WHERE user_id = ? AND status = 'Cart'";
-            $stmt = $this->db->prepare($query);
-            $stmt->bind_param("sss", $address, $transactionId, $user_id);
-            $stmt->execute();
-            $stmt->close();
-    
-            foreach ($selectedProducts as $productId => $quantity) {
-                $updateQuery = "UPDATE tbl_variations SET quantity = quantity - ? WHERE id = ?";
-                $updateStmt = $this->db->prepare($updateQuery);
-                $updateStmt->bind_param("is", $quantity, $productId);
-                $updateStmt->execute();
-                if ($updateStmt->affected_rows === 0) {
-                    throw new Exception("Insufficient quantity for product ID: $productId");
-                }
-                $updateStmt->close();
-            }
-    
-            $this->db->commit();
-    
-            $conn->send(json_encode(['type' => 'successPlace', 'id' => $user_id, 'transaction_id' => $transactionId]));
-        } catch (Exception $e) {
-            $this->db->rollback();
-            $conn->send(json_encode(['type' => 'error', 'message' => $e->getMessage()]));
-        }
-    }
     private function addVariation(ConnectionInterface $conn, $id, $name, $width, $length, $quantity){
         $query = "INSERT INTO tbl_variation(product_id, name, width, length, quantity) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);

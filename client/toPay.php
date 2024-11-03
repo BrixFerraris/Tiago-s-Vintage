@@ -63,20 +63,72 @@ include './header.php';
 </div>
 <div class="modal-payment">
     <div class="modals1">
-
-        <h2>Payment Method</h2>
-        <h6>Scan to pay</h6>
-        <img src="../assets/QR.png" alt="" width="30%" height="45%">
-        <h4>Amount: 1500 </h4>
-        <p>We accept Gcash only. After scanning the QR code, please put the receipt on the box given.</p>
-        <input type="file" id="myFile" name="filename">
-       
-        <div class="order-btn">
-            <button class="btnSubmit">Submit</button>
-            <button class="btnBack">Back</button>
-        </div>
+            <h2>Payment Method</h2>
+            <h6>Scan to pay</h6>
+            <img src="../assets/QR.png" alt="" width="30%" height="45%">
+            <h4 class="amount">Amount: <span id="amountValue">1500</span></h4>
+            <input type="hidden" name="amount" id="amount" value="1500">
+            <p>We accept Gcash only. After scanning the QR code, please put the receipt in the box given.</p>
+            <form action="./includes/clientPay,php" method="POST" enctype="multipart/form-data">
+            <input type="file" id="myFile" name="img1" required>
+            <input type="hidden" name="uID" id="uID">
+            <div class="order-btn">
+                <button type="submit" class="btnSubmit">Submit</button>
+                <button type="button" class="btnBack" >Back</button>
+            </div>
+        </form>
     </div>
 </div>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: './includes/getOrders.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function(orders) {
+            $('#to-pay').empty();
+            $('#to-pay').append('<h4>My Orders - To Pay</h4>'); 
+            $.each(orders, function(index, order) {
+                var itemTitles = order.items.map(item => item.title).join(', ');
+                var itemSizes = order.items.map(item => item.size).join('<br>');
+                var totalQuantity = order.total_quantity;
+                var totalPrice = order.total_price;
+                var orderItem = `
+                    <div class="order-item">
+                        <div class="item-details">
+                            <img src="../server/includes/uploads/${order.first_img}" alt="Product Image" style="width: 100px; height: auto;">
+                            <h5>Transaction ID: ${order.transaction_id}</h5>
+                            <p>Items: <br> ${itemTitles}</p>
+                            <p>Sizes: <br> ${itemSizes}</p>
+                            <p>Total Quantity: ${totalQuantity}</p>
+                        </div>
+                        <div class="item-status">
+                            <p class="status ${order.status.toLowerCase()}">${order.status}</p>
+                        </div>
+                        <div class="item-price">
+                            <p>Total Price: ₱${totalPrice.toFixed(2)}</p>
+                        </div>
+                        <div class="item-action">
+                            <button class="pay-button" data-total="${totalPrice}" data-transaction="${order.transaction_id}">Pay Now</button>
+                            <button class="cancel-button" data-transaction="${order.transaction_id}">Cancel</button>
+                        </div>
+                    </div>`;
+                $('#to-pay').append(orderItem);
+            });
+            $('.pay-button').on('click', function() {
+                $('.modal-payment').addClass('modal-active');
+                var transactionId = $(this).data('transaction');
+                var amount = $(this).data('total');
+                $('.amount').text(`₱${amount}`);
+                $('#uID').val(transactionId);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching orders:', error);
+        }
+    });
+});
+</script>
 </body>
 </html>
 <style>
@@ -91,7 +143,7 @@ body {
     cursor: default;
 }
 .container {
-    width: 80%;
+    max-width: 1500px;
     margin: 20px auto;
     background-color: white;
     padding: 20px;
@@ -269,7 +321,7 @@ body {
 }
 </style>
 <script>
-        var modalBtn = document.querySelector('.pay-button');
+    var modalBtn = document.querySelector('.pay-button');
     var modalBg = document.querySelector('.modal-payment');
     var modalClose = document.querySelector('.btnBack');
     

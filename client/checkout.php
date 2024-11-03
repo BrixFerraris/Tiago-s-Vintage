@@ -29,7 +29,6 @@
                 
                 <label for="address">Shipping Address</label>
                 <input type="text" id="address" name="address" placeholder="Enter your shipping address" required>
-                <input type="text" id="variation-id" name="v_id" required>
 
                 <label for="contact">Contact Number</label>
                 <p id="contact"></p>
@@ -45,7 +44,8 @@
         document.addEventListener('DOMContentLoaded', function(){
 
             //Websocket connection
-            let varID;
+            let varID = [];
+            let qty = [];
             var conn = new WebSocket('ws://localhost:8080/ws/');
             const url = new URL(window.location.href);
             const userID = url.searchParams.get('userID');
@@ -60,15 +60,16 @@
             conn.onmessage = function(e) {
                 try {
                     var orderSummary = JSON.parse(e.data);
-                    console.log(orderSummary);
                     var name =document.getElementById('name');
                     var contact = document.getElementById('contact');
-                    
                     var itemList = '';
                     orderSummary.forEach(function(item) {
-                    itemList += `<li> <img width="80px" height="80px" src="../server/includes/uploads/${item.img1}" alt="">${item.title} - ₱${item.price} <br> x${item.quantity}</li>`;
+                    itemList += `<li>
+                                    <img width="80px" height="80px" src="../server/includes/uploads/${item.img1}" alt="">${item.title} - ₱${item.price} <br> x${item.quantity}                
+                                </li>`;
                     name.innerText = item.firstName+' '+item.lastName;
-                    varID = document.getElementById('variation-id').value = item.variationId;
+                    varID.push(item.variationId);
+                    qty.push(item.quantity);
                     contact.innerText = item.contact;
                     });
                     
@@ -78,7 +79,6 @@
                     orderSummary.forEach(function(item) {
                     total += item.total;
                     });
-                    
                     document.querySelector('.order-summary strong').textContent = `Total: ₱${total}`;
                 } catch (error) {
                     console.error('Error parsing JSON:', error);
@@ -88,17 +88,18 @@
                 if (e.target.classList.contains('place-order')) {
                     var address = document.getElementById('address').value;
                     var varIDArray = Array.isArray(varID) ? varID : [varID];
+                    console.log(varIDArray);
                     conn.send(JSON.stringify({ 
                         type: 'order', 
                         user_id: userID, 
                         address: address, 
-                        variationID: varIDArray 
+                        variationID: varIDArray,
+                        qty: qty
                     }));
                     alert('Order placed successfully!');
-                    window.location.href = 'landing.php';
+                    window.location.href = './toPay.php';
                 }
             });
-
         });
 
     </script>
