@@ -41,53 +41,16 @@
                     <span class="material-icons-outlined">inventory_2</span> Products
                 </li>
             </a>
+
             <a href="./addProduct.php">
                 <li class="sidebar-list-item">
-                    
                     <span class="material-icons-outlined">add</span> Add Product
-                    
-                </li>
-            </a>
-
-            <a href="./superadmin_AdminProfile.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">group</span> Admin profile
-                </li>
-            </a>
-
-            <a href="./adminLogs.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">description</span> Admin Logs
-                </li>
-            </a>
-
-            <a href="./purchaseOrders.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">add_shopping_cart</span> Purchase Orders
-                </li>
-            </a>
-
-            <a href="./adminCustomerAccs.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">groups</span> Customers Account
                 </li>
             </a>
 
             <a href="./reports.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">poll</span> Reports
-                </li>
-            </a>
-
-            <a href="./pageManagement.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">web</span> Page management
-                </li>
-            </a>
-
-            <a href="./adminReviews.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">rate_review</span> Reviews
                 </li>
             </a>
 
@@ -102,8 +65,6 @@
                     <span class="material-icons-outlined">logout</span> Logout
                 </li>
             </a>
-
-            
 
         </ul>
       </aside>

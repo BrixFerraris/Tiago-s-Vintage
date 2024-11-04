@@ -36,42 +36,6 @@
                     
                 </li>
             </a>
-            <a href="./product.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">inventory_2</span> Products
-                </li>
-            </a>
-            <a href="./addProduct.php">
-                <li class="sidebar-list-item">
-                    
-                    <span class="material-icons-outlined">add</span> Add Product
-                    
-                </li>
-            </a>
-
-            <a href="./superadmin_AdminProfile.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">group</span> Admin profile
-                </li>
-            </a>
-
-            <a href="./adminLogs.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">description</span> Admin Logs
-                </li>
-            </a>
-
-            <a href="./purchaseOrders.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">add_shopping_cart</span> Purchase Orders
-                </li>
-            </a>
-
-            <a href="./adminCustomerAccs.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">groups</span> Customers Account
-                </li>
-            </a>
 
             <a href="./reports.php">
                 <li class="sidebar-list-item">
@@ -91,19 +55,11 @@
                 </li>
             </a>
 
-            <a href="./category.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">category</span> Category
-                </li>
-            </a>
-
             <a href="./adminLogin.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">logout</span> Logout
                 </li>
             </a>
-
-            
 
         </ul>
       </aside>
