@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2024 at 05:14 PM
+-- Generation Time: Nov 05, 2024 at 07:01 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -80,6 +80,20 @@ INSERT INTO `tbl_parent` (`id`, `parent`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_payments`
+--
+
+CREATE TABLE `tbl_payments` (
+  `id` int(11) NOT NULL,
+  `receipt` varchar(255) NOT NULL,
+  `u_id` varchar(255) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `transaction_number` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_products`
 --
 
@@ -127,15 +141,16 @@ CREATE TABLE `tbl_settings` (
   `ig` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `number` varchar(255) NOT NULL,
-  `address` varchar(255) NOT NULL
+  `address` varchar(255) NOT NULL,
+  `qr` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_settings`
 --
 
-INSERT INTO `tbl_settings` (`cms_id`, `title`, `logo`, `landing_bg`, `landing_text`, `about`, `terms`, `fb`, `ig`, `email`, `number`, `address`) VALUES
-(1, 'Tiago\'s Vintage', '672a3510b51779.97075724-1730819344.png', '672a317ea782d4.64406569-1730818430.jpg', 'Maulan Sale!!', 'opo hahawhz', 'hahaha bwqhe', 'https://www.facebook.com/profile.php?id=100063803240125', 'https://www.instagram.com/tiagos_vintage_/', 'vinceasdfghj@gmail.com', '0995 795 6315', 'Southboys Garage Bayan Luma 5 Imus Cavite ');
+INSERT INTO `tbl_settings` (`cms_id`, `title`, `logo`, `landing_bg`, `landing_text`, `about`, `terms`, `fb`, `ig`, `email`, `number`, `address`, `qr`) VALUES
+(1, 'Tiago\'s Vintage', '672a3510b51779.97075724-1730819344.png', '672a317ea782d4.64406569-1730818430.jpg', 'Maulan Sale!!', 'opo hahawhz', 'hahaha bwqhe', 'https://www.facebook.com/profile.php?id=100063803240125', 'https://www.instagram.com/tiagos_vintage_/', 'vinceasdfghj@gmail.com', '0995 795 6315', 'Southboys Garage Bayan Luma 5 Imus Cavite ', '672a517c192e67.14199284.jpg');
 
 -- --------------------------------------------------------
 
@@ -154,15 +169,16 @@ CREATE TABLE `tbl_transactions` (
   `total` int(255) NOT NULL,
   `grand_total` int(255) NOT NULL,
   `status` varchar(255) NOT NULL DEFAULT 'Cart',
-  `address` varchar(255) NOT NULL
+  `address` varchar(255) NOT NULL,
+  `payment_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_transactions`
 --
 
-INSERT INTO `tbl_transactions` (`id`, `transaction_id`, `product_id`, `variation_id`, `quantity`, `user_id`, `date`, `total`, `grand_total`, `status`, `address`) VALUES
-(42, '1728955818_1', '11', '12', 1, '1', '2024-10-15 01:30:18', 123, 0, 'Pending', 'Emoes haha');
+INSERT INTO `tbl_transactions` (`id`, `transaction_id`, `product_id`, `variation_id`, `quantity`, `user_id`, `date`, `total`, `grand_total`, `status`, `address`, `payment_id`) VALUES
+(42, '1728955818_1', '11', '12', 1, '1', '2024-11-05 18:00:04', 123, 0, 'Check Payment', 'Emoes haha', 0);
 
 -- --------------------------------------------------------
 
@@ -237,6 +253,12 @@ ALTER TABLE `tbl_parent`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_payments`
+--
+ALTER TABLE `tbl_payments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_products`
 --
 ALTER TABLE `tbl_products`
@@ -287,6 +309,12 @@ ALTER TABLE `tbl_images`
 --
 ALTER TABLE `tbl_parent`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_payments`
+--
+ALTER TABLE `tbl_payments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_products`
