@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: 100px;
+}
+
+.account-info-container {
+    text-align: center;
+}
+
+h1 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.account-info-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    width: 1000px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.info-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.info-section label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.info-section input {
+    margin-top: 5px;
+    padding: 8px;
+    width: 90%;
+    border: 1px solid #4CAF50;
+    border-radius: 4px;
+    color: #333;
+}
+
+.stats-section {
+    text-align: left;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.stats-section p {
+    font-size: 1em;
+    margin: 5px 0;
+    color: black;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.edit-btn, .back-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.edit-btn {
+    background-color: #4CAF50;
+    color: white;
+    margin-right: 10px;
+}
+
+.back-btn {
+    background-color: white;
+    color: #333;
+    border: 1px solid #333;
+}
