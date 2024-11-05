@@ -60,21 +60,24 @@ body {
     border-radius: 10px;
   }
   
-  .edit-product-variations {
+  .edit-product-variations{
     margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
   }
   
-  .edit-product-variation {
+  
+  .variation1{
     display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-direction: row;
+  }
+  .edit-product-variation {
     margin-bottom: 10px;
   }
   .variations{
     margin-bottom: 20px;
     display: flex;
+    flex-direction: row;
   }
   .edit-product-variation .material-icons-outlined{
     margin-left:10px;
@@ -92,11 +95,20 @@ body {
     margin-right: 10px;
 
   }
-  
+  .variations{
+    display: flex;
+    flex-direction: column;
+  }
+  .info-var{
+    display: flex;
+    flex-direction: row;
+  }
   .quantity-control {
     display: flex;
-    align-items: center;
-    gap: 5px;
+    flex-direction: row;
+  }
+  .quantity-control label{
+    margin-top: 4px;
   }
   
   .quantity-control button {

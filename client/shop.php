@@ -55,7 +55,8 @@ include 'header.php';
         transform: scale(1.2);
     }
     .parent-category{
-        margin-left: 15px;
+        margin-bottom: 20px;
+        margin-left: 25px;
         height: 300px;
         width: 500px;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
@@ -69,7 +70,7 @@ include 'header.php';
         width: 100%;
         background-size: cover;
         background-position: center;
-        transition: all 1.1s;
+        transition: all 4s;
         position: absolute;
         top: 0;
         left: 0;
@@ -79,7 +80,7 @@ include 'header.php';
     }
 
     .bg-category{
-        background-image: url('../images/bg1.png');
+
     }
     .bg2-category{
         background-image: url('../images/t-shirtbg.jpg');
@@ -146,7 +147,7 @@ include 'header.php';
                                         <p>View Product</p>
                                     </div>
                                     <div class="child bg-category">
-                                        <img src="../server/includes/uploads/${category.image}" alt="${category.category}">
+                                        <img src="../server/includes/uploads/${category.image}" alt="${category.category}" width="510px" height="480px">
                                     </div>
                                 </a>
                             </div>

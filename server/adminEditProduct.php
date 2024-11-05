@@ -16,13 +16,14 @@
   <div class="edit-product">
     <div class="edit-product-left">
       <p class="font-weight-bold">Variations:</p>
-      
+
       <div id="variations" class="variations">
+        <div class="info-var">
         <div class="edit-product-variation">
           <label for="name">Name:</label>
           <input type="text" id="name" value="White" readonly="readonly">
         </div>
-
+        </div>
         <div class="edit-product-variation">
           <label for="width">Width:</label>
           <input type="text" id="width" value="24" readonly="readonly">
@@ -44,8 +45,9 @@
           <span class="material-icons-outlined edit-iconn" style="cursor:pointer;"> edit </span>
         </div>
       </div>
-
+    
       <p class="font-weight-bold">New Variation:</p>
+
       <div class="edit-product-variations">
         <div class="edit-product-variation">
         <form action="./includes/addVariation.php" method="post" enctype="multipart/form-data">
@@ -65,8 +67,9 @@
         </div>
 
         <div class="edit-product-variation">
-          <label for="quantity">Quantity:</label>
+          
           <div class="quantity-control">
+          <label for="quantity">Quantity:</label>
             <input name="qty" type="number" id="quantity" value="3">
           </div>
         </div>
@@ -79,6 +82,7 @@
       <div class="add-variation-btn">
         <input type="submit" value="Add Variation" class="add-variation">
       </div>
+
     </div>
     </form>
     
@@ -107,10 +111,7 @@
   </div>
 </main>
 
-<style>
 
-
-</style>
 
 <!-- Scripts -->
 <script>
@@ -161,6 +162,7 @@ $(document).ready(function() {
                     variationDiv.empty();
                     data.variations.forEach(function(variation) {
                         var newDiv = $(`
+                            <div id="variation1" class="variation1">
                             <div class="edit-product-variation">
                                 <label for="name-${variation.id}">Name:</label>
                                 <input type="text" id="name-${variation.id}" value="${variation.variationName}" readonly>
@@ -177,8 +179,11 @@ $(document).ready(function() {
                                 <label for="quantity-${variation.id}">Quantity:</label>
                                 <input type="number" id="quantity-${variation.id}" value="${variation.quantity}" readonly>
                                 <span class="material-icons-outlined edit-iconn edit-variation" data-id="${variation.id}" style="cursor:pointer;"> edit </span>
+                                </div>
+                            </div>
                             </div>
                             <br>
+
                         `);
                         variationDiv.append(newDiv);
                     });
