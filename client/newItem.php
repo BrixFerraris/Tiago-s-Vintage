@@ -21,11 +21,8 @@ if (isset($_SESSION["uID"])) {
                             </h1>
                             <p id="price" >
                             </p>
-
                             <div class="sizes">
-
                                 <p>Size</p>
-
                                 <div id="buttons" class="buttons">
                                     <button>35 X 40 (Large)</button>
                                     <button>35 X 40 (Large)</button>
@@ -55,15 +52,11 @@ if (isset($_SESSION["uID"])) {
                                       </form>
                         </div>
                     </div>
-
                     <div id="myModal" class="modal">
                     <span class="close">&times;</span>
                     <img class="modal-content" id="img01">
                     <div id="caption"></div>
                   </div>
-               
-
-      
 <script>
 $(document).ready(function() {
     // WebSocket connection
@@ -176,26 +169,35 @@ $(document).ready(function() {
             e.preventDefault(); 
         }
     });
-
+    
     const modal = $('#myModal');
-    const img = $('#img1');
     const modalImg = $('#img01');
     const span = $('.close');
 
-    img.on('click', function() {
+    // Main image zoom on click
+    $('#img1').on('click', function() {
         modal.show();
         modalImg.attr('src', this.src);
     });
 
+    // Sub-image zoom on click
+    $('.sub-img img').on('click', function() {
+        modal.show();
+        modalImg.attr('src', this.src);
+    });
+
+    // Close modal
     span.on('click', function() {
         modal.hide();
     });
 
+    // Close modal on clicking outside the modal
     $(window).on('click', function(event) {
         if (event.target === modal[0]) {
             modal.hide();
         }
     });
+    
 });
 </script>
 
@@ -373,7 +375,7 @@ overflow-x: hidden; /* added */
 }
 
 
-#img1{
+#img1, #img2, #img3, #img4{
   cursor: pointer;
 }
 /* The Modal (background) */
@@ -400,7 +402,6 @@ overflow-x: hidden; /* added */
 }
 
 /* Caption of Modal Image */
-
 
 /* Add Animation */
 .modal-content, #caption {  
@@ -444,8 +445,6 @@ overflow-x: hidden; /* added */
     width: 100%;
   }
 }
-
-
     </style>
 <?php
 include 'footer.php';
