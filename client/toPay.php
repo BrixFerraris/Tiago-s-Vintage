@@ -65,11 +65,12 @@ include './header.php';
     <div class="modals1">
             <h2>Payment Method</h2>
             <h6>Scan to pay</h6>
-            <img src="../assets/QR.png" alt="" width="30%" height="45%">
+            <img src="../assets/QR.png" class="qr" alt="" width="30%" height="45%">
             <h4 class="amount">Amount: <span id="amountValue">1500</span></h4>
-            <input type="hidden" name="amount" id="amount" value="1500">
             <p>We accept Gcash only. After scanning the QR code, please put the receipt in the box given.</p>
-            <form action="./includes/clientPay,php" method="POST" enctype="multipart/form-data">
+            <form id="paymentForm" action="./includes/clientPay.php" method="POST" enctype="multipart/form-data">
+            <input type="hidden" class="amount" name="amount" id="amount" value="">
+            <input type="hidden" class="transID" name="transID" id="transID" value="">
             <input type="file" id="myFile" name="img1" required>
             <input type="hidden" name="uID" id="uID">
             <div class="order-btn">
@@ -119,8 +120,34 @@ $(document).ready(function() {
                 $('.modal-payment').addClass('modal-active');
                 var transactionId = $(this).data('transaction');
                 var amount = $(this).data('total');
-                $('.amount').text(`₱${amount}`);
-                $('#uID').val(transactionId);
+                $('.amount').val(`${amount}`);
+                $('#transID').val(transactionId);
+            });
+            $('.btnSubmit').on('click', function(e) {
+                e.preventDefault();
+                var transactionId = $('#transID').val();
+                var amount = $('#amount').val(); 
+                var myFile = $('#myFile').val(); 
+                if (!transactionId || !amount || !myFile) {
+                    alert('Please fill in all required fields.');
+                    return; 
+                }
+                $.ajax({
+                    url: './includes/updateStatus.php', 
+                    type: 'POST',
+                    data: {
+                        transaction_id: transactionId,
+                        amount: amount
+                    },
+                    success: function(response) {
+                        alert('Success, please wait for an admin to verify your payment. It may take 30 minutes or more');
+                        $('#paymentForm').submit(); 
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error updating status:', error);
+                    }
+                });
             });
         },
         error: function(xhr, status, error) {
@@ -331,5 +358,22 @@ body {
     modalClose.addEventListener('click', function(){
         modalBg.classList.remove('modal-active');
     });
+    $(document).ready(function() {
+    $.ajax({
+        url: 'http://localhost/tiago/server/includes/getCMS.php', 
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            if (data.error) {
+                $('#cms-title').text('Error loading title');
+            } else {
+                $('.qr').attr('src', 'http://localhost/tiago/server/includes/uploads/' + data.qr).show();
+            }
+        },
+        error: function() {
+            $('#cms-title').text('Error loading data');
+        }
+    });
+});
 </script>
 

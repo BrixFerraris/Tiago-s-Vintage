@@ -35,14 +35,12 @@
     </div>
 </main>
 </body>
-<div class="modal-receipt">
+<div class="modal-receipt"> 
     <div class="modals">
-
         <h2>Customer's Receipt</h2>
-        <img src="../images/sample-receipt.png" alt="" width="30%" height="45%">
-        <h4>Amount: 1500 </h4>
-      
-          <button class="btnBack">Back</button>
+        <img id="receiptImage" src="" alt="Receipt" width="30%" height="45%">
+        <h4 id="amountDisplay">Amount: </h4>
+        <button class="btnBack">Back</button>
     </div>
 </div>
 
@@ -202,64 +200,97 @@
 
 <!-- Scripts -->
 <script>
-    document.addEventListener('DOMContentLoaded', function(){
-        //Websocket connection
-        var conn = new WebSocket('ws://localhost:8080/ws/');
-        const url = new URL(window.location.href);
-const params = new URLSearchParams(url.search);
-const transactionId = params.get('transaction_id');
-console.log(transactionId);
+document.addEventListener('DOMContentLoaded', function() {
+    var conn = new WebSocket('ws://localhost:8080/ws/');
+    
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    const transactionId = params.get('transaction_id');
 
-conn.onopen = function(e) {
-  conn.send(JSON.stringify({ type: 'loadPODetails', transaction_id: transactionId}));
-};
+    conn.onopen = function(e) {
+        conn.send(JSON.stringify({ type: 'loadPODetails', transaction_id: transactionId }));
+    };
 
-conn.onmessage = function(e) {
-  const data = JSON.parse(e.data);
-  console.log(data);
+    conn.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        console.log(data);
 
-  const orderItemsContainer = document.querySelector('.order-items-container');
-  const orderItems = data.order_items;
+        const orderItemsContainer = document.querySelector('.order-items-container');
+        const orderItems = data.order_items;
 
-  orderItems.forEach((item, index) => {
-    const itemHTML = `
-      <div class="item">
-        <img src="./includes/uploads/${item.img1}" alt="${item.title}" class="item-img">
-        <div class="item-detail">
-          <p class="item-name">${item.title}</p>
-          <p>x${item.quantity}</p>
-          <p>₱${item.price}</p>
-        </div>
-      </div>
-    `;
-    orderItemsContainer.innerHTML += itemHTML;
-  });
+        orderItemsContainer.innerHTML = '';
 
+        orderItems.forEach((item) => {
+            const itemHTML = `
+            <div class="item">
+                <img src="./includes/uploads/${item.img1}" alt="${item.title}" class="item-img">
+                <div class="item-detail">
+                    <p class="item-name">${item.title}</p>
+                    <p>x${item.quantity}</p>
+                    <p>₱${item.price}</p>
+                </div>
+            </div>
+            `;
+            orderItemsContainer.innerHTML += itemHTML;
+        });
 
-  const orderTotal = data.order_total;
-  const orderTotalHTML = `
-    <div class="order-total">
-      <p>Order Total: ₱${orderTotal}</p>
-    </div>
-  `;
+        const orderTotal = data.order_total;
+        const orderTotalHTML = `
+            <div class="order-total">
+                <p>Order Total: ₱${orderTotal}</p>
+            </div>
+        `;
+        orderItemsContainer.innerHTML += orderTotalHTML;
 
-  orderItemsContainer.innerHTML += orderTotalHTML;
-  var summaryContainer = $(".order-summary");
-var customerName = $("#customerName");
-var address = $("#address");
-var contact = $("#contact");
-var trans_number = $("#trans_num");
+        var summaryContainer = document.querySelector(".order-summary");
+        var customerName = document.getElementById("customerName");
+        var address = document.getElementById("address");
+        var contact = document.getElementById("contact");
+        var trans_number = document.getElementById("trans_num");
 
+        customerName.textContent = data.name;
+        address.textContent = data.address;
+        contact.textContent = data.contact;
+        trans_number.textContent = transactionId;
+    };
 
-customerName.text(data.name);
-address.text(data.address);
-contact.text(data.contact);
-trans_number.text(transactionId);
-  
-  
-};
+    conn.onerror = function(error) {
+        console.error('WebSocket Error:', error);
+    };
+
+    conn.onclose = function(event) {
+        console.log('WebSocket connection closed:', event);
+    };
+});
+$(document).ready(function() {
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    const transactionId = params.get('transaction_id');
+    $.ajax({
+        url: './includes/getPayments.php',
+        type: 'GET',
+        data: { transaction_number: transactionId },
+        dataType: 'json',
+        success: function(data) {
+            console.log(data);
+            if (data.length > 0) {
+                const payment = data[0]; 
+                $('#receiptImage').attr('src', `./includes/uploads/${payment.receipt}`); 
+                $('#amountDisplay').text(`Amount: ₱${payment.amount}`); 
+
+                $('.modal-receipt').show();
+            } else {
+                console.error('No payment data found for this transaction.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error:', error);
+        }
     });
-
+    $('.btnBack').on('click', function() {
+        $('.modal-receipt').hide();
+    });
+});
 
 // modal
 

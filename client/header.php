@@ -64,24 +64,24 @@
 
 
 <script>
-    $(document).ready(function() {
-            $.ajax({
-                url: '../server/includes/getCMS.php', 
-                method: 'GET',
-                dataType: 'json',
-                success: function(data) {
-                    if (data.error) {
-                        $('#cms-title').text('Error loading title');
-                    } else {
-                        $('.cms-title').text(data.title);
-                        $('.cms-logo').attr('src', '../server/includes/uploads/' + data.logo).show();
-                        $('.terms').text(data.terms);
-                    }
-                },
-                error: function() {
-                    $('#cms-title').text('Error loading data');
-                }
-            });
+$(document).ready(function() {
+    $.ajax({
+        url: 'http://localhost/tiago/server/includes/getCMS.php', 
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            if (data.error) {
+                $('#cms-title').text('Error loading title');
+            } else {
+                $('.cms-title').text(data.title);
+                $('.cms-logo').attr('src', '../server/includes/uploads/' + data.logo).show();
+                $('.terms').text(data.terms);
+            }
+        },
+        error: function() {
+            $('#cms-title').text('Error loading data');
+        }
+    });
 function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
