@@ -65,35 +65,17 @@ $(document).ready(function() {
     var productID = url.searchParams.get('productID');
     var isLoggedIn = <?php echo json_encode($isLoggedIn); ?>;
     $('#product_id').val(productID);
-
-    conn.onopen = function() {
-        conn.send(JSON.stringify({ type: 'loadSingleProduct', id: productID }));
-    };
-
-    conn.onmessage = function(e) {
-        const product = JSON.parse(e.data);
-        if (product.type === 'edit-product') {
-            $('#title').text(product.title);
-            $('#price').text('₱' + product.price);
-            $('#description').text(product.description);
-            $('#img1').attr('src', '../server/includes/uploads/' + product.img1);
-            $('#img2').attr('src', '../server/includes/uploads/' + product.img2);
-            $('#img3').attr('src', '../server/includes/uploads/' + product.img3);
-            $('#img4').attr('src', '../server/includes/uploads/' + product.img4);
-        }
-    };
-    function loadVariations() {
+    function loadVariations(idProducts) {
         $.ajax({
             url: '../server/includes/getVariations.php',
             method: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({ idProduct: productID }),
+            data: JSON.stringify({ idProduct: idProducts }),
             success: function(product) {              
               if (typeof product === "string") {
                   product = JSON.parse(product); 
               }
               console.log(product);
-              
                 if (product.type === 'variations') {
                     const buttonDiv = $('#buttons');
                     buttonDiv.empty();
@@ -107,7 +89,6 @@ $(document).ready(function() {
                         `);
                         buttonDiv.append(newDiv);
                     });
-
                     buttonDiv.on('click', '.variation', function() {
                         if (!isLoggedIn) {
                           alert('Please log in to add to cart!');
@@ -127,11 +108,26 @@ $(document).ready(function() {
             }
         });
     }
-    loadVariations();
+    loadVariations(productID);
+    conn.onopen = function() {
+        conn.send(JSON.stringify({ type: 'loadSingleProduct', id: productID }));
+    };
+
+    conn.onmessage = function(e) {
+        const product = JSON.parse(e.data);
+        if (product.type === 'edit-product') {
+            $('#title').text(product.title);
+            $('#price').text('₱' + product.price);
+            $('#description').text(product.description);
+            $('#img1').attr('src', '../server/includes/uploads/' + product.img1);
+            $('#img2').attr('src', '../server/includes/uploads/' + product.img2);
+            $('#img3').attr('src', '../server/includes/uploads/' + product.img3);
+            $('#img4').attr('src', '../server/includes/uploads/' + product.img4);
+        }
+    };
+    
 
 
-
-    // Form validation
     function validateForm() {
         const productId = $('#product_id').val();
         const variationId = $('#variationID').val();

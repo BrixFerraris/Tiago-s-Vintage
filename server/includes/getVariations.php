@@ -1,7 +1,7 @@
 <?php
 include_once './dbCon.php';
-
 $data = json_decode(file_get_contents('php://input'), true);
+
 if (isset($data['idProduct'])) {
     $productID = $data['idProduct'];
     $sql = "SELECT * FROM tbl_variations WHERE product_id = ?"; 

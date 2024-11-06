@@ -18,18 +18,19 @@ include 'header.php';
 
 <script>
     //Websocket connection
-    var conn = new WebSocket('ws://65.19.154.77:6969/ws/');
-    var productDiv =document.getElementById('products');
+    var conn = new WebSocket('ws://localhost:8080/ws/');
+    const productDiv = document.getElementById('products');
     conn.onopen = function() {
         conn.send(JSON.stringify({ type: 'loadProducts' }));
     };
 
     conn.onmessage = function(e) {
             var product = JSON.parse(e.data);
+            console.log(product);
             if (product.type === 'product') {
                 var newDiv = document.createElement('div');
                 newDiv.innerHTML = `
-                    <a href="#">
+                    <a href="./newItem.php?productID=${product.id}">
                         <img src="../server/includes/uploads/${product.img1}" alt="" width="252" height="320">
                     </a>
                 `;
@@ -60,5 +61,5 @@ include 'header.php';
 </html>
 
 <?php
-include 'footer.php';
+include '../test/newFooter.php';
 ?> 

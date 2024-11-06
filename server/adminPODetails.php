@@ -275,9 +275,8 @@ $(document).ready(function() {
             console.log(data);
             if (data.length > 0) {
                 const payment = data[0]; 
-                $('#receiptImage').attr('src', `./includes/uploads/${payment.receipt}`); 
+                $('#receiptImage').attr('src', `../client/includes/uploads/${payment.receipt}`); 
                 $('#amountDisplay').text(`Amount: ₱${payment.amount}`); 
-
                 $('.modal-receipt').show();
             } else {
                 console.error('No payment data found for this transaction.');

@@ -7,7 +7,6 @@ include './header.php';
     <!-- Order Tabs -->
     <div class="tabs">
         <button class="tab-button" onclick="window.location.href='toPay.php'">To Pay</button>
-        <button class="tab-button" onclick="window.location.href='toShip.php'">To Ship</button>
         <button class="tab-button active" onclick="window.location.href='toReceived.php'">To Receive</button>
         <button class="tab-button" onclick="window.location.href='completed.php'">Completed</button>
         <button class="tab-button" onclick="window.location.href='cancelled.php'">Cancelled</button>
@@ -27,7 +26,7 @@ include './header.php';
                 </div>
             </div>
             <div class="item-status">
-                <p class="status to-receive">To Receive</p>
+                <p class="status to-receive">Ready for pick-up</p>
             </div>
             <div class="item-price">
                 <p>₱1500</p>
@@ -49,7 +48,7 @@ include './header.php';
                 </div>
             </div>
             <div class="item-status">
-                <p class="status to-receive">To Receive</p>
+                <p class="status to-receive">Ready for pick-up</p>
             </div>
             <div class="item-price">
                 <p>₱1500</p>
@@ -75,7 +74,7 @@ include './header.php';
     cursor: default;
 }
 .container {
-    width: 80%;
+    max-width: 1500px;
     margin: 20px auto;
     background-color: white;
     padding: 20px;

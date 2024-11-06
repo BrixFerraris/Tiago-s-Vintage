@@ -13,7 +13,7 @@ FROM tbl_transactions t
 INNER JOIN tbl_products p ON t.product_id = p.id 
 INNER JOIN tbl_users u ON t.user_id = u.id 
 INNER JOIN tbl_variations v ON t.variation_id = v.id 
-WHERE t.user_id = ?";
+WHERE t.user_id = ? AND t.status = 'Pending'";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();

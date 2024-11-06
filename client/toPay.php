@@ -7,7 +7,6 @@ include './header.php';
     <!-- Order Tabs -->
     <div class="tabs">
         <button class="tab-button active" onclick="window.location.href='toPay.php'">To Pay</button>
-        <button class="tab-button" onclick="window.location.href='toShip.php'">To Ship</button>
         <button class="tab-button" onclick="window.location.href='toReceived.php'">To Receive</button>
         <button class="tab-button" onclick="window.location.href='completed.php'">Completed</button>
         <button class="tab-button" onclick="window.location.href='cancelled.php'">Cancelled</button>
@@ -142,7 +141,7 @@ $(document).ready(function() {
                     success: function(response) {
                         alert('Success, please wait for an admin to verify your payment. It may take 30 minutes or more');
                         $('#paymentForm').submit(); 
-                        location.reload();
+                        // location.reload();
                     },
                     error: function(xhr, status, error) {
                         console.error('Error updating status:', error);

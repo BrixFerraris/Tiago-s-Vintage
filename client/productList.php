@@ -67,19 +67,33 @@ function displayProducts(products) {
 document.addEventListener('DOMContentLoaded', function() {
     var conn = new WebSocket('ws://localhost:8080/ws/');
     const productDiv = document.getElementById('fixed-grid');
-    const url = new URL(window.location.href);
-    const productCategory = url.searchParams.get('category');
+    const url = new URL(window.location.href);    const productCategory = url.searchParams.get('category');
 
     conn.onopen = function() {
         conn.send(JSON.stringify({ type: 'getProductsByCategory', category: productCategory }));
+        if  (productCategory === 'All') {
+          conn.send(JSON.stringify({ type: 'loadProducts' }));
+        }
     };
 
     conn.onmessage = function(e) {
-        var data = JSON.parse(e.data);
-
+        var data = JSON.parse(e.data);        
         if (data.type === 'categoryProducts') {
             const products = Array.isArray(data.products) ? data.products : [data.products];
             displayFilteredProducts(products, productCategory);
+        } else if(data.type === 'product') {
+          var newDiv = document.createElement('div');
+          newDiv.className = 'cell';
+          newDiv.innerHTML = `
+              <a href="./newItem.php?productID=${data.id}" style="text-decoration: none;">
+                  <img src="../server/includes/uploads/${data.img1}" alt="${data.title}" width="252" height="320">
+                  <p>
+                      <span class="has-text-primary has-text-weight-bold">${data.title}</span><br>
+                      <span class="has-text-primary has-text-weight-semibold">PHP ${data.price}</span>
+                  </p>
+              </a>
+          `;
+          productDiv.appendChild(newDiv);
         } else {
             console.error("No products available or data format is incorrect", data);
             productDiv.innerHTML = '<p>No products available.</p>';
@@ -90,16 +104,19 @@ document.addEventListener('DOMContentLoaded', function() {
 function displayFilteredProducts(products, category) {
     const productDiv = document.getElementById('fixed-grid');
     productDiv.innerHTML = ''; 
-
+    const url = new URL(window.location.href);
+    const productCategory = url.searchParams.get('category');
+    console.log(productCategory);
+    
     const filteredProducts = products.filter(product => 
         product && product.category && (!category || product.category === category)
     );
 
-    if (filteredProducts.length === 0) {
-        productDiv.innerHTML = '<p>No products available in this category.</p>';
-        return;
-    }
-
+    // if (filteredProducts.length === 0) {
+    //     productDiv.innerHTML = '<p>No products available in this category.</p>';
+    //     return;
+    // }
+    
     filteredProducts.forEach(product => {
         var newDiv = document.createElement('div');
         newDiv.className = 'cell';

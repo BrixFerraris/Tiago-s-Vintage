@@ -193,7 +193,8 @@ body {
     padding-left: 20px;
 }
 
-.item-info h2 {
+.item-info h2,p {
+color: black;
     font-size: 18px;
     margin-bottom: 5px;
 }
@@ -238,6 +239,7 @@ body {
 }
 
 .item-total p {
+    color: black;
     font-size: 18px;
     font-weight: bold;
 }

@@ -7,7 +7,6 @@ include './header.php';
     <!-- Order Tabs -->
     <div class="tabs">
         <button class="tab-button" onclick="window.location.href='toPay.php'">To Pay</button>
-        <button class="tab-button active" onclick="window.location.href='toShip.php'">To Ship</button>
         <button class="tab-button" onclick="window.location.href='toReceived.php'">To Receive</button>
         <button class="tab-button" onclick="window.location.href='completed.php'">Completed</button>
         <button class="tab-button" onclick="window.location.href='cancelled.php'">Cancelled</button>

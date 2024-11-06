@@ -13,7 +13,7 @@
                 <link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-                <link rel="icon" href="../assets/icons.ico" type="image/x-icon">
+                <link rel="icon" id="title-logo" href="../assets/icons.ico" type="image/x-icon">
                 <link rel="stylesheet" href="../CSS/header.css">
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
                 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -33,7 +33,7 @@
                                     if (isset($_SESSION["username"])) {
                                         echo '<li><a href="../client/landing.php">Home</a></li>';
                                         // echo '<li><a href="../client/productList.php">New arrivals</a></li>';
-                                        echo '<li><a href="../client/shop.php"><p>All products</p></a></li>';
+                                        echo '<li><a href="../client/shop.php">All products</a></li>';
                                         echo '<li><a href="../client/reviews.php">Reviews</a></li>';
                                         echo '<li><a href="../client/shopcart.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
                                         echo'<li><div class="dropdown">
@@ -75,6 +75,7 @@ $(document).ready(function() {
             } else {
                 $('.cms-title').text(data.title);
                 $('.cms-logo').attr('src', '../server/includes/uploads/' + data.logo).show();
+                $('#title-logo').attr('href', '../server/includes/uploads/' + data.logo).show();
                 $('.terms').text(data.terms);
             }
         },

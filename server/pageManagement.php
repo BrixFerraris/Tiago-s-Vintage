@@ -131,7 +131,7 @@
 
       <!-- MODALS -->
     <!-- Modal Header -->
-      <div class="modal-header">
+      <div class="modal-header"> 
         <div class="modals">
             <form action="./includes/editTitle.php" method="post" enctype="multipart/form-data">
         <h1>Header Title & Logo</h1>

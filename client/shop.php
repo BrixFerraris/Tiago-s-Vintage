@@ -57,8 +57,8 @@ include 'header.php';
     .parent-category{
         margin-bottom: 20px;
         margin-left: 25px;
-        height: 300px;
-        width: 500px;
+        height: 270px;
+        width: 400px;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
         cursor: pointer;
         border-radius: 5px;
@@ -95,6 +95,7 @@ include 'header.php';
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
+        margin-bottom: 100px;
 
     }
 
@@ -147,7 +148,7 @@ include 'header.php';
                                         <p>View Product</p>
                                     </div>
                                     <div class="child bg-category">
-                                        <img src="../server/includes/uploads/${category.image}" alt="${category.category}" width="510px" height="480px">
+                                        <img src="../server/includes/uploads/${category.image}" alt="${category.category}" width="410px" height="460px">
                                     </div>
                                 </a>
                             </div>
@@ -169,5 +170,5 @@ include 'header.php';
 
 </script>
 <?php
-include 'footer.php';
+include '../test/newFooter.php';
 ?>

@@ -9,7 +9,7 @@
     <title>Footer</title>
 </head>
 <body>
-     
+
  <footer>
     <div class="footerContainer">
         <div class="socialIcons">

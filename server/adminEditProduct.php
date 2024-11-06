@@ -16,36 +16,9 @@
   <div class="edit-product">
     <div class="edit-product-left">
       <p class="font-weight-bold">Variations:</p>
-
-      <div id="variations" class="variations">
-        <div class="info-var">
-        <div class="edit-product-variation">
-          <label for="name">Name:</label>
-          <input type="text" id="name" value="White" readonly="readonly">
-        </div>
-        </div>
-        <div class="edit-product-variation">
-          <label for="width">Width:</label>
-          <input type="text" id="width" value="24" readonly="readonly">
-        </div>
-
-        <div class="edit-product-variation">
-          <label for="length">Length:</label>
-          <input type="text" id="length" value="29" readonly="readonly">
-        </div>
-
-        <div class="edit-product-variation">
-          <label for="quantity">Quantity:</label>
-          <div class="quantity-control">
-            <input type="number" id="quantity" value="3" readonly="readonly">
-          </div>
-        </div>
-
-        <div class="edit-product-variation">
-          <span class="material-icons-outlined edit-iconn" style="cursor:pointer;"> edit </span>
-        </div>
-      </div>
-    
+        <div id="variations">
+          
+        </div>    
       <p class="font-weight-bold">New Variation:</p>
 
       <div class="edit-product-variations">
@@ -118,9 +91,8 @@
 $(document).ready(function() {
     const url = new URL(window.location.href);
     const productID = url.searchParams.get('product_id');
-
+    $('#product_id').val(productID);
     fetchCategories(productID);
-    loadVariations(productID);
 
     function fetchCategories(productID) {
         $.ajax({
@@ -154,6 +126,7 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify({ idProduct: productID }),
             success: function(data) {
+              console.log(data);
                 if (typeof data === "string") {
                     data = JSON.parse(data);
                 }
@@ -194,6 +167,7 @@ $(document).ready(function() {
             }
         });
     }
+    loadVariations(productID);
 
     function loadEdits(productID) {
         $.ajax({
@@ -205,7 +179,7 @@ $(document).ready(function() {
                 if (typeof data === "string") {
                     data = JSON.parse(data); 
                 }
-                console.log(data);
+                // console.log(data);
                 if (data.type == "edit-product") {
                     $('#title').val(data.title);
                     $('#price').val(data.price);
