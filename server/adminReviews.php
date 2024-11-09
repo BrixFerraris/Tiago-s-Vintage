@@ -1,5 +1,18 @@
 <?php
-  include_once './includes/sidebar.php';
+session_start();
+
+if (isset($_SESSION["role"])) {
+  $role = $_SESSION["role"];
+  if ($role === 'Super Admin') {
+    include_once './includes/sidebar.php';
+  } else {
+    header("location: adminDashboard.php");
+    exit();
+  }
+} else {
+  header("location: ../landing.php?error=NotLoggedIn");
+  exit();
+}
 ?>
 
 <!-- Main -->
@@ -9,57 +22,59 @@
   </div>
 
   <div class="content">
-  <div class="form-group sort">
-                <label for="sort">Sort</label>
-                    <div class="sort">
-                        <select id="sort" name="sort" required>
+    <div class="form-group sort">
+      <label for="sort">Sort</label>
+      <div class="sort">
+        <select id="sort" name="sort" required>
 
-                            <option value="all">All</option>
-                            <option value="visible">Visible</option>
-                            <option value="hiddem">Hidden</option>
+          <option value="all">All</option>
+          <option value="visible">Visible</option>
+          <option value="hiddem">Hidden</option>
 
-                        </select>
-                    </div>
-    <!-- Review Section -->
-    <div class="review-section">
-      <div class="review">
-        <h3>Juan Dela Cruz</h3>
-        <div class="review-header">
-          <span class="rating">★★★★★</span>
-          <span class="date">09-12-2024</span>
-          <span class="details">Color: White | Dimes: 32X30 | Size: Large</span>
-        </div>
-        <div class="review-body">
-          <p><strong>Color:</strong> White</p>
-          <p><strong>Appearance:</strong> Beautiful!</p>
-          <p><strong>Material Quality:</strong> Original, High Quality</p>
-          <p class="review-text">
-            I recently bought this essential T-shirt, and I'm super impressed! The quality is fantastic—it's made from really soft cotton that feels great against the skin. Perfect for hot weather because it's lightweight and breathable. I've worn it all day, and it still feels comfortable and doesn't stick to my body.
-          </p>
-          <img src="../images/sample-item.png" alt="Product Image" class="review-image">
-        </div>
-        <div class="review-actions">
-          <button class="btn-show">Show</button>
-          <button class="btn-hide">Hide</button>
-        </div>
+        </select>
       </div>
-      <!-- Duplicate the review div for additional reviews -->
-    </div>
+      <!-- Review Section -->
+      <div class="review-section">
+        <div class="review">
+          <h3>Juan Dela Cruz</h3>
+          <div class="review-header">
+            <span class="rating">★★★★★</span>
+            <span class="date">09-12-2024</span>
+            <span class="details">Color: White | Dimes: 32X30 | Size: Large</span>
+          </div>
+          <div class="review-body">
+            <p><strong>Color:</strong> White</p>
+            <p><strong>Appearance:</strong> Beautiful!</p>
+            <p><strong>Material Quality:</strong> Original, High Quality</p>
+            <p class="review-text">
+              I recently bought this essential T-shirt, and I'm super impressed! The quality is fantastic—it's made from
+              really soft cotton that feels great against the skin. Perfect for hot weather because it's lightweight and
+              breathable. I've worn it all day, and it still feels comfortable and doesn't stick to my body.
+            </p>
+            <img src="../images/sample-item.png" alt="Product Image" class="review-image">
+          </div>
+          <div class="review-actions">
+            <button class="btn-show">Show</button>
+            <button class="btn-hide">Hide</button>
+          </div>
+        </div>
+        <!-- Duplicate the review div for additional reviews -->
+      </div>
 
-    <!-- Pagination -->
-    <div class="pagination">
-      <a href="#" class="prev">Previous</a>
-      <a href="#" class="page-num">1</a>
-      <a href="#" class="page-num">2</a>
-      <a href="#" class="page-num">...</a>
-      <a href="#" class="next">Next</a>
+      <!-- Pagination -->
+      <div class="pagination">
+        <a href="#" class="prev">Previous</a>
+        <a href="#" class="page-num">1</a>
+        <a href="#" class="page-num">2</a>
+        <a href="#" class="page-num">...</a>
+        <a href="#" class="next">Next</a>
+      </div>
     </div>
-  </div>
 </main>
 <!-- End Main -->
 
 <style>
-    /* reviews */
+  /* reviews */
   .review-section {
     margin: 20px 0;
   }
@@ -94,30 +109,38 @@
     text-align: right;
   }
 
-    /* buttons */
-  .btn-show, .btn-hide {
-    padding: 10px 20px; /* Adjusted padding for larger buttons */
-    margin: 0 10px; /* Spacing between buttons */
-    border: none; /* Remove border for a cleaner look */
-    border-radius: 5px; /* Rounded corners */
-    color: white; /* White text color */
-    font-weight: bold; /* Bold text */
+  /* buttons */
+  .btn-show,
+  .btn-hide {
+    padding: 10px 20px;
+    /* Adjusted padding for larger buttons */
+    margin: 0 10px;
+    /* Spacing between buttons */
+    border: none;
+    /* Remove border for a cleaner look */
+    border-radius: 5px;
+    /* Rounded corners */
+    color: white;
+    /* White text color */
+    font-weight: bold;
+    /* Bold text */
     cursor: pointer;
-}
+  }
 
-.btn-show {
-  background-color: rgb(76, 175, 80); /* Green background for the "Edit" button */
-}
+  .btn-show {
+    background-color: rgb(76, 175, 80);
+    /* Green background for the "Edit" button */
+  }
 
-.btn-hide {
-  background-color: rgb(244, 67, 54); /* Red background for the "Delete" button */
-}
+  .btn-hide {
+    background-color: rgb(244, 67, 54);
+    /* Red background for the "Delete" button */
+  }
 
-/* sort */
-#sort{
+  /* sort */
+  #sort {
     width: 100px;
-}                 
-
+  }
 </style>
 
 <script>

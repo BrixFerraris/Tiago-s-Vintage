@@ -1,15 +1,27 @@
-
 <?php
-  include_once './includes/sidebar.php';
+session_start();
+
+if (isset($_SESSION["role"])) {
+    $role = $_SESSION["role"];
+    if ($role === 'Super Admin') {
+        include_once './includes/sidebar.php';
+    } elseif ($role === 'Add Product') {
+        include_once './includes/sidebarAdd_Product.php';
+    } else {
+        header("location: adminDashboard.php");
+        exit();
+    }
+} else {
+    header("location: ../landing.php?error=NotLoggedIn");
+    exit();
+}
 ?>
 
-
-
-      <!-- Main -->
-      <main class="main-container">
-        <div class="main-title">
-          <p class="font-weight-bold">ADD PRODUCT</p>
-        </div>
+<!-- Main -->
+<main class="main-container">
+    <div class="main-title">
+        <p class="font-weight-bold">ADD PRODUCT</p>
+    </div>
 
     <!-- form add products -->
     <div class="form-container">
@@ -26,8 +38,8 @@
 
             <div class="form-group">
                 <label for="price">Price (PHP)</label>
-                <input type="text" id="price" name="price" placeholder="Price (PHP)" required
-                pattern="^\d+(\.\d{2})?$" title="Enter a valid amount in PHP, e.g., 123.45">
+                <input type="text" id="price" name="price" placeholder="Price (PHP)" required pattern="^\d+(\.\d{2})?$"
+                    title="Enter a valid amount in PHP, e.g., 123.45">
             </div>
 
             <div class="form-group">
@@ -39,7 +51,7 @@
                     <option value="Accessories">
                 </select>
             </div>
-            
+
             <div class="form-group">
                 <label for="img1">Image 1</label>
                 <input type="file" id="img1" name="img1" accept="image/*" required>
@@ -63,61 +75,61 @@
             <button name="submit" type="submit">Add Product</button>
         </form>
     </div>
-    </main>
-    <!-- End Main -->
+</main>
+<!-- End Main -->
 
 </div>
 
-    <script>
+<script>
 
-// SIDEBAR TOGGLE
+    // SIDEBAR TOGGLE
 
-let sidebarOpen = false;
-const sidebar = document.getElementById('sidebar');
+    let sidebarOpen = false;
+    const sidebar = document.getElementById('sidebar');
 
-function openSidebar() {
-  if (!sidebarOpen) {
-    sidebar.classList.add('sidebar-responsive');
-    sidebarOpen = true;
-  }
-}
+    function openSidebar() {
+        if (!sidebarOpen) {
+            sidebar.classList.add('sidebar-responsive');
+            sidebarOpen = true;
+        }
+    }
 
-function closeSidebar() {
-  if (sidebarOpen) {
-    sidebar.classList.remove('sidebar-responsive');
-    sidebarOpen = false;
-  }
-}
+    function closeSidebar() {
+        if (sidebarOpen) {
+            sidebar.classList.remove('sidebar-responsive');
+            sidebarOpen = false;
+        }
+    }
 
-$(document).ready(function() {
-    function fetchCategories() {
-        $.ajax({
-            url: '../server/includes/getCategories.php',
-            method: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                $('#categories').empty(); 
-                if (Array.isArray(data) && data.length > 0) {
-                    $('#categories').append('<option value="">Select a category</option>'); 
-                    $.each(data, function(index, category) {
-                        $('#categories').append(`
+    $(document).ready(function () {
+        function fetchCategories() {
+            $.ajax({
+                url: '../server/includes/getCategories.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $('#categories').empty();
+                    if (Array.isArray(data) && data.length > 0) {
+                        $('#categories').append('<option value="">Select a category</option>');
+                        $.each(data, function (index, category) {
+                            $('#categories').append(`
                             <option value="${category.category}">${category.category}</option>
                         `);
-                    });
-                } else {
-                    $('#categories').append('<option value="">No categories found</option>');
+                        });
+                    } else {
+                        $('#categories').append('<option value="">No categories found</option>');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("Error fetching categories: ", textStatus, errorThrown);
+                    $('#categories').append('<option value="">Error loading categories</option>');
                 }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error("Error fetching categories: ", textStatus, errorThrown);
-                $('#categories').append('<option value="">Error loading categories</option>');
-            }
-        });
-    }
-    fetchCategories(); 
-});
+            });
+        }
+        fetchCategories();
+    });
 
 </script>
-  </body>
-</html>
+</body>
 
+</html>

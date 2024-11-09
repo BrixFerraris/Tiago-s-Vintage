@@ -1,9 +1,24 @@
 <?php
-  include_once './includes/sidebar.php';
-?>
+session_start();
 
+if (isset($_SESSION["role"])) {
+    $role = $_SESSION["role"];
+    if ($role === 'Super Admin') {
+        include_once './includes/sidebar.php';
+    } elseif ($role === 'Accept Orders') {
+        include_once './includes/sidebarAdd_Product.php';
+    } else {
+        header("location: adminDashboard.php");
+        exit();
+    }
+} else {
+    header("location: ../landing.php?error=NotLoggedIn");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,14 +26,15 @@
     <link rel="stylesheet" href="./CSS/purchaseOrders.css">
     <title>Purchase Orders</title>
 </head>
+
 <body>
-<main class="main-container">
+    <main class="main-container">
         <div class="main-title">
-          <p class="font-weight-bold">PURCHASE ORDERS</p>
+            <p class="font-weight-bold">PURCHASE ORDERS</p>
         </div>
 
         <div class="content">
-            <table id="products" >
+            <table id="products">
                 <thead>
                     <tr>
                         <th>Order Number</th>
@@ -43,33 +59,34 @@
                 <a href="#" class="page-num">2</a>
                 <a href="#" class="next">Next</a>
             </div>
-      <!-- End Main -->
+            <!-- End Main -->
         </div>
-    </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function(){
-            //Websocket connection
-            var conn = new WebSocket('ws://localhost:8080/ws/');
-            var table = document.getElementById('products');
-            conn.onopen = function() {
-                conn.send(JSON.stringify({ type: 'loadPurchaseOrders' }));
-            };
-            conn.onmessage = function(e) { 
-                var purchaseOrder = JSON.parse(e.data);
-                if (purchaseOrder.type === 'purchase-order') {
-                    var newRow = table.insertRow();
-                    newRow.insertCell().innerHTML = purchaseOrder.transaction_id;
-                    newRow.insertCell().innerHTML = purchaseOrder.firstName + ' ' + purchaseOrder.lastName;
-                    newRow.insertCell().innerHTML = purchaseOrder.address;
-                    newRow.insertCell().innerHTML = purchaseOrder.status;
-                    newRow.insertCell().innerHTML = `<button class="accept-btn">Accept</button>`;
-                    newRow.insertCell().innerHTML = `<button class="delete-btn">Delete</button>`;
-                    newRow.addEventListener('click', function() {
-                        window.location.href = 'adminPODetails.php?transaction_id=' + purchaseOrder.transaction_id;
-                    });
-                }
-            };
-        });
-    </script>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                //Websocket connection
+                var conn = new WebSocket('ws://localhost:8080/ws/');
+                var table = document.getElementById('products');
+                conn.onopen = function () {
+                    conn.send(JSON.stringify({ type: 'loadPurchaseOrders' }));
+                };
+                conn.onmessage = function (e) {
+                    var purchaseOrder = JSON.parse(e.data);
+                    if (purchaseOrder.type === 'purchase-order') {
+                        var newRow = table.insertRow();
+                        newRow.insertCell().innerHTML = purchaseOrder.transaction_id;
+                        newRow.insertCell().innerHTML = purchaseOrder.firstName + ' ' + purchaseOrder.lastName;
+                        newRow.insertCell().innerHTML = purchaseOrder.address;
+                        newRow.insertCell().innerHTML = purchaseOrder.status;
+                        newRow.insertCell().innerHTML = `<button class="accept-btn">Accept</button>`;
+                        newRow.insertCell().innerHTML = `<button class="delete-btn">Delete</button>`;
+                        newRow.addEventListener('click', function () {
+                            window.location.href = 'adminPODetails.php?transaction_id=' + purchaseOrder.transaction_id;
+                        });
+                    }
+                };
+            });
+        </script>
 </body>
+
 </html>

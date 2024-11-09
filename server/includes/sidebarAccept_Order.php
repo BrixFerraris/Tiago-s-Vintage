@@ -66,7 +66,7 @@
                 </li>
             </a>
 
-            <a href="./adminLogin.php">
+            <a href="http://localhost/tiago/client/includes/logout.php">
                 <li class="sidebar-list-item">
                     <span class="material-icons-outlined">logout</span> Logout
                 </li>

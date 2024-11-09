@@ -221,8 +221,10 @@ class ProductLoader implements MessageComponentInterface {
             $name = $row["firstName"]." ".$row["lastName"];
             $address = $row["address"];
             $contact = $row["contact"];
+            $id = $row["id"];
+            $status = $row["status"];
         }
-        $conn->send(json_encode(['order_items' => $orderItems, 'order_total' => $total, 'name' => $name, 'address' => $address, 'contact' => $contact])); 
+        $conn->send(json_encode(['order_items' => $orderItems, 'order_total' => $total, 'name' => $name, 'address' => $address, 'contact' => $contact, 'id' => $id, 'status' => $status])); 
     }
 
     private function loadProducts(ConnectionInterface $conn) {

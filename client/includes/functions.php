@@ -79,35 +79,45 @@ function emptyInputLogin($uName,$pwd) {
     return $result;
 }
 
-function loginUser($conn, $uName, $pwd) {
-    $UserExists = userExist($conn,$uName);
+function loginUser ($conn, $uName, $pwd) {
+    $UserExists = userExist($conn, $uName);
 
     if ($UserExists == false) {
         header("location: ../landing.php?error=WrongLogin");
         exit();
     }
+
     $pwdHashed = $UserExists["password"];
     $checkPass = password_verify($pwd, $pwdHashed);
 
     if ($checkPass === false) {
         header("location: ../landing.php?error=WrongLogin");
         exit();
-    }
-    else if ($checkPass === true) {
+    } else if ($checkPass === true) {
         session_start();
         $_SESSION["uID"] = $UserExists["id"]; 
         $_SESSION["username"] = $UserExists["username"];
         $_SESSION["role"] = $UserExists["role"];
-        $role = $_SESSION["role"];
         $_SESSION["isLoggedIn"] = true;
-        if ($role=='admin') {
-            header("location: ../server/adminDashboard.php");
+        $role = $_SESSION["role"];
+        if ($role === 'Super Admin') {
+            header("location: ../../server/adminDashboard.php");
             exit();
-        }
-        else if ($role=='Customer') {
+        } else if ($role === 'Add Product') {
+            header("location: ../../server/adminDashboard.php");
+            exit();
+        } else if ($role === 'Accept Orders') {
+            header("location: ../../server/adminDashboard.php");
+            exit();
+        } else if ($role === 'Change Contents') {
+            header("location: ../../server/adminDashboard.php");
+            exit();
+        } else if ($role === 'Customer') {
             header("location: ../landing.php");
             exit();
+        } else {
+            header("location: ../landing.php?error=UnexpectedRole");
+            exit();
         }
-
     }
 }

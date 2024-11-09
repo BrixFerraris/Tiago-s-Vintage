@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2024 at 12:36 PM
+-- Generation Time: Nov 09, 2024 at 01:07 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,8 +45,7 @@ INSERT INTO `tbl_categories` (`id`, `category`, `image`) VALUES
 (33, 'Bag', '672a33bb3cf6a9.25406476.png'),
 (34, 'Pants', '672a346200e023.52138715.png'),
 (35, 'Shorts', '672a4131929334.90375808.png'),
-(36, 'Jerseys', '672a427cea29d1.77411643.png'),
-(37, 'All', '672b337ed48ff2.89194192.png');
+(36, 'Jerseys', '672a427cea29d1.77411643.png');
 
 -- --------------------------------------------------------
 
@@ -89,17 +88,16 @@ CREATE TABLE `tbl_payments` (
   `receipt` varchar(255) NOT NULL,
   `u_id` varchar(255) NOT NULL,
   `amount` int(11) NOT NULL,
-  `transaction_number` varchar(255) NOT NULL
+  `transaction_number` varchar(255) NOT NULL,
+  `date_purchased` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_payments`
 --
 
-INSERT INTO `tbl_payments` (`id`, `receipt`, `u_id`, `amount`, `transaction_number`) VALUES
-(7, '672b0da8697097.15388829.png', '4', 1200, '1730870660_4'),
-(8, '672b303ca46bd1.92343512.png', '4', 350, '1730883586_4'),
-(9, '672b32cd0d0961.11956883.png', '4', 1200, '1730884277_4');
+INSERT INTO `tbl_payments` (`id`, `receipt`, `u_id`, `amount`, `transaction_number`, `date_purchased`) VALUES
+(6, '672ea586315595.05625652.png', '1', 123, '1728955818_1', '2024-11-09 07:57:58');
 
 -- --------------------------------------------------------
 
@@ -117,19 +115,21 @@ CREATE TABLE `tbl_products` (
   `img2` varchar(255) NOT NULL,
   `img3` varchar(255) NOT NULL,
   `img4` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `date_added` datetime NOT NULL DEFAULT current_timestamp()
+  `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_products`
 --
 
-INSERT INTO `tbl_products` (`id`, `title`, `price`, `discount`, `category`, `img1`, `img2`, `img3`, `img4`, `description`, `date_added`) VALUES
-(16, 'Black Rebel Trucker Cap', 350, 0, 'Caps', '672a36995f89a2.89254776.png', '672a36995f8a49.56487798.png', '672a36995f8a56.33433437.png', '672a36995f8a74.31191657.png', 'No Issue\r\n\r\nGood Condition', '2024-11-06 15:06:40'),
-(17, 'Aby Fishing Vest', 1500, 0, 'Vest', '672a3dcae48df7.95342547.png', '672a3dcae490c2.96939939.png', '672a3dcae490e3.70819402.png', '672a3dcae49102.91925141.png', 'No issue\r\n\r\nGood Condition', '2024-11-06 15:06:40'),
-(18, 'Drew Billiard', 1200, 0, 'Tshirts', '672a404ea06663.74888283.png', '672a404ea06729.83635193.png', '672a404ea06733.37524058.png', '672a404ea06757.43684301.png', 'Issue:\r\nWashable Stain\r\n\r\nGood Condition', '2024-11-06 15:06:40'),
-(19, 'Ihihi Jorts', 850, 0, 'Shorts', '672a4189779ee7.36543913.png', '672a4189779f65.21174711.png', '672a4189779f81.20596980.png', '672a4189779fa5.58966959.png', 'No Issue\r\n\r\nGreat Condition', '2024-11-06 15:06:40');
+INSERT INTO `tbl_products` (`id`, `title`, `price`, `discount`, `category`, `img1`, `img2`, `img3`, `img4`, `description`) VALUES
+(11, 'Sample', 123, 0, 'Shoes', '66f1a1b8d8b787.16174887.png', '66f1a1b8d8b857.13120490.png', '66f1a1b8d8b879.53036138.png', '66f1a1b8d8b894.25958641.png', 'waqe'),
+(12, 'wqeqzzxc', 1123, 0, 'Tops', '66f1a1cc6c9455.35440060.png', '66f1a1cc6c9581.71558382.png', '66f1a1cc6c95a1.01039445.png', '66f1a1cc6c95c5.76015324.png', '12qwsdas'),
+(13, 'Shoes', 121, 0, 'Shoes', '66f478594a7301.68824789.png', '66f478594a73d2.50142593.png', '66f478594a73f6.26140937.png', '66f478594a7410.80062691.png', 'Testing'),
+(16, 'Black Rebel Trucker Cap', 350, 0, 'Caps', '672a36995f89a2.89254776.png', '672a36995f8a49.56487798.png', '672a36995f8a56.33433437.png', '672a36995f8a74.31191657.png', 'No Issue\r\n\r\nGood Condition'),
+(17, 'Aby Fishing Vest', 1500, 0, 'Vest', '672a3dcae48df7.95342547.png', '672a3dcae490c2.96939939.png', '672a3dcae490e3.70819402.png', '672a3dcae49102.91925141.png', 'No issue\r\n\r\nGood Condition'),
+(18, 'Drew Billiard', 1200, 0, 'Tshirts', '672a404ea06663.74888283.png', '672a404ea06729.83635193.png', '672a404ea06733.37524058.png', '672a404ea06757.43684301.png', 'Issue:\r\nWashable Stain\r\n\r\nGood Condition'),
+(19, 'Ihihi Jorts', 850, 0, 'Shorts', '672a4189779ee7.36543913.png', '672a4189779f65.21174711.png', '672a4189779f81.20596980.png', '672a4189779fa5.58966959.png', 'No Issue\r\n\r\nGreat Condition');
 
 -- --------------------------------------------------------
 
@@ -158,7 +158,7 @@ CREATE TABLE `tbl_settings` (
 --
 
 INSERT INTO `tbl_settings` (`cms_id`, `title`, `logo`, `landing_bg`, `landing_text`, `about`, `terms`, `fb`, `ig`, `email`, `number`, `address`, `qr`) VALUES
-(1, 'Tiago\'s Vintage', '672b0bdb7c2864.82874964-1730874331.png', '672a317ea782d4.64406569-1730818430.jpg', 'Maulan Sale!!', 'Mabait na', 'hahaha bwqhe', 'https://www.facebook.com/profile.php?id=100063803240125', 'https://www.instagram.com/tiagos_vintage_/', 'vinceasdfghj@gmail.com', '0995 795 6315', 'Southboys Garage Bayan Luma 5 Imus Cavite ', '672a517c192e67.14199284.jpg');
+(1, 'Tiago\'s Vintage', '672a3510b51779.97075724-1730819344.png', '672a317ea782d4.64406569-1730818430.jpg', 'Maulan Sale!!', 'opo hahawhz', 'hahaha bwqhe', 'https://www.facebook.com/profile.php?id=100063803240125', 'https://www.instagram.com/tiagos_vintage_/', 'vinceasdfghj@gmail.com', '0995 795 6315', 'Southboys Garage Bayan Luma 5 Imus Cavite ', '672a517c192e67.14199284.jpg');
 
 -- --------------------------------------------------------
 
@@ -186,9 +186,7 @@ CREATE TABLE `tbl_transactions` (
 --
 
 INSERT INTO `tbl_transactions` (`id`, `transaction_id`, `product_id`, `variation_id`, `quantity`, `user_id`, `date`, `total`, `grand_total`, `status`, `address`, `payment_id`) VALUES
-(43, '1730870660_4', '18', '13', 1, '4', '2024-11-06 06:33:11', 1200, 0, 'Check Payment', 'Dito lang sa bahay', 0),
-(44, '1730883586_4', '16', '14', 1, '4', '2024-11-06 09:00:38', 350, 0, 'Check Payment', 'Dito lang sa bahay', 0),
-(45, '1730884277_4', '18', '17', 1, '4', '2024-11-06 09:11:35', 1200, 0, 'Check Payment', 'Dito lang sa bahay', 0);
+(42, '1728955818_1', '11', '12', 1, '1', '2024-11-09 00:04:18', 123, 0, 'Completed', 'Emoes haha', 0);
 
 -- --------------------------------------------------------
 
@@ -203,18 +201,20 @@ CREATE TABLE `tbl_users` (
   `firstName` varchar(255) NOT NULL,
   `lastName` varchar(255) NOT NULL,
   `contact` varchar(255) NOT NULL,
-  `role` varchar(255) NOT NULL DEFAULT 'Customer'
+  `role` varchar(255) NOT NULL DEFAULT 'Customer',
+  `points` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_users`
 --
 
-INSERT INTO `tbl_users` (`id`, `username`, `password`, `firstName`, `lastName`, `contact`, `role`) VALUES
-(1, 'amiel', '$2y$10$cG4nZjbbyJRC2iLt8SDNYefmKf9BSG2kZC20oydBv.qzjDv1ItSgi', 'Amiel Carhyl', 'Lapid', '12312312312', 'Customer'),
-(2, 'heart', '$2y$10$0JtU36KlvBlUhldp1BjZ3ulKa.sRWWRZFTPdaeCsknLefVKVbxBmC', 'Nicole Heart', 'Mendoza', '123123123', 'Customer'),
-(3, 'asczxc', '$2y$10$tShTNevKd4P/v.Pe2N48leBNGmdgRxoLY3OSyLGIHbxIfNepI6s2a', 'awdz', 'qweqwe', '3232323', 'Customer'),
-(4, 'daduk', '$2y$10$cV2r.OZ888dIYWxacJedwePKnilihnKm./7CNax1AhMpVd7GjHMgm', 'Darius', 'Gavino', '099940576891', 'Customer');
+INSERT INTO `tbl_users` (`id`, `username`, `password`, `firstName`, `lastName`, `contact`, `role`, `points`) VALUES
+(1, 'amiel', '$2y$10$cG4nZjbbyJRC2iLt8SDNYefmKf9BSG2kZC20oydBv.qzjDv1ItSgi', 'Amiel Carhyl', 'Lapid', '12312312312', 'Customer', 9),
+(2, 'heart', '$2y$10$0JtU36KlvBlUhldp1BjZ3ulKa.sRWWRZFTPdaeCsknLefVKVbxBmC', 'Nicole Heart', 'Mendoza', '123123123', 'Customer', 0),
+(3, 'asczxc', '$2y$10$tShTNevKd4P/v.Pe2N48leBNGmdgRxoLY3OSyLGIHbxIfNepI6s2a', 'awdz', 'qweqwe', '3232323', 'Customer', 0),
+(4, 'daduk', '$2y$10$cV2r.OZ888dIYWxacJedwePKnilihnKm./7CNax1AhMpVd7GjHMgm', 'Darius', 'Gavino', '099940576891', 'Customer', 0),
+(5, 'amiel06', '$2y$10$4SFlJ4HEb5hC6aVzFXVWjerAnQKnvrMTSNOoqDi2xSh3JvdXareZi', 'Amiel Carhyl', 'Lapid', 'None', 'Super Admin', 0);
 
 -- --------------------------------------------------------
 
@@ -238,12 +238,7 @@ CREATE TABLE `tbl_variations` (
 
 INSERT INTO `tbl_variations` (`id`, `product_id`, `variationName`, `width`, `length`, `quantity`, `imgVar`) VALUES
 (11, 11, 'hehe', 23, 21, 12, ''),
-(12, 11, 'sample po', 21, 32, 3, '6706fc6b341d33.46212256.png'),
-(13, 18, 'White', 25, 30, 0, '672afd60a02cc9.30549757.png'),
-(14, 16, 'Black', 10, 10, 0, '672b2fafc61b14.68024785.png'),
-(15, 19, 'Dark Green', 30, 28, 1, '672b3168629825.14218519.png'),
-(16, 17, 'White', 32, 29, 1, '672b318e9821c6.01738050.png'),
-(17, 18, 'Blue', 26, 30, 4, '672b324cbbbf47.18074128.png');
+(12, 11, 'sample po', 21, 32, 3, '6706fc6b341d33.46212256.png');
 
 --
 -- Indexes for dumped tables
@@ -311,7 +306,7 @@ ALTER TABLE `tbl_variations`
 -- AUTO_INCREMENT for table `tbl_categories`
 --
 ALTER TABLE `tbl_categories`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `tbl_images`
@@ -329,7 +324,7 @@ ALTER TABLE `tbl_parent`
 -- AUTO_INCREMENT for table `tbl_payments`
 --
 ALTER TABLE `tbl_payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_products`
@@ -347,19 +342,19 @@ ALTER TABLE `tbl_settings`
 -- AUTO_INCREMENT for table `tbl_transactions`
 --
 ALTER TABLE `tbl_transactions`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_variations`
 --
 ALTER TABLE `tbl_variations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

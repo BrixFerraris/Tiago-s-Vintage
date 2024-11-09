@@ -4,8 +4,17 @@ include_once './dbCon.php';
 if (isset($_SESSION['uID'])) {
     $userId = $_SESSION['uID'];
     $transactionId = $_POST['transaction_id'];
-    $stmt = $conn->prepare("UPDATE tbl_transactions SET status = 'Check Payment' WHERE transaction_id = ? AND user_id = ?");
-    $stmt->bind_param("si", $transactionId, $userId); 
+    $type = $_POST['type'];
+    if ($type === 'payment') {
+        $status = 'Check Payment';
+    } elseif ($type === 'complete') {
+        $status = 'Completed';
+    } else {
+        echo json_encode(["status" => "error", "message" => "Invalid type specified."]);
+        exit; 
+    }
+    $stmt = $conn->prepare("UPDATE tbl_transactions SET status = ? WHERE transaction_id = ? AND user_id = ?");
+    $stmt->bind_param("ssi", $status, $transactionId, $userId); 
     if ($stmt->execute()) {
         echo json_encode(["status" => "success", "message" => "Status updated successfully."]);
     } else {

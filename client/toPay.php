@@ -15,85 +15,57 @@ include './header.php';
     <!-- To Pay Orders Section -->
     <div class="order-section" id="to-pay">
         <h4>My Orders - To Pay</h4>
-
-        <div class="order-item">
-            <div class="item-details">
-                <img src="shirt.png" alt="Product Image">
-                <div>
-                    <h5>Davey Allison 28 Big Print</h5>
-                    <p>Size: 25W X 35L (Large)</p>
-                    <p>Quantity: 1</p>
-                </div>
-            </div>
-            <div class="item-status">
-                <p class="status pending">Pending</p>
-            </div>
-            <div class="item-price">
-                <p>₱1500</p>
-            </div>
-            <div class="item-action">
-                <button class="pay-button">Pay Now</button>
-                <button class="cancel-button">Cancel</button>
-            </div>
-        </div>
-
-        <div class="order-item">
-            <div class="item-details">
-                <img src="shirt.png" alt="Product Image">
-                <div>
-                    <h5>Davey Allison 28 Big Print</h5>
-                    <p>Size: 25W X 35L (Large)</p>
-                    <p>Quantity: 1</p>
-                </div>
-            </div>
-            <div class="item-status">
-                <p class="status pending">Pending</p>
-            </div>
-            <div class="item-price">
-                <p>₱1500</p>
-            </div>
-            <div class="item-action">
-                <button class="pay-button">Pay Now</button>
-                <button class="cancel-button">Cancel</button>
-            </div>
-        </div>
-
     </div>
 </div>
 <div class="modal-payment">
     <div class="modals1">
-            <h2>Payment Method</h2>
-            <h6>Scan to pay</h6>
-            <img src="../assets/QR.png" class="qr" alt="" width="30%" height="45%">
-            <h4 class="amount">Amount: <span id="amountValue">1500</span></h4>
-            <p>We accept Gcash only. After scanning the QR code, please put the receipt in the box given.</p>
-            <form id="paymentForm" action="./includes/clientPay.php" method="POST" enctype="multipart/form-data">
+        <h2>Payment Method</h2>
+        <h6>Scan to pay</h6>
+        <img src="../assets/QR.png" class="qr" alt="" width="30%" height="45%">
+        <h4 class="amount">Amount: <span id="amountValue">1500</span></h4>
+        <p>We accept Gcash only. After scanning the QR code, please put the receipt in the box given.</p>
+        <form id="paymentForm" action="./includes/clientPay.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" class="amount" name="amount" id="amount" value="">
             <input type="hidden" class="transID" name="transID" id="transID" value="">
             <input type="file" id="myFile" name="img1" required>
             <input type="hidden" name="uID" id="uID">
             <div class="order-btn">
                 <button type="submit" class="btnSubmit">Submit</button>
-                <button type="button" class="btnBack" >Back</button>
+                <button type="button" class="btnBack">Back</button>
             </div>
         </form>
     </div>
 </div>
 <script>
-$(document).ready(function() {
-    $.ajax({
-        url: './includes/getOrders.php',
-        type: 'GET',
-        dataType: 'json',
-        success: function(orders) {
-            $('#to-pay').empty();
-            $('#to-pay').append('<h4>My Orders - To Pay</h4>'); 
-            $.each(orders, function(index, order) {
-                var itemTitles = order.items.map(item => item.title).join(', ');
-                var itemSizes = order.items.map(item => item.size).join('<br>');
-                var totalQuantity = order.total_quantity;
-                var totalPrice = order.total_price;
-                var orderItem = `
+    $(document).ready(function () {
+        $.ajax({
+            url: 'http://localhost/tiago/server/includes/getCMS.php',
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                if (data.error) {
+                    $('#cms-title').text('Error loading title');
+                } else {
+                    $('.qr').attr('src', 'http://localhost/tiago/server/includes/uploads/' + data.qr).show();
+                }
+            },
+            error: function () {
+                $('#cms-title').text('Error loading data');
+            }
+        });
+        $.ajax({
+            url: './includes/getOrders.php',
+            type: 'GET',
+            dataType: 'json',
+            success: function (orders) {
+                console.log(orders);
+                $.each(orders, function (index, order) {
+                    var itemTitles = order.items.map(item => item.title).join(', ');
+                    var itemSizes = order.items.map(item => item.size).join('<br>');
+                    var totalQuantity = order.total_quantity;
+                    var totalPrice = order.total_price;
+                    if (order.status === 'Pending') {
+                        var orderItem = `
                     <div class="order-item">
                         <div class="item-details">
                             <img src="../server/includes/uploads/${order.first_img}" alt="Product Image" style="width: 100px; height: auto;">
@@ -113,266 +85,260 @@ $(document).ready(function() {
                             <button class="cancel-button" data-transaction="${order.transaction_id}">Cancel</button>
                         </div>
                     </div>`;
-                $('#to-pay').append(orderItem);
-            });
-            $('.pay-button').on('click', function() {
-                $('.modal-payment').addClass('modal-active');
-                var transactionId = $(this).data('transaction');
-                var amount = $(this).data('total');
-                $('.amount').val(`${amount}`);
-                $('#transID').val(transactionId);
-            });
-            $('.btnSubmit').on('click', function(e) {
-                e.preventDefault();
-                var transactionId = $('#transID').val();
-                var amount = $('#amount').val(); 
-                var myFile = $('#myFile').val(); 
-                if (!transactionId || !amount || !myFile) {
-                    alert('Please fill in all required fields.');
-                    return; 
-                }
-                $.ajax({
-                    url: './includes/updateStatus.php', 
-                    type: 'POST',
-                    data: {
-                        transaction_id: transactionId,
-                        amount: amount
-                    },
-                    success: function(response) {
-                        alert('Success, please wait for an admin to verify your payment. It may take 30 minutes or more');
-                        $('#paymentForm').submit(); 
-                        // location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error updating status:', error);
+                        $('#to-pay').append(orderItem);
+                        var modalBtn = document.querySelector('.pay-button');
+                        var modalBg = document.querySelector('.modal-payment');
+                        var modalClose = document.querySelector('.btnBack');
+                        modalBtn.addEventListener('click', function () {
+                            modalBg.classList.add('modal-active');
+                        });
+                        modalClose.addEventListener('click', function () {
+                            modalBg.classList.remove('modal-active');
+                        });
+                    } else {
+                        $('#to-pay').append('<br><h1>No Orders Yet</h1>');
                     }
                 });
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching orders:', error);
-        }
+                $('.pay-button').on('click', function () {
+                    $('.modal-payment').addClass('modal-active');
+                    var transactionId = $(this).data('transaction');
+                    var amount = $(this).data('total');
+                    $('.amount').val(`${amount}`);
+                    $('#transID').val(transactionId);
+                });
+                $('.btnSubmit').on('click', function (e) {
+                    e.preventDefault();
+                    var transactionId = $('#transID').val();
+                    var amount = $('#amount').val();
+                    var myFile = $('#myFile').val();
+                    if (!transactionId || !amount || !myFile) {
+                        alert('Please fill in all required fields.');
+                        return;
+                    }
+                    $.ajax({
+                        url: './includes/updateStatus.php',
+                        type: 'POST',
+                        data: {
+                            transaction_id: transactionId,
+                            type: 'payment'
+                        },
+                        success: function (response) {
+                            alert('Success, please wait for an admin to verify your payment. It may take 30 minutes or more');
+                            $('#paymentForm').submit();
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error updating status:', error);
+                        }
+                    });
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching orders:', error);
+            }
+        });
     });
-});
 </script>
 </body>
+
 </html>
 <style>
+    body {
+        background-color: #f0f0f5;
+    }
 
-body {
-    background-color: #f0f0f5;
-}
-.container p{
-    color: black;
-}
-.container p:hover{
-    cursor: default;
-}
-.container {
-    max-width: 1500px;
-    margin: 20px auto;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
+    .container p {
+        color: black;
+    }
 
-.menu {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-}
+    .container p:hover {
+        cursor: default;
+    }
 
-.menu li {
-    margin: 0 20px;
-}
+    .container {
+        max-width: 1500px;
+        margin: 20px auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
 
-.menu a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-}
+    .menu {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+    }
 
-.menu a:hover {
-    text-decoration: underline;
-}
+    .menu li {
+        margin: 0 20px;
+    }
 
-.tabs {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-}
+    .menu a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+    }
 
-.tab-button {
-    background-color: #f0f0f5;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
+    .menu a:hover {
+        text-decoration: underline;
+    }
 
-.tab-button.active {
-    background-color: #4CAF50;
-    color: white;
-}
+    .tabs {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+    }
 
-.order-section {
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
+    .tab-button {
+        background-color: #f0f0f5;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
 
-.order-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding: 15px 0;
-}
-.item-details p{
-    color: black;
-}
+    .tab-button.active {
+        background-color: #4CAF50;
+        color: white;
+    }
 
-.item-details {
-    display: flex;
-    align-items: center;
-}
+    .order-section {
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
 
-.item-details img {
-    width: 80px;
-    height: 80px;
-    margin-right: 15px;
-}
+    .order-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        padding: 15px 0;
+    }
 
-.item-status {
-    width: 100px;
-    text-align: center;
-}
+    .item-details p {
+        color: black;
+    }
 
-.item-price {
-    width: 100px;
-    text-align: center;
-}
+    .item-details {
+        display: flex;
+        align-items: center;
+    }
 
-.item-action {
-    display: flex;
-    gap: 10px;
-}
+    .item-details img {
+        width: 80px;
+        height: 80px;
+        margin-right: 15px;
+    }
 
-/* Pending status */
-.status.pending {
-    color: orange;
-    font-weight: bold;
-}
+    .item-status {
+        width: 100px;
+        text-align: center;
+    }
 
-/* Pay Now and Cancel Buttons */
-.pay-button, .cancel-button {
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
+    .item-price {
+        width: 100px;
+        text-align: center;
+    }
 
-.pay-button {
-    background-color: #4CAF50;
-    color: white;
-}
+    .item-action {
+        display: flex;
+        gap: 10px;
+    }
 
-.cancel-button {
-    background-color: #f44336;
-    color: white;
-}
+    /* Pending status */
+    .status.pending {
+        color: orange;
+        font-weight: bold;
+    }
 
-.pay-button:hover, .cancel-button:hover {
-    opacity: 0.9;
-}
-.order-selection h3{
-    font-weight: bold;
-}
-.item-details p{
-    font-size: small;
-}
-.btnCheckout, .btnCancel, .btnBack, .btnSubmit{
-    padding: 10px 20px;
-    background-color: green;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100px;
-}
+    /* Pay Now and Cancel Buttons */
+    .pay-button,
+    .cancel-button {
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
 
-.btnCancel {
-    background-color: #ccc;
-}
-.modal-payment {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s, opacity 0.3s ease-in-out;
-}
+    .pay-button {
+        background-color: #4CAF50;
+        color: white;
+    }
 
-.modal-active {
-    visibility: visible;
-    opacity: 1;
-}
+    .cancel-button {
+        background-color: #f44336;
+        color: white;
+    }
 
-.modals1{
-    background-color: white;
-    width: 50%;
-    height: 70%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
+    .pay-button:hover,
+    .cancel-button:hover {
+        opacity: 0.9;
+    }
 
-.order-btn{
-    margin-bottom: 10px;
-    margin-top: 5%;
-    justify-content: space-around;
-}
+    .order-selection h3 {
+        font-weight: bold;
+    }
+
+    .item-details p {
+        font-size: small;
+    }
+
+    .btnCheckout,
+    .btnCancel,
+    .btnBack,
+    .btnSubmit {
+        padding: 10px 20px;
+        background-color: green;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100px;
+    }
+
+    .btnCancel {
+        background-color: #ccc;
+    }
+
+    .modal-payment {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity 0.3s ease-in-out;
+    }
+
+    .modal-active {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .modals1 {
+        background-color: white;
+        width: 50%;
+        height: 70%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .order-btn {
+        margin-bottom: 10px;
+        margin-top: 5%;
+        justify-content: space-around;
+    }
 </style>
-<script>
-    var modalBtn = document.querySelector('.pay-button');
-    var modalBg = document.querySelector('.modal-payment');
-    var modalClose = document.querySelector('.btnBack');
-    
-    modalBtn.addEventListener('click', function() {
-        modalBg.classList.add('modal-active');
-    });
-    modalClose.addEventListener('click', function(){
-        modalBg.classList.remove('modal-active');
-    });
-    $(document).ready(function() {
-    $.ajax({
-        url: 'http://localhost/tiago/server/includes/getCMS.php', 
-        method: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            if (data.error) {
-                $('#cms-title').text('Error loading title');
-            } else {
-                $('.qr').attr('src', 'http://localhost/tiago/server/includes/uploads/' + data.qr).show();
-            }
-        },
-        error: function() {
-            $('#cms-title').text('Error loading data');
-        }
-    });
-});
-</script>
-

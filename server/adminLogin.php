@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,13 +81,14 @@
         }
     </style>
 </head>
+
 <body>
 
     <h1>Tiago's Vintage Boutique</h1>
-    
+
     <div class="container">
         <h2>Admin Login</h2>
-        <form action="admin_dashboard.html" method="post">
+        <form action="../client/includes/login.php" method="post">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
@@ -95,9 +97,10 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" class="btn">Login</button>
+            <button name="submit" type="submit" class="btn">Login</button>
         </form>
     </div>
 
 </body>
+
 </html>
