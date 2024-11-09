@@ -127,5 +127,5 @@ include './header.php';
 </body>
 </html>
 <?php
-include 'footer.php';
-?>
+include '../test/newFooter.php';
+?> 

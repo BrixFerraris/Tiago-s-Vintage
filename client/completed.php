@@ -289,3 +289,7 @@ textarea{
         modalBg.classList.remove('modal-active');
     });
 </script>
+
+<?php
+include '../test/newFooter.php';
+?> 

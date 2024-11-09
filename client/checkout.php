@@ -106,3 +106,7 @@
 
 </body>
 </html>
+
+<?php
+include '../test/newFooter.php';
+?> 

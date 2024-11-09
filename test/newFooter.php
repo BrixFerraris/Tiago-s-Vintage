@@ -11,53 +11,25 @@
 <body>
     <footer>
         <div class="footer-info">
-            <span>Get connected with us on social networks:</span>
-            <div class="social-icons">
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                <a href="#"><i class="fa-brands fa-google"></i></a>
-                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="#"><i class="fa-brands fa-github"></i></a>
-            </div>
         </div>
 
         <div class="footer-container">
             <div class="rows">
                 <div class="row1">
-                    <h3>COMPANY NAME</h3>
-                    <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="row2">
-                    <h3>PRODUCTS</h3>
-                    <ul>
-                        <li><a href="#">Angular</a></li>
-                        <li><a href="#">React</a></li>
-                        <li><a href="#">Vue</a></li>
-                        <li><a href="#">Laravel</a></li>
-                    </ul>
-                </div>
+                    <h3>TIAGO'S VINTAGE</h3>
+                    <p>offers a seamless online shopping experience for vintage enthusiasts.</p>
+                </div>  
                 <div class="row3">
-                    <h3>USEFUL LINKS</h3>
-                    <ul>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="#">Orders</a></li>
-                        <li><a href="#">Help</a></li>
-                    </ul>
+                    <h3>ADDRESS:</h3>
+                    <p><i class="fas fa-location"></i> Bayan Luma, Imus City, Cavite</p>
                 </div>
                 <div class="row4">
-                    <h3>CONTACT</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> New York, NY 10012, US</p>
-                    <p><i class="fas fa-envelope"></i> info@example.com</p>
-                    <p><i class="fas fa-phone"></i> + 01 234 567 88</p>
-                    <p><i class="fas fa-print"></i> + 01 234 567 89</p>
+                    <h3>CONTACT US:</h3>
+                    <p><i class="fa-brands fa-facebook"></i> Tiago's Vintage</p>
+                    <p><i class="fa-brands fa-instagram"></i> tiagos_vintage_</p>
+                    <p><i class="fas fa-phone"></i> 0995 795 6315</p>
                 </div>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2021 Copyright:
-                <a href="https://mdbootstrap.com/">MDBootstrap.com</a>
-            </p>
         </div>
     </footer>
 </body>

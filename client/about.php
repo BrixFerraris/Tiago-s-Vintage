@@ -8,7 +8,7 @@ include 'header.php';
                             <div class="txt">
                                 <h1 class="abt">About Us</h1>
                                 <br>
-                                <h1 class="abtTXT"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h1>
+                                <h1 class="abtTXT"> You are buying memories not only a shirt.</h1>
                             </div>
                          </div>
     </body>
@@ -16,5 +16,5 @@ include 'header.php';
 
 
 <?php
-include 'footer.php';
+include '../test/newFooter.php';
 ?> 

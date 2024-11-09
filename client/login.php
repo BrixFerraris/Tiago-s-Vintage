@@ -43,6 +43,6 @@ include 'header.php';
     </div>
     </main>
     <!-- End Main -->
-<?php
-include 'footer.php';
-?>
+    <?php
+include '../test/newFooter.php';
+?> 

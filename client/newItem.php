@@ -443,5 +443,5 @@ overflow-x: hidden; /* added */
 }
     </style>
 <?php
-include 'footer.php';
-?>
+include '../test/newFooter.php';
+?> 

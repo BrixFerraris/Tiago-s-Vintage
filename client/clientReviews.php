@@ -51,3 +51,7 @@ include './header.php';
 
 </body>
 </html>
+
+<?php
+include '../test/newFooter.php';
+?> 

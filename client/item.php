@@ -168,5 +168,5 @@ include 'header.php';
 </script>
 
 <?php
-include 'footer.php';
-?>
+include '../test/newFooter.php';
+?> 

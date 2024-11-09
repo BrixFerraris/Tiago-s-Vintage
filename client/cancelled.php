@@ -166,3 +166,7 @@ body {
     font-size: small;
 }
 </style>
+
+<?php
+include '../test/newFooter.php';
+?> 
