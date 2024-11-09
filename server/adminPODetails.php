@@ -191,7 +191,7 @@ if (isset($_SESSION["role"])) {
     }
 
     .btnBack {
-        margin-top: 5%;
+        margin-top: auto;
         justify-content: space-around;
         background-color: #dc3545;
         color: white;

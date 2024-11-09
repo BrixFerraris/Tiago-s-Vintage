@@ -84,6 +84,7 @@ include './header.php';
 </html>
 <style>
 .comments{
+    margin-bottom: 10px;
     width: 500px;
 }
 body {
@@ -144,7 +145,7 @@ textarea{
 
 .modals{
     background-color: white;
-    width: 32%;
+    width: auto;
     height: 70%;
     display: flex;
     justify-content: space-around;

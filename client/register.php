@@ -38,7 +38,7 @@ include 'header.php';
 
             <div class="form-group">
                 <label for="contact">ContactNum:</label>
-                <input class="haha" type="text" id="contact" name="contact" placeholder="Contact Number" required>
+                <input class="haha" type="text" id="contact" name="contact" placeholder="Contact Number" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required>
             </div>
 
             <div class="form-group">

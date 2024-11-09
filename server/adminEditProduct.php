@@ -56,13 +56,13 @@ if (isset($_SESSION["role"])) {
           <label for="length">Length:</label>
           <input name="length" type="number" id="length">
         </div>
-
-        <div class="edit-product-variation">
-
+        <div class="edit-product-variation" id="quantity">
+        <div class="quantity-mehh">
+          <label for="quantity">Quantity:</label>
           <div class="quantity-control">
-            <label for="quantity">Quantity:</label>
-            <input name="qty" type="number" id="quantity" value="3">
-          </div>
+            <input type="number" name="qty" id="quantity" value="0" >
+        </div>
+        </div>
         </div>
 
         <div class="edit-product-variation">
@@ -70,10 +70,11 @@ if (isset($_SESSION["role"])) {
           <input type="file" id="imgVar" name="imgVar" accept="image/*" required>
         </div>
       </div>
+
       <div class="add-variation-btn">
         <input type="submit" value="Add Variation" class="add-variation">
       </div>
-
+      
     </div>
     </form>
 

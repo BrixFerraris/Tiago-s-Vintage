@@ -41,7 +41,7 @@ body {
   }
   
   .edit-product-right {
-    width: 30%;
+    width: 20%;
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -65,6 +65,11 @@ body {
     display: flex;
     justify-content: space-between;
   }
+  .quantity-mehh{
+    display: flex;
+    flex-direction: row;
+  }
+
   
   
   .variation1{
@@ -103,6 +108,7 @@ body {
     display: flex;
     flex-direction: row;
   }
+  
   .quantity-control {
     display: flex;
     flex-direction: row;

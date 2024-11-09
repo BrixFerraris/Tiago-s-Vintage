@@ -79,9 +79,6 @@ include 'header.php';
         z-index: 1;
     }
 
-    .bg-category{
-
-    }
     .bg2-category{
         background-image: url('../images/t-shirtbg.jpg');
     }
@@ -91,7 +88,7 @@ include 'header.php';
 
     .wrapper-categories{
         margin-top: 30px;
-        min-height: 700px;
+        min-height: 570px;
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
@@ -106,6 +103,8 @@ include 'header.php';
         left: 40%;
         z-index: 2; /* Ensure text stays above the background image */
         color:white;
+        -webkit-text-stroke-color: black;
+        -webkit-text-stroke-width: .4px;
         font-family: 'Koulen', sans-serif;
         font-size: 25px;
         text-align: center;

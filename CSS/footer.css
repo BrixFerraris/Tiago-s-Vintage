@@ -4,8 +4,8 @@
 }
 
 footer {
-background-color: hsl(93, 100%, 20%);
-margin-top: auto; /* added */
+    background-color: hsl(93, 100%, 20%);
+    margin-top: auto; /* added */
 }
 html, body {
     margin: 0;
