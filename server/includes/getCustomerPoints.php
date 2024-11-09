@@ -11,7 +11,7 @@ $data = array();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $data[] = $row;
-        $newPoints = $row['orders_completed'] * 3;
+        $newPoints = $row['orders_completed'] * 1;
         $updateSql = "UPDATE tbl_users SET points = points + $newPoints WHERE id = " . $row['id'];
         $conn->query($updateSql);
     }
