@@ -1,7 +1,7 @@
 <?php
 include './header.php';
 ?>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 
 <!-- Main Content -->
 <div class="container">
@@ -22,16 +22,31 @@ include './header.php';
 <div class="modal-review">
     <div class="modals">
         <h5>Write a review</h5>
-        <div>
-            <h6>Select your rating</h6>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-        </div>
+        <div class="rateyo" id= "rating"
+                data-rateyo-rating="4"
+                data-rateyo-num-stars="5"
+                data-rateyo-score="3">
+                </div>
+
+                <span class='result'>0</span>
+                <input type="hidden" name="rating">
+
         <textarea class="comments" name="comments" id="comments" rows="10"
             placeholder="Share more thoughts on the products to help other buy."></textarea>
+
+            <!-- Add Photo Upload Button -->
+        <div class="media-upload">
+            <label class="btn-upload-photo">
+                <input type="file" accept="image/*" multiple id="photoInput" hidden>
+                <span class="upload-icon">📷</span>
+                <span>Add Photo</span>
+            </label>
+            <small>(Max 3 images)</small>
+        </div>
+
+        <!-- Image Preview Section -->
+        <div class="media-preview" id="photoPreview"></div>
+
         <div class="order-btn">
             <button class="btnSubmitReview">Submit</button>
             <button class="btnCancel">Cancel</button>
@@ -97,7 +112,87 @@ include './header.php';
         }
     });
 });
+
+// Stars
+
+$(function () {
+        $(".rateyo").rateYo({
+            starWidth: "25px",
+            rating: 0,
+            numStars: 5,
+            precision: 1,  // Allows half-star increments (e.g., 0.5, 1.0, 1.5)
+            halfStar: true  // Enables half-star ratings
+        }).on("rateyo.change", function (e, data) {
+            var rating = data.rating;
+            $(this).parent().find('.result').text('Rating: ' + rating);
+            $(this).parent().find('input[name=rating]').val(rating);
+        }).on("rateyo.set", function (e, data) {
+            var rating = data.rating;
+            $(this).parent().find('.result').text('Rating: ' + rating);
+            $(this).parent().find('input[name=rating]').val(rating);
+        });
+    });
+
+
+    // Images
+    document.getElementById('photoInput').addEventListener('change', function(event) {
+    const photoPreview = document.getElementById('photoPreview');
+    const existingImages = photoPreview.getElementsByTagName('img'); // Get existing images
+    const existingCount = existingImages.length; // Count of existing images
+
+    const files = Array.from(event.target.files);
+
+    // Check how many more images can be added
+    const availableSlots = 3 - existingCount;
+
+    // Limit the selection to 3 images in total
+    if (files.length > availableSlots) {
+        alert('You can upload a maximum of 3 images in total.');
+        event.target.value = ''; // Clear the file input if limit exceeded
+        return;
+    }
+
+    // Loop through each selected file and create an image preview
+    let imageCount = existingCount; // Start counting from the existing images
+    files.forEach(file => {
+        if (file.type.startsWith('image/') && imageCount < 3) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                // Create a container for the image and the close button
+                const imageContainer = document.createElement('div');
+                imageContainer.classList.add('image-container');
+
+                // Create the image element
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.classList.add('photo-thumbnail');
+
+                // Create the close button
+                const closeButton = document.createElement('button');
+                closeButton.classList.add('close-button');
+                closeButton.innerHTML = '✖'; // X mark
+
+                // Add event listener to remove the image
+                closeButton.addEventListener('click', function() {
+                    photoPreview.removeChild(imageContainer);
+                });
+
+                // Append the image and close button to the container
+                imageContainer.appendChild(img);
+                imageContainer.appendChild(closeButton);
+
+                // Append the container to the preview
+                photoPreview.appendChild(imageContainer);
+                imageCount++;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+});
+
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
 </body>
 
 </html>
@@ -306,6 +401,68 @@ include './header.php';
     .checked {
         color: orange;
     }
+
+    /* Styling for the Add Photo button */
+.btn-upload-photo {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-upload-photo .upload-icon {
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+.btn-upload-photo input[type="file"] {
+    display: none; /* Hide the actual file input */
+}
+
+.photo-thumbnail {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    object-fit: cover;
+    width: 100px; /* Set thumbnail width */
+    height: 100px; /* Set thumbnail height */
+    margin: 5px; /* Add some spacing */
+}
+
+/* New styles for the image container and close button */
+.image-container {
+    position: relative;
+    display: inline-block;
+    margin: 5px;
+}
+
+.close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 14px;
+    padding: 0;
+    outline: none;
+}
+
+.close-button:hover {
+    background-color: darkred; /* Change color on hover */
+}
 </style>
 
 <?php

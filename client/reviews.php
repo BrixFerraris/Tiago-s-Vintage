@@ -23,21 +23,23 @@ include_once 'header.php';
     <!-- Review Section -->
     <div class="review-section">
       <div class="review">
-        <h3>Juan Dela Cruz</h3>
-        <div class="review-header">
-          <span class="rating">★★★★★</span>
-          <span class="date">09-12-2024</span>
-          <span class="details">Color: White | Dimes: 32X30 | Size: Large</span>
-        </div>
-        <div class="review-body">
-          <p><strong>Color:</strong> White</p>
-          <p><strong>Appearance:</strong> Beautiful!</p>
-          <p><strong>Material Quality:</strong> Original, High Quality</p>
-          <p class="review-text">
-            I recently bought this essential T-shirt, and I'm super impressed! The quality is fantastic—it's made from really soft cotton that feels great against the skin. Perfect for hot weather because it's lightweight and breathable. I've worn it all day, and it still feels comfortable and doesn't stick to my body.
-          </p>
-          <img src="../images/sample-item.png" alt="Product Image" class="review-image">
-        </div>
+      <h3>Juan Dela Cruz</h3>
+          <div class="review-header">
+            <span class="rating">★★★★★</span>
+            <span class="date">09-12-2024</span>  
+          </div>
+          <div class="review-body">
+            <p><strong>Product:</strong> Nike Shirt</p>
+            <p><strong>Variation:</strong> White (29x24)</p>
+            <p class="review-text">
+              I recently bought this essential T-shirt, and I'm super impressed! The quality is fantastic—it's made from
+              really soft cotton that feels great against the skin. Perfect for hot weather because it's lightweight and
+              breathable. I've worn it all day, and it still feels comfortable and doesn't stick to my body.
+            </p>
+            <img src="../images/sample-item.png" alt="Product Image" class="review-image">
+            <img src="../images/sample-item.png" alt="Product Image" class="review-image">
+            <img src="../images/sample-item.png" alt="Product Image" class="review-image">
+          </div>
 
       </div>
       <!-- Duplicate the review div for additional reviews -->
