@@ -12,6 +12,8 @@ html, body {
 }
 
 footer {
+    margin-top: 150px;
+    z-index: 1;
     background-color: hsl(93, 100%, 20%);
     color: #fff;
     padding: 40px 0;
@@ -37,6 +39,7 @@ footer {
 }
 
 .footer-container {
+    z-index: -1;
     margin-left: 100px;
     display: flex;
     justify-content: space-around;

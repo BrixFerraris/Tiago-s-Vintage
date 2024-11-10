@@ -48,16 +48,24 @@ if (isset($_SESSION["role"])) {
             </tr>
         </tbody>
     </table>
-
+    
+    
+    <form action="./includes/editCategory.php" method="post" enctype="multipart/form-data">
     <div class="modal-edit">
-        <div class="modals">
-            <form action="./includes/editCategory.php" method="post" enctype="multipart/form-data">
+        
+
+            <div class="modals">
+                <div>
                 <input type="hidden" id="category-id" name="id">
                 <h2>Edit Category</h2>
-                <img id="categoryImage" src="../images/bg1.png" alt="Category Image" width="20%" height="25%">
-                <input type="file" id="myFile" name="filename">
-                <p>Category Name:</p>
-                <input type="text" name="categoryName" id="categoryName" placeholder="All Product">
+                </div>
+                <div>
+                <img id="categoryImage" src="../images/bg1.png" alt="Category Image" width="200px" height="200px"></div>
+                <div class="file-category">
+                <input type="file" id="myFile" name="filename"></div>
+                <div>
+                <p>Category Name:</p></div>
+                <div class="input-category"><input type="text" name="categoryName" id="categoryName" placeholder="All Product"></div>
                 <div class="order-btn">
                     <button class="btnSubmit">Submit</button>
                     <button class="btnBack">Back</button>
@@ -88,6 +96,12 @@ if (isset($_SESSION["role"])) {
     </div>
 
     <style>
+        .order-btn{
+            margin-top: 10px;
+        }
+        .input-category, .file-category{
+            margin-left: 100px;
+        }
         .add-category {
             display: flex;
             justify-content: flex-end;
@@ -134,8 +148,8 @@ if (isset($_SESSION["role"])) {
 
         .modals {
             background-color: white;
-            width: 40%;
-            height: 60%;
+            width: 30%;
+            height: auto;
             display: flex;
             justify-content: space-around;
             align-items: center;

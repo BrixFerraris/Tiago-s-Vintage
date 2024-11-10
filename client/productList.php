@@ -321,5 +321,5 @@ function displayFilteredProducts(products, category) {
 
 
 <?php
-include 'footer.php';
+include '../test/newFooter.php';
 ?>

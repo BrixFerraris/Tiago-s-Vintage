@@ -342,3 +342,6 @@ include './header.php';
         justify-content: space-around;
     }
 </style>
+<?php
+include '../test/newFooter.php';
+?> 

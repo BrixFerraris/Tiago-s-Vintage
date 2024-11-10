@@ -169,8 +169,8 @@ if (isset($_SESSION["role"])) {
           rows += '<td>' + admin.role + '</td>';
           rows += '<td>' + admin.username + '</td>';
           rows += '<td>' +
-            '<button class="edit-btn" data-id="' + admin.id + '">Edit</button>' +
-            '<button class="delete-btn" data-id="' + admin.id + '">Delete</button>' +
+            '<div class="buttons-admin"><button class="edit-btn" data-id="' + admin.id + '">Edit</button>' +
+            '<button class="delete-btn" data-id="' + admin.id + '">Delete</button></div>' +
             '</td>';
           rows += '</tr>';
         });
@@ -225,12 +225,14 @@ if (isset($_SESSION["role"])) {
 </script>
 
 <style>
+  .buttons-admin{
+    display: flex;
+    justify-content: space-between;
+  }
   .aa {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top,
-    margin-bottom: 30px;
     margin-left: auto;
   }
 
@@ -243,7 +245,6 @@ if (isset($_SESSION["role"])) {
     transition: background-color 0.3s;
     color: #fff;
     background-color: #0057E1;
-    margin-top,
     margin-bottom: 30px;
     margin-left: auto;
   }
@@ -303,8 +304,8 @@ if (isset($_SESSION["role"])) {
 
   .modals {
     background-color: white;
-    width: 50%;
-    height: 70%;
+    width: 40%;
+    height: 90%;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -315,6 +316,7 @@ if (isset($_SESSION["role"])) {
   .btnSave,
   .btnCancel,
   button[type="submit"] .btnSave {
+    margin-top: auto;
     padding: 15px 50px;
     border: none;
     border-radius: 5px;

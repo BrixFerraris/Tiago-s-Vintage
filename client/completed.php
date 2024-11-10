@@ -38,7 +38,6 @@ include './header.php';
         <div class="media-upload">
             <label class="btn-upload-photo">
                 <input type="file" accept="image/*" multiple id="photoInput" hidden>
-                <span class="upload-icon">📷</span>
                 <span>Add Photo</span>
             </label>
             <small>(Max 3 images)</small>
@@ -412,6 +411,66 @@ $(function () {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.modal-review{
+    z-index: 1000;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease-in-out;
+}
+.modal-active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modals{
+    background-color: white;
+    width: auto;
+    height: 70%;
+    display: flex;
+    justify-content: space-around;
+    align-items: left;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+
+}
+
+.container {
+    max-width: 1500px;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.menu {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+.menu li {
+    margin: 0 20px;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
     font-weight: bold;
     font-size: 16px;
     transition: background-color 0.3s ease;
@@ -464,6 +523,19 @@ $(function () {
     background-color: darkred; /* Change color on hover */
 }
 </style>
+
+<script>
+var modalBtn = document.querySelector('.confirm-receive-btn');
+var modalBg = document.querySelector('.modal-review');
+var modalClose = document.querySelector('.btnCancel');
+
+modalBtn.addEventListener('click', function() {
+    modalBg.classList.add('modal-active');
+});
+modalClose.addEventListener('click', function(){
+    modalBg.classList.remove('modal-active');
+});
+</script>
 
 <?php
 include '../test/newFooter.php';
