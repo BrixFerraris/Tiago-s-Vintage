@@ -141,6 +141,7 @@ include 'header.php';
     @media (max-width: 768px) {
         .parent-category {
             margin-left: 10px;
+            margin-right: 10px;
         }
 
         .details {
@@ -153,7 +154,7 @@ include 'header.php';
             width: 100%;
             height: 180px;
         }
-
+    }
 
 
 
