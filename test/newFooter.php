@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,13 +29,7 @@
                 <div class="row3">
                     <h3>ADDRESS:</h3>
                     <p id="address" ><i class="fas fa-location"></i> Bayan Luma, Imus City, Cavite</p>
-                    <div class="mapouter">
-                        <div class="gmap_canvas">
-                            <iframe class="gmap_iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-                                src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=546 General Yengco St Imus, Calabarzon&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
-                            </iframe>
-                        </div>
-                    </div>
+                   
                 </div>
                 <div class="row4">
                     <h3>CONTACT US:</h3>
@@ -102,4 +93,3 @@ $(document).ready(function() {
 });
 </script>
 </body>
-</html>

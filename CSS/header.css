@@ -7,17 +7,21 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  height: auto;
   font-family: Arial, sans-serif;
 }
 
 img {
   line-height: 100px;
 }
+.navbar-brand img {
+  height: 40px; /* Adjust the logo size */
+  margin-right: 10px; /* Space between logo and text */
+}
 
 nav {
   background-color: #2E6600;
-  height: 100px;
+  height: auto;
 }
 
 label.title {
@@ -86,20 +90,34 @@ nav ul li a {
   cursor: pointer;
 }
 
+@media screen and (max-width: 1024px) {
+  nav ul li {
+    margin: 0 20px;
+  }
+  
+}
 /* Media Queries for Responsiveness */
 @media only screen and (max-width: 768px) {
+  .topnav ul li a, p {
+    color: white;
+    font-size: 13px;
+    margin: 10px;
+    text-decoration: none;
+    cursor: pointer;
+  }
   /* Tablet */
   nav {
     height: 80px;
   }
 
   label.title {
-    font-size: 20px;
-    padding-left: 20px;
+    font-size: 15px;
+    line-height: 40px;
+    padding-left: 15px;
   }
 
   nav.topnav ul {
-    margin-right: 20px;
+    margin: 0 20px;
   }
 
   nav ul li {

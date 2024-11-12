@@ -127,6 +127,36 @@ include 'header.php';
     align-items: center;
     margin-top: 50px;
     }
+     @media (max-width: 1024px) {
+        .parent-category {
+            width: 300px;
+            height: 230px;
+        }
+
+        .details {
+            font-size: 20px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .parent-category {
+            margin-left: 10px;
+        }
+
+        .details {
+            font-size: 18px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .parent-category {
+            width: 100%;
+            height: 180px;
+        }
+
+
+
+
 </style>
 <script>
     $(document).ready(function() {

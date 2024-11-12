@@ -435,6 +435,7 @@ overflow-x: hidden; /* added */
   cursor: pointer;
 }
 
+
 /* 100% Image Width on Smaller Screens */
 @media only screen and (max-width: 700px){
   .modal-content {

@@ -22,6 +22,8 @@
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
                 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
             <title class="cms-title">Tiago's Vintage Boutique</title>
+<body>
+    
 
 <div class="containerz">
                         <nav class ="topnav">
@@ -33,7 +35,7 @@
                                     if (isset($_SESSION["username"])) {
                                         echo '<li><a href="../client/landing.php">Home</a></li>';
                                         // echo '<li><a href="../client/productList.php">New arrivals</a></li>';
-                                        echo '<li><a href="../client/shop.php">All products</a></li>';
+                                        echo '<li><a href="../client/shop.php">Products</a></li>';
                                         echo '<li><a href="../client/reviews.php">Reviews</a></li>';
                                         echo '<li><a href="../client/shopcart.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
                                         echo'<li><div class="dropdown">
@@ -50,7 +52,7 @@
                                     } else {
                                       echo '<li><a href="../client/landing.php">Home</a></li>';
                                       // echo '<li><a href="../client/productList.php">New arrivals</a></li>';
-                                      echo '<li><a href="../client/shop.php">All products</a></li>';
+                                      echo '<li><a href="../client/shop.php">Products</a></li>';
                                       echo '<li><a href="../client/reviews.php">Reviews</a></li>';
                                       echo '<li><a href="../client/login.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
                                       echo '<li class = "meron"><a href="./register.php">Register/Login</a></li>';
@@ -61,7 +63,7 @@
                         </nav>
 
 </div>
-
+</body>
 
 <script>
 $(document).ready(function() {

@@ -3,15 +3,14 @@ include './header.php';
 ?>
 
 <div class="box">
+  <div class="top-shits">
   <div class="search-filter" id="search-filters">
-  <a href="../client/shop.php" style="text-decoration: none;"><button>Back</button></a>
     <input type="text" id="search-input" placeholder="Search Products...">
-
-
-
   </div>
-
-
+  <div class="back-btn">
+  <a href="../client/shop.php" style="text-decoration: none;"><button>Back</button></a>
+  </div>
+  </div>
   <div id="fixed-grid" class="fixed-grid">
     <!-- Existing product cells will be dynamically added here -->
   </div>
@@ -136,6 +135,23 @@ function displayFilteredProducts(products, category) {
 
 
 <style>
+  .top-shits{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+  }
+  .back-btn{
+    margin-left: 10px;
+  }
+  .back-btn button{
+    padding: 10px 20px;
+    background-color: green;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+  }
   body {
     background-color: #f4f4f4;
     margin: 0;
@@ -195,15 +211,7 @@ function displayFilteredProducts(products, category) {
     font-weight: bold;
   }
   /* search dropdown */ 
-  .search-filter button{
-    padding: 10px 20px;
-    background-color: green;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100px;
-  }
+
   /* Search filters styling */
   #search-filters {
     display: flex;
@@ -238,7 +246,6 @@ function displayFilteredProducts(products, category) {
 
   /* Search filters styling */
   #search-filters {
-    display: flex;
     gap: 10px;
     margin-bottom: 20px;
     align-items: center;
@@ -289,11 +296,29 @@ function displayFilteredProducts(products, category) {
     gap: 20px;
   }
 
-  /* Responsive adjustments */
   @media (max-width: 768px) {
-    #search-filters {
-      flex-direction: column;
-      gap: 10px;
+    .top-shits {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .back-btn button {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    #search-input {
+      width: 100%;
+    }
+
+    .fixed-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cell {
+      max-width: 100%;
     }
   }
 
