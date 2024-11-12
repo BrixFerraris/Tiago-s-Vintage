@@ -3,9 +3,9 @@ session_start();
 if (isset($_SESSION["role"])) {
   $role = $_SESSION["role"];
   if ($role === 'Super Admin') {
-    include_once './includes/sidebar.php';
+    include './includes/sidebar.php';
   } else {
-    include_once './includes/sidebar.php';
+    include './includes/sidebar.php';
   }
 } else {
   header("location: ../landing.php?error=NotLoggedIn");
@@ -223,6 +223,8 @@ if (isset($_SESSION["role"])) {
     });
   });
 </script>
+<script src="../test/sidebarToggle.js"></script>
+
 
 <style>
   .buttons-admin{

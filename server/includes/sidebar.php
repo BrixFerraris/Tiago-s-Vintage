@@ -17,12 +17,26 @@
     <link rel="stylesheet" href="../CSS/addproduct.css">
     <link rel="stylesheet" href="../CSS/admindashboard.css">
     <link rel="stylesheet" href="../CSS/adminProduct.css">
+    <link rel="stylesheet" href="../CSS/sidebarResponsive.css">
   </head>
   <body>
+    
+    <div class="menu-icon" onclick="openSidebar()">
+          <span class="material-icons-outlined">menu</span>
+          
+    </div>
+
+    
+    
+
+
     <div class="grid-container">
 
       <!-- Sidebar -->
-      <aside id="sidebar">
+      <aside id="sidebar" class="sidebar-hidden">
+        <div class="hide">
+            <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
+        </div>
         <div class="sidebar-title">
           <div class="sidebar-brand">
             <span class="material-icons-outlined">store</span> Tiago's Vintage
@@ -108,3 +122,10 @@
         </ul>
       </aside>
       <!-- End Sidebar -->
+
+      <script>
+
+
+</script>
+
+      </script>

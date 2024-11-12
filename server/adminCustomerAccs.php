@@ -104,6 +104,8 @@ $(document).ready(function () {
     });
 });
 </script>
+<script src="../test/sidebarToggle.js"></script>
+
 </body>
 
 </html>

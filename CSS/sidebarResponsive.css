@@ -1,0 +1,35 @@
+
+
+
+.hide .material-icons-outlined{
+    display: none;
+  }
+
+
+/* Medium <= 992px */
+@media screen and (max-width: 992px) {
+    #sidebar.sidebar-hidden {
+      transform: translateX(0); /* Sidebar becomes visible on click */
+    }
+  
+    .menu-icon {
+      display: flex;
+      margin: 20px;
+      color: #2e6600;
+      position: absolute;
+    }
+
+    .menu-icon span{
+        color: #2e6600;
+    }
+      .hide .material-icons-outlined{
+    display: inline;
+  }
+  
+  
+  }
+  
+
+
+
+  

@@ -296,6 +296,8 @@ if (isset($_SESSION["role"])) {
             fetchCategories();
         });
     </script>
+            <script src="../test/sidebarToggle.js"></script>
+
 
     </body>
 

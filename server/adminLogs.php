@@ -85,3 +85,5 @@ if (isset($_SESSION["role"])) {
 </body>
 
 </html>
+
+<script src="../test/sidebarToggle.js"></script>
