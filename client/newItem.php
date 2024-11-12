@@ -8,15 +8,20 @@ if (isset($_SESSION["uID"])) {
 <div class="img-item">
         <div class="img-container">
             <div class="main-img">
-                <img id="img1" src="../assets/samplepic1.png" alt="" width="582" height="450">
+              <div>
+                <img id="img1" src="../assets/samplepic1.png" alt="">
+                </div>
                 </div>
                 <div class="sub-img">
-                        <img id="img2" src="../assets/samplepic1.png" alt="" width="150" height="200">
-                        <img id="img3" src="../assets/samplepic1.png" alt="" width="150" height="200">
-                        <img id="img4" src="" alt="" width="150" height="200">
+                  <div>
+                        <img id="img2" src="../assets/samplepic1.png" alt="">
+                        </div>
+                        <div><img id="img3" src="../assets/samplepic1.png" alt="" ></div><div>
+                        <img id="img4" src="" alt="" ></div>
                 </div>
          </div>
                 <div class="details">
+                  <div class="details-infos">
                             <h1 id="title" >
                             </h1>
                             <p id="price" >
@@ -46,17 +51,22 @@ if (isset($_SESSION["uID"])) {
                                     <p>Condition:</p>
                                     <p id="description" ></p>
                                 </div>
-                                <div class="btncart">
-                                    <button type="submit" id="btn-addCart" name="add">Add To Cart</button>
-                                </div>
-                                      </form>
+       
+                                      
                         </div>
+                        <div class="btncart">
+                                  <div>
+                                    <button type="submit" id="btn-addCart" name="add">Add To Cart</button>
+                                    </div>
+                                </div>
+                      </div></form>
                     </div>
                     <div id="myModal" class="modal">
                     <span class="close">&times;</span>
                     <img class="modal-content" id="img01">
                     <div id="caption"></div>
                   </div>
+                  
 <script>
 $(document).ready(function() {
     // WebSocket connection
@@ -65,6 +75,7 @@ $(document).ready(function() {
     var productID = url.searchParams.get('productID');
     var isLoggedIn = <?php echo json_encode($isLoggedIn); ?>;
     $('#product_id').val(productID);
+
     function loadVariations(idProducts) {
         $.ajax({
             url: '../server/includes/getVariations.php',
@@ -72,10 +83,10 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify({ idProduct: idProducts }),
             success: function(product) {              
-              if (typeof product === "string") {
-                  product = JSON.parse(product); 
-              }
-              console.log(product);
+                if (typeof product === "string") {
+                    product = JSON.parse(product); 
+                }
+                console.log(product);
                 if (product.type === 'variations') {
                     const buttonDiv = $('#buttons');
                     buttonDiv.empty();
@@ -89,12 +100,19 @@ $(document).ready(function() {
                         `);
                         buttonDiv.append(newDiv);
                     });
+
                     buttonDiv.on('click', '.variation', function() {
                         if (!isLoggedIn) {
                           alert('Please log in to add to cart!');
                           window.location.href = "./register.php";
                           return;
                         }
+                        // Remove 'selected' class from all buttons
+                        buttonDiv.find('.variation').removeClass('selected');
+                        
+                        // Add 'selected' class to the clicked button
+                        $(this).addClass('selected');
+                        
                         const variationID = $(this).data('id');
                         const variationQuantity = $(this).data('quantity');
                         $('#variationID').val(variationID);
@@ -108,6 +126,7 @@ $(document).ready(function() {
             }
         });
     }
+
     loadVariations(productID);
     conn.onopen = function() {
         conn.send(JSON.stringify({ type: 'loadSingleProduct', id: productID }));
@@ -125,8 +144,6 @@ $(document).ready(function() {
             $('#img4').attr('src', '../server/includes/uploads/' + product.img4);
         }
     };
-    
-
 
     function validateForm() {
         const productId = $('#product_id').val();
@@ -153,6 +170,7 @@ $(document).ready(function() {
 
         return true;
     }
+
     $('#addToCart').on('submit', function(e) {
         if (!isLoggedIn) {
             alert('Please log in to add to cart!');
@@ -165,7 +183,7 @@ $(document).ready(function() {
             e.preventDefault(); 
         }
     });
-    
+
     const modal = $('#myModal');
     const modalImg = $('#img01');
     const span = $('.close');
@@ -193,9 +211,10 @@ $(document).ready(function() {
             modal.hide();
         }
     });
-    
 });
 </script>
+
+
 
     <style>
 *{
@@ -211,30 +230,36 @@ margin-top: 0;
 margin: 0;
 overflow-x: hidden; /* added */
 }
-
-.img-container {
-  flex: 1;
+.img-container{
+  margin-bottom: 30px;
+}
+.main-img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#img1{
+  width: 400px;
+  height: 500px;
+}
+#img2, #img3, #img4{
+  width: 200px;
+  height: 190px;
 }
 
 .img-item {
   margin-bottom: 100px;
   display: flex;
+  justify-content: space-between;
   gap: 20px;
   margin-top: 30px;
-  margin-left: 150px;
+  margin-left: 50px;
 }
 
-
-.main-img img {
-
-  width: 350px;
-  margin-left: 40px;
-  display: flex;
-}
 
 .sub-img {
-
-  flex-direction: column;
+  display: flex;
+  flex-direction: row;
   gap: 20px;
 }
 
@@ -254,6 +279,7 @@ overflow-x: hidden; /* added */
   max-width: 700px;
   margin-right: 50px;
   margin-top: 10px;
+  margin-left: 70px;
 }
 
 .details h1 {
@@ -287,9 +313,13 @@ overflow-x: hidden; /* added */
   font-size: medium;
   color: grey;
 }
-.buttons button:focus{
+.buttons button.selected {
   background-color: darkgreen;
   color: white;
+}
+
+.buttons button:focus {
+  outline: none;
 }
 
 .buttons button {
@@ -335,19 +365,22 @@ overflow-x: hidden; /* added */
 }
 
 .btncart{
-  margin-top: 150px;
+  display: flex;
+  margin-top: auto;
+  align-items: flex-end;
 
 }
 .btncart button {
   font-family: "kart", sans-serif;
   margin-top: 20px;
-  padding: 15px 260px;
+  padding: 10px;
   background-color: rgb(46, 102, 0);;
   color: white;
   border: none;
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
+  width: 550px;
 }
 
 .recomendation p {
@@ -435,11 +468,110 @@ overflow-x: hidden; /* added */
   cursor: pointer;
 }
 
-
 /* 100% Image Width on Smaller Screens */
 @media only screen and (max-width: 700px){
   .modal-content {
+    width: 50%;
+  }
+}
+/*CellPhone*/
+/* Mobile (max-width: 480px) */
+@media only screen and (max-width: 480px) {
+  .buttons button {
+    height: 50px;
+  }
+  .modal-content {
+    width: 50%;
+  }
+  #img1{
+  width: 250px !important;
+  height: 370px !important;
+  } 
+  
+#img2, #img3, #img4{
+  width: 95px !important;
+  height: 120px !important;
+}
+
+  .details-infos{
     width: 100%;
+  }
+  .img-item {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .sub-img {
+    gap: 5px;
+}
+
+}
+
+/* Tablet (max-width: 768px) */
+@media only screen and (max-width: 768px) {
+  .buttons button {
+    height: 50px;
+  }
+  .modal-content {
+    width: 50%;
+  }
+  .details-infos{
+    margin-right: 300px;
+  }
+  .img-item {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+      .btncart {
+        justify-content: center;
+    }
+#img1{
+  width: 300px;
+  height: 400px;
+}
+#img2, #img3, #img4{
+  width: 120px;
+  height: 140px;
+}
+}
+
+/* Laptop (max-width: 1024px) */
+@media screen and (max-width: 1024px) {
+  .modal-content {
+    width: 80%;
+  }
+#img1{
+  width: 400px;
+  height: 550px;
+  } 
+  
+#img2, #img3, #img4{
+  width: 150px;
+  height: 150px;
+}
+
+  .img-item {
+    margin-bottom: auto;
+    gap: 5px;
+    margin-top: 30px;
+    margin-left: 10px;
+  }
+
+  .btncart {
+    justify-content: center;
+  }
+
+  .btncart button {
+    width: 280px;
+    font-size: 15px;
+    padding: 10px; /* Adjusted padding for smaller screens */
+  }
+
+  .details {
+    padding: 20px; /* Adjusted padding */
+    max-width: 90%; /* Make it responsive */
+    margin: 30px; /* Center the details */
   }
 }
     </style>
