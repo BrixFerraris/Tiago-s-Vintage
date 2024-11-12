@@ -33,11 +33,11 @@
                                     <?php
                                     session_start();
                                     if (isset($_SESSION["username"])) {
-                                        echo '<li><a href="../client/landing.php">Home</a></li>';
+                                        echo '<li id="meow"><a href="../client/landing.php">Home</a></li>';
                                         // echo '<li><a href="../client/productList.php">New arrivals</a></li>';
-                                        echo '<li><a href="../client/shop.php">Products</a></li>';
-                                        echo '<li><a href="../client/reviews.php">Reviews</a></li>';
-                                        echo '<li><a href="../client/shopcart.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
+                                        echo '<li id="meow"><a href="../client/shop.php">Products</a></li>';
+                                        echo '<li id="meow"><a href="../client/reviews.php">Reviews</a></li>';
+                                        echo '<li id="meow"><a href="../client/shopcart.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
                                         echo'<li><div class="dropdown">
                                             <a class="btn dropdown-toggle" style="background-color: #FFFFFF;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             ' . $_SESSION['username'] .'
@@ -50,11 +50,11 @@
                                         </div></li>';
                                     
                                     } else {
-                                      echo '<li><a href="../client/landing.php">Home</a></li>';
+                                      echo '<li id="meow"><a href="../client/landing.php">Home</a></li>';
                                       // echo '<li><a href="../client/productList.php">New arrivals</a></li>';
-                                      echo '<li><a href="../client/shop.php">Products</a></li>';
-                                      echo '<li><a href="../client/reviews.php">Reviews</a></li>';
-                                      echo '<li><a href="../client/login.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
+                                      echo '<li id="meow"><a href="../client/shop.php">Products</a></li>';
+                                      echo '<li id="meow"><a href="../client/reviews.php">Reviews</a></li>';
+                                      echo '<li id="meow"><a href="../client/login.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
                                       echo '<li class = "meron"><a href="./register.php">Register/Login</a></li>';
                                     }
                                     

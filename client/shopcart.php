@@ -21,20 +21,23 @@ $isLoggedIn = true;
                         <img src="../assets/tshirt4.png" alt="T-shirt image">
                     </div>
                     <div class="item-info">
-                        <h2>Davey Allison 28 Big Print</h2>
-                        <p>25W X 35L (Large)</p>
-                        <p>₱1500</p>
+                        <h2 id="infoo">Davey Allison 28 Big Print</h2>
+                        <p id="infoo" id="infoo">25W X 35L (Large)</p>
+                        <p id="infoo">₱1500</p>
 
                     </div>
                 </div>
                 
             </div>
             <div class="item-total">
-                <p>Subtotal:</p>
+                <p id="infoo">Subtotal:</p>
                 <!-- <button class="btnCancel">CONTINUE SHOPPING</button> -->
             </div>
             
         </div>
+        <?php
+        include '../test/newFooter.php';
+        ?>
 <script>
 var isLoggedIn = <?php echo json_encode($isLoggedIn); ?>;
 if (!isLoggedIn) {
@@ -193,7 +196,7 @@ body {
     padding-left: 20px;
 }
 
-.item-info h2,p {
+.item-info #infoo{
 color: black;
     font-size: 18px;
     margin-bottom: 5px;
