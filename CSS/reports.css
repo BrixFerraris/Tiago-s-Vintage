@@ -8,9 +8,9 @@
 .content {
     padding: 20px;
 }
-
 .charts-container {
     display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
     justify-content: space-evenly;
     align-items: flex-start;
     gap: 20px;
@@ -23,7 +23,7 @@
 .chart {
     flex: 1;
     max-width: 700px; /* Limit the maximum width */
-    min-width: 500px; /* Minimum width to keep it responsive */
+    min-width: 300px; /* Minimum width to keep it responsive */
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
@@ -32,9 +32,8 @@
 
 .chart canvas {
     width: 100% !important; /* Ensure the canvas fits the container */
-    height: 250px; /* Adjust the height as needed */
+    height: auto; /* Set height to auto for responsiveness */
 }
-
 .tables-container {
     display: flex;
     flex-wrap: wrap;
@@ -76,3 +75,8 @@ table tbody tr:hover {
     padding: 20px;
     background-color: #f9f9f9;
   }
+
+
+
+
+  
