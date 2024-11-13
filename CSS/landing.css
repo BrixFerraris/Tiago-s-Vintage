@@ -99,6 +99,7 @@
 
 /* For Mobile Phones */
 @media (max-width: 767px) {
+  
   .background img {
     width: 100%;
     height: auto;
@@ -121,5 +122,11 @@
   .products .product-items img {
     width: 100%;
     height: auto;
+  }
+  .landing_text {
+    -webkit-text-stroke: 1px black;
+    font-size: 35px;
+    font-family: 'Koulen', sans-serif;
+
   }
 }

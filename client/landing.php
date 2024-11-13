@@ -14,6 +14,36 @@ include 'header.php';
 
             </div>
     </div>
+    <section class="py-5">
+	<div class="container">
+		<div class="row gx-4 align-items-center justify-content-between">
+			<div class="col-md-5 order-2 order-md-1">
+				<div class="mt-5 mt-md-0">
+					<span class="text-muted" style="color:black; cursor:default;">Tiago's Vintage Boutique</span>
+					<h2 class="display-5 fw-bold" style="color:black; cursor:default;">About Us</h2>
+					<p class="lead" id="about-us-info" style="color:black; cursor:default;">Tiago's Vintage Boutique, founded by Tiago, began as a small shoe business but transformed into a vintage clothing haven. Located at #547 Bayan Luma 5, Imus, Cavite, the boutique offers a carefully curated selection of nostalgic workwear, streetwear, and branded items like Supreme and Carhartt. <br> Despite challenges during the pandemic, Tiago's passion for unique vintage fashion led to the boutique's growth. Now, with both physical and online stores, Tiago’s enhances the customer experience through a cloud-based inventory system, offering real-time updates and personalized service to vintage enthusiasts..</p>
+					<p class="lead" style="color:black; cursor:default;">"Where timeless fashion meets modern style – discover your unique vintage at Tiago's."</p>
+				</div>
+			</div>
+			<div class="col-md-6 offset-md-1 order-1 order-md-2">
+				<div class="row gx-2 gx-lg-3">
+					<div class="col-6">
+						<div class="mb-2"><img class="img-fluid rounded-3" src="../images/About-us picture.jpg"></div>
+					</div>
+					<div class="col-6">
+						<div class="mb-2"><img class="img-fluid rounded-3" src="../images/About-us picture.jpg"></div>
+					</div>
+					<div class="col-6">
+						<div class="mb-2"><img class="img-fluid rounded-3" src="../images/About-us picture.jpg"></div>
+					</div>
+					<div class="col-6">
+						<div class="mb-2"><img class="img-fluid rounded-3" src="../images/About-us picture.jpg"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
 
 <script>
