@@ -18,27 +18,46 @@
             <ul>  
                     <li></li>
             </ul>
+            <h4>Points Available: 10000</h4>
+        <div id="discount-method" class="radio-group">
+            <input type="radio" id="freebie" name="discount-method" value="freebie" required>
+            <label for="freebie" class="radio-label">Random Freebie</label>
+
+            <input type="radio" id="discount" name="discount-method" value="discount">
+            <label for="discount" class="radio-label">10% Discount</labe>
+</div>
             <p><strong>Total: ₱</strong></p>
         </div>
 
         <!-- Shipping Info -->
         <div class="shipping-info">
-            <h2>Shipping Information</h2>
-                <label for="name">Full Name</label>
-                <p id="name"></p>
-                
-                <label for="address">Shipping Address</label>
-                <input type="text" id="address" name="address" placeholder="Enter your shipping address" required>
+        <h2>Shipping Information</h2>
+<label for="name">Full Name</label>
+<p id="name"></p>
 
-                <label for="contact">Contact Number</label>
-                <p id="contact"></p>
-                
-                <!-- Action Buttons -->
-                <div class="action-buttons">
-                    <button type="submit" id="place-order" class="place-order">Place Order</button>
-                    <button type="button" class="cancel-order" onclick="window.location.href='shopcart.php';">Cancel</button>
-                </div>
-        </div>
+<label for="address">Shipping Address</label>
+<input type="text" id="address" name="address" placeholder="Enter your shipping address" required>
+
+<label for="contact">Contact Number</label>
+<p id="contact"></p>
+
+<!-- Radio buttons for Pick Up or Delivery -->
+<label for="shipping-method">Shipping Method</label>
+<div id="shipping-method" class="radio-group">
+    <input type="radio" id="pickup" name="shipping-method" value="pickup" required>
+    <label for="pickup" class="radio-label">Pick Up</label>
+
+    <input type="radio" id="delivery" name="shipping-method" value="delivery">
+    <label for="delivery" class="radio-label">Delivery</label>
+</div>
+
+
+<!-- Action Buttons -->
+<div class="action-buttons">
+    <button type="submit" id="place-order" class="place-order">Place Order</button>
+    <button type="button" class="cancel-order" onclick="window.location.href='shopcart.php';">Cancel</button>
+</div>
+
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function(){

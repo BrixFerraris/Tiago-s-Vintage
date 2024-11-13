@@ -81,6 +81,11 @@ nav ul li a {
 
 .dropdown-menu .dropdown-item {
   color: black;
+  padding: 1px;
+
+}
+.dropdown-menu{
+  z-index: 10;
 }
 
 .topnav ul li a, p {
@@ -88,6 +93,13 @@ nav ul li a {
   margin: 20px;
   text-decoration: none;
   cursor: pointer;
+}
+
+
+
+/* MENU ICON */
+.menu-icon{
+  display: none;
 }
 
 @media screen and (max-width: 1024px) {
@@ -132,12 +144,12 @@ nav ul li a {
   }
 
   label.title {
-    font-size: 18px;
+    font-size: 15px;
     line-height: 40px;
     padding-left: 15px;
   }
 
-  nav.topnav ul {
+  nav.topnav #meow  {
     display: none; /* Hide navigation links for mobile, can use a hamburger menu later */
   }
 
@@ -146,6 +158,23 @@ nav ul li a {
   }
 
   nav ul li {
-    margin: 0 10px;
+    margin: 0 5px;
+    display: inline;
   }
+
+  .menu-icon{
+      display: inline;
+  }
+
+
+}
+.custom-dropdown {
+  min-width: 150px; /* Set the minimum width */
+  max-width: 100px; /* Set the maximum width */
+  padding: 10px 20px; /* Adjust the padding */
+}
+
+.custom-dropdown .dropdown-item {
+  padding: 10px 15px; /* Adjust padding for dropdown items */
+  font-size: 14px; /* Adjust font size */
 }

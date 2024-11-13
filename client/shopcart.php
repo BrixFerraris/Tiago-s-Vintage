@@ -69,9 +69,9 @@ document.addEventListener('DOMContentLoaded', function(){
                         <img src="../server/includes/uploads/${item.img1}" alt="${item.title} image">
                     </div>
                     <div class="item-info">
-                        <h2>${item.title}</h2>
-                        <p>${item.variationName}</p>
-                        <p>₱${item.price}</p>
+                        <h2 id="infoo">${item.title}</h2>
+                        <p id="infoo">${item.variationName}</p>
+                        <p id="infoo"s>₱${item.price}</p>
                     </div>
                     <div class="item-quantity">
                 <div class="incdec">

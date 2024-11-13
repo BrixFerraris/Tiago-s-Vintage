@@ -14,7 +14,7 @@
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
                 <link rel="icon" id="title-logo" href="../assets/icons.ico" type="image/x-icon">
-                <link rel="stylesheet" href="../CSS/header.css">
+                <link rel="stylesheet" href="../test/testH.css">
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -33,29 +33,29 @@
                             <img class="cms-logo logo" src="../assets/tiagos-removebg-preview 1.png" alt="">
                                 <ul>
                                 <?php
-                                session_start();
-                                    if (isset($_SESSION["username"])) {
-                                    echo '<li id="meow"><a href="../client/landing.php">Home</a></li>';
-                                    echo '<li id="meow"><a href="../client/shop.php">Products</a></li>';
-                                    echo '<li id="meow"><a href="../client/reviews.php">Reviews</a></li>';
-                                    echo '<li><a href="../client/shopcart.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
-                                    echo '<li><div class="dropdown">
-                                    <a class="btn dropdown-toggle" style="background-color: #FFFFFF;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
-                                    . $_SESSION['username'] .'
-                                    </a>
-                                    <div class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="../client/toPay.php">Orders</a>
-                                    <a class="dropdown-item" href="#">Settings</a>
-                                    <a class="dropdown-item" href="./includes/logout.php">Log out</a>
-                                    </div>
-                                    </div></li>';
-                        } else {
-                            echo '<li id="meow"><a href="../client/landing.php">Home</a></li>';
-                            echo '<li id="meow"><a href="../client/shop.php">Products</a></li>';
-                            echo '<li id="meow"><a href="../client/reviews.php">Reviews</a></li>';
-                            echo '<li id="meow"><a href="../client/login.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
-                            echo '<li class="meron"><a href="./register.php">Register/Login</a></li>';
-                                }
+        session_start();
+        if (isset($_SESSION["username"])) {
+            echo '<li id="meow"><a href="../client/landing.php">Home</a></li>';
+            echo '<li id="meow"><a href="../client/shop.php">Products</a></li>';
+            echo '<li id="meow"><a href="../client/reviews.php">Reviews</a></li>';
+            echo '<li><a href="../client/shopcart.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
+            echo '<li><div class="dropdown">
+                <a class="btn dropdown-toggle" style="background-color: #FFFFFF;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
+                . $_SESSION['username'] .'
+                </a>
+                <div class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="../client/toPay.php">Orders</a>
+                    <a class="dropdown-item" href="#">Settings</a>
+                    <a class="dropdown-item" href="./includes/logout.php">Log out</a>
+                </div>
+            </div></li>';
+        } else {
+            echo '<li id="meow"><a href="../client/landing.php">Home</a></li>';
+            echo '<li id="meow"><a href="../client/shop.php">Products</a></li>';
+            echo '<li id="meow"><a href="../client/reviews.php">Reviews</a></li>';
+            echo '<li id="meow"><a href="../client/login.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
+            echo '<li class="meron"><a href="./register.php">Register/Login</a></li>';
+        }
         ?>
 
                                 </ul>

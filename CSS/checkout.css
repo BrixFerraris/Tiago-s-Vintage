@@ -107,3 +107,24 @@ input, select {
 .cancel-order:hover {
     background-color: #e53935;
 }
+
+/* Positioning the radio buttons to the left side */
+.radio-group {
+    display: flex;
+    justify-content: flex-start; /* Align items to the left */
+    gap: 10px; /* Space between radio buttons and labels */
+    margin: 15px 0;
+}
+
+/* Remove margin from individual radio inputs to keep alignment neat */
+.radio-group input[type="radio"] {
+    margin-top: 20px;
+    width: 20px;
+}
+
+/* Styling the radio button labels */
+.radio-label {
+    margin-top: 18px;
+}
+
+/* Change the appearance when a radio button is selected */
