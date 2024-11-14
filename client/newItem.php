@@ -56,6 +56,7 @@ if (isset($_SESSION["uID"])) {
                         </div>
                         <div class="btncart">
                                   <div>
+
                                     <button type="submit" id="btn-addCart" name="add">Add To Cart</button>
                                     </div>
                                 </div>
@@ -178,6 +179,7 @@ $(document).ready(function() {
             e.preventDefault(); 
             return; 
         }
+        
         if (!validateForm()) {
             alert('Please fill out the form correctly.');
             e.preventDefault(); 
