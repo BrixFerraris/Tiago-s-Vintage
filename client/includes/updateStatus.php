@@ -13,7 +13,7 @@ if (isset($_SESSION['uID'])) {
         echo json_encode(["status" => "error", "message" => "Invalid type specified."]);
         exit; 
     }
-    $stmt = $conn->prepare("UPDATE tbl_transactions SET status = ? WHERE transaction_id = ? AND user_id = ?");
+    $stmt = $conn->prepare("UPDATE tbl_transactions SET status = ?, date = NOW() WHERE transaction_id = ? AND user_id = ?");
     $stmt->bind_param("ssi", $status, $transactionId, $userId); 
     if ($stmt->execute()) {
         echo json_encode(["status" => "success", "message" => "Status updated successfully."]);

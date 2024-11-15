@@ -210,49 +210,69 @@ if (isset($_SESSION["role"])) {
   // ---------- CHARTS ----------
 
   // BAR CHART
-  const barChartOptions = {
-    series: [
-      {
-        data: [10, 8, 6, 4, 2],
-      },
-    ],
-    chart: {
-      type: 'bar',
-      height: 350,
-      toolbar: {
-        show: false,
-      },
-    },
-    colors: ['#246dec', '#cc3c43', '#367952', '#f5b74f', '#4f35a1'],
-    plotOptions: {
-      bar: {
-        distributed: true,
-        borderRadius: 4,
-        horizontal: false,
-        columnWidth: '40%',
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    legend: {
-      show: false,
-    },
-    xaxis: {
-      categories: ['Laptop', 'Phone', 'Monitor', 'Headphones', 'Camera'],
-    },
-    yaxis: {
-      title: {
-        text: 'Count',
-      },
-    },
-  };
 
-  const barChart = new ApexCharts(
-    document.querySelector('#bar-chart'),
-    barChartOptions
-  );
-  barChart.render();
+        // Your bar chart options
+        const barChartOptions = {
+            series: [
+                {
+                    data: [],
+                },
+            ],
+            chart: {
+                type: 'bar',
+                height: 350,
+                toolbar: {
+                    show: false,
+                },
+            },
+            colors: ['#246dec', '#cc3c43', '#367952', '#f5b74f', '#4f35a1'],
+            plotOptions: {
+                bar: {
+                    distributed: true,
+                    borderRadius: 4,
+                    horizontal: false,
+                    columnWidth: '40%',
+                },
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            legend: {
+                show: false,
+            },
+            xaxis: {
+                categories: [],
+            },
+            yaxis: {
+                title: {
+                    text: 'Count',
+                },
+            },
+        };
+
+        // Create the bar chart
+        const barChart = new ApexCharts(document.querySelector('#bar-chart'), barChartOptions);
+        barChart.render();
+
+        const getTopProducts = () => {
+            $.ajax({
+                type: 'GET', 
+                url: './includes/getTopProducts.php',
+                dataType: 'json',
+                success: function(response) {
+                    const productCounts = response.map(product => product.count);
+                    const productNames = response.map(product => product.product_name);
+                    barChartOptions.series[0].data = productCounts;
+                    barChartOptions.xaxis.categories = productNames;
+                    barChart.updateOptions(barChartOptions);
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error: ', status, error);
+                }
+            });
+        };
+        getTopProducts();
+  
 
   // AREA CHART
   const areaChartOptions = {

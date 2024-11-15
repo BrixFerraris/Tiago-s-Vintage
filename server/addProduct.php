@@ -12,7 +12,7 @@ if (isset($_SESSION["role"])) {
         exit();
     }
 } else {
-    header("location: ../landing.php?error=NotLoggedIn");
+    header("location: ./adminLogin.php?error=NotLoggedIn");
     exit();
 }
 ?>
