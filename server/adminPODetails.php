@@ -239,6 +239,8 @@ if (isset($_SESSION["role"])) {
                 <p><strong>Order Number</strong><br><span id="trans_num">${transactionId}</span></p>
                 <p><strong>Name</strong><br><span id="customerName">${data.name}</span></p>
                 <p><strong>Address</strong><br><span id="address">${data.address}</span><br></p>
+                <p><strong>Shipping Method</strong><br><span id="">delivery</span><br></p>
+                <p><strong>Discount / Freebie</strong><br><span id="">discount or freebie or None</span><br></p>
                 <p><strong>Contact No.</strong><br><span id="contact">${data.contact}</span></p>
             `;
             let buttonsHTML = '';

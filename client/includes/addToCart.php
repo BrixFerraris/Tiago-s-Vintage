@@ -29,5 +29,5 @@ $stmt->close();
 
 echo "<script> 
         alert('Added to cart Successfully');
-        window.location.href = '../productList.php';
+        window.location.href = '../shopcart.php';
       </script>";

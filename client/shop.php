@@ -66,6 +66,7 @@ include 'header.php';
         position: relative;
     }
     .child{
+        filter: blur(1.1px);
         height: 100%;
         width: 100%;
         background-size: cover;
@@ -104,9 +105,9 @@ include 'header.php';
         z-index: 2; /* Ensure text stays above the background image */
         color:white;
         -webkit-text-stroke-color: black;
-        -webkit-text-stroke-width: .4px;
+        -webkit-text-stroke-width: 1px;
         font-family: 'Koulen', sans-serif;
-        font-size: 25px;
+        font-size: 30px;
         text-align: center;
         pointer-events: none;
     }

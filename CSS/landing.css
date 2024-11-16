@@ -8,8 +8,7 @@
 }
 
 .background {
-  position: relative;
-  display: inline-block;
+  display:block;
 }
 
 .landing_text {

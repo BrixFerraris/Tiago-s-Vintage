@@ -35,7 +35,7 @@
                     <h3>CONTACT US:</h3>
                     <p><a id="fb" href="" target="_blank" style="text-decoration: none; color:white"><i class="fa-brands fa-facebook"></i> Tiago's Vintage</a></p>
                     <p><a id="ig" href="" target="_blank" style="text-decoration: none; color:white"><i class="fa-brands fa-instagram"></i> tiagos_vintage_</a></p>
-                    <p><a id="email" href=""><i class="fa-solid fa-envelope" style="text-decoration: none; color:white"></i></a></p>
+                    <p><a id="email" href="" style="text-decoration: none; color:white"><i class="fa-solid fa-envelope" ></i> TiagosVintage@gmail.com</a></p>
                     <p id="contact" ><i class="fas fa-phone"></i> 0995 795 6315</p>
 
                 </div>
