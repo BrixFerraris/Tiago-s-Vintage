@@ -86,7 +86,15 @@ if (isset($_SESSION["role"])) {
                 </div>
                 <h4 class="about-us">Sample about us Sample about us Sample about us Sample about us Sample about us
                     Sample about us Sample about us Sample about us Sample about us</h4>
-                <!-- preview ng header title -->
+
+
+				<div class="abt-imgs-container">
+						<img class="imgs_abt" src="../images/About-us picture.jpg">
+						<img class="imgs_abt" src="../images/About-us picture.jpg">
+						<img class="imgs_abt" src="../images/About-us picture.jpg">
+						<img class="imgs_abt" src="../images/About-us picture.jpg">
+                </div>
+    
             </div>
 
             <div class="card">
@@ -98,6 +106,8 @@ if (isset($_SESSION["role"])) {
                     Conditions Sample Terms & Conditions Sample Terms & Conditions Sample Terms & Conditions Sample
                     Terms & Conditions </h4>
             </div>
+           
+            <h1>Footer</h1>
 
             <div class="card">
                 <div class="title">
@@ -148,7 +158,23 @@ if (isset($_SESSION["role"])) {
 
                 </table>
             </div>
+
+            <div class="card">
+                <div class="title">
+                    <h1>Footer Description</h1>
+                    <button class="edit-btn7">Edit</button>
+                </div>
+                <h4 class="footer-desc">Footer description Footer description Footer description Footer description Footer description
+                Footer description Footer description Footer descriptionFooter description Footer description Footer description </h4>
+            </div>
         </div>
+
+
+
+
+
+
+
         <!-- End Main -->
 
         <!-- MODALS -->
@@ -209,6 +235,12 @@ if (isset($_SESSION["role"])) {
                     <h4>Text: </h4>
                     <textarea class="about-us" name="about" id="about" rows="15"
                         placeholder="yung current value"></textarea>
+
+                    <input type="file" src="" alt="">
+                    <input type="file" src="" alt="">
+                    <input type="file" src="" alt="">
+                    <input type="file" src="" alt="">
+
                     <div class="btns">
                         <button type="submit" class="btnSave">Save</button>
                         <button type="button" class="btnCancel">Cancel</button>
@@ -232,7 +264,6 @@ if (isset($_SESSION["role"])) {
                 </form>
             </div>
         </div>
-
         <!-- Modal Contacs -->
         <div class="modal-contacts">
             <div class="modals">
@@ -276,6 +307,23 @@ if (isset($_SESSION["role"])) {
             </div>
         </div>
 
+                <!-- Modal footer text -->
+
+        <div class="modal-footer-text">
+            <div class="modals">
+                <form action="" method="post">
+                    <h1>Footer Description</h1>
+                    <h4>Text: </h4>
+                    <textarea class="footerr" name="footerr" id="footerr" rows="15"
+                        placeholder="yung current value"></textarea>
+                    <div class="btns">
+                        <button type="submit" class="btnSave">Save</button>
+                        <button type="button" class="btnCancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
 
 
         </div>
@@ -291,6 +339,7 @@ if (isset($_SESSION["role"])) {
     .edit-btn4,
     .edit-btn5,
     .edit-btn6,
+    .edit-btn7,
     .delete-btn,
     .btnSave,
     .btnCancel,
@@ -308,6 +357,7 @@ if (isset($_SESSION["role"])) {
     .edit-btn4,
     .edit-btn5,
     .edit-btn6,
+    .edit-btn7,
     .btnSave,
     .btnCancel,
     button[type="submit"] {
@@ -321,7 +371,8 @@ if (isset($_SESSION["role"])) {
     .modal-payment,
     .modal-about,
     .modal-tandc,
-    .modal-contacts {
+    .modal-contacts,
+    .modal-footer-text {
         position: fixed;
         width: 100%;
         height: 100%;
@@ -392,6 +443,20 @@ if (isset($_SESSION["role"])) {
         font-size: 16px;
         border: none;
     }
+
+    .imgs_abt{
+        max-width: 15%;
+        max-height: auto;
+        margin: 5px;
+    }
+    .img-div {
+    
+}
+
+.abt-imgs-container {
+    display: flex; /* Enables flexbox layout */
+    
+}
 </style>
 <script>
     // modal
@@ -466,6 +531,20 @@ if (isset($_SESSION["role"])) {
     });
     modalClose5.addEventListener('click', function () {
         modalBg5.classList.remove('modal-active');
+    });
+
+
+
+    // Modal for Footer text
+    var modalBtn7 = document.querySelector('.edit-btn7');
+    var modalBg7 = document.querySelector('.modal-footer-text');
+    var modalClose7 = modalBg7.querySelector('.btnCancel');
+
+    modalBtn7.addEventListener('click', function () {
+        modalBg7.classList.add('modal-active');
+    });
+    modalClose7.addEventListener('click', function () {
+        modalBg7.classList.remove('modal-active');
     });
 
     $(document).ready(function () {
