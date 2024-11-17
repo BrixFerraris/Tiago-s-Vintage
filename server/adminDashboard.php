@@ -15,7 +15,7 @@ if (isset($_SESSION["role"])) {
     include_once './includes/sidebar.php';
   }
 } else {
-  header("location: ../landing.php?error=NotLoggedIn");
+  header("location: ./adminLogin.php?error=NotLoggedIn");
   exit();
 }
 ?>
@@ -138,28 +138,28 @@ if (isset($_SESSION["role"])) {
       <div class="card-inner">
         <p class="text-primary">PRODUCTS</p>
       </div>
-      <span class="text-primary font-weight-bold">249</span>
+      <span id="total-products" class="text-primary font-weight-bold">249</span>
     </div>
 
     <div class="card">
       <div class="card-inner">
         <p class="text-primary">PURCHASE ORDERS</p>
       </div>
-      <span class="text-primary font-weight-bold">83</span>
+      <span id="total-purchase-orders" class="text-primary font-weight-bold">83</span>
     </div>
 
     <div class="card">
       <div class="card-inner">
         <p class="text-primary">SALES ORDERS</p>
       </div>
-      <span class="text-primary font-weight-bold">79</span>
+      <span id="total-sales-orders" class="text-primary font-weight-bold">79</span>
     </div>
 
     <div class="card">
       <div class="card-inner">
         <p class="text-primary">INVENTORY ALERTS</p>
       </div>
-      <span class="text-primary font-weight-bold">56</span>
+      <span id="inventory-alert" class="text-primary font-weight-bold">56</span>
     </div>
 
   </div>
@@ -187,7 +187,18 @@ if (isset($_SESSION["role"])) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
 <!-- Custom JS -->
 <script>
-
+$(document).ready(function () {
+  $.ajax({
+    url: './includes/getDashboard.php',
+    method: 'GET',
+    dataType: 'json',
+    success: function(data) {
+      $('#total-products').text(data.unique_products);
+      $('#total-sales-orders').text(data.completed_transactions);
+      $('#inventory-alert').text(data.low_stock_variations);
+    }
+  });
+});
   // SIDEBAR TOGGLE
 
   let sidebarOpen = false;
@@ -250,7 +261,6 @@ if (isset($_SESSION["role"])) {
             },
         };
 
-        // Create the bar chart
         const barChart = new ApexCharts(document.querySelector('#bar-chart'), barChartOptions);
         barChart.render();
 
