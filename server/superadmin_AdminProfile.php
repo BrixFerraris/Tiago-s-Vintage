@@ -366,4 +366,67 @@ if (isset($_SESSION["role"])) {
   .modals h1 {
     text-align: center;
   }
+
+
+
+  /* RESPONSIVE*/
+
+   /* For tablets (width 768px and below) */
+   @media (max-width: 768px) {
+    .modals {
+      width: 80%;
+      height: 70%;
+      padding: 15px;
+    }
+
+    .modals h1 {
+      font-size: 1.5rem;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="password"],
+    .form-group textarea,
+    .form-group select {
+      font-size: 14px;
+    }
+
+    .btnSave,
+    .btnCancel {
+      padding: 10px 30px;
+      font-size: 14px;
+    }
+  }
+
+  /* For mobile devices (width 480px and below) */
+  @media (max-width: 480px) {
+    .modals {
+      width: 90%;
+      height: 60%;
+      padding: 10px;
+    }
+
+    .modals h1 {
+      font-size: 1.2rem;
+    }
+
+    .inputs {
+      margin-top: 5%;
+      margin-bottom: 5%;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="password"],
+    .form-group textarea,
+    .form-group select {
+      font-size: 12px;
+      padding: 8px;
+    }
+
+    .btnSave,
+    .btnCancel {
+      padding: 8px 20px;
+      font-size: 12px;
+    }
+  }
+  
 </style>

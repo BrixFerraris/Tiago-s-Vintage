@@ -25,6 +25,12 @@
       .hide .material-icons-outlined{
     display: inline;
   }
+
+  table {
+    display: block; /* Enables horizontal scrolling on smaller screens */
+    overflow-x: auto;
+    white-space: nowrap; /* Prevent cell wrapping */
+}
   
   
   }

@@ -254,17 +254,13 @@ td img {
 }
 
 /* Responsive Adjustments */
-@media (max-width: 768px) {
+@media screen and (max-width: 992px) {
   .container {
     flex-direction: column;
   }
 
   .content {
     padding: 10px;
-  }
-
-  table {
-    font-size: 14px;
   }
 
   .edit-btn, .delete-btn {
