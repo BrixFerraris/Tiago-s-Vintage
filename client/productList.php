@@ -317,10 +317,21 @@ function displayFilteredProducts(products, category) {
   }
 
   @media (max-width: 480px) {
-    .cell {
-      max-width: 100%;
-    }
+  #fixed-grid {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for the grid */
+    gap: 10px; /* Adjust the spacing between cells */
   }
+
+  .cell {
+    max-width: 100%; /* Ensure cells adjust to grid size */
+    padding: 5px; /* Optional: Reduce padding inside cells */
+  }
+
+  .cell img {
+    width: 100%; /* Ensure images scale properly */
+    height: auto; /* Maintain image aspect ratio */
+  }
+}
 
    /* Apply button styling */
    #apply-button {

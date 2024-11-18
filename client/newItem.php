@@ -22,7 +22,7 @@ if (isset($_SESSION["uID"])) {
          </div>
                 <div class="details">
                   <div class="details-infos">
-                            <h1 id="title" >
+                            <h1 id="title-ko" >
                             </h1>
                             <p id="price" >
                             </p>
@@ -136,7 +136,7 @@ $(document).ready(function() {
     conn.onmessage = function(e) {
         const product = JSON.parse(e.data);
         if (product.type === 'edit-product') {
-            $('#title').text(product.title);
+            $('#title-ko').text(product.title);
             $('#price').text('₱' + product.price);
             $('#description').text(product.description);
             $('#img1').attr('src', '../server/includes/uploads/' + product.img1);

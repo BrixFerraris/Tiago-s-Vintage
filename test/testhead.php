@@ -37,6 +37,7 @@
     }
     .dropdown-menu{
         position: absolute;
+        
     }
 
 </style>

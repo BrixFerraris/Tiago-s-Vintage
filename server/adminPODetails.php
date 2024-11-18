@@ -196,6 +196,16 @@ if (isset($_SESSION["role"])) {
         background-color: #dc3545;
         color: white;
     }
+    @media (max-width: 480px) {
+        .order-container{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .order-items-container, .order-summary{
+            width: 85%;
+        }
+    }
 </style>
 
 <!-- Scripts -->

@@ -98,7 +98,7 @@
 }
 
 /* For Mobile Phones */
-@media (max-width: 767px) {
+@media (max-width: 480px) {
   
   .background img {
     width: 100%;
@@ -106,7 +106,7 @@
   }
 
   .landing_text {
-    font-size: 30px;
+    font-size: 15px;
   }
 
   .products p {
@@ -115,8 +115,8 @@
   }
 
   .products .product-items {
-    grid-template-columns: 1fr;
-    gap: 30px;
+    grid-template-columns: repeat(2, 1fr); /* Two columns for the grid */
+    gap: 10px;;
   }
 
   .products .product-items img {
