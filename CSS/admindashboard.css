@@ -224,6 +224,8 @@ body {
     border: 1px solid #d2d2d3;
     border-radius: 5px;
     box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
+    z-index: 0;
+
   }
   
   .chart-title {
@@ -240,6 +242,9 @@ body {
   position: absolute;
   right: 30px;
   top: 20px;
+  z-index: 1;
+
+  
 }
 
 .notification-icon {
@@ -404,5 +409,71 @@ body {
   @media screen and (max-width: 576px) {
     .header-left {
       display: none;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  /* Tablet view (768px and below) */
+  @media (max-width: 768px) {
+    .main-cards {
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .card {
+      flex: 1 1 100%; /* Full width cards on tablets */
+    }
+
+    .charts {
+      flex-direction: column;
+    }
+
+    .charts-card {
+      flex: 1 1 100%; /* Full width charts on tablets */
+    }
+  }
+
+  /* Mobile view (480px and below) */
+  @media (max-width: 480px) {
+    .main-title p {
+      font-size: 18px; /* Adjust title size */
+    }
+
+    .card p {
+      font-size: 16px; /* Adjust text size in cards */
+    }
+
+    .charts-card {
+      padding: 15px; /* Reduce padding */
+    }
+
+    .notification-dropdown {
+    width: 250px;
+    }
+
+    .notification-container{
+      width: 50px;
+      height: 50px;
+      position: absolute;
+    }
+
+    .notification-icon{
+      width: 30px;
+      height: 30px;
     }
   }

@@ -28,6 +28,23 @@
   
   
   }
+
+
+  @media (max-width: 480px) {
+  
+    table {
+      display: block; /* Enables horizontal scrolling on smaller screens */
+      overflow-x: auto;
+      white-space: nowrap; /* Prevent cell wrapping */
+  }
+
+  table th, 
+  table td {
+      padding: 12px 8px; /* Adjust padding for smaller screens */
+      font-size: 14px; /* Reduce font size for readability */
+  }
+  
+  }
   
 
 

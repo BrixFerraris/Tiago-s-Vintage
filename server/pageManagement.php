@@ -457,6 +457,181 @@ if (isset($_SESSION["role"])) {
     display: flex; /* Enables flexbox layout */
     
 }
+
+
+/* Responsive - Tablet */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    /* Adjust modal dimensions for tablet screens */
+    .modals {
+        width: 75%; /* Wider modals for tablets */
+        height: auto;
+        padding: 20px;
+    }
+
+    /* Buttons layout for tablet */
+    .btns {
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    /* Form fields adjustments */
+    .modals input[type="text"],
+    .modals textarea,
+    .modals select {
+        font-size: 15px; /* Adjust text size for tablets */
+    }
+
+    /* Adjust button padding for tablets */
+    .edit-btn1,
+    .edit-btn2,
+    .edit-btn3,
+    .edit-btn4,
+    .edit-btn5,
+    .edit-btn6,
+    .edit-btn7 {
+        padding: 15px 30px;
+        font-size: 16px; /* Slightly larger text for tablets */
+        margin-bottom: 10px;
+    }
+
+    /* Images in about section responsive for tablet */
+    .imgs_abt {
+        max-width: 10%;
+        height: auto;
+    }
+
+    .abt-imgs-container {
+        flex-wrap: wrap; /* Allow images to wrap */
+        justify-content: space-around; /* Space images evenly */
+    }
+
+    /* Adjust table for tablet */
+    table {
+        display: block; /* Enables horizontal scrolling */
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    table th,
+    table td {
+        padding: 14px 10px; /* Adjust padding */
+        font-size: 15px; /* Slightly larger font */
+    }
+
+    table img {
+        max-width: 60px; /* Adjust icon size */
+        height: auto;
+    }
+
+    .qr_code {
+        max-width: 70%; /* Reduce size for tablets */
+        height: auto;
+    }
+
+    .landing_bg {
+        max-width: 100%; /* Ensure full width */
+        height: auto;
+    }
+
+
+}
+
+
+/* responsive Mobile*/
+@media screen and (max-width: 768px) {
+    /* Adjust modal to fit smaller screens */
+    .modals {
+        width: 90%; /* Make modal width fit smaller screens */
+        height: auto; /* Allow height to adjust dynamically */
+        padding: 15px; /* Adjust padding for better fit */
+    }
+
+    /* Stack buttons vertically for better layout on mobile */
+    .btns {
+        margin-top: 10px;
+    }
+
+    .btns .btnSave,
+    .btns .btnCancel {
+        margin-bottom: 10px; /* Add spacing between buttons */
+    }
+
+    /* Adjust text and input sizes for readability */
+    .modals input[type="text"],
+    .modals textarea,
+    .modals select {
+        font-size: 14px; /* Smaller text size for mobile */
+    }
+
+    /* Images in about section responsive */
+    .imgs_abt {
+        min-width: 80%;
+        height: auto;
+    }
+
+    .abt-imgs-container {
+        flex-wrap: wrap; /* Allow images to wrap */
+        justify-content: center; /* Center align images */
+    }
+    .edit-btn1,
+    .edit-btn2,
+    .edit-btn3,
+    .edit-btn4,
+    .edit-btn5,
+    .edit-btn6,
+    .edit-btn7{
+        padding: 15px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+        margin-right: auto;
+        margin-bottom: 10px;
+    }
+
+    .title{
+        display: flex;
+        flex-direction: column;
+        margin-right: auto;
+    }
+
+    table {
+        display: block; /* Enables horizontal scrolling on smaller screens */
+        overflow-x: auto;
+        white-space: nowrap; /* Prevent cell wrapping */
+    }
+
+    table th, 
+    table td {
+        padding: 12px 8px; /* Adjust padding for smaller screens */
+        font-size: 14px; /* Reduce font size for readability */
+    }
+
+    table img {
+        max-width: 50px; /* Limit icon size on mobile */
+        height: auto;
+    }
+
+    .qr_code{
+        min-width: 80%;
+        height: auto;
+    }
+
+    .landing_bg{
+        min-width: 100%;
+        height: auto;
+    }
+    .cms-logo{
+        max-width: 170px;
+        max-height: 170px;
+    }
+
+
+
+}
+
+
 </style>
 <script>
     // modal
