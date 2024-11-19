@@ -94,7 +94,7 @@
                                     </a>
                                     <div class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuLink" id="drop-menu">
                                     <a class="dropdown-item" href="../client/toPay.php">Orders</a>
-                                    <a class="dropdown-item" href="#">Settings</a>
+                                    <a class="dropdown-item" href="../client/accInfo.php">Settings</a>
                                     <a class="dropdown-item" href="./includes/logout.php">Log out</a>
                                     </div>
                                     </div></li>';

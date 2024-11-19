@@ -24,16 +24,17 @@ include 'header.php';
                 <label>Password:</label>
                 <input type="text" placeholder="Current value">
 
-                <div class="buttons">
-                    <button class="edit-btn">Update Account</button>
-                </div>
+                
             </div>
 
             <div class="stats-section">
                 <p><strong>Total Orders:</strong> 23</p>
                 <p><strong>Available Points:</strong> 3</p>
+                <div class="buttons">
+                    <button class="edit-btn">Update Account</button>
+                </div>
             </div>
-
+        
         </div>
     </div>
 

@@ -360,25 +360,26 @@ if (isset($_SESSION["role"])) {
     }
   }
 
-  //Search itu sa admin Products
   document.getElementById('search-input').addEventListener('input', function () {
     var searchValue = this.value;
     fetchProducts(searchValue);
   });
 
-  function fetchProducts(searchValue) {
-    var conn = new WebSocket('ws://localhost:8080/ws/');
-    conn.onopen = function () {
-      conn.send(JSON.stringify({ type: 'searchProducts', title: searchValue }));
-    };
-
-    conn.onmessage = function (e) {
-      var data = JSON.parse(e.data);
-      // console.log(data);
-      if (data.type === 'searchResults') {
-        displayProducts(data.products);
+  function fetchProducts(searchValue = '') {
+    $.ajax({
+      url: '../serverFunctions.php',
+      type: 'POST',
+      data: { type: 'searchProducts', title: searchValue },
+      success: function (response) {
+        const data = JSON.parse(response);
+        if (data.type === 'searchResults') {
+          displayProducts(data.products);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error('Error fetching products:', error);
       }
-    };
+    });
   }
 
   function displayProducts(products) {
@@ -398,64 +399,38 @@ if (isset($_SESSION["role"])) {
     });
   }
 
-
-  // WebSocket connection
-  var conn = new WebSocket('ws://localhost:8080/ws/');
-  conn.onopen = function () {
-    conn.send(JSON.stringify({ type: 'loadProducts' }));
-  };
-  var products = [];
-  conn.onmessage = function (e) {
-    var product = JSON.parse(e.data);
-    if (product.type === 'productDeleted') {
-      var table = document.getElementById('products').getElementsByTagName('tbody')[0];
-      var rows = table.rows;
-      for (var i = 0; i < rows.length; i++) {
-        if (rows[i].cells[0].innerText === product.id) {
-          table.deleteRow(i);
-          break;
-        }
+  $(document).ready(function () {
+    fetchProducts();
+    $(document).on('click', '.delete-btn', function () {
+      var id = $(this).data('id');
+      if (confirm('Are you sure you want to delete this product?')) {
+        $.ajax({
+          url: '../serverFunctions.php',
+          type: 'POST',
+          data: { type: 'deleteProduct', id: id },
+          success: function (response) {
+            const data = JSON.parse(response);
+            if (data.type === 'productDeleted') {
+              alert('Product deleted successfully');
+              fetchProducts();
+            } else {
+              alert('Error deleting product');
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error('Error deleting product:', error);
+          }
+        });
       }
-    }
-    if (product.type === 'product') {
-      var table = document.getElementById('products').getElementsByTagName('tbody')[0];
-      var newRow = table.insertRow();
-      var id = product.id;
-      newRow.insertCell(0).setAttribute("product-id", id);
-      newRow.insertCell(0).innerText = product.id;
-      newRow.insertCell(1).innerHTML = '<img src="./includes/uploads/' + product.img1 + '" alt="Product Image">';
-      newRow.insertCell(2).innerText = product.title;
-      newRow.insertCell(3).innerText = product.price;
-      newRow.insertCell(4).innerText = product.category;
-      newRow.insertCell(5).innerHTML = '<button class="edit-btn" data-id="' + product.id + '">Edit</button>';
-      newRow.insertCell(6).innerHTML = '<button class="delete-btn" data-id="' + product.id + '">Delete</button>';
-    }
-  };
-
-  document.addEventListener('DOMContentLoaded', function () {
-    document.addEventListener('click', function (event) {
-
-      if (event.target.classList.contains('delete-btn')) {
-        var id = event.target.getAttribute('data-id');
-        conn.send(JSON.stringify({ type: 'deleteProduct', id: id }));
-      }
-      if (event.target.classList.contains('edit-btn')) {
-        var id = event.target.getAttribute('data-id');
-        window.location.href = "adminEditProduct.php?product_id=" + id;
-      }
-
-
     });
-
-
+    $(document).on('click', '.edit-btn', function () {
+      var id = $(this).data('id');
+      window.location.href = "adminEditProduct.php?product_id=" + id;
+    });
   });
-  conn.onerror = function (error) {
-    console.error('WebSocket Error: ', error);
-  };
 
-  conn.onclose = function () {
-    console.log('WebSocket connection closed');
-  };
+
+
 
 
 </script>

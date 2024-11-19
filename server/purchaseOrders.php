@@ -63,28 +63,40 @@ if (isset($_SESSION["role"])) {
         </div>
         </div>
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                //Websocket connection
-                var conn = new WebSocket('ws://localhost:8080/ws/');
-                var table = document.getElementById('products');
-                conn.onopen = function () {
-                    conn.send(JSON.stringify({ type: 'loadPurchaseOrders' }));
-                };
-                conn.onmessage = function (e) {
-                    var purchaseOrder = JSON.parse(e.data);
-                    if (purchaseOrder.type === 'purchase-order') {
-                        var newRow = table.insertRow();
-                        newRow.insertCell().innerHTML = purchaseOrder.transaction_id;
-                        newRow.insertCell().innerHTML = purchaseOrder.firstName + ' ' + purchaseOrder.lastName;
-                        newRow.insertCell().innerHTML = purchaseOrder.address;
-                        newRow.insertCell().innerHTML = purchaseOrder.status;
-                        newRow.insertCell().innerHTML = `<button class="accept-btn">Accept</button>`;
-                        newRow.insertCell().innerHTML = `<button class="delete-btn">Delete</button>`;
-                        newRow.addEventListener('click', function () {
-                            window.location.href = 'adminPODetails.php?transaction_id=' + purchaseOrder.transaction_id;
-                        });
-                    }
-                };
+            $(document).ready(function () {
+                // Load purchase orders when the document is ready
+                loadPurchaseOrders();
+
+                function loadPurchaseOrders() {
+                    $.ajax({
+                        url: '../serverFunctions.php',
+                        type: 'POST',
+                        data: { type: 'loadPurchaseOrders' },
+                        success: function (response) {
+                            const purchaseOrders = JSON.parse(response);
+                            const table = $('#products'); 
+                            table.empty();
+                            purchaseOrders.forEach(function (purchaseOrder) {
+                                const newRow = $('<tr></tr>');
+                                newRow.append($('<td></td>').text(purchaseOrder.transaction_id));
+                                newRow.append($('<td></td>').text(purchaseOrder.firstName + ' ' + purchaseOrder.lastName));
+                                newRow.append($('<td></td>').text(purchaseOrder.address));
+                                newRow.append($('<td></td>').text(purchaseOrder.status));
+                                newRow.append($('<td></td>').html('<button class="accept-btn">Accept</button>'));
+                                newRow.append($('<td></td>').html('<button class="delete-btn">Delete</button>'));
+
+                                newRow.on('click', function () {
+                                    window.location.href = 'adminPODetails.php?transaction_id=' + purchaseOrder.transaction_id;
+                                });
+
+                                table.append(newRow);
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error loading purchase orders:', error);
+                        }
+                    });
+                }
             });
         </script>
         <script src="../test/sidebarToggle.js"></script>
