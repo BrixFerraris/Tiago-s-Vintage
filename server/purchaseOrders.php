@@ -76,7 +76,7 @@ if (isset($_SESSION["role"])) {
                             const table = $('#products');
                             const uniqueOrders = {};
 
-                            const validStatuses = ['Pending', 'Ready For Pickup', 'Completed'];
+                            const validStatuses = ['Pending', 'Ready For Pickup', 'Completed', 'Check Payment'];
 
                             purchaseOrders.forEach(function (purchaseOrder) {
                                 if (validStatuses.includes(purchaseOrder.status)) {

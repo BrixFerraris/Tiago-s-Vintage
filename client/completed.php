@@ -25,8 +25,8 @@ include './header.php';
 
         <h5>Write a review</h5>
             <input type="hidden" name="transID" id="transID">
-            <input type="text" name="title" id="title">
-            <input type="text" name="variationName" id="variationName">
+            <input type="hidden" name="title" id="title">
+            <input type="hidden" name="variationName" id="variationName">
 
         <div class="rateyo" id= "rating"
                 data-rateyo-rating="4"

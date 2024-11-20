@@ -242,7 +242,7 @@ if (isset($_SESSION["role"])) {
             data: { type: 'loadPODetails', transaction_id: transactionId },
             dataType: 'json',
             success: function (data) {
-                console.log(data);
+                console.log(data.status);
                 const orderItemsContainer = document.querySelector('.order-items-container');
                 const orderItems = data.order_items;
                 orderItemsContainer.innerHTML = '';

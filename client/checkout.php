@@ -165,7 +165,7 @@
                             const data = JSON.parse(response);
                             if (data.type === 'orderPlaced') {
                                 alert('Order placed successfully!');
-                                // window.location.href = './toPay.php';
+                                window.location.href = './toPay.php';
                             } else {
                                 alert('Error placing the order.');
                             }
