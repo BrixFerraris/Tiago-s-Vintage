@@ -21,13 +21,9 @@
             <ul>
                 <li></li>
             </ul>
-            <h4>Points Available: 10000</h4>
+            <h4 id="points_available">Points Available: 10000</h4>
             <div id="discount-method" class="radio-group">
-                <input type="radio" id="freebie" name="discount-method" value="freebie" required>
-                <label for="freebie" class="radio-label">Random Freebie</label>
 
-                <input type="radio" id="discount" name="discount-method" value="discount">
-                <label for="discount" class="radio-label">10% Discount</labe>
             </div>
             <p><strong>Total: ₱</strong></p>
         </div>
@@ -50,7 +46,7 @@
                 <input type="radio" id="pickup" name="shipping-method" value="pickup" required>
                 <label for="pickup" class="radio-label">Pick Up</label>
 
-                <input type="radio" id="delivery" name="shipping-method" value="delivery">
+                <input type="radio" id="delivery" name="shipping-method" value="delivery" required>
                 <label for="delivery" class="radio-label">Delivery</label>
             </div>
 
@@ -67,6 +63,7 @@
             $(document).ready(function () {
                 let varID = [];
                 let qty = [];
+                let currentTotal = 0;
 
                 const userID = new URL(window.location.href).searchParams.get('userID');
                 const uID = $('#user_id').val();
@@ -91,16 +88,50 @@
                             ${item.title} - ₱${item.price} <br> x${item.quantity}                
                         </li>`;
                                 total += item.total;
-
                                 $('#name').text(`${item.firstName} ${item.lastName}`);
                                 $('#contact').text(item.contact);
+                                $('#points_available').text("Available points: " + item.points);
+                                var points = item.points;
+                                if (points >= 10) {
+                                    $("#discount-method").empty();
+                                    var html = `
+                                        <input type="radio" id="freebie" name="discount-method" value="freebie" required>
+                                        <label for="freebie" class="radio-label">Random Freebie</label>
 
+                                        <input type="radio" id="discount" name="discount-method" value="discount">
+                                        <label for="discount" class="radio-label">10% Discount</labe>
+                                    `;
+                                    $("#discount-method").append(html);
+                                } else {
+                                    $("#discount-method").empty();
+                                    var html = `
+                                    <h5>Points should be 10 or higher, shop more with us to earn more points </h5>
+                                        <input type="radio" id="freebie" name="discount-method" value="freebie" disabled required>
+                                        <label for="freebie" disabled class="radio-label">Random Freebie</label>
+
+                                        <input type="radio" id="discount" name="discount-method" disabled value="discount">
+                                        <label for="discount" disabled class="radio-label">10% Discount</labe>
+                                    `;
+                                    $("#discount-method").append(html);
+                                }
                                 varID.push(item.variationId);
                                 qty.push(item.quantity);
                             });
 
                             $('.order-summary ul').html(itemList);
                             $('.order-summary strong').text(`Total: ₱${total}`);
+
+                            $('input[name="discount-method"]').on('change', function () {
+                                currentTotal = total;
+
+                                if ($('#discount').is(':checked')) {
+                                    currentTotal -= total * 0.1;
+                                    console.log("haha");
+                                    $('.order-summary strong').text(`Total: ₱${currentTotal}`);
+                                }
+
+                                $('.order-summary strong').text(`Total: ₱${currentTotal}`);
+                            });
                         } catch (error) {
                             console.error('Error parsing JSON:', error);
                         }
@@ -125,14 +156,16 @@
                             address: address,
                             variationID: varIDArray,
                             qty: qty,
-                            shipping_method: shippingMethod,
-                            discount_method: discountMethod
+                            shipMethod: shippingMethod,
+                            discount_method: discountMethod,
+                            grandTotal: currentTotal,
+                            status : 'Pending'
                         },
                         success: function (response) {
                             const data = JSON.parse(response);
                             if (data.type === 'orderPlaced') {
                                 alert('Order placed successfully!');
-                                window.location.href = './toPay.php';
+                                // window.location.href = './toPay.php';
                             } else {
                                 alert('Error placing the order.');
                             }

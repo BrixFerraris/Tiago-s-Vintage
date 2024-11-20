@@ -16,121 +16,100 @@ include './header.php';
   </div>
 </div>
 <script>
+$(document).ready(function () {
+    function getCategoryFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('category'); 
+    }
 
-  //Search itu sa admin Products
-  document.getElementById('search-input').addEventListener('input', function() {
-    var searchValue = this.value;
-    const url = new URL(window.location.href);
-    const productCategory = url.searchParams.get('category');
-    fetchProducts(searchValue, productCategory);
-});
-
-function fetchProducts(searchValue, productCategory) {
-    var conn = new WebSocket('ws://localhost:8080/ws/');
-
-    conn.onopen = function() {
-        conn.send(JSON.stringify({ type: 'searchProducts', title: searchValue, category: productCategory }));
-    };
-
-    conn.onmessage = function(e) {
-        var data = JSON.parse(e.data);
-        if (data.type === 'searchResults') {
-            displayProducts(data.products || []);
+    function displayProducts(products) {
+    const productDiv = $('#fixed-grid');
+    productDiv.empty(); 
+    const uniqueProducts = new Set();
+    products.forEach(product => {
+        if (!uniqueProducts.has(product.id)) {
+            uniqueProducts.add(product.id);
+            const newDiv = $(`
+                <div class="cell">
+                    <a href="./newItem.php?productID=${product.id}" style="text-decoration: none;">
+                        <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
+                        <p>
+                            <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
+                            <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
+                        </p>
+                    </a>
+                </div>
+            `);
+            productDiv.append(newDiv);
         }
-    };
+    });
 }
+    $('#search-input').on('input', function () {
+        const searchQuery = $(this).val(); 
+
+        $.ajax({
+            url: './includes/searchProducts.php', 
+            method: 'GET',
+            data: { query: searchQuery },
+            dataType: 'json',
+            success: function (products) {
+                displayProducts(products);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching products:', error);
+            }
+        });
+    });
+
+    function fetchAndDisplayProducts() {
+        const category = getCategoryFromURL();
+        if (!category) {
+            console.error('No category specified in the URL.');
+            return;
+        }
+
+        $.ajax({
+            url: './includes/getProducts.php',
+            method: 'GET',
+            data: { category: category },
+            dataType: 'json',
+            success: function (products) {
+                displayProducts(products);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching products:', error);
+            }
+        });
+    }
+
+    fetchAndDisplayProducts();
+});
 
 function displayProducts(products) {
-    var productDiv = document.getElementById('fixed-grid');
-    productDiv.innerHTML = ''; 
-    var uniqueProducts = new Set();
+    const productDiv = $('#fixed-grid');
+    productDiv.empty(); 
+
+    const uniqueProducts = new Set();
     products.forEach(product => {
-        if (!uniqueProducts.has(product.id)) { 
-            uniqueProducts.add(product.id); 
+        if (!uniqueProducts.has(product.id)) {
+            uniqueProducts.add(product.id);
 
-            var newDiv = document.createElement('div');
-            newDiv.className = 'cell';
-            newDiv.innerHTML = `
-                <a href="./newItem.php?productID=${product.id}" style="text-decoration: none;">
-                    <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
-                    <p>
-                        <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
-                        <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
-                    </p>
-                </a>
-            `;
-            productDiv.appendChild(newDiv);
+            const newDiv = $(`
+                <div class="cell">
+                    <a href="./newItem.php?productID=${product.id}" style="text-decoration: none;">
+                        <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
+                        <p>
+                            <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
+                            <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
+                        </p>
+                    </a>
+                </div>
+            `);
+            productDiv.append(newDiv);
         }
     });
 }
-document.addEventListener('DOMContentLoaded', function() {
-    var conn = new WebSocket('ws://localhost:8080/ws/');
-    const productDiv = document.getElementById('fixed-grid');
-    const url = new URL(window.location.href);    const productCategory = url.searchParams.get('category');
 
-    conn.onopen = function() {
-        conn.send(JSON.stringify({ type: 'getProductsByCategory', category: productCategory }));
-        if  (productCategory === 'All') {
-          conn.send(JSON.stringify({ type: 'loadProducts' }));
-        }
-    };
-
-    conn.onmessage = function(e) {
-        var data = JSON.parse(e.data);        
-        if (data.type === 'categoryProducts') {
-            const products = Array.isArray(data.products) ? data.products : [data.products];
-            displayFilteredProducts(products, productCategory);
-        } else if(data.type === 'product') {
-          var newDiv = document.createElement('div');
-          newDiv.className = 'cell';
-          newDiv.innerHTML = `
-              <a href="./newItem.php?productID=${data.id}" style="text-decoration: none;">
-                  <img src="../server/includes/uploads/${data.img1}" alt="${data.title}" width="252" height="320">
-                  <p>
-                      <span class="has-text-primary has-text-weight-bold">${data.title}</span><br>
-                      <span class="has-text-primary has-text-weight-semibold">PHP ${data.price}</span>
-                  </p>
-              </a>
-          `;
-          productDiv.appendChild(newDiv);
-        } else {
-            console.error("No products available or data format is incorrect", data);
-            productDiv.innerHTML = '<p>No products available.</p>';
-        }
-    };
-});
-
-function displayFilteredProducts(products, category) {
-    const productDiv = document.getElementById('fixed-grid');
-    productDiv.innerHTML = ''; 
-    const url = new URL(window.location.href);
-    const productCategory = url.searchParams.get('category');
-    console.log(productCategory);
-    
-    const filteredProducts = products.filter(product => 
-        product && product.category && (!category || product.category === category)
-    );
-
-    // if (filteredProducts.length === 0) {
-    //     productDiv.innerHTML = '<p>No products available in this category.</p>';
-    //     return;
-    // }
-    
-    filteredProducts.forEach(product => {
-        var newDiv = document.createElement('div');
-        newDiv.className = 'cell';
-        newDiv.innerHTML = `
-            <a href="./newItem.php?productID=${product.id}" style="text-decoration: none;">
-                <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
-                <p>
-                    <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
-                    <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
-                </p>
-            </a>
-        `;
-        productDiv.appendChild(newDiv);
-    });
-}
 </script>
 
 

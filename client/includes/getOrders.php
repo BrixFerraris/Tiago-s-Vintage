@@ -7,7 +7,7 @@ $user_id = $_SESSION['uID'];
 $sql = "
 SELECT t.*, 
        p.title, p.category, p.img1, p.description, 
-       u.firstName, u.lastName, u.contact, 
+       u.firstName, u.lastName, u.contact, u.points,
        v.variationName, v.width, v.length
 FROM tbl_transactions t 
 INNER JOIN tbl_products p ON t.product_id = p.id 
@@ -31,7 +31,13 @@ while ($row = $result->fetch_assoc()) {
             'total_price' => 0, 
             'first_img' => $row['img1'], 
             'first_size' => $row['width'] . 'W X ' . $row['length'] . 'L',
-            'tId' => $row['id']
+            'tId' => $row['id'],
+            'discount' => $row['discount'],
+            'shipping' => $row['shipping'],
+            'points' => $row['points'],
+            'grandtotal' => $row['grand_total'],
+            'title' => $row['title'],
+            'variationName' => $row['variationName']
         ];
     }
     
@@ -44,7 +50,7 @@ while ($row = $result->fetch_assoc()) {
     ];
     
     $orders[$transaction_id]['total_quantity'] += $row['quantity'];
-    $orders[$transaction_id]['total_price'] += $row['quantity'] * $row['total'];
+    $orders[$transaction_id]['total_price'] += $row['total'];
 }
 
 $stmt->close();

@@ -17,11 +17,13 @@ function getProducts($conn, $search = '')
     return $products;
 }
 
-function loadPurchaseOrders($conn, $transactionId)
+function loadPurchaseOrders($conn, $transactionId = null)
 {
     if ($transactionId) {
-        $query = $conn->prepare('SELECT t.*, p.*, u.* FROM tbl_transactions t INNER JOIN tbl_products p ON t.product_id = p.id INNER JOIN tbl_users u ON t.user_id = u.id WHERE t.transaction_id = ?');
+        $query = $conn->prepare('SELECT t.*, p.*, u.firstName, u.lastName, u.id, u.username, u.points, u.contact FROM tbl_transactions t INNER JOIN tbl_products p ON t.product_id = p.id INNER JOIN tbl_users u ON t.user_id = u.id WHERE t.transaction_id = ?');
         $query->bind_param('s', $transactionId);
+    } else {
+        $query = $conn->query('SELECT t.*, p.*, u.firstName, u.lastName, u.id, u.username, u.points, u.contact FROM tbl_transactions t INNER JOIN tbl_products p ON t.product_id = p.id INNER JOIN tbl_users u ON t.user_id = u.id');
     }
 
     $orderItems = [];
@@ -31,6 +33,12 @@ function loadPurchaseOrders($conn, $transactionId)
     $contact = '';
     $id = '';
     $status = '';
+    $username = '';
+    $points = '';
+    $discount = '';
+    $shipping = '';
+
+
 
     if ($transactionId) {
         $query->execute();
@@ -44,7 +52,12 @@ function loadPurchaseOrders($conn, $transactionId)
             $contact = $row["contact"];
             $id = $row["id"];
             $status = $row["status"];
+            $username = $row["username"];
+            $points = $row["points"];
+            $discount = $row["discount"];
+            $shipping = $row["shipping"];
         }
+
         return [
             'order_items' => $orderItems,
             'order_total' => $total,
@@ -52,8 +65,17 @@ function loadPurchaseOrders($conn, $transactionId)
             'address' => $address,
             'contact' => $contact,
             'id' => $id,
-            'status' => $status
+            'status' => $status,
+            'username' => $username,
+            'points' => $points,
+            'discount' => $discount,
+            'shipping' => $shipping,
         ];
+    } else {
+        while ($row = $query->fetch_assoc()) {
+            $orderItems[] = $row;
+        }
+        return $orderItems;
     }
 }
 
@@ -68,7 +90,8 @@ function getCart($conn, $user_id)
         t.quantity, 
         u.firstName, 
         u.lastName, 
-        u.contact, 
+        u.contact,
+        u.points,
         t.total, 
         u.id AS userId, 
         t.id AS transactionId,
@@ -95,6 +118,23 @@ function getCart($conn, $user_id)
     return $cart;
 }
 
+function getProductsByCategory($conn, $category) {
+    $stmt = $conn->prepare("SELECT * FROM products WHERE category = ?");
+    $stmt->bind_param("s", $category); 
+    
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    $products = [];
+    while ($row = $result->fetch_assoc()) {
+        $products[] = $row;
+    }
+    
+    $stmt->close();
+    
+    return $products;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type'])) {
     $type = $_POST['type'];
 
@@ -106,6 +146,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type'])) {
             echo json_encode(['error' => $e->getMessage()]);
         }
     }
+
+    
 
     if ($type === 'searchProducts') {
         $search = $_POST['title'] ?? '';
@@ -169,13 +211,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type'])) {
         $address = $_POST['address'] ?? '';
         $variationIDs = $_POST['variationID'] ?? [];
         $quantities = $_POST['qty'] ?? [];
-        $shippingMethod = $_POST['shipping_method'] ?? '';
+        $shippingMethod = $_POST['shipMethod'];
         $discountMethod = $_POST['discount_method'] ?? '';
+        $grandTotal = $_POST['grandTotal'];
+        $pending = $_POST['status'];
         $queryUpdateVariations = "UPDATE tbl_variations SET quantity = quantity - ? WHERE id = ?";
         $stmtUpdateVariations = $conn->prepare($queryUpdateVariations);
+
         $queryUpdateVariations = "UPDATE tbl_variations SET quantity = quantity - ? WHERE id = ?";
         $stmtUpdateVariations = $conn->prepare($queryUpdateVariations);
-        $queryUpdateTransaction = "UPDATE tbl_transactions SET address = ?, status = 'Pending', transaction_id = ?, discount = ?, shipping = ? WHERE user_id = ? AND status = 'Cart'";
+
+        $queryUpdateTransaction = "UPDATE tbl_transactions SET address = ?, grand_total = ?, transaction_id = ?, shipping = ?, discount = ?, status = ? WHERE user_id = ? AND status = 'Cart'";
         $stmtUpdateTransaction = $conn->prepare($queryUpdateTransaction);
 
         $conn->autocommit(FALSE);
@@ -194,7 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type'])) {
             }
 
             if ($success) {
-                $stmtUpdateTransaction->bind_param("ssssi", $address, $transactionId, $discountMethod, $shippingMethod, $userId);
+                $stmtUpdateTransaction->bind_param("sissssi", $address, $grandTotal, $transactionId, $shippingMethod, $discountMethod, $pending, $userId);
                 if (!$stmtUpdateTransaction->execute()) {
                     $success = false;
                 }
@@ -225,7 +271,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type'])) {
             echo json_encode(['error' => $e->getMessage()]);
         }
     }
-    
+
     if ($type === 'loadPODetails' && isset($_POST['transaction_id'])) {
         $transactionId = $_POST['transaction_id'];
         try {
@@ -235,4 +281,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type'])) {
             echo json_encode(['error' => $e->getMessage()]);
         }
     }
+    if (isset($_POST['type']) && $_POST['type'] === 'updateReview' && isset($_POST['id']) && isset($_POST['visible'])) {
+        $reviewId = $_POST['id'];
+        $visible = $_POST['visible']; 
+
+        $sql = "UPDATE tbl_reviews SET visible = ? WHERE id = ?";
+        $stmt = mysqli_prepare($conn, $sql);
+
+        mysqli_stmt_bind_param($stmt, "si", $visible, $reviewId);
+        if (mysqli_stmt_execute($stmt)) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['error' => 'Failed to update review visibility: ' . mysqli_error($conn)]);
+        }
+
+        mysqli_stmt_close($stmt);
+        exit();
+    }
+}
+if (isset($_GET['action']) && $_GET['action'] === 'getReviews') {
+    $sql = "SELECT * FROM tbl_reviews";
+    $result = mysqli_query($conn, $sql);
+
+    if (!$result) {
+        echo json_encode(['error' => 'Database query failed: ' . mysqli_error($conn)]);
+        exit();
+    }
+
+    $reviews = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $reviews[] = $row;
+    }
+
+    if (empty($reviews)) {
+        echo json_encode(['error' => 'No visible reviews found']); 
+        exit();
+    }
+
+    echo json_encode($reviews); 
+    exit();
+}
+if (isset($_GET['action']) && $_GET['action'] === 'getReviews') {
+    $sql = "SELECT * FROM tbl_reviews";
+    $result = mysqli_query($conn, $sql);
+
+    if (!$result) {
+        echo json_encode(['error' => 'Database query failed: ' . mysqli_error($conn)]);
+        exit();
+    }
+
+    $reviews = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $reviews[] = $row;
+    }
+
+    if (empty($reviews)) {
+        echo json_encode(['error' => 'No visible reviews found']); 
+        exit();
+    }
+
+    echo json_encode($reviews); 
+    exit();
 }

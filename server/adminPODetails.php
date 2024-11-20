@@ -12,7 +12,7 @@ if (isset($_SESSION["role"])) {
         exit();
     }
 } else {
-    header("location: ../landing.php?error=NotLoggedIn");
+    header("location: ./adminLogin.php?error=NotLoggedIn");
     exit();
 }
 ?>
@@ -45,9 +45,6 @@ if (isset($_SESSION["role"])) {
         <button class="btnBack">Back</button>
     </div>
 </div>
-
-
-
 
 <!-- Custom Styles -->
 <style>
@@ -277,21 +274,22 @@ if (isset($_SESSION["role"])) {
                 <p><strong>Order Number</strong><br><span id="trans_num">${transactionId}</span></p>
                 <p><strong>Name</strong><br><span id="customerName">${data.name}</span></p>
                 <p><strong>Address</strong><br><span id="address">${data.address}</span><br></p>
-                <p><strong>Discount / Freebie</strong><br><span id="">discount or freebie or None</span><br></p>
+                <p><strong>Discount / Freebie</strong><br><span id="">${data.discount}</span><br></p>
+                <p><strong>Shipping</strong><br><span id="">${data.shipping}</span><br></p>
                 <p><strong>Contact No.</strong><br><span id="contact">${data.contact}</span></p>
             `;
 
                 let buttonsHTML = '';
                 if (data.status === 'Check Payment') {
                     buttonsHTML = `
-                    <button data-id="${transactionId}" class="accept-btn">Accept</button>
+                    <button data-id="${transactionId}" class="btn-accept accept-btn">Accept</button>
                     <button class="show-btn">Show Receipt</button>
                     <button data-id="${transactionId}" class="decline-btn">Decline</button>
                 `;
                 } else if (data.status === 'Ready For Pickup') {
                     buttonsHTML = `
                     <button class="show-btn">Show Receipt</button>
-                    <button data-id="${transactionId}" class="decline-btn">Decline</button>
+                    <button data-id="${transactionId}" data-user="${data.username}" class="btn-complete accept-btn">Complete</button>
                 `;
                 } else if (data.status === 'Pending') {
                     buttonsHTML = `<h1>Wait for customer's payment</h1>`;
@@ -306,12 +304,15 @@ if (isset($_SESSION["role"])) {
                     </div>
                 </div>
             `;
-                $(document).on('click', '.accept-btn', function () {
+                $(document).on('click', '.btn-accept', function () {
                     var transactionId = $(this).data('id');
                     $.ajax({
                         url: './includes/acceptOrder.php',
                         type: 'POST',
-                        data: { transaction_id: transactionId },
+                        data: {
+                            transaction_id: transactionId,
+                            action: 'accept'
+                        },
                         success: function (response) {
                             alert(`Order ${transactionId} accepted successfully`);
                             window.location.href = './purchaseOrders.php';
@@ -323,8 +324,55 @@ if (isset($_SESSION["role"])) {
                     });
                 });
 
+                $(document).on('click', '.btn-complete', function () {
+                    var transactionId = $(this).data('id');
+                    var username = $(this).data('user');
+                    $.ajax({
+                        url: './includes/acceptOrder.php',
+                        type: 'POST',
+                        data: {
+                            transaction_id: transactionId,
+                            action: 'complete',
+                            username: username
+                        },
+                        success: function (response) {
+                            alert(`Order ${transactionId} Completed Successfully`);
+                            window.location.href = './purchaseOrders.php';
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('An error occurred:', error);
+                            alert('Error updating order status. Please try again later.');
+                        }
+                    });
+                });
+
                 $('.show-btn').click(function () {
                     $('.modal-receipt').addClass('modal-active');
+                });
+
+                $('.decline-btn').click(function () {
+                    var transactionId = $(this).data('id');
+                    $.ajax({
+                        url: './includes/acceptOrder.php',
+                        type: 'POST',
+                        data: {
+                            transaction_id: transactionId,
+                            action: 'decline' 
+                        },
+                        success: function (response) {
+                            const result = JSON.parse(response); 
+                            if (result.success) {
+                                alert(`Order ${transactionId} declined successfully`);
+                                window.location.href = './purchaseOrders.php';
+                            } else {
+                                alert(result.message); 
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('An error occurred:', error);
+                            alert('Error updating order status. Please try again later.');
+                        }
+                    });
                 });
             }
         });

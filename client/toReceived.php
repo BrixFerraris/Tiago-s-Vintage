@@ -32,8 +32,8 @@ include './header.php';
                     var itemTitles = order.items.map(item => item.title).join(', ');
                     var itemSizes = order.items.map(item => item.size).join('<br>');
                     var totalQuantity = order.total_quantity;
-                    var totalPrice = order.total_price;
-                    if (order.status === 'Ready For Pickup') {
+                    var totalPrice = order.grandtotal;
+                    if (order.status === 'Ready For Pickup' || order.status === 'Check Payment') {
                         var orderItem = `
                     <div class="order-item">
                         <div class="item-details">
@@ -47,29 +47,35 @@ include './header.php';
                             <p class="status to-receive">${order.status}</p>
                         </div>
                         <div class="item-price">
-                            <p>Total Price: ₱${totalPrice.toFixed(2)}</p>
+                            <p>Total Price: ₱${totalPrice}</p>
                         </div>
                         <div class="item-action">
-                            <button data-id="${order.transaction_id}" class="confirm-receive-btn">Order Received</button>
                         </div>
                     </div>`;
                         $('#to-pay').append(orderItem);
-                    } else {
-                        $('#to-pay').append('<br><h1>No Orders Yet</h1>');
+                        if (order.status === 'Ready For Pickup') {
+                            $('.item-action').append(`<button data-id="${order.transaction_id}" data-points="${order.points}" class="confirm-receive-btn">Order Received</button>`);
+                        } else if (order.status === 'Check Payment') {
+                            $('.item-action').append('<p>Waiting for adming to confirm payment</p>');
+                        }
                     }
                     $('.confirm-receive-btn').on('click', function () {
-                        var transactionId = $(this).data('id'); 
+                        var transactionId = $(this).data('id');
+                        var points = $(this).data('points');
+                        var deduct = points < 10 ? true : false; 
+
                         $.ajax({
                             url: './includes/updateStatus.php',
                             type: 'POST',
                             data: {
                                 transaction_id: transactionId,
-                                type: 'complete'
+                                type: 'complete',
+                                deduct: deduct 
                             },
                             success: function (response) {
                                 var result = JSON.parse(response);
-                                    alert("Completed transaction. Thank you!"); 
-                                    location.reload(); 
+                                alert("Completed transaction. Thank you!");
+                                location.reload();
                             },
                             error: function (xhr, status, error) {
                                 console.error('Error updating status:', error);
@@ -218,97 +224,99 @@ include './header.php';
     }
 
     /* Tablet (max-width: 768px) */
-@media (max-width: 768px) {
-    .container {
-        max-width: 95%;
-        padding: 15px;
+    @media (max-width: 768px) {
+        .container {
+            max-width: 95%;
+            padding: 15px;
+        }
+
+        .menu {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .menu li {
+            margin: 10px 0;
+        }
+
+        .tabs {
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 20px;
+        }
+
+        .tab-button {
+            font-size: 14px;
+            padding: 8px 15px;
+        }
+
+        .order-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .item-details img {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 10px;
+        }
+
+        .item-status,
+        .item-price,
+        .item-actions {
+            width: 100%;
+            text-align: left;
+        }
+
+        .confirm-receive-btn {
+            width: 100%;
+            margin-top: 10px;
+        }
     }
 
-    .menu {
-        flex-direction: column;
-        align-items: center;
-    }
+    /* Mobile (max-width: 425px) */
+    @media (max-width: 425px) {
+        .container {
+            margin: 10px auto;
+            padding: 10px;
+        }
 
-    .menu li {
-        margin: 10px 0;
-    }
+        .menu {
+            flex-direction: column;
+        }
 
-    .tabs {
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 20px;
-    }
+        .menu a {
+            font-size: 14px;
+        }
 
-    .tab-button {
-        font-size: 14px;
-        padding: 8px 15px;
-    }
+        .tabs {
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
 
-    .order-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+        .tab-button {
+            font-size: 12px;
+            padding: 6px 10px;
+        }
 
-    .item-details img {
-        width: 70px;
-        height: 70px;
-        margin-bottom: 10px;
-    }
+        .order-item {
+            padding: 10px 0;
+        }
 
-    .item-status, .item-price, .item-actions {
-        width: 100%;
-        text-align: left;
-    }
+        .item-details img {
+            width: 60px;
+            height: 60px;
+        }
 
-    .confirm-receive-btn {
-        width: 100%;
-        margin-top: 10px;
-    }
-}
+        .item-details p {
+            font-size: x-small;
+        }
 
-/* Mobile (max-width: 425px) */
-@media (max-width: 425px) {
-    .container {
-        margin: 10px auto;
-        padding: 10px;
+        .confirm-receive-btn {
+            font-size: 12px;
+            padding: 6px 10px;
+        }
     }
-
-    .menu {
-        flex-direction: column;
-    }
-
-    .menu a {
-        font-size: 14px;
-    }
-
-    .tabs {
-        flex-direction: column;
-        margin-bottom: 10px;
-    }
-
-    .tab-button {
-        font-size: 12px;
-        padding: 6px 10px;
-    }
-
-    .order-item {
-        padding: 10px 0;
-    }
-
-    .item-details img {
-        width: 60px;
-        height: 60px;
-    }
-
-    .item-details p {
-        font-size: x-small;
-    }
-
-    .confirm-receive-btn {
-        font-size: 12px;
-        padding: 6px 10px;
-    }
-}
 </style>
 <?php
 include '../test/newFooter.php';

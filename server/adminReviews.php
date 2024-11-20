@@ -36,10 +36,10 @@ if (isset($_SESSION["role"])) {
       <!-- Review Section -->
       <div class="review-section">
         <div class="review">
-        <h3>Juan Dela Cruz</h3>
+          <h3>Juan Dela Cruz</h3>
           <div class="review-header">
             <span class="rating">★★★★★</span>
-            <span class="date">09-12-2024</span>  
+            <span class="date">09-12-2024</span>
           </div>
           <div class="review-body">
             <p><strong>Product:</strong> Nike Shirt</p>
@@ -72,7 +72,98 @@ if (isset($_SESSION["role"])) {
     </div>
 </main>
 <!-- End Main -->
+<script>
+  $(document).ready(function () {
+    // Function to fetch reviews
+    function fetchReviews() {
+      $.ajax({
+        url: '../serverFunctions.php',
+        type: 'GET',
+        data: { action: 'getReviews' },
+        dataType: 'json',
+        success: function (data) {
+          $('.review-section').empty();
+          $.each(data, function (index, review) {
+            const reviewHtml = `
+                        <div class="review">
+                            <h3>${review.username}</h3>
+                            <div class="review-header">
+                                <span class="rating">${'★'.repeat(review.rate)}${'☆'.repeat(5 - review.rate)}</span>
+                                <span class="date">${review.date}</span>  
+                            </div>
+                            <div class="review-body">
+                                <p><strong>Product:</strong> ${review.product_title}</p>
+                                <p><strong>Variation:</strong> ${review.variation_name}</p>
+                                <p class="review-text">${review.review}</p>
+                                    ${review.img1 ? `<img src="../client/includes/uploads/${review.img1}" alt="Product Image" class="review-image">` : ''}
+                                    ${review.img2 ? `<img src="../client/includes/uploads/${review.img2}" alt="Product Image" class="review-image">` : ''}
+                                    ${review.img3 ? `<img src="../client/includes/uploads/${review.img3}" alt="Product Image" class="review-image">` : ''}
+                            </div>
+                            <div class="review-actions">
+                                <button data-id="${review.id}" class="btn-show">Show</button>
+                                <button data-id="${review.id}" class="btn-hide">Hide</button>
+                            </div>
+                        </div>
+                    `;
+            $('.review-section').append(reviewHtml);
+            $('.review-section').on('click', '.btn-show', function () {
+              const reviewId = $(this).data('id');
+              $.ajax({
+                url: '../serverFunctions.php',
+                type: 'POST',
+                data: {
+                  type: 'updateReview',
+                  id: reviewId,
+                  visible: 'true'
+                },
+                dataType: 'json',
+                success: function (response) {
+                  if (response.error) {
+                    console.error("Error updating review visibility: ", response.error);
+                  } else {
+                    fetchReviews(); // Refresh the reviews
+                  }
+                },
+                error: function (xhr, status, error) {
+                  console.error("Error updating review visibility: ", error);
+                }
+              });
+            });
 
+            // Separate event listener for the hide button
+            $('.review-section').on('click', '.btn-hide', function () {
+              const reviewId = $(this).data('id');
+              $.ajax({
+                url: '../serverFunctions.php',
+                type: 'POST',
+                data: {
+                  type: 'updateReview',
+                  id: reviewId,
+                  visible: 'false'
+                },
+                dataType: 'json',
+                success: function (response) {
+                  if (response.error) {
+                    console.error("Error updating review visibility: ", response.error);
+                  } else {
+                    fetchReviews(); // Refresh the reviews
+                  }
+                },
+                error: function (xhr, status, error) {
+                  console.error("Error updating review visibility: ", error);
+                }
+              });
+            });
+          });
+        },
+        error: function (xhr, status, error) {
+          console.error("Error fetching reviews: ", error);
+        }
+      });
+    }
+    fetchReviews();
+  });
+</script>
 <style>
   /* reviews */
   .review-section {

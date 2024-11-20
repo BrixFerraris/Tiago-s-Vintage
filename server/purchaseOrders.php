@@ -12,7 +12,7 @@ if (isset($_SESSION["role"])) {
         exit();
     }
 } else {
-    header("location: ../landing.php?error=NotLoggedIn");
+    header("location: ./adminLogin.php?error=NotLoggedIn");
     exit();
 }
 ?>
@@ -40,9 +40,9 @@ if (isset($_SESSION["role"])) {
                         <th>Order Number</th>
                         <th>Buyer's Name</th>
                         <th>Address</th>
+                        <th>Shipping</th>
+                        <th>Freebie or Discount</th>
                         <th>Status</th>
-                        <th>Accept</th>
-                        <th>Decline</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,7 +64,6 @@ if (isset($_SESSION["role"])) {
         </div>
         <script>
             $(document).ready(function () {
-                // Load purchase orders when the document is ready
                 loadPurchaseOrders();
 
                 function loadPurchaseOrders() {
@@ -74,22 +73,30 @@ if (isset($_SESSION["role"])) {
                         data: { type: 'loadPurchaseOrders' },
                         success: function (response) {
                             const purchaseOrders = JSON.parse(response);
-                            const table = $('#products'); 
-                            table.empty();
+                            const table = $('#products');
+                            const uniqueOrders = {};
+
+                            const validStatuses = ['Pending', 'Ready For Pickup', 'Completed'];
+
                             purchaseOrders.forEach(function (purchaseOrder) {
-                                const newRow = $('<tr></tr>');
-                                newRow.append($('<td></td>').text(purchaseOrder.transaction_id));
-                                newRow.append($('<td></td>').text(purchaseOrder.firstName + ' ' + purchaseOrder.lastName));
-                                newRow.append($('<td></td>').text(purchaseOrder.address));
-                                newRow.append($('<td></td>').text(purchaseOrder.status));
-                                newRow.append($('<td></td>').html('<button class="accept-btn">Accept</button>'));
-                                newRow.append($('<td></td>').html('<button class="delete-btn">Delete</button>'));
+                                if (validStatuses.includes(purchaseOrder.status)) {
+                                    const key = `${purchaseOrder.transaction_id}_${purchaseOrder.user_id}`;
 
-                                newRow.on('click', function () {
-                                    window.location.href = 'adminPODetails.php?transaction_id=' + purchaseOrder.transaction_id;
-                                });
-
-                                table.append(newRow);
+                                    if (!uniqueOrders[key]) {
+                                        uniqueOrders[key] = true;
+                                        const newRow = $('<tr></tr>');
+                                        newRow.append($('<td></td>').text(purchaseOrder.transaction_id));
+                                        newRow.append($('<td></td>').text(purchaseOrder.firstName + ' ' + purchaseOrder.lastName));
+                                        newRow.append($('<td></td>').text(purchaseOrder.address));
+                                        newRow.append($('<td></td>').text(purchaseOrder.shipping));
+                                        newRow.append($('<td></td>').text(purchaseOrder.discount));
+                                        newRow.append($('<td></td>').text(purchaseOrder.status));
+                                        newRow.on('click', function () {
+                                            window.location.href = 'adminPODetails.php?transaction_id=' + purchaseOrder.transaction_id;
+                                        });
+                                        table.append(newRow);
+                                    }
+                                }
                             });
                         },
                         error: function (xhr, status, error) {

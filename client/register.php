@@ -6,6 +6,7 @@ include 'header.php';
 
 <link rel="stylesheet" href="../CSS/registerClient.css">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 
 <body>
@@ -64,7 +65,7 @@ include 'header.php';
                 </label>
             </div>
 
-            <button name="register" type="submit">Register</button>
+            <button id="register-btn" name="register" type="submit">Register</button>
             <div class="aabtm">
 
             <a href="./login.php" style="text-decoration: none; ">Already have an account? Click here to Log on! </a>
@@ -107,7 +108,19 @@ include '../test/newFooter.php';
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+    $('#register-btn').prop('disabled', true);
 
+    $('#termsCheckbox').change(function() {
+        if ($(this).is(':checked')) {
+            $('#register-btn').prop('disabled', false); 
+        } else {
+            $('#register-btn').prop('disabled', true);
+        }
+    });
+});
+</script>
 
 
     <!-- End Main -->

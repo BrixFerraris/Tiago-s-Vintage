@@ -5,14 +5,15 @@ include_once 'header.php';
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-  </head>
-  <title>Tiago's Vintage</title>
- 
+</head>
+<title>Tiago's Vintage</title>
+
 </head>
 
 
@@ -21,28 +22,8 @@ include_once 'header.php';
   <div class="content">
 
     <!-- Review Section -->
-    <div class="review-section">
-      <div class="review">
-      <h3>Juan Dela Cruz</h3>
-          <div class="review-header">
-            <span class="rating">★★★★★</span>
-            <span class="date">09-12-2024</span>  
-          </div>
-          <div class="review-body">
-            <p><strong>Product:</strong> Nike Shirt</p>
-            <p><strong>Variation:</strong> White (29x24)</p>
-            <p class="review-text">
-              I recently bought this essential T-shirt, and I'm super impressed! The quality is fantastic—it's made from
-              really soft cotton that feels great against the skin. Perfect for hot weather because it's lightweight and
-              breathable. I've worn it all day, and it still feels comfortable and doesn't stick to my body.
-            </p>
-            <img src="../images/sample-item.png" alt="Product Image" class="review-image">
-            <img src="../images/sample-item.png" alt="Product Image" class="review-image">
-            <img src="../images/sample-item.png" alt="Product Image" class="review-image">
-          </div>
-
-      </div>
-      <!-- Duplicate the review div for additional reviews -->
+    <div class="review-section" id="reviews-container">
+      <!-- Reviews will be dynamically injected here -->
     </div>
 
     <!-- Pagination -->
@@ -56,30 +37,85 @@ include_once 'header.php';
   </div>
 </main>
 <!-- End Main -->
+<script>
+  $(document).ready(function () {
+    function fetchReviews() {
+      $.ajax({
+        url: '../serverFunctions.php',
+        type: 'GET',
+        data: {
+          action: 'getReviews'
+        },
+        dataType: 'json',
+        success: function (response) {
+          response.forEach(function (review) {
+            if (review.visible == "true") {
+              $('#reviews-container').empty();
+              const reviewHtml = `
+                            <div class="review">
+                                <h3>${review.username}</h3>
+                                <div class="review-header">
+                                    <span class="rating">${'★'.repeat(review.rating)}</span>
+                                    <span class="date">${review.date}</span>
+                                </div>
+                                <div class="review-body">
+                                    <p><strong>Product:</strong> ${review.product_title}</p>
+                                    <p><strong>Variation:</strong> ${review.variation_name}</p>
+                                    <p class="review-text">${review.review}</p>
+                                      ${review.img1 ? `<img src="./includes/uploads/${review.img1}" alt="Product Image" class="review-image">` : ''}
+                                      ${review.img2 ? `<img src="./includes/uploads/${review.img2}" alt="Product Image" class="review-image">` : ''}
+                                      ${review.img3 ? `<img src="./includes/uploads/${review.img3}" alt="Product Image" class="review-image">` : ''}
+                                </div>
+                            </div>
+                        `;
+              $('#reviews-container').append(reviewHtml);
+            } else {
+              response.forEach(function (review) {
+                const reviewHtml = `
+                            <div class="review">
+                                <h3>NO REVIEWS YET</h3>
+                            </div>
+                        `;
+                $('#reviews-container').append(reviewHtml);
+              });
+            }
+          });
 
+        },
+        error: function (xhr, status, error) {
+          $('#reviews-container').html('<p>Error fetching reviews: ' + error + '</p>');
+        }
+      });
+    }
+
+    // Fetch reviews on page load
+    fetchReviews();
+  });
+</script>
 
 <style>
-  
   body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background-color: #e6e8ed;
-  color: #666666;
-  font-family: "Montserrat", sans-serif;
-}
-  .main-container {
-  grid-area: main;
-  overflow-y: auto;
-  padding: 20px 20px;
-}
-.content {
-  flex-grow: 1;
-  padding: 20px;
-  background-color: #f9f9f9;
-}
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #e6e8ed;
+    color: #666666;
+    font-family: "Montserrat", sans-serif;
+  }
 
-    /* reviews */
+  .main-container {
+    grid-area: main;
+    overflow-y: auto;
+    padding: 20px 20px;
+  }
+
+  .content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+
+  /* reviews */
   .review-section {
     margin: 20px 0;
   }
@@ -103,7 +139,8 @@ include_once 'header.php';
   .review-body {
     margin-bottom: 10px;
   }
-  .review-body p{
+
+  .review-body p {
     color: black;
   }
 
@@ -114,31 +151,31 @@ include_once 'header.php';
   }
 
 
-/* Pagination */
-.pagination {
-  display: flex;
-  justify-content: flex-start;
-  gap: 8px;
-  margin-top: 20px;
-}
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+    margin-top: 20px;
+  }
 
-.pagination a {
-  text-decoration: none;
-  color: #333;
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
+  .pagination a {
+    text-decoration: none;
+    color: #333;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
 
-.pagination a:hover {
-  background-color: #ddd;
-}
+  .pagination a:hover {
+    background-color: #ddd;
+  }
 
-.pagination .prev, .pagination .next {
-  font-weight: 600;
-}
-
+  .pagination .prev,
+  .pagination .next {
+    font-weight: 600;
+  }
 </style>
 
 <script>
