@@ -84,11 +84,12 @@ body {
 
 /* Main Container */
 .main-container {
-    background-color: #ffffff;
     grid-area: main;
     padding: 20px;
     overflow-y: auto;
     margin-bottom: 100px;
+
+    
 }
 /* Scrollbars */
 ::-webkit-scrollbar {
@@ -135,7 +136,7 @@ body {
 }
 
 /* Input, Textarea, and Select Styling */
-.form-group input[type="text"],[type="password"],
+.form-group input[type="text"],[type="password"],[type="email"],
 .form-group textarea,
 .form-group select {
     width: 100%;
@@ -157,6 +158,28 @@ body {
 .form-group input[type="file"] {
     font-size: 16px;
     border: none;
+}
+
+
+
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-container input[type="password"] {
+    width: 100%;
+    padding-right: 40px; /* Add padding to make space for the icon */
+}
+
+.field-icon {
+    position: absolute;
+    right: 10px; /* Adjust the position inside the input */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #aaa; /* Icon color */
 }
 
 

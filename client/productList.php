@@ -4,13 +4,18 @@ include './header.php';
 
 <div class="box">
   <div class="top-shits">
-  <div class="search-filter" id="search-filters">
-    <input type="text" id="search-input" placeholder="Search Products...">
+
+    <div class="back-btn">
+      <a href="../client/shop.php" style="text-decoration: none;"><button>Back</button></a>
+    </div>
+
+
+    <div class="search-filter" id="search-filters">
+      <input type="text" id="search-input" placeholder="Search Products...">
+    </div>
+  
   </div>
-  <div class="back-btn">
-  <a href="../client/shop.php" style="text-decoration: none;"><button>Back</button></a>
-  </div>
-  </div>
+
   <div id="fixed-grid" class="fixed-grid">
     <!-- Existing product cells will be dynamically added here -->
   </div>

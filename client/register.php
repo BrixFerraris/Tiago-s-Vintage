@@ -21,6 +21,8 @@ include 'header.php';
 <main class="main-container">
         <div class="main-title">
           <p class="font-weight-bold">Register</p>
+
+          
         </div>
 
     <div class="form-container">
@@ -43,19 +45,40 @@ include 'header.php';
             </div>
 
             <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input class="haha" type="email" id="email" name="email" placeholder="E-mail" required>
+                <a class="resend" style="float: right" href="#">Send OTP</a>            
+            </div>
+
+
+            <div class="form-group">
+                <label for="otp">OTP:</label>
+                <div>
+                    <input class="haha" type="number" id="otp" name="otp" placeholder="OTP" required style= "width: 50%;">
+                    <button id="verify" name="verify" type="submit" style="width: 20%;">Verify OTP</button>
+                </div>
+
+            </div>
+
+            <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" placeholder="username" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Password" required>
+                <div class="input-container">
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="confPassword">Confirm Password:</label>
-                <input type="password" id="confPassword" name="ConfPassword" placeholder="Confirm Password" required>
-
+                <div class="input-container">
+                    <input type="password" id="confPassword" name="ConfPassword" placeholder="Confirm Password" required>
+                    <span toggle="#confPassword" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                </div>
             </div>
             <!-- Checkbox and Terms & Conditions Modal -->
             <div class="form-group form-check">
@@ -120,6 +143,23 @@ include '../test/newFooter.php';
         }
     });
 });
+
+
+
+    //shhow password
+
+    $(".toggle-password").click(function() {
+
+$(this).toggleClass("fa-eye fa-eye-slash");
+var input = $($(this).attr("toggle"));
+if (input.attr("type") == "password") {
+  input.attr("type", "text");
+} else {
+  input.attr("type", "password");
+}
+});
+
+
 </script>
 
 
