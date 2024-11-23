@@ -60,7 +60,7 @@
         </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2024 Copyright:
+            <p style="color:white;">© 2024 Copyright:
                 <a href="http://tiago-vintage.helioho.st/client/landing.php">Tiagos-vintage.helioho.st</a>
             </p>
         </div>

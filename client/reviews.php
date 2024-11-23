@@ -95,12 +95,8 @@ include_once 'header.php';
 
 <style>
   body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     background-color: #e6e8ed;
-    color: #666666;
-    font-family: "Montserrat", sans-serif;
+
   }
 
   .main-container {
