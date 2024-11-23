@@ -133,36 +133,49 @@ include '../test/newFooter.php';
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function() {
-    $('#register-btn').prop('disabled', true);
+        // Disable register button until terms are accepted
+        $('#register-btn').prop('disabled', true);
 
-    $('#termsCheckbox').change(function() {
-        if ($(this).is(':checked')) {
-            $('#register-btn').prop('disabled', false); 
-        } else {
-            $('#register-btn').prop('disabled', true);
-        }
+        $('#termsCheckbox').change(function() {
+            if ($(this).is(':checked')) {
+                $('#register-btn').prop('disabled', false);
+            } else {
+                $('#register-btn').prop('disabled', true);
+            }
+        });
+
+        // Show/Hide password functionality
+        $(".toggle-password").click(function() {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+
+        // Password validation
+        $('#password, #confPassword').on('input', function() {
+            const password = $('#password').val();
+            const confPassword = $('#confPassword').val();
+
+            // Check password length
+            if (password.length < 8) {
+                $('#password')[0].setCustomValidity("Password must be at least 8 characters long");
+            } else {
+                $('#password')[0].setCustomValidity("");
+            }
+
+            // Check if passwords match
+            if (confPassword && confPassword !== password) {
+                $('#confPassword')[0].setCustomValidity("Passwords do not match");
+            } else {
+                $('#confPassword')[0].setCustomValidity("");
+            }
+        });
     });
-});
-
-
-
-    //shhow password
-
-    $(".toggle-password").click(function() {
-
-$(this).toggleClass("fa-eye fa-eye-slash");
-var input = $($(this).attr("toggle"));
-if (input.attr("type") == "password") {
-  input.attr("type", "text");
-} else {
-  input.attr("type", "password");
-}
-});
-
-
 </script>
-
-
     <!-- End Main -->
 
 
