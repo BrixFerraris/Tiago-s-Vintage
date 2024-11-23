@@ -212,6 +212,53 @@ button[type="submit"]:hover {
     background-color: #555;
 }
 
+
+
+.btn-upload-photo .upload-icon {
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+
+
+.photo-thumbnail {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    object-fit: cover;
+    width: 100px; /* Set thumbnail width */
+    height: 100px; /* Set thumbnail height */
+    margin: 5px; /* Add some spacing */
+}
+
+/* New styles for the image container and close button */
+.image-container {
+    position: relative;
+    display: inline-block;
+    margin: 5px;
+}
+
+.close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 14px;
+    padding: 0;
+    outline: none;
+}
+
+.close-button:hover {
+    background-color: darkred; /* Change color on hover */
+}
+
 /* Responsive Design */
 
 /* Media Query for Tablets (screen width between 577px and 768px) */

@@ -53,23 +53,16 @@ if (isset($_SESSION["role"])) {
             </div>
 
             <div class="form-group">
-                <label for="img1">Image 1</label>
-                <input type="file" id="img1" name="img1" accept="image/*" required>
-            </div>
-
-            <div class="form-group">
-                <label for="img2">Image 2</label>
-                <input type="file" id="img2" name="img2" accept="image/*" required>
-            </div>
-
-            <div class="form-group">
-                <label for="img3">Image 3</label>
-                <input type="file" id="img3" name="img3" accept="image/*" required>
-            </div>
-
-            <div class="form-group">
-                <label for="img4">Image 4</label>
-                <input type="file" id="img4" name="img4" accept="image/*" required>
+                <div class="media-upload">
+                    <label class="btn-upload-photo">
+                        <span>Add Photo</span>
+                        <br>
+                        <input type="file" name="photoInput[]" accept="image/*" multiple id="photoInput" >
+                        
+                    </label>
+                    <small>(Max 4 images)</small>
+                </div>
+                <div class="media-preview" id="photoPreview"></div>
             </div>
 
             <button name="submit" type="submit">Add Product</button>
@@ -128,6 +121,64 @@ if (isset($_SESSION["role"])) {
         }
         fetchCategories();
     });
+
+
+
+        // Images
+        document.getElementById('photoInput').addEventListener('change', function(event) {
+    const photoPreview = document.getElementById('photoPreview');
+    const existingImages = photoPreview.getElementsByTagName('img'); // Get existing images
+    const existingCount = existingImages.length; // Count of existing images
+
+    const files = Array.from(event.target.files);
+
+    // Check how many more images can be added
+    const availableSlots = 4 - existingCount;
+
+    // Limit the selection to 3 images in total
+    if (files.length > availableSlots) {
+        alert('You can upload a maximum of 4 images in total.');
+        event.target.value = ''; // Clear the file input if limit exceeded
+        return;
+    }
+
+    // Loop through each selected file and create an image preview
+    let imageCount = existingCount; // Start counting from the existing images
+    files.forEach(file => {
+        if (file.type.startsWith('image/') && imageCount < 4) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                // Create a container for the image and the close button
+                const imageContainer = document.createElement('div');
+                imageContainer.classList.add('image-container');
+
+                // Create the image element
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.classList.add('photo-thumbnail');
+
+                // Create the close button
+                const closeButton = document.createElement('button');
+                closeButton.classList.add('close-button');
+                closeButton.innerHTML = '✖'; // X mark
+
+                // Add event listener to remove the image
+                closeButton.addEventListener('click', function() {
+                    photoPreview.removeChild(imageContainer);
+                });
+
+                // Append the image and close button to the container
+                imageContainer.appendChild(img);
+                imageContainer.appendChild(closeButton);
+
+                // Append the container to the preview
+                photoPreview.appendChild(imageContainer);
+                imageCount++;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+});
 
 </script>
 </body>

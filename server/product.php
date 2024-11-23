@@ -16,200 +16,7 @@ if (isset($_SESSION["role"])) {
   exit();
 }
 ?>
-<style>
-  .is-invisible {
-    display: none;
-  }
 
-
-  .container {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    background-color: #f5f5f5;
-  }
-
-
-  /* Main Container */
-  .main-container {
-    flex: 1;
-    padding: 20px;
-  }
-
-  .main-title {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .main-title>p {
-    font-size: 20px;
-  }
-
-  /* Edit Product */
-  .edit-product {
-    display: flex;
-    gap: 20px;
-  }
-
-  .edit-product-left {
-    width: 50%;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-  }
-
-  .edit-product-right {
-    width: 50%;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-  }
-
-  .edit-product-images {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-
-  .edit-product-images img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-
-  .edit-product-variations {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .edit-product-variation {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
-  .edit-product-variation label {
-    font-weight: bold;
-  }
-
-  .edit-product-variation input[type="text"] {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 50px;
-  }
-
-  .quantity-control {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .quantity-control button {
-    background-color: #eee;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .add-variation {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .edit-product-title,
-  .edit-product-price,
-  .edit-product-category {
-    margin-bottom: 10px;
-  }
-
-  .edit-product-title input,
-  .edit-product-price input,
-  .edit-product-category input {
-    width: 100%;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-
-  .edit-icon {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    font-size: 16px;
-    color: #007bff;
-    cursor: pointer;
-  }
-
-  .save-button,
-  .discard-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .add-variation-btn {
-    margin-top: 20px;
-  }
-
-
-  .discard-button {
-    background-color: #dc3545;
-  }
-
-  /* Container for search and sort */
-  .search-sort-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-
-  /* Search bar styling */
-  .search-bar {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 25px;
-    overflow: hidden;
-    margin-right: 10px;
-  }
-
-  #search-input {
-    border: none;
-    padding: 10px;
-    outline: none;
-    width: 200px;
-  }
-
-  #search-btn {
-    background-color: hsl(93, 100%, 20%);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-  }
-
-  #search-btn:hover {
-    background-color: #0056b3;
-  }
-
-  #search-btn i {
-    font-size: 16px;
-  }
-</style>
 
 <!-- Main -->
 <main id="container" class="main-container ">
@@ -437,3 +244,197 @@ if (isset($_SESSION["role"])) {
 </body>
 
 </html>
+<style>
+  .is-invisible {
+    display: none;
+  }
+
+
+  .container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background-color: #f5f5f5;
+  }
+
+
+  /* Main Container */
+  .main-container {
+    flex: 1;
+    padding: 20px;
+  }
+
+  .main-title {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .main-title>p {
+    font-size: 20px;
+  }
+
+  /* Edit Product */
+  .edit-product {
+    display: flex;
+    gap: 20px;
+  }
+
+  .edit-product-left {
+    width: 50%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .edit-product-right {
+    width: 50%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .edit-product-images {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .edit-product-images img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .edit-product-variations {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .edit-product-variation {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .edit-product-variation label {
+    font-weight: bold;
+  }
+
+  .edit-product-variation input[type="text"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 50px;
+  }
+
+  .quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .quantity-control button {
+    background-color: #eee;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .add-variation {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .edit-product-title,
+  .edit-product-price,
+  .edit-product-category {
+    margin-bottom: 10px;
+  }
+
+  .edit-product-title input,
+  .edit-product-price input,
+  .edit-product-category input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .edit-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #007bff;
+    cursor: pointer;
+  }
+
+  .save-button,
+  .discard-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .add-variation-btn {
+    margin-top: 20px;
+  }
+
+
+  .discard-button {
+    background-color: #dc3545;
+  }
+
+  /* Container for search and sort */
+  .search-sort-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  /* Search bar styling */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    overflow: hidden;
+    margin-right: 10px;
+  }
+
+  #search-input {
+    border: none;
+    padding: 10px;
+    outline: none;
+    width: 200px;
+  }
+
+  #search-btn {
+    background-color: hsl(93, 100%, 20%);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+
+  #search-btn:hover {
+    background-color: #0056b3;
+  }
+
+  #search-btn i {
+    font-size: 16px;
+  }
+</style>
