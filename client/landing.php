@@ -3,6 +3,8 @@ include 'header.php';
 ?>          
 
 <link rel="stylesheet" href="../CSS/landing.css">
+
+
                         <div class="background">
                         <img class="bghaha" src="../assets/Component 2.png" alt="">
                             <h1 class="landing_text">Tiago's Vintage</h1>
@@ -42,8 +44,13 @@ include 'header.php';
 				</div>
 			</div>
 		</div>
+
+
+
 	</div>
 </section>
+
+
 
 
 <script>

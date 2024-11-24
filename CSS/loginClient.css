@@ -12,15 +12,6 @@
 
 
 
-        /* General Styles */
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: #f0f2f5;
-    color: #333;
-    font-family: "Montserrat", sans-serif;
-}
 
 /* Material Icons */
 .material-icons-outlined {

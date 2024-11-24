@@ -2,15 +2,11 @@
 include 'header.php';
 ?>          
 
-<!DOCTYPE html>
-<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiago's Vintage</title>
     <link rel="stylesheet" href="../CSS/contactUs.css">
 </head>
-<body>
+
     <main>
         <section class="contact-form-section">
             <form class="contact-form">
@@ -35,5 +31,4 @@ include 'header.php';
             </form>
         </section>
     </main>
-</body>
-</html>
+
