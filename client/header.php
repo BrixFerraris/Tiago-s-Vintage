@@ -218,11 +218,7 @@
 
 </body>
 
-<script>
-    document.addEventListener('DOMContentLoaded', e => {
-        $('#input-datalist').autocomplete()
-    }, false);
-</script>
+
 
 <script>
 $(document).ready(function() {

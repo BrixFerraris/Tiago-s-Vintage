@@ -2,9 +2,9 @@
 include_once './dbCon.php';
 
 if (isset($_POST['transaction_id']) && isset($_POST['action'])) {
-    $transactionId = $_POST['transaction_id'];
+    $transactionId = intval($_POST['transaction_id']); 
     $action = $_POST['action'];
-    
+
     if ($action === 'accept') {
         $status = 'Ready For Pickup';
     } elseif ($action === 'complete') {
@@ -21,15 +21,16 @@ if (isset($_POST['transaction_id']) && isset($_POST['action'])) {
 
     if ($stmt->execute()) {
         if ($action === 'complete') {
-            $quantityQuery = $conn->prepare("SELECT SUM(quantity) as total_quantity, user_id FROM tbl_transactions WHERE transaction_id = ?");
+            $quantityQuery = $conn->prepare("SELECT SUM(quantity) as total_quantity, user_id FROM tbl_transaction_items WHERE transaction_id = ?"); // Assuming you have a separate table for items
             $quantityQuery->bind_param('i', $transactionId);
             $quantityQuery->execute();
             $quantityResult = $quantityQuery->get_result();
             $row = $quantityResult->fetch_assoc();
-            $totalQuantity = $row['total_quantity'];
-            $userId = $row['user_id']; 
 
-            if ($totalQuantity > 0) {
+            $totalQuantity = $row['total_quantity'] ?? 0;
+            $userId = $row['user_id'];
+
+            if ($totalQuantity > 0 && $userId) {
                 $updatePointsQuery = $conn->prepare("UPDATE tbl_users SET points = points + ? WHERE id = ?");
                 $updatePointsQuery->bind_param('ii', $totalQuantity, $userId);
                 $updatePointsQuery->execute();
@@ -37,7 +38,7 @@ if (isset($_POST['transaction_id']) && isset($_POST['action'])) {
             }
             $quantityQuery->close();
         }
-
+        
         echo json_encode(['success' => true, 'message' => 'Order status updated successfully.']);
     } else {
         echo json_encode(['success' => false, 'message' => 'Failed to update order status.']);

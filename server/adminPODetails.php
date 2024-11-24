@@ -314,8 +314,32 @@ if (isset($_SESSION["role"])) {
                             action: 'accept'
                         },
                         success: function (response) {
-                            alert(`Order ${transactionId} accepted successfully`);
-                            window.location.href = './purchaseOrders.php';
+                            var res = JSON.parse(response);
+                            if (res.success) {
+                                alert(`Order ${transactionId} accepted successfully`);
+                                $.ajax({
+                                    url: './includes/sendReminder.php',
+                                    type: 'POST',
+                                    data: {
+                                        transaction_id: transactionId
+                                    },
+                                    success: function (reminderResponse) {
+                                        var reminderRes = JSON.parse(reminderResponse);
+                                        if (reminderRes.status) {
+                                            alert('Reminder email sent successfully!');
+                                        } else {
+                                            alert('Error sending reminder: ' + reminderRes.error);
+                                        }
+                                    },
+                                    error: function (xhr, status, error) {
+                                        console.error('An error occurred while sending reminder:', error);
+                                        alert('Error sending reminder. Please try again later.');
+                                    }
+                                });
+                                window.location.href = './purchaseOrders.php';
+                            } else {
+                                alert('Error accepting order: ' + res.error);
+                            }
                         },
                         error: function (xhr, status, error) {
                             console.error('An error occurred:', error);
@@ -357,15 +381,15 @@ if (isset($_SESSION["role"])) {
                         type: 'POST',
                         data: {
                             transaction_id: transactionId,
-                            action: 'decline' 
+                            action: 'decline'
                         },
                         success: function (response) {
-                            const result = JSON.parse(response); 
+                            const result = JSON.parse(response);
                             if (result.success) {
                                 alert(`Order ${transactionId} declined successfully`);
                                 window.location.href = './purchaseOrders.php';
                             } else {
-                                alert(result.message); 
+                                alert(result.message);
                             }
                         },
                         error: function (xhr, status, error) {

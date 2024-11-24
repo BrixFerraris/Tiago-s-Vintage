@@ -13,7 +13,7 @@ include './header.php';
     <div class="search-filter" id="search-filters">
       <input type="text" id="search-input" placeholder="Search Products...">
     </div>
-  
+
   </div>
 
   <div id="fixed-grid" class="fixed-grid">
@@ -21,20 +21,20 @@ include './header.php';
   </div>
 </div>
 <script>
-$(document).ready(function () {
+  $(document).ready(function () {
     function getCategoryFromURL() {
-        const params = new URLSearchParams(window.location.search);
-        return params.get('category'); 
+      const params = new URLSearchParams(window.location.search);
+      return params.get('category');
     }
 
     function displayProducts(products) {
-    const productDiv = $('#fixed-grid');
-    productDiv.empty(); 
-    const uniqueProducts = new Set();
-    products.forEach(product => {
+      const productDiv = $('#fixed-grid');
+      productDiv.empty();
+      const uniqueProducts = new Set();
+      products.forEach(product => {
         if (!uniqueProducts.has(product.id)) {
-            uniqueProducts.add(product.id);
-            const newDiv = $(`
+          uniqueProducts.add(product.id);
+          const newDiv = $(`
                 <div class="cell">
                     <a href="./newItem.php?productID=${product.id}" style="text-decoration: none;">
                         <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
@@ -45,61 +45,60 @@ $(document).ready(function () {
                     </a>
                 </div>
             `);
-            productDiv.append(newDiv);
+          productDiv.append(newDiv);
         }
-    });
-}
+      });
+    }
     $('#search-input').on('input', function () {
-        const searchQuery = $(this).val(); 
-
-        $.ajax({
-            url: './includes/searchProducts.php', 
-            method: 'GET',
-            data: { query: searchQuery },
-            dataType: 'json',
-            success: function (products) {
-                displayProducts(products);
-            },
-            error: function (xhr, status, error) {
-                console.error('Error fetching products:', error);
-            }
-        });
+      const searchQuery = $(this).val();
+      $.ajax({
+        url: './includes/searchProducts.php',
+        method: 'GET',
+        data: { query: searchQuery },
+        dataType: 'json',
+        success: function (products) {
+          displayProducts(products);
+        },
+        error: function (xhr, status, error) {
+          console.error('Error fetching products:', error);
+        }
+      });
     });
 
     function fetchAndDisplayProducts() {
-        const category = getCategoryFromURL();
-        if (!category) {
-            console.error('No category specified in the URL.');
-            return;
-        }
+      const category = getCategoryFromURL();
+      if (!category) {
+        console.error('No category specified in the URL.');
+        return;
+      }
 
-        $.ajax({
-            url: './includes/getProducts.php',
-            method: 'GET',
-            data: { category: category },
-            dataType: 'json',
-            success: function (products) {
-                displayProducts(products);
-            },
-            error: function (xhr, status, error) {
-                console.error('Error fetching products:', error);
-            }
-        });
+      $.ajax({
+        url: './includes/getProducts.php',
+        method: 'GET',
+        data: { category: category },
+        dataType: 'json',
+        success: function (products) {
+          displayProducts(products);
+        },
+        error: function (xhr, status, error) {
+          console.error('Error fetching products:', error);
+        }
+      });
     }
 
     fetchAndDisplayProducts();
-});
+  });
 
-function displayProducts(products) {
+  function displayProducts(products) {
     const productDiv = $('#fixed-grid');
-    productDiv.empty(); 
+    productDiv.empty();
 
     const uniqueProducts = new Set();
     products.forEach(product => {
-        if (!uniqueProducts.has(product.id)) {
-            uniqueProducts.add(product.id);
+      if (!uniqueProducts.has(product.id)) {
+        uniqueProducts.add(product.id);
 
-            const newDiv = $(`
+        const newDiv = $(`
                 <div class="cell">
                     <a href="./newItem.php?productID=${product.id}" style="text-decoration: none;">
                         <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
@@ -110,24 +109,26 @@ function displayProducts(products) {
                     </a>
                 </div>
             `);
-            productDiv.append(newDiv);
-        }
+        productDiv.append(newDiv);
+      }
     });
-}
+  }
 
 </script>
 
 
 <style>
-  .top-shits{
+  .top-shits {
     display: flex;
     flex-direction: row;
     margin: 10px;
   }
-  .back-btn{
+
+  .back-btn {
     margin-left: 10px;
   }
-  .back-btn button{
+
+  .back-btn button {
     padding: 10px 20px;
     background-color: green;
     color: #fff;
@@ -136,6 +137,7 @@ function displayProducts(products) {
     cursor: pointer;
     width: 100px;
   }
+
   body {
     background-color: #f4f4f4;
   }
@@ -184,6 +186,7 @@ function displayProducts(products) {
     padding: 15px;
     text-decoration: none;
   }
+
   .cell .has-text-primary {
     color: #28a745;
   }
@@ -191,7 +194,8 @@ function displayProducts(products) {
   .cell .has-text-weight-bold {
     font-weight: bold;
   }
-  /* search dropdown */ 
+
+  /* search dropdown */
 
   /* Search filters styling */
   #search-filters {
@@ -265,8 +269,9 @@ function displayProducts(products) {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  select:hover, select:focus {
-    border-color: #4CAF50;  
+  select:hover,
+  select:focus {
+    border-color: #4CAF50;
   }
 
 
@@ -298,24 +303,30 @@ function displayProducts(products) {
   }
 
   @media (max-width: 480px) {
-  #fixed-grid {
-    grid-template-columns: repeat(2, 1fr); /* Two columns for the grid */
-    gap: 10px; /* Adjust the spacing between cells */
+    #fixed-grid {
+      grid-template-columns: repeat(2, 1fr);
+      /* Two columns for the grid */
+      gap: 10px;
+      /* Adjust the spacing between cells */
+    }
+
+    .cell {
+      max-width: 100%;
+      /* Ensure cells adjust to grid size */
+      padding: 5px;
+      /* Optional: Reduce padding inside cells */
+    }
+
+    .cell img {
+      width: 100%;
+      /* Ensure images scale properly */
+      height: auto;
+      /* Maintain image aspect ratio */
+    }
   }
 
-  .cell {
-    max-width: 100%; /* Ensure cells adjust to grid size */
-    padding: 5px; /* Optional: Reduce padding inside cells */
-  }
-
-  .cell img {
-    width: 100%; /* Ensure images scale properly */
-    height: auto; /* Maintain image aspect ratio */
-  }
-}
-
-   /* Apply button styling */
-   #apply-button {
+  /* Apply button styling */
+  #apply-button {
     padding: 10px 20px;
     border: none;
     border-radius: 20px;
@@ -329,8 +340,9 @@ function displayProducts(products) {
 
   /* Button hover effect */
   #apply-button:hover {
-    background-color: #45a049; /* Darker green on hover */
-    
+    background-color: #45a049;
+    /* Darker green on hover */
+
   }
 </style>
 

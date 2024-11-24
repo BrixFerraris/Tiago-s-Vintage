@@ -4,32 +4,28 @@ require_once './dbCon.php';
 if (isset($_POST["register"])) {
     $Fname = $_POST["firstName"];
     $Lname = $_POST["lastName"];
-    $UserName = $_POST["username"];
+    $UserName = $_POST["email"];
     $password = $_POST["password"];
     $ConfPassword = $_POST["ConfPassword"];
     $contact = $_POST["contact"];
 
     if (emptyInputSignup($Fname,$Lname,$contact,$UserName,$password,$ConfPassword) !== false) {
-        header("location: ../../server/superadmin_AdminProfile.php?error=EmptyInput");
+        header("location: ../register.php?error=EmptyInput");
         exit();
     }
     if (passMatch($password,$ConfPassword) !==false) {
-        header("location: ../../server/superadmin_AdminProfile.php?error=PassNotMatching");
-        exit();
-    }
-    if (InvalidUser($UserName) !== false) {
-        header("location: ../../server/superadmin_AdminProfile.php?error=InvalidUsername");
+        header("location: ../register.php?error=PassNotMatching");
         exit();
     }
     if (userExist($conn,$UserName) !== false) {
-        header("location: ../../server/superadmin_AdminProfile.php?error=UsernameTaken");
+        header("location: ../register.php?error=UsernameTaken");
         exit();
     }
     createUser($conn,$UserName,$Lname,$Fname,$contact,$ConfPassword);
 } elseif (isset($_POST["admin"])) {
     $Fname = $_POST["firstName"];
     $Lname = $_POST["lastName"];
-    $UserName = $_POST["username"];
+    $UserName = $_POST["email"];
     $password = $_POST["password"];
     $adminRole = $_POST["adminRole"];
     $contact = 'None';

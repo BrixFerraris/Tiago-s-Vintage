@@ -15,6 +15,12 @@ if (isset($_SESSION["role"])) {
     header("location: ./adminLogin.php?error=NotLoggedIn");
     exit();
 }
+
+if (isset($_GET["error"])) {
+    if ($_GET["error"] === "none") {
+        echo '<script>alert("Success");</script>';
+    }
+}
 ?>
 
 <!-- Main -->
@@ -38,7 +44,7 @@ if (isset($_SESSION["role"])) {
 
             <div class="form-group">
                 <label for="price">Price (PHP)</label>
-                <input type="text" id="price" name="price" placeholder="Price (PHP)" required pattern="^\d+(\.\d{2})?$"
+                <input type="number" id="price" name="price" placeholder="Price (PHP)" required pattern="^\d+(\.\d{2})?$"
                     title="Enter a valid amount in PHP, e.g., 123.45">
             </div>
 
