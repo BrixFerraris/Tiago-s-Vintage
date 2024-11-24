@@ -10,10 +10,23 @@ include './header.php';
     </div>
 
 
-    <div class="search-filter" id="search-filters">
+    <div class="search-filter" id="search-filters" style="margin-left:10px;">
       <input type="text" id="search-input" placeholder="Search Products...">
+      </div>
     </div>
 
+    <div class="buttons-filter">
+        <div class="category-filter">
+          <button class="category-btns">All</button>
+          <button class="category-btns">T-shirts</button>
+          <button class="category-btns">Jackets</button>
+          <button class="category-btns">Shoes</button>
+          <button class="category-btns">Caps</button>
+          <button class="category-btns">Pants</button>
+          <button class="category-btns">Jersey</button>
+          <button class="category-btns">Shorts</button>
+        </div>
+    </div>
   </div>
 
   <div id="fixed-grid" class="fixed-grid">
@@ -115,7 +128,21 @@ include './header.php';
   }
 
 </script>
+<script>
+// Get all category buttons
+const buttons = document.querySelectorAll('.category-btns');
 
+// Add click event to each button
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+    // Remove 'focused' class from all buttons
+    buttons.forEach(btn => btn.classList.remove('focused'));
+
+    // Add 'focused' class to the clicked button
+    button.classList.add('focused');
+  });
+});
+</script>
 
 <style>
   .top-shits {
@@ -123,20 +150,38 @@ include './header.php';
     flex-direction: row;
     margin: 10px;
   }
-
-  .back-btn {
-    margin-left: 10px;
-  }
-
-  .back-btn button {
+  .back-btn button{
     padding: 10px 20px;
-    background-color: green;
+    background-color: #2E6600;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     width: 100px;
   }
+  
+  .category-filter {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Creates 5 equal-width columns */
+  gap: 10px; /* Space between items */
+  margin-bottom: 10px;
+}
+
+.category-btns {
+  padding: 10px 20px;
+  background-color: #2E6600;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin: 5px;
+}
+
+.category-btns.focused {
+  background-color: darkgreen; /* Change the background color on focus */
+  box-shadow: 0 0 5px rgba(0, 255, 0, 0.5); /* Add a glowing effect */
+}
 
   body {
     background-color: #f4f4f4;
@@ -282,68 +327,70 @@ include './header.php';
     gap: 20px;
   }
 
-  @media (max-width: 768px) {
-    .top-shits {
-      flex-direction: row;
-      align-items: center;
-    }
-
-    .back-btn button {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-
-    #search-input {
-      width: 100%;
-    }
-
-    .fixed-grid {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
+ /* Media query for screens with max width of 768px (tablets and small screens) */
+@media (max-width: 768px) {
+  .top-shits {
+    flex-direction: row;
+    align-items: center;
   }
 
-  @media (max-width: 480px) {
-    #fixed-grid {
-      grid-template-columns: repeat(2, 1fr);
-      /* Two columns for the grid */
-      gap: 10px;
-      /* Adjust the spacing between cells */
-    }
-
-    .cell {
-      max-width: 100%;
-      /* Ensure cells adjust to grid size */
-      padding: 5px;
-      /* Optional: Reduce padding inside cells */
-    }
-
-    .cell img {
-      width: 100%;
-      /* Ensure images scale properly */
-      height: auto;
-      /* Maintain image aspect ratio */
-    }
+  .category-filter {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns for medium screens */
   }
 
-  /* Apply button styling */
-  #apply-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    background-color: hsl(93, 100%, 20%);
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  .back-btn button {
+    width: 100%;
+    margin-bottom: 10px;
   }
 
-  /* Button hover effect */
-  #apply-button:hover {
-    background-color: #45a049;
-    /* Darker green on hover */
-
+  #search-input {
+    width: 100%;
   }
+
+  .fixed-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Flexible grid with a minimum column width */
+  }
+}
+
+/* Media query for screens with max width of 480px (mobile phones) */
+@media (max-width: 480px) {
+  .category-filter {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for mobile */
+  }
+
+  #fixed-grid {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for the grid */
+    gap: 10px; /* Adjust spacing between cells */
+  }
+
+  .cell {
+    max-width: 100%; /* Ensure cells adjust to grid size */
+    padding: 5px; /* Optional: Reduce padding inside cells */
+  }
+
+  .cell img {
+    width: 100%; /* Ensure images scale properly */
+    height: auto; /* Maintain image aspect ratio */
+  }
+}
+
+/* Apply button styling */
+#apply-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  background-color: hsl(93, 100%, 20%);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Button hover effect */
+#apply-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
 </style>
 
 

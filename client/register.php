@@ -5,8 +5,7 @@ include 'header.php';
 <!-- Main -->
 
 <link rel="stylesheet" href="../CSS/registerClient.css">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 
 
 <body>
