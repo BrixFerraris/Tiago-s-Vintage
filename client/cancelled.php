@@ -15,158 +15,176 @@ include './header.php';
     <div class="order-section" id="cancelled">
         <h4>My Orders - Cancelled</h4>
 
-        <div class="order-item">
-            <div class="item-details">
-                <img src="shirt.png" alt="Product Image">
-                <div>
-                    <h5>Davey Allison 28 Big Print</h5>
-                    <p>Size: 25W X 35L (Large)</p>
-                    <p>Quantity: 1</p>
-                    <p>Total Items: 1</p>
-                </div>
-            </div>
-            <div class="item-status">
-                <p class="status cancelled">Cancelled</p>
-            </div>
-            <div class="item-price">
-                <p>₱1500</p>
-            </div>
-        </div>
-
         <!-- Add more cancelled order items here as needed -->
 
-          <div class="order-item">
-            <div class="item-details">
-                <img src="shirt.png" alt="Product Image">
-                <div>
-                    <h5>Davey Allison 28 Big Print</h5>
-                    <p>Size: 25W X 35L (Large)</p>
-                    <p>Quantity: 1</p>
-                    <p>Total Items: 1</p>
-                </div>
-            </div>
-            <div class="item-status">
-                <p class="status cancelled">Cancelled</p>
-            </div>
-            <div class="item-price">
-                <p>₱1500</p>
-            </div>
+        <div id="order-list">
+            <!-- Order items will be dynamically inserted here -->
         </div>
+    </div>
 </div>
-</div>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: './includes/getOrders.php',
+            type: 'GET',
+            success: function (orders) {
+                console.log(orders);
+                $('#order-list').empty(); 
+                if (orders.length === 0) {
+                    $('#order-list').append('<h1>No Orders Yet</h1>');
+                    return;
+                }
+
+                $.each(orders, function (index, order) {
+                    var itemTitles = order.items.map(item => item.title).join(', ');
+                    var itemSizes = order.items.map(item => item.size).join('<br>');
+                    var totalQuantity = order.total_quantity;
+                    var totalPrice = order.total_price;
+
+                    var orderItem = `
+                <div class="order-item">
+                    <div class="item-details">
+                        <img src="../server/includes/uploads/${order.first_img}" alt="Product Image" style="width: 100px; height: auto;">
+                        <div>
+                            <h5>${itemTitles}</h5>
+                            <p>Size: <br> ${itemSizes}</p>
+                            <p>Quantity: ${totalQuantity}</p>
+                            <p>Total Items: ${totalQuantity}</p>
+                        </div>
+                    </div>
+                    <div class="item-status">
+                        <p class="status ${order.status.toLowerCase()}">${order.status}</p>
+                    </div>
+                    <div class="item-price">
+                        <p>₱${totalPrice.toFixed(2)}</p>
+                    </div>
+                </div>`;
+                    $('#order-list').append(orderItem);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching orders:', error);
+                alert('Failed to load orders. Please try again later.');
+            }
+        });
+    });
+</script>
 </body>
+
 </html>
 <style>
-    
-body {
+    body {
 
-    background-color: #f0f0f5;
-}
-.container p{
-    color: black;
-}
-.container p:hover{
-    cursor: default;
-}
-.container {
-    max-width: 1500px;
-    margin: 20px auto;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
+        background-color: #f0f0f5;
+    }
 
-.menu {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-}
+    .container p {
+        color: black;
+    }
 
-.menu li {
-    margin: 0 20px;
-}
+    .container p:hover {
+        cursor: default;
+    }
 
-.menu a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-}
+    .container {
+        max-width: 1500px;
+        margin: 20px auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
 
-.menu a:hover {
-    text-decoration: underline;
-}
+    .menu {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+    }
 
-/* Tabs for Orders */
-.tabs {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-}
+    .menu li {
+        margin: 0 20px;
+    }
 
-.tab-button {
-    background-color: #f0f0f5;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
+    .menu a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+    }
 
-.tab-button.active {
-    background-color: #f44336;
-    color: white;
-}
+    .menu a:hover {
+        text-decoration: underline;
+    }
 
-/* Order Section */
-.order-section {
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
+    /* Tabs for Orders */
+    .tabs {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+    }
 
-.order-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding: 15px 0;
-}
+    .tab-button {
+        background-color: #f0f0f5;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
 
-.item-details {
-    display: flex;
-    align-items: center;
-}
+    .tab-button.active {
+        background-color: #f44336;
+        color: white;
+    }
 
-.item-details img {
-    width: 80px;
-    height: 80px;
-    margin-right: 15px;
-}
+    /* Order Section */
+    .order-section {
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
 
-.item-status {
-    width: 100px;
-    text-align: center;
-}
+    .order-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        padding: 15px 0;
+    }
 
-.item-price {
-    width: 100px;
-    text-align: center;
-}
+    .item-details {
+        display: flex;
+        align-items: center;
+    }
 
-/* Cancelled status */
-.status.cancelled {
-    color: red;
-    font-weight: bold;
-}
+    .item-details img {
+        width: 80px;
+        height: 80px;
+        margin-right: 15px;
+    }
+
+    .item-status {
+        width: 100px;
+        text-align: center;
+    }
+
+    .item-price {
+        width: 100px;
+        text-align: center;
+    }
+
+    /* Cancelled status */
+    .status.cancelled {
+        color: red;
+        font-weight: bold;
+    }
 
 
-    .item-details p{
-    font-size: small;
-}
+    .item-details p {
+        font-size: small;
+    }
 </style>
 
 <?php
 include '../test/newFooter.php';
-?> 
+?>

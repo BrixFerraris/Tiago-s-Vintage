@@ -22,7 +22,7 @@ if (isset($_SESSION["uID"])) {
          </div>
                 <div class="details">
                   <div class="details-infos">
-                            <h1 id="title" >
+                            <h1 id="title-ko" >
                             </h1>
                             <p id="price" >
                             </p>
@@ -69,12 +69,11 @@ if (isset($_SESSION["uID"])) {
                   </div>
                   
 <script>
-$(document).ready(function() {
-    // WebSocket connection
-    const conn = new WebSocket('ws://localhost:8080/ws/');
+$(document).ready(function () {
     const url = new URL(window.location.href);
-    var productID = url.searchParams.get('productID');
-    var isLoggedIn = <?php echo json_encode($isLoggedIn); ?>;
+    const productID = url.searchParams.get('productID');
+    const isLoggedIn = <?php echo json_encode($isLoggedIn); ?>;
+
     $('#product_id').val(productID);
 
     function loadVariations(idProducts) {
@@ -83,16 +82,17 @@ $(document).ready(function() {
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ idProduct: idProducts }),
-            success: function(product) {              
+            success: function (product) {
                 if (typeof product === "string") {
-                    product = JSON.parse(product); 
+                    product = JSON.parse(product);
                 }
                 console.log(product);
+
                 if (product.type === 'variations') {
                     const buttonDiv = $('#buttons');
                     buttonDiv.empty();
 
-                    $.each(product.variations, function(index, variation) {
+                    $.each(product.variations, function (index, variation) {
                         const newDiv = $('<div>').addClass('edit-product-variation');
                         newDiv.html(`
                             <button class="variation" data-id="${variation.id}" data-quantity="${variation.quantity}">
@@ -102,18 +102,16 @@ $(document).ready(function() {
                         buttonDiv.append(newDiv);
                     });
 
-                    buttonDiv.on('click', '.variation', function() {
+                    buttonDiv.on('click', '.variation', function () {
                         if (!isLoggedIn) {
-                          alert('Please log in to add to cart!');
-                          window.location.href = "./register.php";
-                          return;
+                            alert('Please log in to add to cart!');
+                            window.location.href = "./register.php";
+                            return;
                         }
-                        // Remove 'selected' class from all buttons
                         buttonDiv.find('.variation').removeClass('selected');
-                        
-                        // Add 'selected' class to the clicked button
+
                         $(this).addClass('selected');
-                        
+
                         const variationID = $(this).data('id');
                         const variationQuantity = $(this).data('quantity');
                         $('#variationID').val(variationID);
@@ -122,29 +120,42 @@ $(document).ready(function() {
                     });
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error('Error loading variations:', error);
             }
         });
     }
 
-    loadVariations(productID);
-    conn.onopen = function() {
-        conn.send(JSON.stringify({ type: 'loadSingleProduct', id: productID }));
-    };
+    function loadProductDetails(productId) {
+        $.ajax({
+            url: './includes/getSingleProduct.php',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ id: productId }),
+            success: function (product) {
+                if (typeof product === "string") {
+                    product = JSON.parse(product);
+                }
+                console.log(product);
 
-    conn.onmessage = function(e) {
-        const product = JSON.parse(e.data);
-        if (product.type === 'edit-product') {
-            $('#title').text(product.title);
-            $('#price').text('₱' + product.price);
-            $('#description').text(product.description);
-            $('#img1').attr('src', '../server/includes/uploads/' + product.img1);
-            $('#img2').attr('src', '../server/includes/uploads/' + product.img2);
-            $('#img3').attr('src', '../server/includes/uploads/' + product.img3);
-            $('#img4').attr('src', '../server/includes/uploads/' + product.img4);
-        }
-    };
+                if (product.type === 'edit-product') {
+                    $('#title-ko').text(product.title);
+                    $('#price').text('₱' + product.price);
+                    $('#description').text(product.description);
+                    $('#img1').attr('src', '../server/includes/uploads/' + product.img1);
+                    $('#img2').attr('src', '../server/includes/uploads/' + product.img2);
+                    $('#img3').attr('src', '../server/includes/uploads/' + product.img3);
+                    $('#img4').attr('src', '../server/includes/uploads/' + product.img4);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error loading product details:', error);
+            }
+        });
+    }
+
+    loadVariations(productID);
+    loadProductDetails(productID);
 
     function validateForm() {
         const productId = $('#product_id').val();
@@ -172,19 +183,21 @@ $(document).ready(function() {
         return true;
     }
 
-    $('#addToCart').on('submit', function(e) {
+    $('#addToCart').on('submit', function (e) {
         if (!isLoggedIn) {
             alert('Please log in to add to cart!');
-            window.location.href = "./register.php"; 
-            e.preventDefault(); 
-            return; 
+            window.location.href = "./register.php";
+            e.preventDefault();
+            return;
         }
-        
+
         if (!validateForm()) {
             alert('Please fill out the form correctly.');
-            e.preventDefault(); 
+            e.preventDefault();
         }
     });
+});
+
 
     const modal = $('#myModal');
     const modalImg = $('#img01');
@@ -213,7 +226,6 @@ $(document).ready(function() {
             modal.hide();
         }
     });
-});
 </script>
 
 

@@ -64,6 +64,11 @@ include './header.php';
                     var itemSizes = order.items.map(item => item.size).join('<br>');
                     var totalQuantity = order.total_quantity;
                     var totalPrice = order.total_price;
+                    var shipping = order.shipping;
+                    var discount = order.discount;
+                    if (discount == 'discount') {
+                        totalPrice -= totalPrice * 0.1;
+                    }
                     if (order.status === 'Pending') {
                         var orderItem = `
                     <div class="order-item">
@@ -95,8 +100,6 @@ include './header.php';
                         modalClose.addEventListener('click', function () {
                             modalBg.classList.remove('modal-active');
                         });
-                    } else {
-                        $('#to-pay').append('<br><h1>No Orders Yet</h1>');
                     }
                 });
                 $('.pay-button').on('click', function () {

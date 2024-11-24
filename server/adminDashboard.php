@@ -25,104 +25,9 @@ if (isset($_SESSION["role"])) {
 <div class="notification-container">
   <div class="notification-icon">
     <i class="fas fa-bell"></i> <!-- Font Awesome bell icon -->
-    <span class="notification-badge">3</span>
   </div>
   <div class="notification-dropdown">
-    <ul>
-      <li>
-        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
-        username, order id, status
-      </li>
-      <li>
-        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
-        username, order id, status (ordered)
-      </li>
-      <li>
-        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
-        username, order id, status (payment successful)
-      </li>
-      <li>
-        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
-        Clark | #1111 | Paid
-      </li>
-      <li>
-        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
-        Clark | #2222 | Ordered
-      </li>
-
-      <li>
-        <span class="notification-category sales"><i class="fas fa-dollar-sign"></i> Sales Order</span>
-        username, order id, status (completed)
-      </li>
-      <li>
-        <span class="notification-category sales"><i class="fas fa-dollar-sign"></i> Sales Order</span>
-        Clark | #3333 | Completed
-      </li>
-
-      <li>
-        <span class="notification-category stock"><i class="fas fa-exclamation-triangle"></i> Low Stock</span>
-        product id or name, current stock level
-      </li>
-      <li>
-        <span class="notification-category stock"><i class="fas fa-exclamation-triangle"></i> Low Stock</span>
-        Levi's Pants | #123 | Stock: 3
-      </li>
-
-      <li>
-        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
-        Clark | #1111 | Paid
-      </li>
-      <li>
-        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
-        Clark | #2222 | Ordered
-      </li>
-      <li>
-        <span class="notification-category stock"><i class="fas fa-exclamation-triangle"></i> Low Stock</span>
-        Levi's Pants | #123 | Stock: 3
-      </li>
-      <li>
-        <span class="notification-category sales"><i class="fas fa-dollar-sign"></i> Sales Order</span>
-        Clark | #3333 | Completed
-      </li>
-      <li>
-        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
-        Clark | #2222 | Ordered
-      </li>
-      <li>
-        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
-        Clark | #2222 | Ordered
-      </li>
-      <li>
-        <span class="notification-category stock"><i class="fas fa-exclamation-triangle"></i> Low Stock</span>
-        Levi's Pants | #123 | Stock: 3
-      </li>
-      <li>
-        <span class="notification-category sales"><i class="fas fa-dollar-sign"></i> Sales Order</span>
-        Clark | #3333 | Completed
-      </li>
-      <li>
-        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
-        Clark | #2222 | Ordered
-      </li>
-      <li>
-        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
-        Clark | #2222 | Ordered
-      </li>
-      <li>
-        <span class="notification-category stock"><i class="fas fa-exclamation-triangle"></i> Low Stock</span>
-        Levi's Pants | #123 | Stock: 3
-      </li>
-      <li>
-        <span class="notification-category sales"><i class="fas fa-dollar-sign"></i> Sales Order</span>
-        Clark | #3333 | Completed
-      </li>
-      <li>
-        <span class="notification-category purchase"><i class="fas fa-shopping-cart"></i> Purchase Order</span>
-        Clark | #2222 | Ordered
-      </li>
-
-
-    </ul>
+    <ul id="notification-list"></ul>
   </div>
 </div>
 
@@ -187,19 +92,6 @@ if (isset($_SESSION["role"])) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
 <!-- Custom JS -->
 <script>
-$(document).ready(function () {
-  $.ajax({
-    url: './includes/getDashboard.php',
-    method: 'GET',
-    dataType: 'json',
-    success: function(data) {
-      $('#total-products').text(data.unique_products);
-      $('#total-sales-orders').text(data.completed_transactions);
-      $('#inventory-alert').text(data.low_stock_variations);
-    }
-  });
-});
-  // SIDEBAR TOGGLE
 
   let sidebarOpen = false;
   const sidebar = document.getElementById('sidebar');
@@ -222,67 +114,67 @@ $(document).ready(function () {
 
   // BAR CHART
 
-        // Your bar chart options
-        const barChartOptions = {
-            series: [
-                {
-                    data: [],
-                },
-            ],
-            chart: {
-                type: 'bar',
-                height: 350,
-                toolbar: {
-                    show: false,
-                },
-            },
-            colors: ['#246dec', '#cc3c43', '#367952', '#f5b74f', '#4f35a1'],
-            plotOptions: {
-                bar: {
-                    distributed: true,
-                    borderRadius: 4,
-                    horizontal: false,
-                    columnWidth: '40%',
-                },
-            },
-            dataLabels: {
-                enabled: false,
-            },
-            legend: {
-                show: false,
-            },
-            xaxis: {
-                categories: [],
-            },
-            yaxis: {
-                title: {
-                    text: 'Count',
-                },
-            },
-        };
+  // Your bar chart options
+  const barChartOptions = {
+    series: [
+      {
+        data: [],
+      },
+    ],
+    chart: {
+      type: 'bar',
+      height: 350,
+      toolbar: {
+        show: false,
+      },
+    },
+    colors: ['#246dec', '#cc3c43', '#367952', '#f5b74f', '#4f35a1'],
+    plotOptions: {
+      bar: {
+        distributed: true,
+        borderRadius: 4,
+        horizontal: false,
+        columnWidth: '40%',
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    legend: {
+      show: false,
+    },
+    xaxis: {
+      categories: [],
+    },
+    yaxis: {
+      title: {
+        text: 'Count',
+      },
+    },
+  };
 
-        const barChart = new ApexCharts(document.querySelector('#bar-chart'), barChartOptions);
-        barChart.render();
+  const barChart = new ApexCharts(document.querySelector('#bar-chart'), barChartOptions);
+  barChart.render();
 
-        const getTopProducts = () => {
-            $.ajax({
-                type: 'GET', 
-                url: './includes/getTopProducts.php',
-                dataType: 'json',
-                success: function(response) {
-                    const productCounts = response.map(product => product.count);
-                    const productNames = response.map(product => product.product_name);
-                    barChartOptions.series[0].data = productCounts;
-                    barChartOptions.xaxis.categories = productNames;
-                    barChart.updateOptions(barChartOptions);
-                },
-                error: function(xhr, status, error) {
-                    console.error('AJAX Error: ', status, error);
-                }
-            });
-        };
-        getTopProducts();
-  
+  const getTopProducts = () => {
+    $.ajax({
+      type: 'GET',
+      url: './includes/getTopProducts.php',
+      dataType: 'json',
+      success: function (response) {
+        const productCounts = response.map(product => product.count);
+        const productNames = response.map(product => product.product_name);
+        barChartOptions.series[0].data = productCounts;
+        barChartOptions.xaxis.categories = productNames;
+        barChart.updateOptions(barChartOptions);
+      },
+      error: function (xhr, status, error) {
+        console.error('AJAX Error: ', status, error);
+      }
+    });
+  };
+  getTopProducts();
+
 
   // AREA CHART
   const areaChartOptions = {
@@ -354,6 +246,110 @@ $(document).ready(function () {
     if (!icon.contains(event.target)) {
       dropdown.style.display = 'none';
     }
+  });
+  $(document).ready(function () {
+    $.ajax({
+      url: './includes/getDashboard.php',
+      method: 'GET',
+      dataType: 'json',
+      success: function (data) {
+        $('#total-products').text(data.unique_products);
+        $('#total-sales-orders').text(data.completed_transactions);
+        $('#inventory-alert').text(data.low_stock_variations);
+      }
+    });
+    function fetchNotifications() {
+      $.ajax({
+        url: './includes/fetchNotifications.php',
+        method: 'GET',
+        dataType: 'json',
+        success: function (notifications) {
+          const notificationList = $('#notification-list');
+          notificationList.empty();
+          
+          if (notifications.length === 0) {
+            notificationList.append('<li>No new notifications</li>');
+            return;
+          }
+
+          notifications.forEach(notification => {
+            let notificationHtml = '';
+            if (notification.status === 'Pending' || notification.status === 'Ready For Pickup') {
+              notificationHtml = `
+                            <a data-transaction-id="${notification.transaction_id}" class="seen-notif" style="text-decoration:none;" href="adminPODetails.php?transaction_id=${notification.transaction_id}">
+                              <li>
+                                  <span class="notification-category purchase">
+                                      <i class="fas fa-shopping-cart"></i> Purchase Order
+                                  </span>
+                                  ${notification.username} | #${notification.transaction_id} | ${notification.status}
+                              </li>
+                            </a>`;
+            } else if (notification.status === 'Completed') {
+              notificationHtml = `
+                            <li class="seen-notif" data-transaction-id="${notification.transaction_id}">
+                                <span class="notification-category sales">
+                                    <i class="fas fa-dollar-sign"></i> Sales Order
+                                </span>
+                                ${notification.username} | #${notification.transaction_id} | ${notification.status}
+                            </li>`;
+            } else if (notification.status === 'Low Stock') {
+              notificationHtml = `
+                          <a class="seen-notif" data-variation-id="${notification.variation_id}"  style="text-decoration:none;" href="adminEditProduct.php?product_id=${notification.product_id}">
+                            <li>
+                                <span class="notification-category stock">
+                                    <i class="fas fa-exclamation-triangle"></i> Low Stock
+                                </span>
+                                ${notification.product_name} | ${notification.variant} | Stock: ${notification.quantity}
+                            </li>
+                          </a>`;
+            }
+
+            notificationList.append(notificationHtml);
+          });
+        },
+        error: function (xhr, status, error) {
+          console.error('Error fetching notifications:', error);
+          alert('Failed to fetch notifications.');
+        }
+      });
+    }
+
+    fetchNotifications();
+
+    setInterval(fetchNotifications, 30000);
+    $(document).on('click', '.seen-notif', function () {
+      const transactionId = $(this).data('transaction-id'); 
+      const variationId = $(this).data('variation-id'); 
+
+      let tableToUpdate = '';
+      if (variationId) {
+        tableToUpdate = 'variations';
+      } else {
+        tableToUpdate = 'transactions'; 
+      }
+
+      $.ajax({
+        url: './includes/updateSeen.php', 
+        method: 'POST',
+        data: {
+          transactionId: transactionId,
+          variationId: variationId,
+          table: tableToUpdate 
+        },
+        success: function (response) {
+          if (response === 'success') {
+            alert('Status updated successfully');
+            $(this).closest('li').remove(); 
+          } else {
+            alert('Failed to update status');
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error('Error:', error);
+          alert('An error occurred while updating the status');
+        }
+      });
+    });
   });
 
 </script>

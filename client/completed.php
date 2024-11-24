@@ -21,7 +21,13 @@ include './header.php';
 </div>
 <div class="modal-review">
     <div class="modals">
+    <form action="./includes/addReview.php" method="post" enctype="multipart/form-data">
+
         <h5>Write a review</h5>
+            <input type="hidden" name="transID" id="transID">
+            <input type="hidden" name="title" id="title">
+            <input type="hidden" name="variationName" id="variationName">
+
         <div class="rateyo" id= "rating"
                 data-rateyo-rating="4"
                 data-rateyo-num-stars="5"
@@ -37,7 +43,7 @@ include './header.php';
             <!-- Add Photo Upload Button -->
         <div class="media-upload">
             <label class="btn-upload-photo">
-                <input type="file" accept="image/*" multiple id="photoInput" hidden>
+                <input type="file" name="photoInput[]" accept="image/*" multiple id="photoInput" hidden>
                 <span>Add Photo</span>
             </label>
             <small>(Max 3 images)</small>
@@ -47,9 +53,10 @@ include './header.php';
         <div class="media-preview" id="photoPreview"></div>
 
         <div class="order-btn">
-            <button class="btnSubmitReview">Submit</button>
-            <button class="btnCancel">Cancel</button>
+            <button type="submit" class="btnSubmitReview">Submit</button>
+            <button type="button" class="btnCancel">Cancel</button>
         </div>
+        </form>
     </div>
 </div>
 <script>
@@ -65,7 +72,7 @@ include './header.php';
                 var itemTitles = order.items.map(item => item.title).join(', ');
                 var itemSizes = order.items.map(item => item.size).join('<br>');
                 var totalQuantity = order.total_quantity;
-                var totalPrice = order.total_price;
+                var totalPrice = order.grandtotal;
                 if (order.status === 'Completed') {
                     hasOrders = true;
                     var orderItem = `
@@ -86,7 +93,7 @@ include './header.php';
                             <p>₱${totalPrice.toFixed(2)}</p>
                         </div>
                         <div class="item-actions">
-                            <button data-id="${order.transaction_id}" class="confirm-receive-btn">Write Review</button>
+                            <button data-variation="${order.variationName}" data-title="${order.title}" data-id="${order.transaction_id}" class="confirm-receive-btn">Write Review</button>
                         </div>
                     </div>`;
                     $('#completed').append(orderItem);
@@ -97,7 +104,11 @@ include './header.php';
             }
             $('.confirm-receive-btn').on('click', function () {
                 var transactionId = $(this).data('id'); 
-                alert("You can implement review functionality for Transaction ID: " + transactionId);
+                var title = $(this).data('title');
+                var variationName = $(this).data('variation');
+                $('#transID').val(transactionId);
+                $('#title').val(title);
+                $('#variationName').val(variationName);
                 var modalBg = $('.modal-review');
                 modalBg.addClass('modal-active');
             });
@@ -524,18 +535,6 @@ $(function () {
 }
 </style>
 
-<script>
-var modalBtn = document.querySelector('.confirm-receive-btn');
-var modalBg = document.querySelector('.modal-review');
-var modalClose = document.querySelector('.btnCancel');
-
-modalBtn.addEventListener('click', function() {
-    modalBg.classList.add('modal-active');
-});
-modalClose.addEventListener('click', function(){
-    modalBg.classList.remove('modal-active');
-});
-</script>
 
 <?php
 include '../test/newFooter.php';

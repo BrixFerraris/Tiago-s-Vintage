@@ -12,7 +12,7 @@ if (isset($_SESSION["role"])) {
         exit();
     }
 } else {
-    header("location: ../landing.php?error=NotLoggedIn");
+    header("location: ./adminLogin.php?error=NotLoggedIn");
     exit();
 }
 ?>
@@ -34,15 +34,32 @@ if (isset($_SESSION["role"])) {
         </div>
 
         <div class="content">
+
+
+        <div class="search-sort-container">
+            <div class="filter-dropdown">
+                <select id="status-filter">
+                    <option value="pending">Pending</option>
+                    <option value="completed">Completed</option>
+                    <option value="canceled">Canceled</option>
+                </select>
+            </div>
+
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search products..." />
+                <button id="search-btn"> <span class="material-icons-outlined">search</span></button>
+            </div>            
+        </div>
+
             <table id="products">
                 <thead>
                     <tr>
                         <th>Order Number</th>
                         <th>Buyer's Name</th>
                         <th>Address</th>
+                        <th>Shipping</th>
+                        <th>Freebie or Discount</th>
                         <th>Status</th>
-                        <th>Accept</th>
-                        <th>Decline</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,28 +80,47 @@ if (isset($_SESSION["role"])) {
         </div>
         </div>
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                //Websocket connection
-                var conn = new WebSocket('ws://localhost:8080/ws/');
-                var table = document.getElementById('products');
-                conn.onopen = function () {
-                    conn.send(JSON.stringify({ type: 'loadPurchaseOrders' }));
-                };
-                conn.onmessage = function (e) {
-                    var purchaseOrder = JSON.parse(e.data);
-                    if (purchaseOrder.type === 'purchase-order') {
-                        var newRow = table.insertRow();
-                        newRow.insertCell().innerHTML = purchaseOrder.transaction_id;
-                        newRow.insertCell().innerHTML = purchaseOrder.firstName + ' ' + purchaseOrder.lastName;
-                        newRow.insertCell().innerHTML = purchaseOrder.address;
-                        newRow.insertCell().innerHTML = purchaseOrder.status;
-                        newRow.insertCell().innerHTML = `<button class="accept-btn">Accept</button>`;
-                        newRow.insertCell().innerHTML = `<button class="delete-btn">Delete</button>`;
-                        newRow.addEventListener('click', function () {
-                            window.location.href = 'adminPODetails.php?transaction_id=' + purchaseOrder.transaction_id;
-                        });
-                    }
-                };
+            $(document).ready(function () {
+                loadPurchaseOrders();
+
+                function loadPurchaseOrders() {
+                    $.ajax({
+                        url: '../serverFunctions.php',
+                        type: 'POST',
+                        data: { type: 'loadPurchaseOrders' },
+                        success: function (response) {
+                            const purchaseOrders = JSON.parse(response);
+                            const table = $('#products');
+                            const uniqueOrders = {};
+
+                            const validStatuses = ['Pending', 'Ready For Pickup', 'Completed', 'Check Payment'];
+
+                            purchaseOrders.forEach(function (purchaseOrder) {
+                                if (validStatuses.includes(purchaseOrder.status)) {
+                                    const key = `${purchaseOrder.transaction_id}_${purchaseOrder.user_id}`;
+
+                                    if (!uniqueOrders[key]) {
+                                        uniqueOrders[key] = true;
+                                        const newRow = $('<tr></tr>');
+                                        newRow.append($('<td></td>').text(purchaseOrder.transaction_id));
+                                        newRow.append($('<td></td>').text(purchaseOrder.firstName + ' ' + purchaseOrder.lastName));
+                                        newRow.append($('<td></td>').text(purchaseOrder.address));
+                                        newRow.append($('<td></td>').text(purchaseOrder.shipping));
+                                        newRow.append($('<td></td>').text(purchaseOrder.discount));
+                                        newRow.append($('<td></td>').text(purchaseOrder.status));
+                                        newRow.on('click', function () {
+                                            window.location.href = 'adminPODetails.php?transaction_id=' + purchaseOrder.transaction_id;
+                                        });
+                                        table.append(newRow);
+                                    }
+                                }
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error loading purchase orders:', error);
+                        }
+                    });
+                }
             });
         </script>
         <script src="../test/sidebarToggle.js"></script>
@@ -92,3 +128,82 @@ if (isset($_SESSION["role"])) {
 </body>
 
 </html>
+
+<style>
+     /* Container for search and sort */
+  .search-sort-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  /* Search bar styling */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    overflow: hidden;
+    margin-right: 10px;
+    margin-left: 10px;
+
+  }
+
+  #search-input {
+    border: none;
+    padding: 10px;
+    outline: none;
+    width: 200px;
+  }
+
+  #search-btn {
+    background-color: hsl(93, 100%, 20%);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+
+/* Dropdown container */
+.filter-dropdown {
+    position: relative;
+}
+
+/* Styling the dropdown */
+#status-filter {
+    appearance: none; /* Removes default browser styling */
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+/* Adding a custom arrow */
+#status-filter::after {
+    content: '▼'; /* Custom arrow */
+    font-size: 12px;
+    color: #777;
+    position: absolute;
+    right: 10px;
+    pointer-events: none;
+}
+
+/* Dropdown hover effects */
+#status-filter:hover {
+    border-color: #999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* On focus */
+#status-filter:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+</style>

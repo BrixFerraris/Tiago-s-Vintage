@@ -154,44 +154,26 @@ body {
 }
 
 
-
-/* Dimes Container */
-.dimes-container {
-  margin-bottom: 20px; /* Space between form groups */
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
-/* Dimes Label */
-.dimes-container label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #333;
+.input-container input[type="password"] {
+    width: 100%;
+    padding-right: 40px; /* Add padding to make space for the icon */
 }
 
-/* Dimes Entry Container */
-.dimes-entry {
-  display: flex;
-  align-items: center;
-  gap: 15px; /* Space between length and width inputs */
+.field-icon {
+    position: absolute;
+    right: 10px; /* Adjust the position inside the input */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #aaa; /* Icon color */
 }
 
-/* Styling for the Length and Width Input Fields */
-.dimes-entry input[type="number"] {
-  width: 100%;
-  max-width: 120px; /* Control the max width of the inputs */
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Focus Effect for Input Fields */
-.dimes-entry input[type="number"]:focus {
-  border-color: #666;
-  box-shadow: 0 0 5px rgba(102, 102, 102, 0.5);
-}
 
 /* Media Query for Small Screens */
 @media screen and (max-width: 576px) {

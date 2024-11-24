@@ -187,58 +187,6 @@ body {
     border: none;
 }
 
-/* Dimes Container */
-.dimes-container {
-  margin-bottom: 20px; /* Space between form groups */
-}
-
-/* Dimes Label */
-.dimes-container label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #333;
-}
-
-/* Dimes Entry Container */
-.dimes-entry {
-  display: flex;
-  align-items: center;
-  gap: 15px; /* Space between length and width inputs */
-}
-
-/* Styling for the Length and Width Input Fields */
-.dimes-entry input[type="number"] {
-  width: 100%;
-  max-width: 120px; /* Control the max width of the inputs */
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Focus Effect for Input Fields */
-.dimes-entry input[type="number"]:focus {
-  border-color: #666;
-  box-shadow: 0 0 5px rgba(102, 102, 102, 0.5);
-}
-
-/* Media Query for Small Screens */
-@media screen and (max-width: 576px) {
-  .dimes-entry {
-      flex-direction: column;
-      gap: 10px; /* Space between inputs when stacked vertically */
-  }
-
-  .dimes-entry input[type="number"] {
-      width: 100%;
-      max-width: 100%; /* Allow inputs to take full width on small screens */
-  }
-}
-
-
 
 /* Textarea Styling */
 .form-group textarea {
@@ -264,34 +212,153 @@ button[type="submit"]:hover {
     background-color: #555;
 }
 
+
+
+.btn-upload-photo .upload-icon {
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+
+
+.photo-thumbnail {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    object-fit: cover;
+    width: 100px; /* Set thumbnail width */
+    height: 100px; /* Set thumbnail height */
+    margin: 5px; /* Add some spacing */
+}
+
+/* New styles for the image container and close button */
+.image-container {
+    position: relative;
+    display: inline-block;
+    margin: 5px;
+}
+
+.close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 14px;
+    padding: 0;
+    outline: none;
+}
+
+.close-button:hover {
+    background-color: darkred; /* Change color on hover */
+}
+
 /* Responsive Design */
 
-/* Medium <= 992px */
-@media screen and (max-width: 992px) {
+/* Media Query for Tablets (screen width between 577px and 768px) */
+@media screen and (max-width: 768px) and (min-width: 577px) {
     .grid-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: 70px 1fr;
+        grid-template-columns: 220px 1fr; /* Adjust sidebar width */
+        grid-template-rows: 60px 1fr;    /* Adjust header height */
+    }
+
+    #sidebar {
+        padding: 15px 0;
+    }
+
+    .header {
+        padding: 0 15px; /* Reduce header padding */
+    }
+
+    .form-container {
+        max-width: 90%; /* Use most of the screen width */
+        padding: 15px; /* Reduce padding */
+    }
+
+    .sidebar-list-item {
+        padding: 15px; /* Adjust padding for menu items */
+    }
+}
+
+/* Media Query for Mobile Devices (screen width <= 576px) */
+@media screen and (max-width: 576px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* Sidebar becomes hidden */
+        grid-template-rows: 60px 1fr;
         grid-template-areas:
             "header"
             "main";
     }
 
     #sidebar {
-        transform: translateX(-260px);
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 220px;
+        transform: translateX(-220px); /* Hide sidebar by default */
+        transition: transform 0.3s ease;
     }
 
     .menu-icon {
-        display: inline;
+        display: block; /* Show menu icon */
+        cursor: pointer;
+        font-size: 24px;
+        color: white;
     }
 
     .sidebar-responsive {
-        transform: translateX(0);
+        transform: translateX(0); /* Visible sidebar when toggled */
+    }
+
+    .main-container {
+        padding: 15px; /* Adjust padding for smaller screens */
+    }
+
+    .form-container {
+        max-width: 90%; /* Use the full screen width */
+        padding: 10px; /* Further reduce padding */
+        border-radius: 8px; /* Remove border radius for full-screen appearance */
+        box-shadow: none; /* Simplify appearance */
+    }
+
+    .dimes-entry {
+        flex-direction: column; /* Stack inputs vertically */
+    }
+
+    .header {
+        padding: 0 10px;
     }
 }
 
-/* Extra Small <= 576px */
-@media screen and (max-width: 576px) {
-    .header-left {
-        display: none;
+/* Common Media Query Adjustments for Tablet and Mobile */
+@media screen and (max-width: 768px) {
+    .sidebar-title {
+        padding: 0 15px;
+    }
+
+    .sidebar-brand {
+        font-size: 18px; /* Reduce font size */
+    }
+
+    .form-group label {
+        font-size: 14px; /* Adjust label font size */
+    }
+
+    .form-group input[type="text"],
+    .form-group textarea,
+    .form-group select {
+        font-size: 14px; /* Adjust input font size */
+    }
+
+    button[type="submit"] {
+        font-size: 14px; /* Adjust button font size */
+        padding: 8px 12px;
     }
 }

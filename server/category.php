@@ -100,7 +100,7 @@ if (isset($_SESSION["role"])) {
             margin-top: 10px;
         }
         .input-category, .file-category{
-            margin-left: 100px;
+            align-items: center;
         }
         .add-category {
             display: flex;
@@ -108,92 +108,138 @@ if (isset($_SESSION["role"])) {
             margin-bottom: 10px;
         }
 
-        .modal-active1 {
-            visibility: visible;
-            opacity: 1;
-        }
+        /* General Modal Styling (unchanged) */
+.modal-edit,
+.modal-add {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease-in-out;
+}
 
-        .modal-edit,
-        .modal-add {
-            position: fixed;
-            width: 100%;
-            height: 100vh;
-            top: 0;
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0s, opacity 0.3s ease-in-out;
-        }
+.modal-active {
+    visibility: visible;
+    opacity: 1;
+}
 
-        .modal-active {
-            visibility: visible;
-            opacity: 1;
-        }
+.modals-addCat,
+.modals {
+    background-color: white;
+    width: 30%;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
 
-        .modals-addCat {
-            background-color: white;
-            width: 25%;
-            height: 40%;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-direction: column;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-        }
+/* Buttons */
+.btnBack,
+.btnSubmit,
+.btnAddCat,
+.btnaddSubmit,
+.btnaddBack {
+    padding: 10px 20px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-        .modals {
-            background-color: white;
-            width: 30%;
-            height: auto;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-direction: column;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-        }
+.btnaddBack,
+.btnBack {
+    background-color: #e53935;
+}
 
-        .btnBack,
-        .btnSubmit,
-        .btnAddCat,
-        .btnaddSubmit,
-        .btnaddBack {
-            padding: 10px 20px;
-            background-color: green;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.btnAddCat,
+.btnaddSubmit,
+.btnSubmit {
+    background-color: #28a745;
+}
 
-        .btnaddBack,
-        .btnBack {
-            background-color: #e53935;
+/* Input Fields */
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
 
-        }
+/* Media Query for Tablets */
+@media (max-width: 768px) {
+    .modals-addCat,
+    .modals {
+        width: 80%; /* Adjust modal width */
+        padding: 15px;
+    }
 
-        .btnAddCat,
-        .btnaddSubmit,
-        .btnSubmit {
-            background-color: #28a745;
+    input[type="text"] {
+        width: 100%; /* Adjust input width */
+    }
 
-        }
+    .btnBack,
+    .btnSubmit,
+    .btnAddCat,
+    .btnaddSubmit,
+    .btnaddBack {
+        padding: 8px 16px; /* Adjust button size */
+        font-size: 14px;
+    }
 
-        input[type="text"] {
-            width: 50%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            transition: border-color 0.3s ease;
-            box-sizing: border-box;
-        }
+    .input-category{
+        margin: auto;
+        display: inline;
+    }
+    .order-btn{
+        display: flex;
+        justify-content: space-evenly;
+    }
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 480px) {
+    .modals-addCat,
+    .modals {
+        width: 95%; /* Maximize modal width */
+        padding: 10px;
+    }
+
+    input[type="text"] {
+        width: 100%; /* Full width for inputs */
+    }
+
+    .btnBack,
+    .btnSubmit,
+    .btnAddCat,
+    .btnaddSubmit,
+    .btnaddBack {
+        padding: 6px 12px; /* Smaller button padding */
+        font-size: 12px;
+    }
+
+    img#categoryImage {
+        width: 150px; /* Reduce image size */
+        height: auto;
+    }
+
+    .input-category{
+        margin: auto;
+    }
+}
     </style>
     <script>
 

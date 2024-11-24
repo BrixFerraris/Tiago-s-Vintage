@@ -14,7 +14,6 @@
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
                 <link rel="icon" id="title-logo" href="../assets/icons.ico" type="image/x-icon">
-                <link rel="stylesheet" href="../CSS/header.css">
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -25,46 +24,205 @@
                 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <title class="cms-title">Tiago's Vintage Boutique</title>
 <body>
-    
+
 <div class="containerz">
-                        <nav class ="topnav">
-                            <label class="cms-title title">            <a href="../client/landing.php" style="text-decoration: none; color:white">Tiago's Vintage</a></label>
-                            <a href="../client/landing.php" style="text-decoration: none; color:white"><img class="cms-logo logo" src="../assets/tiagos-removebg-preview 1.png" alt=""></a>
-                                <ul>
+                    <nav class="navbar navbar-expand-lg navbar-light">
+
+                    <label class="cms-title title"><a class="navbar-brand" href="landing.php" id="title-mo">TIAGO'S VINTAGE <img class="cms-logo logo" src="../assets/tiagos-removebg-preview 1.png" alt=""></a></label>
+                                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                                 <?php
                                 session_start();
                                     if (isset($_SESSION["username"])) {
-                                    echo '<li id="meow"><a href="../client/landing.php">Home</a></li>';
-                                    echo '<li id="meow"><a href="../client/shop.php">Products</a></li>';
-                                    echo '<li id="meow"><a href="../client/reviews.php">Reviews</a></li>';
-                                    echo '<li><a href="../client/shopcart.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
+                                    echo '<li class="nav-item active">
+                                    <a class="nav-link" href="landing.php" style="color: white;">Home <span class="sr-only">(current)</span></a>
+                                    </li>';
+                                    echo '<li class="nav-item active">
+                                        <a class="nav-link" href="../client/shop.php" style="color: white;">Product<span class="sr-only">(current)</span></a>
+                                    </li>';
+                                    echo '<li class="nav-item active">
+                                        <a class="nav-link" href="../client/reviews.php" style="color: white;">Reviews<span class="sr-only">(current)</span></a>
+                                    </li>';
+
+                                    echo '<li class="nav-item active">
+                                    <a class="nav-link" href="#" style="color: white; width:100px">Contact-us<span class="sr-only">(current)</span></a>
+                                    </li>';
+
+                                    echo '<li class="nav-item active" style="width: 190px; margin-top: 13px; "> 
+                            <div class="form-group" style="margin-top: 13px; position: relative;">
+                                <input type="text" 
+                                       class="form-control" 
+                                       placeholder="Search for products..." 
+                                       list="list-timezone" 
+                                       id="input-datalist" 
+                                       style="padding-right: 35px;">
+                                <datalist id="list-timezone">
+                                    <option value="Asia/Aden"></option>
+                                    <option value="Asia/Aqtau"></option>
+                                    <option value="Asia/Baghdad"></option>
+                                    <option value="Asia/Barnaul"></option>
+                                    <option value="Asia/Chita"></option>
+                                    <option value="Asia/Dhaka"></option>
+                                    <option value="Asia/Famagusta"></option>
+                                    <option value="Asia/Hong_Kong"></option>
+                                    <option value="Asia/Jayapura"></option>
+                                    <option value="Asia/Kuala_Lumpur"></option>
+                                    <option value="Asia/Jakarta"></option>
+                                </datalist>
+                                <i class="fa fa-search" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); color: #888; cursor: pointer;"></i>
+                            </div>
+                          </li>';
+                                    echo '
+                                    <li class="sidebar-list-item">
+                                    <a href="../client/shopcart.php" id="shop-icon">
+                                        <span class="material-icons-outlined">
+                                        shopping_cart
+                                        </span>
+                                    
+                                    </a></li>';
+                                    
                                     echo '<li><div class="dropdown">
                                     <a class="btn dropdown-toggle" style="background-color: #FFFFFF;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
                                     . $_SESSION['username'] .'
                                     </a>
-                                    <div class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuLink">
+                                    <div class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuLink" id="drop-menu">
                                     <a class="dropdown-item" href="../client/toPay.php">Orders</a>
-                                    <a class="dropdown-item" href="#">Settings</a>
+                                    <a class="dropdown-item" href="../client/accInfo.php">Settings</a>
                                     <a class="dropdown-item" href="./includes/logout.php">Log out</a>
                                     </div>
                                     </div></li>';
                         } else {
-                            echo '<li id="meow"><a href="../client/landing.php">Home</a></li>';
-                            echo '<li id="meow"><a href="../client/shop.php">Products</a></li>';
-                            echo '<li id="meow"><a href="../client/reviews.php">Reviews</a></li>';
-                            echo '<li id="meow"><a href="../client/login.php"><img class="shopping" src="../assets/Shopping Cart.png" alt=""></a></li>';
-                            echo '<li class="meron"><a href="./register.php">Register/Login</a></li>';
-                                }
-        ?>
+                            echo '<li class="nav-item active">
+                            <a class="nav-link" href="landing.php" style="color: white;">Home <span class="sr-only">(current)</span></a>
+                            </li>';
+                            echo '<li class="nav-item active">
+                                <a class="nav-link" href="../client/shop.php" style="color: white;">Product<span class="sr-only">(current)</span></a>
+                            </li>';
+                            echo '<li class="nav-item active">
+                                <a class="nav-link" href="../client/reviews.php" style="color: white;">Reviews<span class="sr-only">(current)</span></a>
+                            </li>';
 
-                                </ul>
-                                                <div class="menu-icon" onclick="openSidebar()">
-                                                <span class="material-icons-outlined">menu</span>
-                                                </div>
+                            
+                            echo '<li class="nav-item active">
+                            <a class="nav-link" href="#" style="color: white; width:100px">Contact-us<span class="sr-only">(current)</span></a>
+                            </li>';
+
+                            echo '<li class="nav-item active" style="width: 190px; margin-top: 13px; "> 
+                            <div class="form-group" style="margin-top: 13px; position: relative;">
+                                <input type="text" 
+                                       class="form-control" 
+                                       placeholder="Search for products..." 
+                                       list="list-timezone" 
+                                       id="input-datalist" 
+                                       style="padding-right: 35px;">
+                                <datalist id="list-timezone">
+                                    <option value="Asia/Aden"></option>
+                                    <option value="Asia/Aqtau"></option>
+                                    <option value="Asia/Baghdad"></option>
+                                    <option value="Asia/Barnaul"></option>
+                                    <option value="Asia/Chita"></option>
+                                    <option value="Asia/Dhaka"></option>
+                                    <option value="Asia/Famagusta"></option>
+                                    <option value="Asia/Hong_Kong"></option>
+                                    <option value="Asia/Jayapura"></option>
+                                    <option value="Asia/Kuala_Lumpur"></option>
+                                    <option value="Asia/Jakarta"></option>
+                                </datalist>
+                                <i class="fa fa-search" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); color: #888; cursor: pointer;"></i>
+                            </div>
+                          </li>';
+
+                            echo '<li class="nav-item active">
+                            <a class="nav-link" href="../client/login.php" style="color: white;">Login/Register<span class="sr-only">(current)</span></a>
+                        </li>';
+                                }
+                                ?>
+                                </ul>                         
                         </nav>
                                 
 </div>
+
+<style>
+    #input-datalist {
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease-in-out;
+}
+
+#input-datalist:focus {
+    border-color: #2E6600;
+    box-shadow: 0 0 5px rgba(46, 102, 0, 0.5);
+}
+
+.fa-search {
+    transition: color 0.3s ease;
+}
+
+.fa-search:hover {
+    color: #2E6600;
+}
+
+    nav{
+        background-color:#2E6600;
+    }
+    #title-mo{
+        color: white;
+        font-family: 'Koulen', sans-serif;
+    }
+    li{
+        display: inline-block;
+        line-height: 70px;
+        margin: 0 40px;
+    }
+    .nav-link{
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    #shop-icon{
+        text-decoration: none;
+        color: white;
+        width: 30px;
+    }    
+    #drop-menu{
+        position: absolute;
+    }
+    .material-icons-outlined{
+        margin-top: 30px;
+    }
+    .btn{
+        margin-top: 13px;
+    }
+    #shop-icon, #dropdownMenuLink{
+        margin-left: auto;
+    }
+
+    @media only screen and (max-width: 1024px) {
+    li {
+        margin: 5px; /* Smaller margins for compact view */
+        padding: 5px; /* Reduce padding for smaller screens */
+    }
+}
+
+@media only screen and (max-width: 1440px) {
+    li {
+        font-size: small; /* Keep smaller font size */
+        padding: 5px; /* Adjust padding for better fit */
+    }
+}
+
+</style>
+
 </body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', e => {
+        $('#input-datalist').autocomplete()
+    }, false);
+</script>
 
 <script>
 $(document).ready(function() {

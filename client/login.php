@@ -26,11 +26,13 @@ include 'header.php';
                 <input type="text" id="username" name="username" placeholder="Username" required>
             </div>
 
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Password" required>
-
-            </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <div class="input-container">
+                        <input type="password" id="password" name="password" placeholder="Password" required>
+                        <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                    </div>
+                </div>  
 
             <button name="submit" type="submit">Log in</button>
             <div class="aabtm">
@@ -42,7 +44,27 @@ include 'header.php';
         </form>
     </div>
     </main>
+
     <!-- End Main -->
+
+
+<script>
+
+    //shhow password
+
+    $(".toggle-password").click(function() {
+
+$(this).toggleClass("fa-eye fa-eye-slash");
+var input = $($(this).attr("toggle"));
+if (input.attr("type") == "password") {
+  input.attr("type", "text");
+} else {
+  input.attr("type", "password");
+}
+});
+</script>
+
+
     <?php
 include '../test/newFooter.php';
 ?> 

@@ -1,128 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
-    <link rel="stylesheet" href="../CSS/checkout.css"> 
+    <link rel="stylesheet" href="../CSS/checkout.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
+
 <body>
-<?php
+    <?php
     session_start();
-?>
+    ?>
     <div class="checkout-container">
-<input type="hidden" name="user_id" id="user_id" value="<?php echo $_SESSION['uID'] ;?>">
+        <input type="hidden" name="user_id" id="user_id" value="<?php echo $_SESSION['uID']; ?>">
         <!-- Order Summary -->
         <div class="order-summary">
             <h2>Order Summary</h2>
-            <ul>  
-                    <li></li>
+            <ul>
+                <li></li>
             </ul>
-            <h4>Points Available: 10000</h4>
-        <div id="discount-method" class="radio-group">
-            <input type="radio" id="freebie" name="discount-method" value="freebie" required>
-            <label for="freebie" class="radio-label">Random Freebie</label>
+            <h4 id="points_available">Points Available: 10000</h4>
+            <div id="discount-method" class="radio-group">
 
-            <input type="radio" id="discount" name="discount-method" value="discount">
-            <label for="discount" class="radio-label">10% Discount</labe>
-</div>
+            </div>
             <p><strong>Total: ₱</strong></p>
         </div>
 
         <!-- Shipping Info -->
         <div class="shipping-info">
-        <h2>Shipping Information</h2>
-<label for="name">Full Name</label>
-<p id="name"></p>
+            <h2>Shipping Information</h2>
+            <label for="name">Full Name</label>
+            <p id="name"></p>
 
-<label for="address">Shipping Address</label>
-<input type="text" id="address" name="address" placeholder="Enter your shipping address" required>
+            <label for="address">Shipping Address</label>
+            <input type="text" id="address" name="address" placeholder="Enter your shipping address" required>
 
-<label for="contact">Contact Number</label>
-<p id="contact"></p>
+            <label for="contact">Contact Number</label>
+            <p id="contact"></p>
 
-<!-- Radio buttons for Pick Up or Delivery -->
-<label for="shipping-method">Shipping Method</label>
-<div id="shipping-method" class="radio-group">
-    <input type="radio" id="pickup" name="shipping-method" value="pickup" required>
-    <label for="pickup" class="radio-label">Pick Up</label>
+            <!-- Radio buttons for Pick Up or Delivery -->
+            <label for="shipping-method">Shipping Method</label>
+            <div id="shipping-method" class="radio-group">
+                <input type="radio" id="pickup" name="shipping-method" value="pickup" required>
+                <label for="pickup" class="radio-label">Pick Up</label>
 
-    <input type="radio" id="delivery" name="shipping-method" value="delivery">
-    <label for="delivery" class="radio-label">Delivery</label>
-</div>
+                <input type="radio" id="delivery" name="shipping-method" value="delivery" required>
+                <label for="delivery" class="radio-label">Delivery</label>
+            </div>
 
 
-<!-- Action Buttons -->
-<div class="action-buttons">
-    <button type="submit" id="place-order" class="place-order">Place Order</button>
-    <button type="button" class="cancel-order" onclick="window.location.href='shopcart.php';">Cancel</button>
-</div>
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button type="submit" id="place-order" class="place-order">Place Order</button>
+                <button type="button" class="cancel-order"
+                    onclick="window.location.href='shopcart.php';">Cancel</button>
+            </div>
 
-    </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function(){
+        </div>
+        <script>
+            $(document).ready(function () {
+                let varID = [];
+                let qty = [];
+                let currentTotal = 0;
 
-            //Websocket connection
-            let varID = [];
-            let qty = [];
-            var conn = new WebSocket('ws://localhost:8080/ws/');
-            const url = new URL(window.location.href);
-            const userID = url.searchParams.get('userID');
-            var uID =  document.getElementById('user_id').value;
-            if (userID != uID) {
-                window.location.href = "./checkout.php?uID="+uID;
-                userID =uID;
-            }
-            conn.onopen = function(e) {
-                conn.send(JSON.stringify({ type: 'loadCart', user_id: userID }));
-            };
-            conn.onmessage = function(e) {
-                try {
-                    var orderSummary = JSON.parse(e.data);
-                    var name =document.getElementById('name');
-                    var contact = document.getElementById('contact');
-                    var itemList = '';
-                    orderSummary.forEach(function(item) {
-                    itemList += `<li>
-                                    <img width="80px" height="80px" src="../server/includes/uploads/${item.img1}" alt="">${item.title} - ₱${item.price} <br> x${item.quantity}                
-                                </li>`;
-                    name.innerText = item.firstName+' '+item.lastName;
-                    varID.push(item.variationId);
-                    qty.push(item.quantity);
-                    contact.innerText = item.contact;
-                    });
-                    
-                    document.querySelector('.order-summary ul').innerHTML = itemList;
-                    
-                    var total = 0;
-                    orderSummary.forEach(function(item) {
-                    total += item.total;
-                    });
-                    document.querySelector('.order-summary strong').textContent = `Total: ₱${total}`;
-                } catch (error) {
-                    console.error('Error parsing JSON:', error);
+                const userID = new URL(window.location.href).searchParams.get('userID');
+                const uID = $('#user_id').val();
+                if (userID !== uID) {
+                    window.location.href = `./checkout.php?uID=${uID}`;
                 }
-            };
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('place-order')) {
-                    var address = document.getElementById('address').value;
-                    var varIDArray = Array.isArray(varID) ? varID : [varID];
-                    console.log(varIDArray);
-                    conn.send(JSON.stringify({ 
-                        type: 'order', 
-                        user_id: userID, 
-                        address: address, 
-                        variationID: varIDArray,
-                        qty: qty
-                    }));
-                    alert('Order placed successfully!');
-                    window.location.href = './toPay.php';
-                }
+
+                $.ajax({
+                    url: '../serverFunctions.php',
+                    type: 'POST',
+                    data: { type: 'loadCart', user_id: userID },
+                    success: function (response) {
+                        try {
+                            const orderSummary = JSON.parse(response);
+                            let itemList = '';
+                            let total = 0;
+
+                            orderSummary.forEach(function (item) {
+                                itemList += `
+                        <li>
+                            <img width="80px" height="80px" src="../server/includes/uploads/${item.img1}" alt="">
+                            ${item.title} - ₱${item.price} <br> x${item.quantity}                
+                        </li>`;
+                                total += item.total;
+                                $('#name').text(`${item.firstName} ${item.lastName}`);
+                                $('#contact').text(item.contact);
+                                $('#points_available').text("Available points: " + item.points);
+                                var points = item.points;
+                                if (points >= 10) {
+                                    $("#discount-method").empty();
+                                    var html = `
+                                        <input type="radio" id="freebie" name="discount-method" value="freebie" required>
+                                        <label for="freebie" class="radio-label">Random Freebie</label>
+
+                                        <input type="radio" id="discount" name="discount-method" value="discount">
+                                        <label for="discount" class="radio-label">10% Discount</labe>
+                                    `;
+                                    $("#discount-method").append(html);
+                                } else {
+                                    $("#discount-method").empty();
+                                    var html = `
+                                    <h5>Points should be 10 or higher, shop more with us to earn more points </h5>
+                                        <input type="radio" id="freebie" name="discount-method" value="freebie" disabled required>
+                                        <label for="freebie" disabled class="radio-label">Random Freebie</label>
+
+                                        <input type="radio" id="discount" name="discount-method" disabled value="discount">
+                                        <label for="discount" disabled class="radio-label">10% Discount</labe>
+                                    `;
+                                    $("#discount-method").append(html);
+                                }
+                                varID.push(item.variationId);
+                                qty.push(item.quantity);
+                            });
+
+                            $('.order-summary ul').html(itemList);
+                            $('.order-summary strong').text(`Total: ₱${total}`);
+
+                            $('input[name="discount-method"]').on('change', function () {
+                                currentTotal = total;
+
+                                if ($('#discount').is(':checked')) {
+                                    currentTotal -= total * 0.1;
+                                    console.log("haha");
+                                    $('.order-summary strong').text(`Total: ₱${currentTotal}`);
+                                }
+
+                                $('.order-summary strong').text(`Total: ₱${currentTotal}`);
+                            });
+                        } catch (error) {
+                            console.error('Error parsing JSON:', error);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error loading cart:', error);
+                    }
+                });
+
+                $(document).on('click', '.place-order', function () {
+                    const address = $('#address').val();
+                    const varIDArray = Array.isArray(varID) ? varID : [varID];
+                    const shippingMethod = $("input[name='shipping-method']:checked").val();
+                    const discountMethod = $("input[name='discount-method']:checked").val();
+
+                    $.ajax({
+                        url: '../serverFunctions.php',
+                        type: 'POST',
+                        data: {
+                            type: 'order',
+                            user_id: userID,
+                            address: address,
+                            variationID: varIDArray,
+                            qty: qty,
+                            shipMethod: shippingMethod,
+                            discount_method: discountMethod,
+                            grandTotal: currentTotal,
+                            status : 'Pending'
+                        },
+                        success: function (response) {
+                            const data = JSON.parse(response);
+                            if (data.type === 'orderPlaced') {
+                                alert('Order placed successfully!');
+                                window.location.href = './toPay.php';
+                            } else {
+                                alert('Error placing the order.');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error placing order:', error);
+                        }
+                    });
+                });
             });
-        });
-
-    </script>
+        </script>
 
 </body>
-</html>
 
+</html>

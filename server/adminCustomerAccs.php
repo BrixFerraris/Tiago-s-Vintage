@@ -35,6 +35,7 @@ if (isset($_SESSION["role"])) {
                     <tr>
                         <th>ID</th>
                         <th>Username</th>
+                        <th>E-mail</th>
                         <th>Orders Completed</th>
                         <th>Points</th>
                     </tr>
@@ -43,30 +44,35 @@ if (isset($_SESSION["role"])) {
                     <tr>
                         <td>1</td>
                         <td>Clar</td>
+                        <td>clarence@gmail.com</td>
                         <td>6</td>
                         <td>6</td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>Duk</td>
+                        <td>clarence@gmail.com</td>
                         <td>13</td>
                         <td>3</td>
                     </tr>
                     <tr>
                         <td>3</td>
                         <td>Brix</td>
+                        <td>clarence@gmail.com</td>
                         <td>24</td>
                         <td>14</td>
                     </tr>
                     <tr>
                         <td>4</td>
                         <td>Alex</td>
+                        <td>clarence@gmail.com</td>
                         <td>13</td>
                         <td>13</td>
                     </tr>
                     <tr>
                         <td>5</td>
                         <td>Amiel</td>
+                        <td>clarence@gmail.com</td>
                         <td>69</td>
                         <td>69</td>
                     </tr>

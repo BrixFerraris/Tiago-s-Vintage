@@ -1,18 +1,19 @@
-
-
+/* Base Styles */
 .main-title {
     display: flex;
     justify-content: space-between;
-  }
+}
 
 .content {
+    flex-grow: 1;
     padding: 20px;
+    background-color: #f9f9f9;
 }
+
 .charts-container {
     display: flex;
     flex-wrap: wrap; /* Allow wrapping on smaller screens */
     justify-content: space-evenly;
-    align-items: flex-start;
     gap: 20px;
     padding: 20px;
     background-color: #f8f9fa;
@@ -34,6 +35,7 @@
     width: 100% !important; /* Ensure the canvas fits the container */
     height: auto; /* Set height to auto for responsiveness */
 }
+
 .tables-container {
     display: flex;
     flex-wrap: wrap;
@@ -70,13 +72,67 @@ table th {
 table tbody tr:hover {
     background-color: #f1f1f1;
 }
-.content {
-    flex-grow: 1;
-    padding: 20px;
-    background-color: #f9f9f9;
-  }
 
+/* Scrollable Table */
+table tbody {
+    display: block;
+    max-height: 200px; /* Adjust height to show only 5 rows */
+    overflow-y: auto;
+}
 
+table thead, table tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
 
+/* Media Queries */
+@media (max-width: 1024px) { /* Tablets */
+    .charts-container {
+        flex-direction: column; /* Stack charts vertically */
+        gap: 15px;
+    }
 
-  
+    .chart {
+        max-width: 100%; /* Take full width */
+        min-width: unset; /* Remove minimum width */
+    }
+
+    .tables-container {
+        flex-direction: column; /* Stack tables vertically */
+    }
+
+    .table-section {
+        width: 100%; /* Take full width */
+    }
+}
+
+@media (max-width: 768px) { /* Mobile Devices */
+    .main-title {
+        flex-direction: column; /* Stack title components */
+        align-items: center;
+    }
+
+    .charts-container {
+        gap: 10px;
+    }
+
+    .chart {
+        padding: 15px;
+        max-width: 100%; /* Take full width */
+        width: auto;
+    }
+
+    .tables-container {
+        gap: 10px;
+    }
+
+    .table-section {
+        margin-bottom: 15px;
+        min-width: unset;
+    }
+
+    table th, table td {
+        padding: 8px; /* Reduce padding for smaller screens */
+    }
+}
