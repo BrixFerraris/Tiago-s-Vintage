@@ -27,10 +27,11 @@ include './header.php';
           <button class="category-btns">Shorts</button>
         </div>
     </div>
-  </div>
+  
 
   <div id="fixed-grid" class="fixed-grid">
     <!-- Existing product cells will be dynamically added here -->
+  </div>
   </div>
 </div>
 <script>

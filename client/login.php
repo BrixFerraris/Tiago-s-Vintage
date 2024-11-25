@@ -22,7 +22,7 @@ include 'header.php';
 
 
             <div class="form-group">
-                <label for="username">Username:</label>
+                <label for="username">Email:</label>
                 <input type="text" id="username" name="username" placeholder="Username" required>
             </div>
 

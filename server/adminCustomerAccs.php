@@ -27,14 +27,13 @@ if (isset($_SESSION["role"])) {
 <body>
     <main class="main-container">
         <div class="main-title">
-            <p class="font-weight-bold">ADMIN LOGS</p>
+            <p class="font-weight-bold">CUSTOMER ACCOUNT</p>
         </div>
         <div class="content">
             <table>
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Username</th>
                         <th>E-mail</th>
                         <th>Orders Completed</th>
                         <th>Points</th>
@@ -43,35 +42,30 @@ if (isset($_SESSION["role"])) {
                 <tbody id="points-data" >
                     <tr>
                         <td>1</td>
-                        <td>Clar</td>
                         <td>clarence@gmail.com</td>
                         <td>6</td>
                         <td>6</td>
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td>Duk</td>
                         <td>clarence@gmail.com</td>
                         <td>13</td>
                         <td>3</td>
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td>Brix</td>
                         <td>clarence@gmail.com</td>
                         <td>24</td>
                         <td>14</td>
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td>Alex</td>
                         <td>clarence@gmail.com</td>
                         <td>13</td>
                         <td>13</td>
                     </tr>
                     <tr>
                         <td>5</td>
-                        <td>Amiel</td>
                         <td>clarence@gmail.com</td>
                         <td>69</td>
                         <td>69</td>

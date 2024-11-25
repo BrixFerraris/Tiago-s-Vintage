@@ -61,7 +61,7 @@
         </div>
         <div class="footer-bottom">
             <p style="color:white;">© 2024 Copyright:
-                <a href="http://tiago-vintage.helioho.st/client/landing.php">Tiagos-vintage.helioho.st</a>
+                <a href="https://tiagos-vintage.store/client/landing.php">Tiagos-vintage.store</a>
             </p>
         </div>
     </footer>

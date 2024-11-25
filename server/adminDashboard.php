@@ -46,12 +46,6 @@ if (isset($_SESSION["role"])) {
       <span id="total-products" class="text-primary font-weight-bold">249</span>
     </div>
 
-    <div class="card">
-      <div class="card-inner">
-        <p class="text-primary">PURCHASE ORDERS</p>
-      </div>
-      <span id="total-purchase-orders" class="text-primary font-weight-bold">83</span>
-    </div>
 
     <div class="card">
       <div class="card-inner">
@@ -74,11 +68,6 @@ if (isset($_SESSION["role"])) {
     <div class="charts-card">
       <p class="chart-title">Top 5 Products</p>
       <div id="bar-chart"></div>
-    </div>
-
-    <div class="charts-card">
-      <p class="chart-title">Purchase and Sales Orders</p>
-      <div id="area-chart"></div>
     </div>
 
   </div>
