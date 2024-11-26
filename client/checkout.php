@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
     <link rel="stylesheet" href="../CSS/checkout.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
-<body>
+
     <?php
     session_start();
     ?>
+    <div class="checkout-wrapper">
     <div class="checkout-container">
         <input type="hidden" name="user_id" id="user_id" value="<?php echo $_SESSION['uID']; ?>">
         <!-- Order Summary -->
@@ -58,6 +54,8 @@
                     onclick="window.location.href='shopcart.php';">Cancel</button>
             </div>
 
+        </div>
+        </div>
         </div>
         <script>
             $(document).ready(function () {
@@ -177,6 +175,3 @@
             });
         </script>
 
-</body>
-
-</html>

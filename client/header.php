@@ -113,7 +113,7 @@
                                             <a class="dropdown-item" href="./includes/logout.php">Log out</a>
                                         </div>
                                     </div>
-                                </li>';
+                                </li></div>';
 
                         echo '<div id="floatingButton" class="dropup rounded-circle">
                                     <button 
@@ -180,29 +180,16 @@
                             </li>';
 
 
-                        echo '<li class="nav-item active" style="width: 190px; margin-top: 13px; "> 
+                            echo '<li class="nav-item active" style="width: 190px; margin-top: 13px;">
                             <div class="form-group" style="margin-top: 13px; position: relative;">
                                 <input type="text" 
                                     class="form-control" 
                                     placeholder="Search for products..." 
-                                    list="list-timezone" 
                                     id="input-datalist" 
                                     style="padding-right: 35px;">
-                                <datalist id="list-timezone">
-                                    <option value="Asia/Aden"></option>
-                                    <option value="Asia/Aqtau"></option>
-                                    <option value="Asia/Baghdad"></option>
-                                    <option value="Asia/Barnaul"></option>
-                                    <option value="Asia/Chita"></option>
-                                    <option value="Asia/Dhaka"></option>
-                                    <option value="Asia/Famagusta"></option>
-                                    <option value="Asia/Hong_Kong"></option>
-                                    <option value="Asia/Jayapura"></option>
-                                    <option value="Asia/Kuala_Lumpur"></option>
-                                    <option value="Asia/Jakarta"></option>
-                                </datalist>
                                 <i class="fa fa-search" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); color: #888; cursor: pointer;"></i>
                             </div>
+                            <div id="search-results" style="position: absolute; z-index: 1000; background: white; border: 1px solid #ccc; display: none; width: 190px;"></div>
                         </li>';
 
 

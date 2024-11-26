@@ -63,9 +63,9 @@ if (isset($_SESSION["role"])) {
 
   </div>
 
-  <div class="charts">
+  <div class="charts" style=" display:flex; justify-content:center; align-items:center;">
 
-    <div class="charts-card">
+    <div class="charts-card" style=" min-width:100%;">
       <p class="chart-title">Top 5 Products</p>
       <div id="bar-chart"></div>
     </div>

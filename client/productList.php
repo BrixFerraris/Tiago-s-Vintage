@@ -13,7 +13,7 @@ include './header.php';
     <div class="search-filter" id="search-filters" style="margin-left:10px;">
       <input type="text" id="search-input" placeholder="Search Products...">
     </div>
-  
+  </div>
 
   <div class="buttons-filter">
     <div class="category-filter">
@@ -27,12 +27,14 @@ include './header.php';
       <button class="category-btns">Shorts</button>
     </div>
   </div>
-  </div>
-</div>
 
-<div id="fixed-grid" class="fixed-grid">
+  <div id="fixed-grid" class="fixed-grid">
   <!-- Existing product cells will be dynamically added here -->
 </div>
+
+</div>
+
+
 </div>
 <script>
   $(document).ready(function () {

@@ -10,7 +10,6 @@
 
 .background {
   position: relative;
-  display: inline-block;
 }
 
 .landing_text {
@@ -108,12 +107,9 @@
     height: auto;
   }
 
-  .landing_text {
-    font-size: 15px;
-  }
 
   .products p {
-    font-size: 34px;
+    font-size: 20px;
     margin-bottom: 20px;
   }
 
@@ -128,7 +124,7 @@
   }
   .landing_text {
     -webkit-text-stroke: 1px black;
-    font-size: 35px;
+    font-size: 30px;
     font-family: 'Koulen', sans-serif;
 
   }
