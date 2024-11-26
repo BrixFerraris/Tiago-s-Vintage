@@ -30,5 +30,6 @@ include 'header.php';
                 <button type="submit" class="submit-button">Submit</button>
             </form>
         </section>
+        
     </main>
 

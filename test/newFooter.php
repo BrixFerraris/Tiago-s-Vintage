@@ -76,7 +76,6 @@ $(document).ready(function() {
                 console.log("CMS ERROR");
             } else {
                 console.log(data);
-                $('.logo').attr('src', '../server/includes/uploads/' + data.logo).show();
                 $('#about').text(data.about);
                 $('#address').text(data.address);
                 $('#fb').attr('href', data.fb);

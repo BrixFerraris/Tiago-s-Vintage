@@ -86,6 +86,7 @@ include 'header.php';
                     $('#cms-title').text('Error loading title');
                 } else {
                     $('.landing_text').text(data.landing_text);
+                    $('#about-us-info').text(data.about);
                     $('.bghaha').attr('src', '../server/includes/uploads/' + data.landing_bg).show();
                 }
             },

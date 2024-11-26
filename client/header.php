@@ -45,8 +45,9 @@
     <div class="containerz">
         <nav class="navbar navbar-expand-lg navbar-light">
 
-            <label class="cms-title title"><a class="navbar-brand" href="landing.php" id="title-mo">TIAGO'S VINTAGE <img
-                        class="cms-logo logo" src="../assets/tiagos-removebg-preview 1.png" alt=""></a></label>
+                <a class="navbar-brand" href="landing.php" id="title-mo">TIAGO'S VINTAGE
+                    <img id="logoIto" class="cms-logo logo" src="../assets/tiagos-removebg-preview 1.png" alt="">
+                </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
                 aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -615,7 +616,7 @@
                     $('#cms-title').text('Error loading title');
                 } else {
                     $('.cms-title').text(data.title);
-                    $('.cms-logo').attr('src', '../server/includes/uploads/' + data.logo).show();
+                    $('#logoIto').attr('src', '../server/includes/uploads/' + data.logo).show();
                     $('#title-logo').attr('href', '../server/includes/uploads/' + data.logo).show();
                     $('.terms').text(data.terms);
                 }

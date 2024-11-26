@@ -87,15 +87,14 @@ $(document).ready(function () {
         method: 'GET',
         dataType: 'json',
         success: function (data) {
+            console.log(data);
             let rows = '';
-            $.each(data, function (index, user) {
                 rows += '<tr>';
-                rows += '<td>' + user.id + '</td>'; 
-                rows += '<td>' + user.username + '</td>'; 
-                rows += '<td>' + user.orders_completed + '</td>'; 
-                rows += '<td>' + user.points + '</td>'; 
+                rows += '<td>' + data.id + '</td>'; 
+                rows += '<td>' + data.username + '</td>'; 
+                rows += '<td>' + data.orders_completed + '</td>'; 
+                rows += '<td>' + data.points + '</td>'; 
                 rows += '</tr>';
-            });
             $('#points-data').html(rows);
         },
         error: function (xhr, status, error) {

@@ -89,10 +89,10 @@ if (isset($_SESSION["role"])) {
 
 
 				<div class="abt-imgs-container">
-						<img class="imgs_abt" src="../images/About-us picture.jpg">
-						<img class="imgs_abt" src="../images/About-us picture.jpg">
-						<img class="imgs_abt" src="../images/About-us picture.jpg">
-						<img class="imgs_abt" src="../images/About-us picture.jpg">
+						<img id="aboutImg_1" class="imgs_abt" src="../images/About-us picture.jpg">
+						<img id="aboutImg_2" class="imgs_abt" src="../images/About-us picture.jpg">
+						<img id="aboutImg_3" class="imgs_abt" src="../images/About-us picture.jpg">
+						<img id="aboutImg_4" class="imgs_abt" src="../images/About-us picture.jpg">
                 </div>
     
             </div>
@@ -164,8 +164,9 @@ if (isset($_SESSION["role"])) {
                     <h1>Footer Description</h1>
                     <button class="edit-btn7">Edit</button>
                 </div>
-                <h4 class="footer-desc">Footer description Footer description Footer description Footer description Footer description
+                <h4 id="footer-value" class="footer-desc">Footer description Footer description Footer description Footer description Footer description
                 Footer description Footer description Footer descriptionFooter description Footer description Footer description </h4>
+
             </div>
         </div>
 
@@ -230,17 +231,15 @@ if (isset($_SESSION["role"])) {
         <!-- Modal About -->
         <div class="modal-about">
             <div class="modals">
-                <form action="./includes/editAbout.php" method="post">
+                <form action="./includes/editAbout.php" method="post" enctype="multipart/form-data">
                     <h1>About</h1>
                     <h4>Text: </h4>
                     <textarea class="about-us" name="about" id="about" rows="15"
                         placeholder="yung current value"></textarea>
-
-                    <input type="file" src="" alt="">
-                    <input type="file" src="" alt="">
-                    <input type="file" src="" alt="">
-                    <input type="file" src="" alt="">
-
+                    <input name="about_img" type="file" alt="">
+                    <input name="about_img2" type="file" alt="">
+                    <input name="about_img3" type="file" alt="">
+                    <input name="about_img4" type="file" alt="">s
                     <div class="btns">
                         <button type="submit" class="btnSave">Save</button>
                         <button type="button" class="btnCancel">Cancel</button>
@@ -311,7 +310,7 @@ if (isset($_SESSION["role"])) {
 
         <div class="modal-footer-text">
             <div class="modals">
-                <form action="" method="post">
+                <form action="./includes/editFooter.php" method="post">
                     <h1>Footer Description</h1>
                     <h4>Text: </h4>
                     <textarea class="footerr" name="footerr" id="footerr" rows="15"
@@ -323,9 +322,6 @@ if (isset($_SESSION["role"])) {
                 </form>
             </div>
         </div>
-
-
-
         </div>
         </div>
 </body>
@@ -743,6 +739,11 @@ if (isset($_SESSION["role"])) {
                     $('.email').text(data.email);
                     $('.address').text(data.address);
                     $('.qr_code').attr('src', './includes/uploads/' + data.qr).show();
+                    $('#footer-value').text(data.footer);
+                    $('#aboutImg_1').attr('src', './includes/uploads/' + data.about_img).show();
+                    $('#aboutImg_2').attr('src', './includes/uploads/' + data.about_img2).show();
+                    $('#aboutImg_3').attr('src', './includes/uploads/' + data.about_img3).show();
+                    $('#aboutImg_4').attr('src', './includes/uploads/' + data.about_img4).show();
 
                     $('.cms-title').val(data.title);
                     $('.landing_text').val(data.landing_text);
@@ -753,6 +754,7 @@ if (isset($_SESSION["role"])) {
                     $('.number').val(data.number);
                     $('.email').val(data.email);
                     $('.address').val(data.address);
+                    $('#footerr').val(data.footer);
                 }
             },
             error: function () {
