@@ -56,13 +56,11 @@ if (isset($_SESSION["role"])) {
           <label for="length">Length:</label>
           <input name="length" type="number" id="length">
         </div>
-        <div class="edit-product-variation" id="quantity">
-        <div class="quantity-mehh">
+
+
+        <div class="edit-product-variation">
           <label for="quantity">Quantity:</label>
-          <div class="quantity-control">
-            <input type="number" name="qty" id="quantity" value="0" >
-        </div>
-        </div>
+          <input type="number" name="qty" id="quantity" value="0" >
         </div>
 
         <div class="edit-product-variation">
@@ -99,6 +97,7 @@ if (isset($_SESSION["role"])) {
 
       <button class="save-button">Save</button>
       <button class="discard-button">Discard</button>
+
     </div>
   </div>
 </main>
@@ -106,6 +105,8 @@ if (isset($_SESSION["role"])) {
 
 
 <!-- Scripts -->
+
+<script src="../test/sidebarToggle.js"></script>
 <script>
   $(document).ready(function () {
     const url = new URL(window.location.href);

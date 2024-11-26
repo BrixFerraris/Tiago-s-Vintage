@@ -274,6 +274,10 @@ td img {
 
 
 /* ---------- MEDIA QUERIES ---------- */
+/* laptop */
+@media screen and (max-width: 1024px) {
+
+}
 
 
 /* Medium <= 992px */
@@ -296,5 +300,20 @@ td img {
 
   .sidebar-title > span {
     display: inline;
+  }
+  table{
+    display: block;
+    max-height: 400px; /* Adjust this height to match 10 rows */
+    overflow-y: auto;
+  }
+}
+
+/* Mobile Phones (width: 480px and below) */
+@media (max-width: 480px) {
+
+  table{
+    display: block;
+    max-height: 400px; /* Adjust this height to match 10 rows */
+    overflow-y: auto;
   }
 }

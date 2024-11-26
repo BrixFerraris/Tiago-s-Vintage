@@ -239,7 +239,7 @@ if (isset($_SESSION["role"])) {
                     <input name="about_img" type="file" alt="">
                     <input name="about_img2" type="file" alt="">
                     <input name="about_img3" type="file" alt="">
-                    <input name="about_img4" type="file" alt="">s
+                    <input name="about_img4" type="file" alt="">
                     <div class="btns">
                         <button type="submit" class="btnSave">Save</button>
                         <button type="button" class="btnCancel">Cancel</button>
@@ -392,7 +392,7 @@ if (isset($_SESSION["role"])) {
     .modals {
         background-color: white;
         width: 50%;
-        height: 70%;
+        height: 80%;
         display: flex;
         flex-direction: column;
         padding: 20px;

@@ -52,13 +52,6 @@ if (isset($_SESSION["role"])) {
 
       </tbody>
     </table>
-    <!-- Pagination -->
-    <div class="pagination">
-      <a href="#" class="prev">Previous</a>
-      <a href="#" class="page-num">1</a>
-      <a href="#" class="page-num">2</a>
-      <a href="#" class="next">Next</a>
-    </div>
   </div>
 </main>
 

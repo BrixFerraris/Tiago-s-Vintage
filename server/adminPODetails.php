@@ -194,17 +194,108 @@ if (isset($_SESSION["role"])) {
         color: white;
     }
 
-    @media (max-width: 480px) {
-        .order-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .order-items-container,
-        .order-summary {
-            width: 85%;
-        }
+   /* Media Query for Laptops */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .order-container {
+        flex-direction: row;
+        padding: 15px;
     }
+
+    .order-items-container,
+    .order-summary {
+        width: 48%;
+    }
+
+    .order-items-container {
+        padding: 15px;
+    }
+
+    .order-summary {
+        padding: 15px;
+    }
+
+    .item-img {
+        width: 80px;
+    }
+}
+
+/* Media Query for Tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .order-container {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .order-items-container,
+    .order-summary {
+        width: 90%;
+        margin: 10px auto;
+    }
+
+    .order-items-container {
+        padding: 10px;
+    }
+
+    .order-summary {
+        padding: 10px;
+    }
+
+    .item-img {
+        width: 70px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 767px) {
+    .order-container {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .order-items-container,
+    .order-summary {
+        width: 95%;
+        margin: 10px auto;
+    }
+
+    .order-items-container {
+        padding: 8px;
+    }
+
+    .order-summary {
+        padding: 8px;
+    }
+
+    .item-img {
+        width: 60px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .modals {
+        width: 90%;
+        height: auto;
+        padding: 15px;
+    }
+
+    .modals img {
+        width: 150px;
+        height: auto;
+    }
+
+    .btnBack {
+        width: 100%;
+    }
+}
+
 </style>
 
 <!-- Scripts -->

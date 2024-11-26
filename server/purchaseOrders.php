@@ -46,7 +46,7 @@ if (isset($_SESSION["role"])) {
                 </div>
 
                 <div class="search-bar">
-                    <input type="text" id="search-input" placeholder="Search products..." />
+                    <input type="text" id="search-input" placeholder="Search Order" />
                     <button id="search-btn"> <span class="material-icons-outlined">search</span></button>
                 </div>
             </div>
@@ -69,13 +69,7 @@ if (isset($_SESSION["role"])) {
                     <!-- Add additional product rows here -->
                 </tbody>
             </table>
-            <!-- Pagination -->
-            <div class="pagination">
-                <a href="#" class="prev">Previous</a>
-                <a href="#" class="page-num">1</a>
-                <a href="#" class="page-num">2</a>
-                <a href="#" class="next">Next</a>
-            </div>
+
             <!-- End Main -->
         </div>
         </div>

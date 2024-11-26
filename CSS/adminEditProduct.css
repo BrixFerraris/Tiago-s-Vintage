@@ -96,7 +96,7 @@ body {
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 50px;
+    width: 100px;
     margin-right: 10px;
 
   }
@@ -108,22 +108,8 @@ body {
     display: flex;
     flex-direction: row;
   }
-  
-  .quantity-control {
-    display: flex;
-    flex-direction: row;
-  }
-  .quantity-control label{
-    margin-top: 4px;
-  }
-  
-  .quantity-control button {
-    background-color: #eee;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+
+
   
   .add-variation {
     background-color: #007bff;
@@ -140,7 +126,7 @@ body {
   }
   
   .edit-product-title input, .edit-product-price input, .edit-product-category input {
-    width: 100%;
+    width: 80%;
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -174,3 +160,83 @@ body {
   }
 
     
+/* Media Queries */
+
+/* Tablets (width: 768px and below) */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .edit-product {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .edit-product-left, .edit-product-right {
+    width: 100%;
+  }
+
+  .edit-product-images img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .edit-product-variation input[type="text"], [type="number"] {
+    width: 50%;
+  }
+
+  .edit-product-variations {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .save-button, .discard-button, .add-variation {
+    width: 50%;
+    text-align: center;
+    
+    padding: 10px;
+  }
+}
+
+/* Mobile Phones (width: 480px and below) */
+@media (max-width: 480px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+
+  .main-container {
+    padding: 10px;
+  }
+
+  .edit-product {
+    flex-direction: column;
+
+  }
+
+  .edit-product-left, .edit-product-right {
+    width: 100%;
+  }
+
+  .edit-product-images img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .edit-product-variation input[type="text"], [type="number"] {
+    width: 50%;
+  }
+
+  .save-button, .discard-button, .add-variation {
+    width: 50%;
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .edit-product-title p, .edit-product-price p, .edit-product-category p {
+    font-size: 18px;
+  }
+}
