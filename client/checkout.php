@@ -123,15 +123,14 @@
 
                             $('input[name="discount-method"]').on('change', function () {
                                 currentTotal = total;
-
                                 if ($('#discount').is(':checked')) {
                                     currentTotal -= total * 0.1;
                                     console.log("haha");
                                     $('.order-summary strong').text(`Total: ₱${currentTotal}`);
                                 }
-
                                 $('.order-summary strong').text(`Total: ₱${currentTotal}`);
                             });
+                            currentTotal = total;
                         } catch (error) {
                             console.error('Error parsing JSON:', error);
                         }

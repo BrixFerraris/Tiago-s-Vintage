@@ -108,6 +108,7 @@ include './header.php';
                     var amount = $(this).data('total');
                     $('.amount').val(`${amount}`);
                     $('#transID').val(transactionId);
+                    $('#amountValue').text(amount);
                 });
                 $('.btnSubmit').on('click', function (e) {
                     e.preventDefault();

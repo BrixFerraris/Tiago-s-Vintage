@@ -282,7 +282,7 @@ if (isset($_SESSION["role"])) {
                 let buttonsHTML = '';
                 if (data.status === 'Check Payment') {
                     buttonsHTML = `
-                    <button data-id="${transactionId}" class="btn-accept accept-btn">Accept</button>
+                    <button data-shipping="${data.shipping}" data-id="${transactionId}" class="btn-accept accept-btn">Accept</button>
                     <button class="show-btn">Show Receipt</button>
                     <button data-id="${transactionId}" class="decline-btn">Decline</button>
                 `;
@@ -290,6 +290,11 @@ if (isset($_SESSION["role"])) {
                     buttonsHTML = `
                     <button class="show-btn">Show Receipt</button>
                     <button data-id="${transactionId}" data-user="${data.username}" class="btn-complete accept-btn">Complete</button>
+                `;
+                } else if (data.status === 'Out For Delivery') {
+                    buttonsHTML = `
+                    <button class="show-btn">Show Receipt</button>
+                    <button data-points="${data.points}" data-id="${transactionId}" data-user="${data.username}" class="btn-complete accept-btn">Complete</button>
                 `;
                 } else if (data.status === 'Pending') {
                     buttonsHTML = `<h1>Wait for customer's payment</h1>`;
@@ -306,10 +311,12 @@ if (isset($_SESSION["role"])) {
             `;
                 $(document).on('click', '.btn-accept', function () {
                     var transactionId = $(this).data('id');
+                    var shipping = $(this).data('shipping');
                     $.ajax({
                         url: './includes/acceptOrder.php',
                         type: 'POST',
                         data: {
+                            shipping: shipping,
                             transaction_id: transactionId,
                             action: 'accept'
                         },
@@ -360,8 +367,24 @@ if (isset($_SESSION["role"])) {
                             username: username
                         },
                         success: function (response) {
-                            alert(`Order ${transactionId} Completed Successfully`);
-                            window.location.href = './purchaseOrders.php';
+                            $.ajax({
+                                url: '../client/includes/updateStatus.php',
+                                type: 'POST',
+                                data: {
+                                    transaction_id: transactionId,
+                                    type: 'complete',
+                                    points: parseInt($(this).data('points')) 
+                                },
+                                success: function (response) {
+                                    var result = JSON.parse(response);
+                                    alert("Completed transaction. Thank you!");
+                                    // location.reload();
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error('Error updating status:', error);
+                                    alert('An error occurred while updating the status.');
+                                }
+                            });
                         },
                         error: function (xhr, status, error) {
                             console.error('An error occurred:', error);

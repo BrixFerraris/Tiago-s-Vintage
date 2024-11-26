@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt->execute()) {
             echo 'success';
         } else {
-            echo 'error';
+            echo 'walang laman transID error';
         }
         $stmt->close();
     } elseif ($table === 'variations' && $variationId) {
@@ -21,10 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt->execute()) {
             echo 'success';
         } else {
-            echo 'error';
+            echo 'walang laman varID error';
         }
         $stmt->close();
     } else {
-        echo 'error';
+        echo 'hindi post method error';
     }
 }

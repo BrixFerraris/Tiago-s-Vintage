@@ -36,20 +36,20 @@ if (isset($_SESSION["role"])) {
         <div class="content">
 
 
-        <div class="search-sort-container">
-            <div class="filter-dropdown">
-                <select id="status-filter">
-                    <option value="pending">Pending</option>
-                    <option value="completed">Completed</option>
-                    <option value="canceled">Canceled</option>
-                </select>
-            </div>
+            <div class="search-sort-container">
+                <div class="filter-dropdown">
+                    <select id="status-filter">
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                        <option value="canceled">Canceled</option>
+                    </select>
+                </div>
 
-            <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Search products..." />
-                <button id="search-btn"> <span class="material-icons-outlined">search</span></button>
-            </div>            
-        </div>
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search products..." />
+                    <button id="search-btn"> <span class="material-icons-outlined">search</span></button>
+                </div>
+            </div>
 
             <table id="products">
                 <thead>
@@ -82,7 +82,6 @@ if (isset($_SESSION["role"])) {
         <script>
             $(document).ready(function () {
                 loadPurchaseOrders();
-
                 function loadPurchaseOrders() {
                     $.ajax({
                         url: '../serverFunctions.php',
@@ -93,7 +92,7 @@ if (isset($_SESSION["role"])) {
                             const table = $('#products');
                             const uniqueOrders = {};
 
-                            const validStatuses = ['Pending', 'Ready For Pickup', 'Completed', 'Check Payment'];
+                            const validStatuses = ['Pending', 'Ready For Pickup', 'Completed', 'Check Payment', 'Out For Delivery'];
 
                             purchaseOrders.forEach(function (purchaseOrder) {
                                 if (validStatuses.includes(purchaseOrder.status)) {
@@ -130,80 +129,81 @@ if (isset($_SESSION["role"])) {
 </html>
 
 <style>
-     /* Container for search and sort */
-  .search-sort-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-bottom: 20px;
-  }
+    /* Container for search and sort */
+    .search-sort-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 20px;
+    }
 
-  /* Search bar styling */
-  .search-bar {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 25px;
-    overflow: hidden;
-    margin-right: 10px;
-    margin-left: 10px;
+    /* Search bar styling */
+    .search-bar {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 25px;
+        overflow: hidden;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
 
-  }
+    #search-input {
+        border: none;
+        padding: 10px;
+        outline: none;
+        width: 200px;
+    }
 
-  #search-input {
-    border: none;
-    padding: 10px;
-    outline: none;
-    width: 200px;
-  }
+    #search-btn {
+        background-color: hsl(93, 100%, 20%);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+    }
 
-  #search-btn {
-    background-color: hsl(93, 100%, 20%);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-  }
+    /* Dropdown container */
+    .filter-dropdown {
+        position: relative;
+    }
 
-/* Dropdown container */
-.filter-dropdown {
-    position: relative;
-}
+    /* Styling the dropdown */
+    #status-filter {
+        appearance: none;
+        /* Removes default browser styling */
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 10px 15px;
+        font-size: 14px;
+        font-family: Arial, sans-serif;
+        cursor: pointer;
+        color: #333;
+        transition: all 0.3s ease;
+    }
 
-/* Styling the dropdown */
-#status-filter {
-    appearance: none; /* Removes default browser styling */
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px 15px;
-    font-size: 14px;
-    font-family: Arial, sans-serif;
-    cursor: pointer;
-    color: #333;
-    transition: all 0.3s ease;
-}
+    /* Adding a custom arrow */
+    #status-filter::after {
+        content: '▼';
+        /* Custom arrow */
+        font-size: 12px;
+        color: #777;
+        position: absolute;
+        right: 10px;
+        pointer-events: none;
+    }
 
-/* Adding a custom arrow */
-#status-filter::after {
-    content: '▼'; /* Custom arrow */
-    font-size: 12px;
-    color: #777;
-    position: absolute;
-    right: 10px;
-    pointer-events: none;
-}
+    /* Dropdown hover effects */
+    #status-filter:hover {
+        border-color: #999;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-/* Dropdown hover effects */
-#status-filter:hover {
-    border-color: #999;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* On focus */
-#status-filter:focus {
-    outline: none;
-    border-color: #007BFF;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
+    /* On focus */
+    #status-filter:focus {
+        outline: none;
+        border-color: #007BFF;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
 </style>

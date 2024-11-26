@@ -27,67 +27,66 @@ include './header.php';
             type: 'GET',
             dataType: 'json',
             success: function (orders) {
-                console.log(orders);
+                $('.item-action').empty();
+
                 $.each(orders, function (index, order) {
                     var itemTitles = order.items.map(item => item.title).join(', ');
                     var itemSizes = order.items.map(item => item.size).join('<br>');
                     var totalQuantity = order.total_quantity;
                     var totalPrice = order.grandtotal;
-                    if (order.status === 'Ready For Pickup' || order.status === 'Check Payment') {
+                    if (order.status === 'Ready For Pickup' || order.status === 'Check Payment' || order.status === 'Out For Delivery') {
                         var orderItem = `
-                    <div class="order-item">
-                        <div class="item-details">
-                            <img src="../server/includes/uploads/${order.first_img}" alt="Product Image" style="width: 100px; height: auto;">
-                            <h5>Transaction ID: ${order.transaction_id}</h5>
-                            <p>Items: <br> ${itemTitles}</p>
-                            <p>Sizes: <br> ${itemSizes}</p>
-                            <p>Total Quantity: ${totalQuantity}</p>
-                        </div>
-                        <div class="item-status">
-                            <p class="status to-receive">${order.status}</p>
-                        </div>
-                        <div class="item-price">
-                            <p>Total Price: ₱${totalPrice}</p>
-                        </div>
-                        <div class="item-action">
-                        </div>
-                    </div>`;
+                            <div class="order-item">
+                                <div class="item-details">
+                                    <img src="../server/includes/uploads/${order.first_img}" alt="Product Image" style="width: 100px; height: auto;">
+                                    <h5>Transaction ID: ${order.transaction_id}</h5>
+                                    <p>Items: <br> ${itemTitles}</p>
+                                    <p>Sizes: <br> ${itemSizes}</p>
+                                    <p>Total Quantity: ${totalQuantity}</p>
+                                </div>
+                                <div class="item-status">
+                                    <p class="status to-receive">${order.status}</p>
+                                </div>
+                                <div class="item-price">
+                                    <p>Total Price: ₱${totalPrice}</p>
+                                </div>
+                                <div class="item-action">
+                                </div>
+                            </div>`;
                         $('#to-pay').append(orderItem);
-                        if (order.status === 'Ready For Pickup') {
-                            $('.item-action').append(`<button data-id="${order.transaction_id}" data-points="${order.points}" class="confirm-receive-btn">Order Received</button>`);
+                        var lastItemAction = $('#to-pay .order-item:last .item-action');
+                        if (order.status === 'Ready For Pickup' || order.status === 'Out For Delivery') {
+                            lastItemAction.append(`<button data-id="${order.transaction_id}" data-points=${order.points} class="confirm-receive-btn">Order Received</button>`);
                         } else if (order.status === 'Check Payment') {
-                            $('.item-action').append('<p>Waiting for adming to confirm payment</p>');
+                            lastItemAction.append('<p>Waiting for admin to confirm payment</p>');
                         }
                     }
-                    $('.confirm-receive-btn').on('click', function () {
-                        var transactionId = $(this).data('id');
-                        var points = $(this).data('points');
-                        var deduct = points < 10 ? true : false; 
-
-                        $.ajax({
-                            url: './includes/updateStatus.php',
-                            type: 'POST',
-                            data: {
-                                transaction_id: transactionId,
-                                type: 'complete',
-                                deduct: deduct 
-                            },
-                            success: function (response) {
-                                var result = JSON.parse(response);
-                                alert("Completed transaction. Thank you!");
-                                location.reload();
-                            },
-                            error: function (xhr, status, error) {
-                                console.error('Error updating status:', error);
-                                alert('An error occurred while updating the status.');
-                            }
-                        });
+                $('.confirm-receive-btn').on('click', function () {
+                    var transactionId = $(this).data('id');
+                    var points = $(this).data('points');
+                    $.ajax({
+                        url: './includes/updateStatus.php',
+                        type: 'POST',
+                        data: {
+                            transaction_id: transactionId,
+                            type: 'complete',
+                            points:parseInt(points)
+                        },
+                        success: function (response) {
+                            var result = JSON.parse(response);
+                            alert("Completed transaction. Thank you!");
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error updating status:', error);
+                            alert('An error occurred while updating the status.');
+                        }
                     });
                 });
-            },
-            error: function (xhr, status, error) {
-                console.error('Error fetching orders:', error);
-            }
+            });
+    },
+        error: function (xhr, status, error) {
+            console.error('Error fetching orders:', error);
+        }
         });
     });
 </script>

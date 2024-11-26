@@ -6,7 +6,12 @@ if (isset($_POST['transaction_id']) && isset($_POST['action'])) {
     $action = $_POST['action'];
 
     if ($action === 'accept') {
-        $status = 'Ready For Pickup';
+        $shipping = $_POST['shipping'];
+        if ($shipping === 'pickup') {
+            $status = 'Ready For Pickup';
+        } elseif ($shipping === 'delivery') {
+            $status = 'Out For Delivery';
+        }
     } elseif ($action === 'complete') {
         $status = 'Completed'; 
     } elseif ($action === 'decline') {
@@ -21,7 +26,7 @@ if (isset($_POST['transaction_id']) && isset($_POST['action'])) {
 
     if ($stmt->execute()) {
         if ($action === 'complete') {
-            $quantityQuery = $conn->prepare("SELECT SUM(quantity) as total_quantity, user_id FROM tbl_transaction_items WHERE transaction_id = ?"); // Assuming you have a separate table for items
+            $quantityQuery = $conn->prepare("SELECT SUM(quantity) as total_quantity, user_id FROM tbl_transactions WHERE transaction_id = ?"); 
             $quantityQuery->bind_param('i', $transactionId);
             $quantityQuery->execute();
             $quantityResult = $quantityQuery->get_result();
