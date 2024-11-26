@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2024 at 06:06 AM
+-- Generation Time: Nov 26, 2024 at 11:56 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -88,7 +88,8 @@ INSERT INTO `tbl_payments` (`id`, `receipt`, `u_id`, `amount`, `transaction_numb
 (24, '674538ee239d77.94569517.png', '11', 2700, '1732589762_11', '2024-11-26 10:56:46'),
 (25, '67453b066b3614.15615464.jpg', '11', 2700, '1732586363_11', '2024-11-26 11:05:42'),
 (26, '67453dc61ac4f6.37729525.png', '11', 1530, '1732590557_11', '2024-11-26 11:17:26'),
-(27, '67453dcd354185.95283404.png', '11', 2400, '1732590607_11', '2024-11-26 11:17:33');
+(27, '67453dcd354185.95283404.png', '11', 2400, '1732590607_11', '2024-11-26 11:17:33'),
+(28, '6745706bdc49b7.18157170.jpg', '11', 1676, '1732603954_11', '2024-11-26 14:53:31');
 
 -- --------------------------------------------------------
 
@@ -162,21 +163,26 @@ CREATE TABLE `tbl_settings` (
   `landing_bg` varchar(255) NOT NULL,
   `landing_text` varchar(255) NOT NULL,
   `about` varchar(255) NOT NULL,
-  `terms` varchar(255) NOT NULL,
+  `terms` longtext NOT NULL,
   `fb` varchar(255) NOT NULL,
   `ig` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `number` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
-  `qr` varchar(255) NOT NULL
+  `qr` varchar(255) NOT NULL,
+  `footer` longtext NOT NULL,
+  `about_img` varchar(255) NOT NULL,
+  `about_img2` varchar(255) NOT NULL,
+  `about_img3` varchar(255) NOT NULL,
+  `about_img4` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_settings`
 --
 
-INSERT INTO `tbl_settings` (`cms_id`, `title`, `logo`, `landing_bg`, `landing_text`, `about`, `terms`, `fb`, `ig`, `email`, `number`, `address`, `qr`) VALUES
-(1, 'TIATEEE', '673b11068312e0.30369308-1731924230.webp', '672a317ea782d4.64406569-1730818430.jpg', 'Maulan Sale!!', 'opo hahawhz', 'Welcome to Tiago\'s Vintage Boutique Ordering System. By placing an order through our system, you agree to the following terms and conditions:\r\n\r\n1. Payment\r\nWe only accept payments via Gcash. No other payment methods will be accepted.\r\nOnce an order is pl', 'https://www.facebook.com/profile.php?id=100063803240125', 'https://www.instagram.com/tiagos_vintage_/', 'vinceasdfghj@gmail.com', '0995 795 6315', 'Southboys Garage Bayan Luma 5 Imus Cavite ', '67451f63d4f539.72112300.jpg');
+INSERT INTO `tbl_settings` (`cms_id`, `title`, `logo`, `landing_bg`, `landing_text`, `about`, `terms`, `fb`, `ig`, `email`, `number`, `address`, `qr`, `footer`, `about_img`, `about_img2`, `about_img3`, `about_img4`) VALUES
+(1, 'Tiago\'s Vintage Boutique', '6745719a203149.86962530-1732604314.png', '672a317ea782d4.64406569-1730818430.jpg', 'Maulan Sale!!', 'qweqweqe', 'Welcome to Tiago\'s Vintage Boutique Ordering System. By placing an order through our system, you agree to the following terms and conditions:\r\n\r\n1. Payment\r\nWe only accept payments via Gcash. No other payment methods will be accepted.\r\nOnce an order is plWelcome to Tiago\'s Vintage Boutique Ordering System. By placing an order through our system, you agree to the following terms and conditions:\r\n\r\n1. Payment\r\nWe only accept payments via Gcash. No other payment methods will be accepted.\r\nOnce an order is plWelcome to Tiago\'s Vintage Boutique Ordering System. By placing an order through our system, you agree to the following terms and conditions:\r\n\r\n1. Payment\r\nWe only accept payments via Gcash. No other payment methods will be accepted.\r\nOnce an order is plWelcome to Tiago\'s Vintage Boutique Ordering System. By placing an order through our system, you agree to the following terms and conditions:\r\n\r\n1. Payment\r\nWe only accept payments via Gcash. No other payment methods will be accepted.\r\nOnce an order is plWelcome to Tiago\'s Vintage Boutique Ordering System. By placing an order through our system, you agree to the following terms and conditions:\r\n\r\n1. Payment\r\nWe only accept payments via Gcash. No other payment methods will be accepted.\r\nOnce an order is pl', 'https://www.facebook.com/profile.php?id=100063803240125', 'https://www.instagram.com/tiagos_vintage_/', 'vinceasdfghj@gmail.com', '0995 795 6315', 'Southboys Garage Bayan Luma 5 Imus Cavite ', '67451f63d4f539.72112300.jpg', 'qwewee', '6745a577681e37.31688169.png', '6745a577684ce4.98842817.png', '6745a577686bc6.32607911.jpg', '6745a5776884d3.46611149.png');
 
 -- --------------------------------------------------------
 
@@ -217,7 +223,9 @@ INSERT INTO `tbl_transactions` (`id`, `transaction_id`, `product_id`, `variation
 (88, '1732586363_11', '17', '16', 2, '11', '2024-11-26 03:20:54', 3000, 0, 'Completed', 'discount', 'delivery', 'bbbbb', 'true'),
 (89, '1732589762_11', '17', '16', 2, '11', '2024-11-26 04:56:55', 3000, 2700, 'Out For Delivery', 'discount', 'pickup', 'oikjnbaww', 'false'),
 (90, '1732590557_11', '19', '19', 2, '11', '2024-11-26 03:47:00', 1700, 1530, 'Completed', 'discount', 'pickup', 'zxczxc', 'false'),
-(91, '1732590607_11', '18', '13', 2, '11', '2024-11-26 03:45:56', 2400, 2400, 'Completed', '', 'pickup', 'asdaww', 'false');
+(91, '1732590607_11', '18', '13', 2, '11', '2024-11-26 03:45:56', 2400, 2400, 'Completed', '', 'pickup', 'asdaww', 'false'),
+(92, '1732603954_11', '13', '18', 4, '11', '2024-11-26 06:53:45', 363, 1676, 'Out For Delivery', 'discount', 'delivery', 'gawdaxz', 'false'),
+(93, '1732603954_11', '17', '16', 1, '11', '2024-11-26 06:53:45', 1500, 1676, 'Out For Delivery', 'discount', 'delivery', 'gawdaxz', 'false');
 
 -- --------------------------------------------------------
 
@@ -277,9 +285,9 @@ INSERT INTO `tbl_variations` (`id`, `product_id`, `variationName`, `width`, `len
 (13, 18, 'White', 25, 26, 9, '672f2e5957e2b8.08065199.png', 'false'),
 (14, 11, 'White', 20, 20, 12, '672f3284d6fdc2.21053179.png', 'false'),
 (15, 12, 'White', 12, 32, 12, '673041f114e835.95422197.png', 'false'),
-(16, 17, 'Brown', 25, 24, 11, '6738a6f15ae1a2.90674490.jpg', 'true'),
+(16, 17, 'Brown', 25, 24, 10, '6738a6f15ae1a2.90674490.jpg', 'true'),
 (17, 17, '5', 27, 27, 0, '6738a752dd4d99.37358780.webp', 'true'),
-(18, 13, 'Blue', 123, 12, 12, '6738a7e46919f0.14264527.webp', 'false'),
+(18, 13, 'Blue', 123, 12, 8, '6738a7e46919f0.14264527.webp', 'false'),
 (19, 19, 'Brown', 31, 30, 6, '6738a8112e1719.22493591.png', 'false'),
 (20, 11, 'Blue Jorts', 123, 32, 12, '6738a83aafff29.12445481.jpg', 'false');
 
@@ -349,7 +357,7 @@ ALTER TABLE `tbl_categories`
 -- AUTO_INCREMENT for table `tbl_payments`
 --
 ALTER TABLE `tbl_payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `tbl_products`
@@ -373,7 +381,7 @@ ALTER TABLE `tbl_settings`
 -- AUTO_INCREMENT for table `tbl_transactions`
 --
 ALTER TABLE `tbl_transactions`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
