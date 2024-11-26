@@ -469,7 +469,7 @@ if (isset($_SESSION["role"])) {
                                 success: function (response) {
                                     var result = JSON.parse(response);
                                     alert("Completed transaction. Thank you!");
-                                    // location.reload();
+                                    location.reload();
                                 },
                                 error: function (xhr, status, error) {
                                     console.error('Error updating status:', error);

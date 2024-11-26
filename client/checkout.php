@@ -89,7 +89,7 @@
                                 total += item.total;
                                 $('#name').text(`${item.firstName} ${item.lastName}`);
                                 $('#contact').text(item.contact);
-                                $('#points_available').text("Available points: " + item.points);
+                                $('#points_available').text("Orders Completed: " + item.points);
                                 var points = item.points;
                                 if (points >= 10) {
                                     $("#discount-method").empty();

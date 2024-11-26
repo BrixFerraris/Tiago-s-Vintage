@@ -2,7 +2,7 @@
 session_start();
 require_once 'dbCon.php';
 
-    $userID = $_SESSION['uID'];
+    $userID = $_SESSION['uID'] ?? 0;
 
     $stmt = $conn->prepare("SELECT COUNT(*) AS total_transactions FROM tbl_transactions WHERE status = 'Cart' AND user_id = ?");
     $stmt->bind_param("s", $userID);

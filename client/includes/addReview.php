@@ -40,9 +40,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt, "issssssss", $transactionID, $comments, $rating, $title, $variationName, $username, $img1, $img2, $img3);
+    mysqli_stmt_bind_param($stmt, "isissssss", $transactionID, $comments, $rating, $title, $variationName, $username, $img1, $img2, $img3);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
+
+    $updateSql = "UPDATE tbl_transactions SET reviewed = 'true' WHERE transaction_id = ?";
+    $updateStmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($updateStmt, $updateSql)) {
+        header("location: ../completed.php?stmtFailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($updateStmt, "s", $transactionID);
+    mysqli_stmt_execute($updateStmt);
+    mysqli_stmt_close($updateStmt);
 
     header("location: ../completed.php?error=none");
     exit();

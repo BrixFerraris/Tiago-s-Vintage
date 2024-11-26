@@ -60,7 +60,7 @@ if (isset($_SESSION["role"])) {
 
         <div class="edit-product-variation">
           <label for="quantity">Quantity:</label>
-          <input type="number" name="qty" id="quantity" value="0" >
+          <input type="number" name="qty" id="quantity" value="0">
         </div>
 
         <div class="edit-product-variation">
@@ -72,7 +72,7 @@ if (isset($_SESSION["role"])) {
       <div class="add-variation-btn">
         <input type="submit" value="Add Variation" class="add-variation">
       </div>
-      
+
     </div>
     </form>
 
@@ -158,25 +158,23 @@ if (isset($_SESSION["role"])) {
                             <div id="variation1" class="variation1">
                             <div class="edit-product-variation">
                                 <label for="name-${variation.id}">Name:</label>
-                                <input type="text" id="name-${variation.id}" value="${variation.variationName}" readonly>
+                                <input class="input-edit" type="text" id="name-${variation.id}" value="${variation.variationName}" readonly>
                             </div>
                             <div class="edit-product-variation">
                                 <label for="width-${variation.id}">Width:</label>
-                                <input type="text" id="width-${variation.id}" value="${variation.width}" readonly>
+                                <input class="input-edit" type="text" id="width-${variation.id}" value="${variation.width}" readonly>
                             </div>
                             <div class="edit-product-variation">
                                 <label for="length-${variation.id}">Length:</label>
-                                <input type="text" id="length-${variation.id}" value="${variation.length}" readonly>
+                                <input class="input-edit" type="text" id="length-${variation.id}" value="${variation.length}" readonly>
                             </div>
                             <div class="edit-product-variation">
                                 <label for="quantity-${variation.id}">Quantity:</label>
-                                <input type="number" id="quantity-${variation.id}" value="${variation.quantity}" readonly>
-                                <span class="material-icons-outlined edit-iconn edit-variation" data-id="${variation.id}" style="cursor:pointer;"> edit </span>
+                                <input class="input-edit" type="number" id="quantity-${variation.id}" value="${variation.quantity}" readonly>
                                 </div>
                             </div>
                             </div>
                             <br>
-
                         `);
               variationDiv.append(newDiv);
             });
@@ -211,6 +209,7 @@ if (isset($_SESSION["role"])) {
         }
       });
     }
+
   });
 </script>
 </body>

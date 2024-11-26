@@ -118,20 +118,21 @@ function getCart($conn, $user_id)
     return $cart;
 }
 
-function getProductsByCategory($conn, $category) {
+function getProductsByCategory($conn, $category)
+{
     $stmt = $conn->prepare("SELECT * FROM products WHERE category = ?");
-    $stmt->bind_param("s", $category); 
-    
+    $stmt->bind_param("s", $category);
+
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     $products = [];
     while ($row = $result->fetch_assoc()) {
         $products[] = $row;
     }
-    
+
     $stmt->close();
-    
+
     return $products;
 }
 
@@ -147,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type'])) {
         }
     }
 
-    
+
 
     if ($type === 'searchProducts') {
         $search = $_POST['title'] ?? '';
@@ -283,7 +284,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type'])) {
     }
     if (isset($_POST['type']) && $_POST['type'] === 'updateReview' && isset($_POST['id']) && isset($_POST['visible'])) {
         $reviewId = $_POST['id'];
-        $visible = $_POST['visible']; 
+        $visible = $_POST['visible'];
 
         $sql = "UPDATE tbl_reviews SET visible = ? WHERE id = ?";
         $stmt = mysqli_prepare($conn, $sql);
@@ -314,11 +315,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'getReviews') {
     }
 
     if (empty($reviews)) {
-        echo json_encode(['error' => 'No visible reviews found']); 
+        echo json_encode(['error' => 'No visible reviews found']);
         exit();
     }
 
-    echo json_encode($reviews); 
+    echo json_encode($reviews);
     exit();
 }
 if (isset($_GET['action']) && $_GET['action'] === 'getReviews') {
@@ -336,10 +337,10 @@ if (isset($_GET['action']) && $_GET['action'] === 'getReviews') {
     }
 
     if (empty($reviews)) {
-        echo json_encode(['error' => 'No visible reviews found']); 
+        echo json_encode(['error' => 'No visible reviews found']);
         exit();
     }
 
-    echo json_encode($reviews); 
+    echo json_encode($reviews);
     exit();
 }

@@ -25,12 +25,12 @@ if (isset($_POST["register"])) {
 } elseif (isset($_POST["admin"])) {
     $Fname = $_POST["firstName"];
     $Lname = $_POST["lastName"];
-    $UserName = $_POST["email"];
+    $UserName = $_POST["username"];
     $password = $_POST["password"];
     $adminRole = $_POST["adminRole"];
     $contact = 'None';
     if (empty($Fname) || empty($Lname) || empty($UserName) || empty($password)) {
-        header("location: ../../server/superadmin_AdminProfile.php?error=EmptyInput");
+        //header("location: ../../server/superadmin_AdminProfile.php?error=EmptyInput");
         exit();
     }
     if (!preg_match("/^[a-zA-Z0-9]*$/", $UserName)) {

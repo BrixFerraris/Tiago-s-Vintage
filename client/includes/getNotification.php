@@ -1,7 +1,7 @@
 <?php
 include_once './dbCon.php';
 session_start();
-$user_id = $_SESSION["uID"];
+$user_id = $_SESSION["uID"] ?? 0;
 
 $sqlGetNotifications = "
     SELECT *, COUNT(*) OVER() AS notification_count 

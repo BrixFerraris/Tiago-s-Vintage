@@ -39,9 +39,11 @@ if (isset($_SESSION["role"])) {
             <div class="search-sort-container">
                 <div class="filter-dropdown">
                     <select id="status-filter">
-                        <option value="pending">Pending</option>
-                        <option value="completed">Completed</option>
-                        <option value="canceled">Canceled</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Ready For Pickup">Ready For Pickup</option>
+                        <option value="Out For Delivery">Out For Delivery</option>
+                        <option value="Cancelled">Cancelled</option>
                     </select>
                 </div>
 
@@ -85,13 +87,10 @@ if (isset($_SESSION["role"])) {
                             const purchaseOrders = JSON.parse(response);
                             const table = $('#products');
                             const uniqueOrders = {};
-
                             const validStatuses = ['Pending', 'Ready For Pickup', 'Completed', 'Check Payment', 'Out For Delivery'];
-
                             purchaseOrders.forEach(function (purchaseOrder) {
                                 if (validStatuses.includes(purchaseOrder.status)) {
                                     const key = `${purchaseOrder.transaction_id}_${purchaseOrder.user_id}`;
-
                                     if (!uniqueOrders[key]) {
                                         uniqueOrders[key] = true;
                                         const newRow = $('<tr></tr>');
@@ -114,6 +113,81 @@ if (isset($_SESSION["role"])) {
                         }
                     });
                 }
+                $('#status-filter').change(function () {
+                    var selectedStatus = $(this).val();
+                    $.ajax({
+                        url: './includes/POsearch.php',
+                        type: 'GET',
+                        data: { status: selectedStatus },
+                        dataType: 'json',
+                        success: function (response) {
+                            $('#products tbody').empty();
+                            const uniqueOrders = {};
+                            const validStatuses = ['Pending', 'Ready For Pickup', 'Completed', 'Check Payment', 'Out For Delivery'];
+                            if (response.order_items.length > 0) {
+                                response.order_items.forEach(function (purchaseOrder) {
+                                    if (validStatuses.includes(purchaseOrder.status)) {
+                                        const key = `${purchaseOrder.transaction_id}_${purchaseOrder.user_id}`;
+                                        if (!uniqueOrders[key]) {
+                                            uniqueOrders[key] = true;
+                                            const newRow = $('<tr></tr>');
+                                            newRow.append($('<td></td>').text(purchaseOrder.transaction_id));
+                                            newRow.append($('<td></td>').text(purchaseOrder.firstName + ' ' + purchaseOrder.lastName));
+                                            newRow.append($('<td></td>').text(purchaseOrder.address));
+                                            newRow.append($('<td></td>').text(purchaseOrder.shipping));
+                                            newRow.append($('<td></td>').text(purchaseOrder.discount));
+                                            newRow.append($('<td></td>').text(purchaseOrder.status));
+                                            newRow.on('click', function () {
+                                                window.location.href = 'adminPODetails.php?transaction_id=' + purchaseOrder.transaction_id;
+                                            });
+                                            $('#products tbody').append(newRow);
+                                        }
+                                    }
+                                });
+                            } else {
+                                $('#products tbody').append('<tr><td colspan="6">No results found for the selected status.</td></tr>');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('AJAX Error: ' + status + ' ' + error);
+                            $('#products tbody').append('<tr><td colspan="6">An error occurred while fetching data.</td></tr>');
+                        }
+                    });
+                });
+                $('#search-btn').on('click', function () {
+                    var searchQuery = $(this).val(); 
+                    if (searchQuery) { 
+                        $.ajax({
+                            url: './includes/POsearch.php', 
+                            type: 'GET',
+                            data: { query: searchQuery },
+                            dataType: 'json',
+                            success: function (response) {
+                                $('#products tbody').empty();
+                                if (response.length > 0) {
+                                    response.forEach(function (transaction) {
+                                        const newRow = $('<tr></tr>');
+                                        newRow.append($('<td></td>').text(transaction.transaction_id));
+                                        newRow.append($('<td></td>').text(transaction.firstName + ' ' + transaction .lastName));
+                                        newRow.append($('<td></td>').text(transaction.address));
+                                        newRow.append($('<td></td>').text(transaction.shipping));
+                                        newRow.append($('<td></td>').text(transaction.discount));
+                                        newRow.append($('<td></td>').text(transaction.status));
+                                        $('#products tbody').append(newRow);
+                                    });
+                                } else {
+                                    $('#products tbody').append('<tr><td colspan="6">No results found.</td></tr>');
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('AJAX Error: ' + status + ' ' + error);
+                                $('#products tbody').append('<tr><td colspan="6">An error occurred while fetching data.</td></tr>');
+                            }
+                        });
+                    } else {
+                        $('#products tbody').empty(); 
+                    }
+                });
             });
         </script>
         <script src="../test/sidebarToggle.js"></script>

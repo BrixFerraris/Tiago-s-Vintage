@@ -39,7 +39,7 @@ if (isset($_SESSION["role"])) {
 <!-- Modal add admin -->
 <div class="modal-add-admin">
   <div class="modals">
-    <form action="../client/includes/register.php" method="post">
+    <form action="../client/includes/register.php" method="POST">
       <h1>Add Admin</h1>
       <div class="inputs">
         <div class="form-group">

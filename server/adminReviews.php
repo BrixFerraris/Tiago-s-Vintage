@@ -84,6 +84,8 @@ if (isset($_SESSION["role"])) {
         success: function (data) {
           $('.review-section').empty();
           $.each(data, function (index, review) {
+            console.log(review);
+            
             const reviewHtml = `
                         <div class="review">
                             <h3>${review.username}</h3>

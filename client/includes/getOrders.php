@@ -37,7 +37,8 @@ while ($row = $result->fetch_assoc()) {
             'points' => $row['points'],
             'grandtotal' => $row['grand_total'],
             'title' => $row['title'],
-            'variationName' => $row['variationName']
+            'variationName' => $row['variationName'],
+            'reviewed' => $row['reviewed']
         ];
     }
     

@@ -127,8 +127,20 @@ include './header.php';
                             type: 'payment'
                         },
                         success: function (response) {
+                            var res = JSON.parse(response);
                             alert('Success, please wait for an admin to verify your payment. It may take 30 minutes or more');
+                            $.ajax({
+                                url: './includes/updateVariation.php',
+                                type: 'POST',
+                                success: function (deleteResponse) {
+                                    console.log('Variations updated:', deleteResponse);
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error('Error updating variations:', error);
+                                }
+                            });
                             $('#paymentForm').submit();
+
                         },
                         error: function (xhr, status, error) {
                             console.error('Error updating status:', error);
@@ -190,25 +202,33 @@ include './header.php';
 
     .tabs {
         display: flex;
-        justify-content: space-around; /* Align items to the left for scrolling */
-        gap: 10px; /* Space between buttons */
-        overflow-x: auto; /* Enable horizontal scrolling */
+        justify-content: space-around;
+        /* Align items to the left for scrolling */
+        gap: 10px;
+        /* Space between buttons */
+        overflow-x: auto;
+        /* Enable horizontal scrolling */
         padding: 10px;
-        white-space: nowrap; /* Prevent buttons from wrapping */
-        border-bottom: 1px solid #ddd; /* Optional: underline for aesthetics */
+        white-space: nowrap;
+        /* Prevent buttons from wrapping */
+        border-bottom: 1px solid #ddd;
+        /* Optional: underline for aesthetics */
     }
 
     .tabs::-webkit-scrollbar {
-        height: 8px; /* Height of the scrollbar */
+        height: 8px;
+        /* Height of the scrollbar */
     }
 
     .tabs::-webkit-scrollbar-thumb {
-        background: #ccc; /* Scrollbar color */
+        background: #ccc;
+        /* Scrollbar color */
         border-radius: 4px;
     }
 
     .tabs::-webkit-scrollbar-thumb:hover {
-        background: #bbb; /* Scrollbar hover color */
+        background: #bbb;
+        /* Scrollbar hover color */
     }
 
     .tab-button {
@@ -223,6 +243,7 @@ include './header.php';
         background-color: #4CAF50;
         color: white;
     }
+
     .order-section {
         max-width: auto;
         margin: 0 auto;
@@ -230,7 +251,8 @@ include './header.php';
         background-color: #ffffff;
         border-radius: 8px;
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-        overflow-x: auto; /* Enable horizontal scrolling */
+        overflow-x: auto;
+        /* Enable horizontal scrolling */
     }
 
     .order-item {
@@ -239,14 +261,17 @@ include './header.php';
         align-items: center;
         border-bottom: 1px solid #ddd;
         padding: 15px 0;
-        flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        flex-wrap: wrap;
+        /* Allow wrapping on smaller screens */
     }
 
     .item-details {
         display: flex;
         align-items: center;
-        flex: 1 1 60%; /* Flex item that adjusts on smaller screens */
-        min-width: 200px; /* Ensure minimum space for smaller screens */
+        flex: 1 1 60%;
+        /* Flex item that adjusts on smaller screens */
+        min-width: 200px;
+        /* Ensure minimum space for smaller screens */
     }
 
     .item-details img {
@@ -271,10 +296,11 @@ include './header.php';
         display: flex;
         gap: 10px;
         flex: 1 1 auto;
-        margin-top: 10px; /* Add spacing for smaller screens */
+        margin-top: 10px;
+        /* Add spacing for smaller screens */
     }
 
-    .item-action button{
+    .item-action button {
         width: 100px;
     }
 
@@ -290,7 +316,8 @@ include './header.php';
         cursor: pointer;
         border-radius: 5px;
         font-size: 14px;
-        flex: 1; /* Buttons take equal width */
+        flex: 1;
+        /* Buttons take equal width */
     }
 
     .pay-button {
@@ -339,6 +366,7 @@ include './header.php';
         opacity: 0;
         transition: visibility 0s, opacity 0.3s ease-in-out;
     }
+
     .modal-active {
         visibility: visible;
         opacity: 1;
@@ -350,14 +378,17 @@ include './header.php';
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: rgba(0, 0, 0, 0.4); /* Add semi-transparent background */
-        z-index: 999; /* Ensure it stays above other elements */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Add semi-transparent background */
+        z-index: 999;
+        /* Ensure it stays above other elements */
     }
 
     .modals1 {
         background-color: white;
         width: 50%;
-        max-width: 500px; /* Limit the maximum width */
+        max-width: 500px;
+        /* Limit the maximum width */
         height: auto;
         display: flex;
         justify-content: center;
@@ -366,20 +397,24 @@ include './header.php';
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-        overflow: hidden; /* Prevent overflowing content */
+        overflow: hidden;
+        /* Prevent overflowing content */
     }
 
     .order-btn {
         display: flex;
         justify-content: space-around;
-        width: 100%; /* Ensure buttons span the full modal width */
+        width: 100%;
+        /* Ensure buttons span the full modal width */
         margin-bottom: 10px;
         margin-top: 5%;
     }
 
     .order-btn button {
-        flex: 1; /* Ensure equal button sizes */
-        margin: 0 5px; /* Add spacing between buttons */
+        flex: 1;
+        /* Ensure equal button sizes */
+        margin: 0 5px;
+        /* Add spacing between buttons */
         padding: 10px 15px;
         border: none;
         border-radius: 5px;
@@ -396,58 +431,71 @@ include './header.php';
     /* Responsive styles */
     @media screen and (max-width: 768px) {
         .modals1 {
-            width: 90%; /* Take up more space on smaller screens */
+            width: 90%;
+            /* Take up more space on smaller screens */
             max-width: 400px;
         }
 
         .order-btn {
-            flex-direction: column; /* Stack buttons vertically */
+            flex-direction: column;
+            /* Stack buttons vertically */
         }
 
         .order-btn button {
-            width: 100%; /* Buttons fill the width */
-            margin: 5px 0; /* Add spacing between buttons */
+            width: 100%;
+            /* Buttons fill the width */
+            margin: 5px 0;
+            /* Add spacing between buttons */
         }
     }
 
     @media screen and (max-width: 480px) {
         .modals1 {
-            padding: 15px; /* Reduce padding for smaller screens */
+            padding: 15px;
+            /* Reduce padding for smaller screens */
         }
-        
-        #myFile{
+
+        #myFile {
             margin-top: 20px;
             width: 150px;
             margin-bottom: 10px;
         }
 
-        .order-btn{
+        .order-btn {
             display: flex;
             justify-content: flex-start;
             align-items: center;
         }
+
         .order-btn button {
-            font-size: 12px; /* Adjust button text size for smaller screens */
+            font-size: 12px;
+            /* Adjust button text size for smaller screens */
             padding: 8px 10px;
             max-width: 100px;
         }
     }
+
     @media screen and (max-width: 768px) {
         .order-item {
             flex-direction: column;
-            align-items: flex-start; /* Align items to the left on smaller screens */
+            align-items: flex-start;
+            /* Align items to the left on smaller screens */
         }
 
         .item-details {
-            margin-bottom: 10px; /* Add spacing between rows */
+            margin-bottom: 10px;
+            /* Add spacing between rows */
         }
-        .item-details p{
-            margin: 10px; /* Add spacing between rows */
+
+        .item-details p {
+            margin: 10px;
+            /* Add spacing between rows */
         }
 
         .item-status,
         .item-price {
-            width: auto; /* Allow flexible width */
+            width: auto;
+            /* Allow flexible width */
             text-align: left;
         }
 
@@ -463,7 +511,8 @@ include './header.php';
         }
 
         .tab-button {
-            font-size: 14px; /* Smaller font size for smaller screens */
+            font-size: 14px;
+            /* Smaller font size for smaller screens */
             padding: 8px 15px;
         }
     }
@@ -477,4 +526,4 @@ include './header.php';
 </style>
 <?php
 include '../test/newFooter.php';
-?> 
+?>
