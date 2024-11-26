@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2024 at 11:56 AM
+-- Generation Time: Nov 26, 2024 at 11:43 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -89,7 +89,10 @@ INSERT INTO `tbl_payments` (`id`, `receipt`, `u_id`, `amount`, `transaction_numb
 (25, '67453b066b3614.15615464.jpg', '11', 2700, '1732586363_11', '2024-11-26 11:05:42'),
 (26, '67453dc61ac4f6.37729525.png', '11', 1530, '1732590557_11', '2024-11-26 11:17:26'),
 (27, '67453dcd354185.95283404.png', '11', 2400, '1732590607_11', '2024-11-26 11:17:33'),
-(28, '6745706bdc49b7.18157170.jpg', '11', 1676, '1732603954_11', '2024-11-26 14:53:31');
+(28, '6745706bdc49b7.18157170.jpg', '11', 1676, '1732603954_11', '2024-11-26 14:53:31'),
+(29, '674646be84b155.42184705.png', '11', 765, '1732658870_11', '2024-11-27 06:07:58'),
+(30, '67464a30a42818.24728447.jpg', '11', 1350, '1732659485_11', '2024-11-27 06:22:40'),
+(31, '67464ded6b9ee9.88600381.png', '11', 121, '1732660708_11', '2024-11-27 06:38:37');
 
 -- --------------------------------------------------------
 
@@ -134,7 +137,7 @@ CREATE TABLE `tbl_reviews` (
   `product_title` varchar(255) NOT NULL,
   `variation_name` varchar(255) NOT NULL,
   `review` varchar(255) NOT NULL,
-  `rate` int(255) NOT NULL,
+  `rate` decimal(10,3) NOT NULL,
   `username` varchar(255) NOT NULL,
   `img1` varchar(255) DEFAULT NULL,
   `img2` varchar(255) DEFAULT NULL,
@@ -148,7 +151,15 @@ CREATE TABLE `tbl_reviews` (
 --
 
 INSERT INTO `tbl_reviews` (`id`, `transactionID`, `product_title`, `variation_name`, `review`, `rate`, `username`, `img1`, `img2`, `img3`, `visible`, `date`) VALUES
-(2, '1732052340', 'Drew Billiard', 'White', 'wqeqeqeqeq', 5, 'amiel', '673d10b0bc09c6.35493435.jpg', NULL, NULL, 'true', '2024-11-20');
+(2, '1732052340', 'Drew Billiard', 'White', 'wqeqeqeqeq', 2.000, 'amiel', '673d10b0bc09c6.35493435.jpg', NULL, NULL, 'true', '2024-11-20'),
+(3, '1732467393', 'Aby Fishing Vest', '5', 'hqhqhqzkxjcbnzkjx anu ba \'to gumana ka na pls', 2.000, 'amiellapid06@gmail.com', '67463725b32475.73777052.png', '67463725b365f8.73376371.png', '67463725b38c22.01034517.png', 'true', '2024-11-27'),
+(4, '1732467393', 'Aby Fishing Vest', '5', 'weqeqeq', 5.000, 'amiellapid06@gmail.com', '67463758e86b69.32172813.png', '67463758e8b1f1.50462292.png', '67463758e8d930.64699296.png', 'true', '2024-11-27'),
+(5, '1732467393', 'Aby Fishing Vest', '5', 'wewewewew', 4.000, 'amiellapid06@gmail.com', '674638589688d8.31705485.png', '6746385896b8c9.55398308.png', NULL, 'true', '2024-11-27'),
+(6, '1732467393', 'Aby Fishing Vest', '5', 'weqeqeq', 4.500, 'amiellapid06@gmail.com', '674638a2790770.46645346.png', NULL, NULL, 'true', '2024-11-27'),
+(7, '1732467393', 'Aby Fishing Vest', '5', 'awdawd', 4.500, 'amiellapid06@gmail.com', '674638ec575cf6.36853553.png', NULL, NULL, 'true', '2024-11-27'),
+(8, '1732467393', 'Aby Fishing Vest', '5', '', 1.000, 'amiellapid06@gmail.com', '67463b506cf086.27900839.jpg', NULL, NULL, 'true', '2024-11-27'),
+(9, '1732467393', 'Aby Fishing Vest', '5', 'awdqwqeq', 1.000, 'amiellapid06@gmail.com', '67463bb2c36227.22344951.jpg', NULL, NULL, 'true', '2024-11-27'),
+(10, '1732586346', 'Aby Fishing Vest', 'Brown', 'wqeqeqe', 5.000, 'amiellapid06@gmail.com', '67463d31a4b373.24918568.png', NULL, NULL, 'true', '2024-11-27');
 
 -- --------------------------------------------------------
 
@@ -204,28 +215,32 @@ CREATE TABLE `tbl_transactions` (
   `discount` varchar(255) NOT NULL,
   `shipping` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
-  `seen` varchar(255) NOT NULL DEFAULT 'false'
+  `seen` varchar(255) NOT NULL DEFAULT 'false',
+  `reviewed` varchar(255) NOT NULL DEFAULT 'false'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_transactions`
 --
 
-INSERT INTO `tbl_transactions` (`id`, `transaction_id`, `product_id`, `variation_id`, `quantity`, `user_id`, `date`, `total`, `grand_total`, `status`, `discount`, `shipping`, `address`, `seen`) VALUES
-(79, '1732052340_1', '18', '13', 2, '1', '2024-11-20 01:25:57', 2400, 6210, 'Pending', 'discount', 'pickup', 'wqeqzxczxczxc', 'true'),
-(80, '1732052340_1', '17', '17', 3, '1', '2024-11-20 01:25:57', 4500, 6210, 'Pending', 'discount', 'pickup', 'wqeqzxczxczxc', 'true'),
-(81, '', '18', '13', 2, '1', '2024-11-20 00:33:10', 2400, 0, 'Cart', '', '', '', 'false'),
-(82, '1732467393_11', '17', '17', 2, '11', '2024-11-26 03:13:31', 3000, 0, 'Completed', '', 'pickup', 'Imus, 80bucksqweq', 'true'),
-(84, '1732582595_5', '17', '16', 12, '5', '2024-11-26 01:49:41', 3000, 0, 'Check Payment', '', 'pickup', 'Imus, 80bucks', 'false'),
-(85, '1732586143_5', '18', '13', 1, '5', '2024-11-26 01:57:16', 1200, 0, 'Out For Delivery', '', 'delivery', 'hahanxcvxzcvzx', 'false'),
-(86, '1732586143_5', '17', '16', 1, '5', '2024-11-26 01:57:16', 1500, 0, 'Out For Delivery', '', 'delivery', 'hahanxcvxzcvzx', 'false'),
-(87, '1732586346_11', '17', '16', 2, '11', '2024-11-26 03:11:04', 3000, 0, 'Completed', '', 'pickup', 'nsnsns', 'true'),
-(88, '1732586363_11', '17', '16', 2, '11', '2024-11-26 03:20:54', 3000, 0, 'Completed', 'discount', 'delivery', 'bbbbb', 'true'),
-(89, '1732589762_11', '17', '16', 2, '11', '2024-11-26 04:56:55', 3000, 2700, 'Out For Delivery', 'discount', 'pickup', 'oikjnbaww', 'false'),
-(90, '1732590557_11', '19', '19', 2, '11', '2024-11-26 03:47:00', 1700, 1530, 'Completed', 'discount', 'pickup', 'zxczxc', 'false'),
-(91, '1732590607_11', '18', '13', 2, '11', '2024-11-26 03:45:56', 2400, 2400, 'Completed', '', 'pickup', 'asdaww', 'false'),
-(92, '1732603954_11', '13', '18', 4, '11', '2024-11-26 06:53:45', 363, 1676, 'Out For Delivery', 'discount', 'delivery', 'gawdaxz', 'false'),
-(93, '1732603954_11', '17', '16', 1, '11', '2024-11-26 06:53:45', 1500, 1676, 'Out For Delivery', 'discount', 'delivery', 'gawdaxz', 'false');
+INSERT INTO `tbl_transactions` (`id`, `transaction_id`, `product_id`, `variation_id`, `quantity`, `user_id`, `date`, `total`, `grand_total`, `status`, `discount`, `shipping`, `address`, `seen`, `reviewed`) VALUES
+(79, '1732052340_1', '18', '13', 2, '1', '2024-11-20 01:25:57', 2400, 6210, 'Pending', 'discount', 'pickup', 'wqeqzxczxczxc', 'true', 'false'),
+(80, '1732052340_1', '17', '17', 3, '1', '2024-11-20 01:25:57', 4500, 6210, 'Pending', 'discount', 'pickup', 'wqeqzxczxczxc', 'true', 'false'),
+(81, '', '18', '13', 2, '1', '2024-11-20 00:33:10', 2400, 0, 'Cart', '', '', '', 'false', 'false'),
+(82, '1732467393_11', '17', '17', 2, '11', '2024-11-26 21:26:56', 3000, 0, 'Completed', '', 'pickup', 'Imus, 80bucksqweq', 'true', 'true'),
+(84, '1732582595_5', '17', '16', 12, '5', '2024-11-26 01:49:41', 3000, 0, 'Check Payment', '', 'pickup', 'Imus, 80bucks', 'false', 'false'),
+(85, '1732586143_5', '18', '13', 1, '5', '2024-11-26 01:57:16', 1200, 0, 'Out For Delivery', '', 'delivery', 'hahanxcvxzcvzx', 'false', 'false'),
+(86, '1732586143_5', '17', '16', 1, '5', '2024-11-26 01:57:16', 1500, 0, 'Out For Delivery', '', 'delivery', 'hahanxcvxzcvzx', 'false', 'false'),
+(87, '1732586346_11', '17', '16', 2, '11', '2024-11-26 21:27:13', 3000, 0, 'Completed', '', 'pickup', 'nsnsns', 'true', 'true'),
+(88, '1732586363_11', '17', '16', 2, '11', '2024-11-26 03:20:54', 3000, 0, 'Completed', 'discount', 'delivery', 'bbbbb', 'true', 'false'),
+(89, '1732589762_11', '17', '16', 2, '11', '2024-11-26 04:56:55', 3000, 2700, 'Out For Delivery', 'discount', 'pickup', 'oikjnbaww', 'false', 'false'),
+(90, '1732590557_11', '19', '19', 2, '11', '2024-11-26 03:47:00', 1700, 1530, 'Completed', 'discount', 'pickup', 'zxczxc', 'false', 'false'),
+(91, '1732590607_11', '18', '13', 2, '11', '2024-11-26 03:45:56', 2400, 2400, 'Completed', '', 'pickup', 'asdaww', 'false', 'false'),
+(92, '1732603954_11', '13', '18', 4, '11', '2024-11-26 06:53:45', 363, 1676, 'Out For Delivery', 'discount', 'delivery', 'gawdaxz', 'false', 'false'),
+(93, '1732603954_11', '17', '16', 1, '11', '2024-11-26 06:53:45', 1500, 1676, 'Out For Delivery', 'discount', 'delivery', 'gawdaxz', 'false', 'false'),
+(94, '1732658870_11', '19', '19', 1, '11', '2024-11-26 22:07:57', 850, 765, 'Check Payment', 'discount', 'pickup', 'wwww', 'false', 'false'),
+(95, '1732659485_11', '17', '16', 1, '11', '2024-11-26 22:22:39', 1500, 1350, 'Check Payment', 'discount', 'pickup', '2213asdc', 'false', 'false'),
+(96, '1732660708_11', '13', '18', 1, '11', '2024-11-26 22:41:28', 121, 121, 'Completed', '', 'pickup', 'aw', 'false', 'false');
 
 -- --------------------------------------------------------
 
@@ -256,7 +271,7 @@ INSERT INTO `tbl_users` (`id`, `username`, `password`, `firstName`, `lastName`, 
 (5, 'amiel06', '$2y$10$4SFlJ4HEb5hC6aVzFXVWjerAnQKnvrMTSNOoqDi2xSh3JvdXareZi', 'Amiel Carhyl', 'Lapid', 'None', 'Super Admin', 0),
 (9, 'brix', '$2y$10$YsZlW0jjCQU7eUHxACvSxuo4oXDCvnLE9FWNmFo89BA9ndh1Gh6sa', 'Brix', 'Ferraris', 'None', 'Super Admin', 21),
 (10, 'clar123', '$2y$10$BdL6rnKfHdaIsPJs5yOxLuahrv6fEdK0fPZx0K9ZpxY1DESEwIt0W', 'clar', 'darius', '0954321311', 'Customer', 0),
-(11, 'amiellapid06@gmail.com', '$2y$10$pFr2eqlh/eTH98bAYFGopeApS7HG5LP5L9WmdheEcNwQdjmNAySt6', 'Amiel Carhyl', 'Lapid', '09940576891', 'Customer', 18);
+(11, 'amiellapid06@gmail.com', '$2y$10$pFr2eqlh/eTH98bAYFGopeApS7HG5LP5L9WmdheEcNwQdjmNAySt6', 'Amiel Carhyl', 'Lapid', '09940576891', 'Customer', 1);
 
 -- --------------------------------------------------------
 
@@ -285,10 +300,7 @@ INSERT INTO `tbl_variations` (`id`, `product_id`, `variationName`, `width`, `len
 (13, 18, 'White', 25, 26, 9, '672f2e5957e2b8.08065199.png', 'false'),
 (14, 11, 'White', 20, 20, 12, '672f3284d6fdc2.21053179.png', 'false'),
 (15, 12, 'White', 12, 32, 12, '673041f114e835.95422197.png', 'false'),
-(16, 17, 'Brown', 25, 24, 10, '6738a6f15ae1a2.90674490.jpg', 'true'),
-(17, 17, '5', 27, 27, 0, '6738a752dd4d99.37358780.webp', 'true'),
-(18, 13, 'Blue', 123, 12, 8, '6738a7e46919f0.14264527.webp', 'false'),
-(19, 19, 'Brown', 31, 30, 6, '6738a8112e1719.22493591.png', 'false'),
+(18, 13, 'Blue', 123, 12, 7, '6738a7e46919f0.14264527.webp', 'false'),
 (20, 11, 'Blue Jorts', 123, 32, 12, '6738a83aafff29.12445481.jpg', 'false');
 
 --
@@ -357,7 +369,7 @@ ALTER TABLE `tbl_categories`
 -- AUTO_INCREMENT for table `tbl_payments`
 --
 ALTER TABLE `tbl_payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `tbl_products`
@@ -369,7 +381,7 @@ ALTER TABLE `tbl_products`
 -- AUTO_INCREMENT for table `tbl_reviews`
 --
 ALTER TABLE `tbl_reviews`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_settings`
@@ -381,13 +393,13 @@ ALTER TABLE `tbl_settings`
 -- AUTO_INCREMENT for table `tbl_transactions`
 --
 ALTER TABLE `tbl_transactions`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_variations`
