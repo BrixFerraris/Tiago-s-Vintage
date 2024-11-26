@@ -152,18 +152,8 @@ include '../test/newFooter.php';
 
 </script>
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
 
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: #f9f9f9;
-    }
-
-    .cart-text {
+.cart-text {
         margin-top: 50px;
         text-align: center;
     }
@@ -204,7 +194,6 @@ include '../test/newFooter.php';
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-        /* Align the quantity on the right */
     }
 
     .incdec {
@@ -227,7 +216,6 @@ include '../test/newFooter.php';
         padding: 5px 10px;
         font-size: 16px;
         cursor: pointer;
-
     }
 
     .item-total {
@@ -263,4 +251,46 @@ include '../test/newFooter.php';
     .btnremove {
         margin-left: 20px;
     }
+
+    /* Responsive Design */
+
+   
+    @media (max-width: 425px) {
+        .cart-purchase {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cart-image img {
+            width: 200px;
+        }
+
+        .item-info #infoo {
+            font-size: 20px;
+        }
+
+        .cart-text h2{
+            font-size: 20px;
+        }
+        .incdec input {
+            width: 30px;
+            font-size: 12px;
+        }
+
+        .incdec button {
+            font-size: 12px;
+            padding: 4px 8px;
+        }
+
+        .btnCheckout,
+        .btnCancel {
+            font-size: 12px;
+            padding: 6px 10px;
+        }
+
+        .item-total p {
+            font-size: 14px;
+        }
+    }
+
 </style>

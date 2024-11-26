@@ -1,13 +1,13 @@
-
+<?php
+    session_start();
+    ?>
 <head>
     <link rel="stylesheet" href="../CSS/checkout.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
-
-
-    <?php
-    session_start();
-    ?>
+    <body>
+        
+    
     <div class="checkout-wrapper">
     <div class="checkout-container">
         <input type="hidden" name="user_id" id="user_id" value="<?php echo $_SESSION['uID']; ?>">
@@ -57,6 +57,7 @@
         </div>
         </div>
         </div>
+        </body>
         <script>
             $(document).ready(function () {
                 let varID = [];

@@ -1,11 +1,18 @@
-
+body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    font-family: Arial, sans-serif;
+  }
 .checkout-wrapper{
+    margin-top: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 /* Container for checkout content */
 .checkout-container { 
+    height: auto;
     display: flex;
     flex-direction: column;
     background-color: white;

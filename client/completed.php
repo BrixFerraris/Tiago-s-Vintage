@@ -209,7 +209,7 @@ $(function () {
 <style>
     .comments {
         margin-bottom: 10px;
-        width: 500px;
+        width: 400px;
     }
 
     body {
@@ -231,32 +231,17 @@ $(function () {
     .order-btn {
         display: flex;
         flex-direction: row;
-        justify-content: space-evenly;
+        width: 200px;
+        margin-left: 10px;
         align-items: center;
     }
-
-    .modals .btnSubmitReview {
-        padding: 10px 20px;
-        background-color: green;
-        width: 200px;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        /* Add this line */
+    .order-btn button{
+        margin: 10px;
     }
 
-    .modals .btnCancel {
-        padding: 10px 20px;
-        background-color: #f44336;
-        width: 200px;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
 
-    .modal-review {
+        /* Modal Overlay */
+        .modal-review {
         position: fixed;
         width: 100%;
         height: 100vh;
@@ -276,18 +261,41 @@ $(function () {
         opacity: 1;
     }
 
+    /* Modal Styling */
     .modals {
         background-color: white;
-        width: auto;
-        height: 70%;
+        width: 90%;
+        max-width: 500px; /* Limit the modal width */
+        height: auto;
         display: flex;
         justify-content: space-around;
-        align-items: left;
+        align-items: flex-start;
         flex-direction: column;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
 
+    /* Buttons Styling */
+    .modals .btnSubmitReview,
+    .modals .btnCancel {
+        padding: 10px 20px;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        width: 200px; /* Set default button width */
+        font-size: 16px; /* Default font size */
+    }
+
+    .modals .btnSubmitReview {
+        background-color: green;
+    }
+
+    .modals .btnCancel {
+        background-color: #f44336;
     }
 
     .container {
@@ -322,11 +330,31 @@ $(function () {
     }
 
     /* Tabs for Orders */
+   
+
     .tabs {
         display: flex;
-        justify-content: space-around;
-        margin-bottom: 20px;
+        justify-content: space-around; /* Align items to the left for scrolling */
+        gap: 10px; /* Space between buttons */
+        overflow-x: auto; /* Enable horizontal scrolling */
+        padding: 10px;
+        white-space: nowrap; /* Prevent buttons from wrapping */
+        border-bottom: 1px solid #ddd; /* Optional: underline for aesthetics */
     }
+
+    .tabs::-webkit-scrollbar {
+        height: 8px; /* Height of the scrollbar */
+    }
+
+    .tabs::-webkit-scrollbar-thumb {
+        background: #ccc; /* Scrollbar color */
+        border-radius: 4px;
+    }
+
+    .tabs::-webkit-scrollbar-thumb:hover {
+        background: #bbb; /* Scrollbar hover color */
+    }
+
 
     .tab-button {
         background-color: #f0f0f5;
@@ -341,12 +369,14 @@ $(function () {
         color: white;
     }
 
-    /* Order Section */
     .order-section {
+        max-width: auto;
+        margin: 0 auto;
         padding: 20px;
         background-color: #ffffff;
         border-radius: 8px;
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        overflow-x: auto; /* Enable horizontal scrolling if necessary */
     }
 
     .order-item {
@@ -355,11 +385,15 @@ $(function () {
         align-items: center;
         border-bottom: 1px solid #ddd;
         padding: 15px 0;
+        flex-wrap: wrap; /* Allow wrapping on smaller screens */
     }
 
     .item-details {
         display: flex;
         align-items: center;
+        flex: 1 1 60%; /* Ensure flexibility for smaller screens */
+        min-width: 200px; /* Set a minimum width to avoid collapsing */
+        margin-bottom: 10px; /* Add spacing between stacked rows */
     }
 
     .item-details img {
@@ -368,38 +402,45 @@ $(function () {
         margin-right: 15px;
     }
 
+    .item-details p {
+        font-size: small;
+        color: black;
+    }
+
     .item-status {
         width: 100px;
         text-align: center;
+        flex: 1 1 auto; /* Adjust width dynamically */
     }
 
     .item-price {
         width: 100px;
         text-align: center;
+        flex: 1 1 auto; /* Adjust width dynamically */
     }
 
     .item-actions {
         width: 150px;
         text-align: center;
+        flex: 1 1 auto; /* Adjust width dynamically */
+        margin-top: 10px; /* Add spacing for smaller screens */
     }
 
-    /* Completed status */
-    .status.completed {
-        color: green;
+    .status.complete {
+        color: #0066cc;
         font-weight: bold;
     }
 
-    /* Button styles for "Confirm Receipt" */
     .confirm-receive-btn {
-        margin-left: 10px;
         background-color: #0066cc;
         color: white;
         padding: 8px 16px;
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        width: 100%; /* Ensure the button spans full width on smaller screens */
     }
-
+    /* Button styles for "Confirm Receipt" */
     .item-details p {
         font-size: small;
     }
@@ -455,7 +496,7 @@ $(function () {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-
+    overflow-y: auto;
 }
 
 .container {
@@ -533,6 +574,86 @@ $(function () {
 .close-button:hover {
     background-color: darkred; /* Change color on hover */
 }
+
+    /* Responsive Breakpoints */
+    @media screen and (max-width: 768px) {
+        .order-item {
+            flex-direction: column;
+            align-items: flex-start; /* Align items to the left on smaller screens */
+        }
+
+        .item-details {
+            margin-bottom: 10px; /* Add spacing between rows */
+        }
+        .item-details p{
+            margin: 10px; /* Add spacing between rows */
+        }
+
+        .item-status,
+        .item-price {
+            width: auto; /* Allow flexible width */
+            text-align: left;
+        }
+
+        .item-action {
+            flex-direction: row;
+            align-items: flex-start;
+        }
+    }
+    @media (max-width: 768px) {
+        .tabs {
+            padding: 5px;
+        }
+
+        .tab-button {
+            font-size: 14px; /* Smaller font size for smaller screens */
+            padding: 8px 15px;
+        }
+    }
+
+    @media (max-width: 425px) {
+        .tab-button {
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+    }
+
+
+
+     /* Responsive Adjustments */
+     @media screen and (max-width: 768px) {
+        .modals {
+            width: 90%; /* Take up more width on smaller screens */
+            max-width: 400px;
+            height: 70%;
+        }
+
+        .modals .btnSubmitReview,
+        .modals .btnCancel {
+            width: 100%; /* Buttons will span full width on smaller screens */
+            padding: 12px 0;
+            font-size: 14px; /* Smaller font size for mobile */
+        }
+        .comments{
+            width: 350px;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .comments{
+            width: 250px;
+        }
+
+        .modals {
+            padding: 15px; /* Reduce padding on very small screens */
+        }
+
+        .modals .btnSubmitReview,
+        .modals .btnCancel {
+            padding: 10px 0;
+            font-size: 12px; /* Further reduce font size */
+        }
+    }
 </style>
 
 

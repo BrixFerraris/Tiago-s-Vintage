@@ -21,7 +21,7 @@ include './header.php';
     <div class="modals1">
         <h2>Payment Method</h2>
         <h6>Scan to pay</h6>
-        <img src="../assets/QR.png" class="qr" alt="" width="30%" height="45%">
+        <img src="../assets/QR.png" class="qr" alt="" width="180px" height="210px">
         <h4 class="amount">Amount: <span id="amountValue">1500</span></h4>
         <p>We accept Gcash only. After scanning the QR code, please put the receipt in the box given.</p>
         <form id="paymentForm" action="./includes/clientPay.php" method="POST" enctype="multipart/form-data">
@@ -74,7 +74,7 @@ include './header.php';
                     <div class="order-item">
                         <div class="item-details">
                             <img src="../server/includes/uploads/${order.first_img}" alt="Product Image" style="width: 100px; height: auto;">
-                            <h5>Transaction ID: ${order.transaction_id}</h5>
+                            <p>Transaction ID: ${order.transaction_id}</p>
                             <p>Items: <br> ${itemTitles}</p>
                             <p>Sizes: <br> ${itemSizes}</p>
                             <p>Total Quantity: ${totalQuantity}</p>
@@ -190,8 +190,25 @@ include './header.php';
 
     .tabs {
         display: flex;
-        justify-content: space-around;
-        margin-bottom: 20px;
+        justify-content: space-around; /* Align items to the left for scrolling */
+        gap: 10px; /* Space between buttons */
+        overflow-x: auto; /* Enable horizontal scrolling */
+        padding: 10px;
+        white-space: nowrap; /* Prevent buttons from wrapping */
+        border-bottom: 1px solid #ddd; /* Optional: underline for aesthetics */
+    }
+
+    .tabs::-webkit-scrollbar {
+        height: 8px; /* Height of the scrollbar */
+    }
+
+    .tabs::-webkit-scrollbar-thumb {
+        background: #ccc; /* Scrollbar color */
+        border-radius: 4px;
+    }
+
+    .tabs::-webkit-scrollbar-thumb:hover {
+        background: #bbb; /* Scrollbar hover color */
     }
 
     .tab-button {
@@ -206,12 +223,14 @@ include './header.php';
         background-color: #4CAF50;
         color: white;
     }
-
     .order-section {
+        max-width: auto;
+        margin: 0 auto;
         padding: 20px;
         background-color: #ffffff;
         border-radius: 8px;
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        overflow-x: auto; /* Enable horizontal scrolling */
     }
 
     .order-item {
@@ -220,15 +239,14 @@ include './header.php';
         align-items: center;
         border-bottom: 1px solid #ddd;
         padding: 15px 0;
-    }
-
-    .item-details p {
-        color: black;
+        flex-wrap: wrap; /* Allow wrapping on smaller screens */
     }
 
     .item-details {
         display: flex;
         align-items: center;
+        flex: 1 1 60%; /* Flex item that adjusts on smaller screens */
+        min-width: 200px; /* Ensure minimum space for smaller screens */
     }
 
     .item-details img {
@@ -237,34 +255,42 @@ include './header.php';
         margin-right: 15px;
     }
 
-    .item-status {
-        width: 100px;
-        text-align: center;
+    .item-details p {
+        color: black;
+        font-size: small;
     }
 
+    .item-status,
     .item-price {
         width: 100px;
         text-align: center;
+        flex: 1 1 auto;
     }
 
     .item-action {
         display: flex;
         gap: 10px;
+        flex: 1 1 auto;
+        margin-top: 10px; /* Add spacing for smaller screens */
     }
 
-    /* Pending status */
+    .item-action button{
+        width: 100px;
+    }
+
     .status.pending {
         color: orange;
         font-weight: bold;
     }
 
-    /* Pay Now and Cancel Buttons */
     .pay-button,
     .cancel-button {
         padding: 10px 20px;
         border: none;
         cursor: pointer;
         border-radius: 5px;
+        font-size: 14px;
+        flex: 1; /* Buttons take equal width */
     }
 
     .pay-button {
@@ -280,14 +306,6 @@ include './header.php';
     .pay-button:hover,
     .cancel-button:hover {
         opacity: 0.9;
-    }
-
-    .order-selection h3 {
-        font-weight: bold;
-    }
-
-    .item-details p {
-        font-size: small;
     }
 
     .btnCheckout,
@@ -321,29 +339,140 @@ include './header.php';
         opacity: 0;
         transition: visibility 0s, opacity 0.3s ease-in-out;
     }
-
     .modal-active {
         visibility: visible;
         opacity: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.4); /* Add semi-transparent background */
+        z-index: 999; /* Ensure it stays above other elements */
     }
 
     .modals1 {
         background-color: white;
         width: 50%;
-        height: 70%;
+        max-width: 500px; /* Limit the maximum width */
+        height: auto;
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
         align-items: center;
         flex-direction: column;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        overflow: hidden; /* Prevent overflowing content */
     }
 
     .order-btn {
+        display: flex;
+        justify-content: space-around;
+        width: 100%; /* Ensure buttons span the full modal width */
         margin-bottom: 10px;
         margin-top: 5%;
-        justify-content: space-around;
+    }
+
+    .order-btn button {
+        flex: 1; /* Ensure equal button sizes */
+        margin: 0 5px; /* Add spacing between buttons */
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 14px;
+    }
+
+    .order-btn button.cancel {
+        background-color: #f44336;
+    }
+
+    /* Responsive styles */
+    @media screen and (max-width: 768px) {
+        .modals1 {
+            width: 90%; /* Take up more space on smaller screens */
+            max-width: 400px;
+        }
+
+        .order-btn {
+            flex-direction: column; /* Stack buttons vertically */
+        }
+
+        .order-btn button {
+            width: 100%; /* Buttons fill the width */
+            margin: 5px 0; /* Add spacing between buttons */
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .modals1 {
+            padding: 15px; /* Reduce padding for smaller screens */
+        }
+        
+        #myFile{
+            margin-top: 20px;
+            width: 150px;
+            margin-bottom: 10px;
+        }
+
+        .order-btn{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .order-btn button {
+            font-size: 12px; /* Adjust button text size for smaller screens */
+            padding: 8px 10px;
+            max-width: 100px;
+        }
+    }
+    @media screen and (max-width: 768px) {
+        .order-item {
+            flex-direction: column;
+            align-items: flex-start; /* Align items to the left on smaller screens */
+        }
+
+        .item-details {
+            margin-bottom: 10px; /* Add spacing between rows */
+        }
+        .item-details p{
+            margin: 10px; /* Add spacing between rows */
+        }
+
+        .item-status,
+        .item-price {
+            width: auto; /* Allow flexible width */
+            text-align: left;
+        }
+
+        .item-action {
+            flex-direction: row;
+            align-items: flex-start;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .tabs {
+            padding: 5px;
+        }
+
+        .tab-button {
+            font-size: 14px; /* Smaller font size for smaller screens */
+            padding: 8px 15px;
+        }
+    }
+
+    @media (max-width: 425px) {
+        .tab-button {
+            font-size: 12px;
+            padding: 5px 10px;
+        }
     }
 </style>
 <?php

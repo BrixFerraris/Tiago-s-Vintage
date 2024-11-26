@@ -116,12 +116,31 @@ include './header.php';
         text-decoration: underline;
     }
 
-    /* Tabs for Orders */
+   
+
     .tabs {
         display: flex;
-        justify-content: space-around;
-        margin-bottom: 20px;
+        justify-content: space-around; /* Align items to the left for scrolling */
+        gap: 10px; /* Space between buttons */
+        overflow-x: auto; /* Enable horizontal scrolling */
+        padding: 10px;
+        white-space: nowrap; /* Prevent buttons from wrapping */
+        border-bottom: 1px solid #ddd; /* Optional: underline for aesthetics */
     }
+
+    .tabs::-webkit-scrollbar {
+        height: 8px; /* Height of the scrollbar */
+    }
+
+    .tabs::-webkit-scrollbar-thumb {
+        background: #ccc; /* Scrollbar color */
+        border-radius: 4px;
+    }
+
+    .tabs::-webkit-scrollbar-thumb:hover {
+        background: #bbb; /* Scrollbar hover color */
+    }
+
 
     .tab-button {
         background-color: #f0f0f5;
@@ -136,12 +155,15 @@ include './header.php';
         color: white;
     }
 
-    /* Order Section */
+
     .order-section {
+        max-width: auto;
+        margin: 0 auto;
         padding: 20px;
         background-color: #ffffff;
         border-radius: 8px;
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        overflow-x: auto; /* Enable horizontal scrolling */
     }
 
     .order-item {
@@ -150,11 +172,14 @@ include './header.php';
         align-items: center;
         border-bottom: 1px solid #ddd;
         padding: 15px 0;
+        flex-wrap: wrap; /* Allow wrapping on smaller screens */
     }
 
     .item-details {
         display: flex;
         align-items: center;
+        flex: 1 1 60%; /* Flex item that adjusts on smaller screens */
+        min-width: 200px; /* Ensure minimum space for smaller screens */
     }
 
     .item-details img {
@@ -162,6 +187,7 @@ include './header.php';
         height: 80px;
         margin-right: 15px;
     }
+
 
     .item-status {
         width: 100px;
@@ -182,6 +208,50 @@ include './header.php';
 
     .item-details p {
         font-size: small;
+    }
+
+    @media screen and (max-width: 768px) {
+        .order-item {
+            flex-direction: column;
+            align-items: flex-start; /* Align items to the left on smaller screens */
+        }
+
+        .item-details {
+            margin-bottom: 10px; /* Add spacing between rows */
+        }
+        .item-details p{
+            margin: 10px; /* Add spacing between rows */
+        }
+
+        .item-status,
+        .item-price {
+            width: auto; /* Allow flexible width */
+            text-align: left;
+        }
+
+        .item-action {
+            flex-direction: row;
+            align-items: flex-start;
+        }
+    }
+
+
+    @media (max-width: 768px) {
+        .tabs {
+            padding: 5px;
+        }
+
+        .tab-button {
+            font-size: 14px; /* Smaller font size for smaller screens */
+            padding: 8px 15px;
+        }
+    }
+
+    @media (max-width: 425px) {
+        .tab-button {
+            font-size: 12px;
+            padding: 5px 10px;
+        }
     }
 </style>
 
