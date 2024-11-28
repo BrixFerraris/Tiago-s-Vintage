@@ -82,31 +82,39 @@ function loadPurchaseOrders($conn, $transactionId = null)
 function getCart($conn, $user_id)
 {
     $query = "SELECT 
-        p.img1, 
-        p.title, 
-        v.variationName, 
-        p.price, 
-        p.id, 
-        t.quantity, 
-        u.firstName, 
-        u.lastName, 
-        u.contact,
-        u.points,
-        t.total, 
-        u.id AS userId, 
-        t.id AS transactionId,
-        v.quantity AS variantQuantity,
-        v.id AS variationId
-    FROM 
-        tbl_transactions t 
-    INNER JOIN 
-        tbl_products p ON t.product_id = p.id 
-    INNER JOIN 
-        tbl_variations v ON t.product_id = v.product_id AND t.variation_id = v.id 
-    INNER JOIN 
-        tbl_users u ON t.user_id = u.id 
-    WHERE 
-        t.user_id = ? AND t.status = 'Cart'";
+    p.img1, 
+    p.title, 
+    v.variationName, 
+    p.price, 
+    p.id, 
+    t.quantity, 
+    u.firstName, 
+    u.lastName, 
+    u.contact,
+    COALESCE(completed.completedTransactions, 0) AS completedTransactions,  -- Count of completed transactions
+    t.total, 
+    u.id AS userId, 
+    t.id AS transactionId,
+    v.quantity AS variantQuantity,
+    v.id AS variationId
+FROM 
+    tbl_transactions t 
+INNER JOIN 
+    tbl_products p ON t.product_id = p.id 
+INNER JOIN 
+    tbl_variations v ON t.product_id = v.product_id AND t.variation_id = v.id 
+INNER JOIN 
+    tbl_users u ON t.user_id = u.id 
+LEFT JOIN 
+    (
+        SELECT user_id, COUNT(*) AS completedTransactions
+        FROM tbl_transactions
+        WHERE status = 'Completed'
+        GROUP BY user_id
+    ) completed ON completed.user_id = t.user_id  -- Join subquery to get completed transaction count
+WHERE 
+    t.user_id = ? AND t.status = 'Cart'
+";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $user_id);
     $stmt->execute();

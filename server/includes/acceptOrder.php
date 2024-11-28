@@ -26,7 +26,7 @@ if (isset($_POST['transaction_id']) && isset($_POST['action'])) {
 
     if ($stmt->execute()) {
         if ($action === 'complete') {
-            $quantityQuery = $conn->prepare("SELECT SUM(quantity) as total_quantity, user_id FROM tbl_transactions WHERE transaction_id = ?"); 
+            $quantityQuery = $conn->prepare("SELECT COUNT(*) as completed_count FROM tbl_transactions WHERE transaction_id = ? AND user_id = ? AND status = 'Completed'");
             $quantityQuery->bind_param('i', $transactionId);
             $quantityQuery->execute();
             $quantityResult = $quantityQuery->get_result();

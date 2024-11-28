@@ -458,24 +458,7 @@ if (isset($_SESSION["role"])) {
                             username: username
                         },
                         success: function (response) {
-                            $.ajax({
-                                url: '../client/includes/updateStatus.php',
-                                type: 'POST',
-                                data: {
-                                    transaction_id: transactionId,
-                                    type: 'complete',
-                                    points: parseInt($(this).data('points')) 
-                                },
-                                success: function (response) {
-                                    var result = JSON.parse(response);
-                                    alert("Completed transaction. Thank you!");
-                                    location.reload();
-                                },
-                                error: function (xhr, status, error) {
-                                    console.error('Error updating status:', error);
-                                    alert('An error occurred while updating the status.');
-                                }
-                            });
+                            alert("Success");  
                         },
                         error: function (xhr, status, error) {
                             console.error('An error occurred:', error);

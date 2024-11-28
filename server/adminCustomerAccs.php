@@ -36,10 +36,9 @@ if (isset($_SESSION["role"])) {
                         <th>ID</th>
                         <th>E-mail</th>
                         <th>Orders Completed</th>
-                        <th>Points</th>
                     </tr>
                 </thead>
-                <tbody id="points-data" >
+                <tbody id="points-data">
                     <tr>
                         <td>1</td>
                         <td>clarence@gmail.com</td>
@@ -78,32 +77,35 @@ if (isset($_SESSION["role"])) {
                 <a href="#" class="page-num">2</a>
                 <a href="#" class="next">Next</a>
             </div>
-    </div>
-</div>
-<script>
-$(document).ready(function () {
-    $.ajax({
-        url: './includes/getCustomerPoints.php', 
-        method: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            console.log(data);
-            let rows = '';
-                rows += '<tr>';
-                rows += '<td>' + data.id + '</td>'; 
-                rows += '<td>' + data.username + '</td>'; 
-                rows += '<td>' + data.orders_completed + '</td>'; 
-                rows += '<td>' + data.points + '</td>'; 
-                rows += '</tr>';
-            $('#points-data').html(rows);
-        },
-        error: function (xhr, status, error) {
-            console.error('AJAX Error: ' + status + error);
-        }
-    });
-});
-</script>
-<script src="../test/sidebarToggle.js"></script>
+        </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    url: './includes/getCustomerPoints.php',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+
+                        let rows = '';
+                        data.forEach(function (item) {
+                            rows += '<tr>';
+                            rows += '<td>' + item.id + '</td>';
+                            rows += '<td>' + item.username + '</td>';
+                            rows += '<td>' + item.orders_completed + '</td>';
+                            rows += '</tr>';
+                        });
+                        $('#points-data').html(rows);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('AJAX Error: ' + status + error);
+                    }
+                });
+
+            });
+        </script>
+        <script src="../test/sidebarToggle.js"></script>
 
 </body>
 
