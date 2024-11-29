@@ -330,25 +330,3 @@ if (isset($_GET['action']) && $_GET['action'] === 'getReviews') {
     echo json_encode($reviews);
     exit();
 }
-if (isset($_GET['action']) && $_GET['action'] === 'getReviews') {
-    $sql = "SELECT * FROM tbl_reviews";
-    $result = mysqli_query($conn, $sql);
-
-    if (!$result) {
-        echo json_encode(['error' => 'Database query failed: ' . mysqli_error($conn)]);
-        exit();
-    }
-
-    $reviews = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $reviews[] = $row;
-    }
-
-    if (empty($reviews)) {
-        echo json_encode(['error' => 'No visible reviews found']);
-        exit();
-    }
-
-    echo json_encode($reviews);
-    exit();
-}

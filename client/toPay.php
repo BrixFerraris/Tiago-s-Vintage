@@ -1,5 +1,7 @@
 <?php
 include './header.php';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
 ?>
 
 <!-- Main Content -->
@@ -38,6 +40,10 @@ include './header.php';
 </div>
 <script>
     $(document).ready(function () {
+        var userRole = "<?php echo $role; ?>";
+        if (userRole !== 'Customer' && userRole !== '') {
+            window.location.href = "../server/adminDashboard.php";
+        }
         $.ajax({
             url: 'http://localhost/tiago/server/includes/getCMS.php',
             method: 'GET',
@@ -62,6 +68,8 @@ include './header.php';
                 $.each(orders, function (index, order) {
                     var itemTitles = order.items.map(item => item.title).join(', ');
                     var itemSizes = order.items.map(item => item.size).join('<br>');
+                    var varID = order.items.map(item => item.variationID).join('<br>');
+                    var quantity = order.items.map(item => item.quantity).join('<br>');
                     var totalQuantity = order.total_quantity;
                     var totalPrice = order.total_price;
                     var shipping = order.shipping;
@@ -87,7 +95,7 @@ include './header.php';
                         </div>
                         <div class="item-action">
                             <button class="pay-button" data-total="${totalPrice}" data-transaction="${order.transaction_id}">Pay Now</button>
-                            <button class="cancel-button" data-transaction="${order.transaction_id}">Cancel</button>
+                            <button class="cancel-button" data-quantity="${quantity}" data-variation="${varID}" data-transaction="${order.transaction_id}">Cancel</button>
                         </div>
                     </div>`;
                         $('#to-pay').append(orderItem);
@@ -109,6 +117,79 @@ include './header.php';
                     $('.amount').val(`${amount}`);
                     $('#transID').val(transactionId);
                     $('#amountValue').text(amount);
+                });
+                $(document).on('click', '.cancel-button', function () {
+                    var transactionId = $(this).data('transaction');
+                    var allVarID = $(this).data('variation');
+                    var allQuantities = $(this).data('quantity');
+
+                    allVarID = String(allVarID);
+                    allQuantities = String(allQuantities);
+
+                    if (typeof allVarID !== 'string') {
+                        alert("Variation data is not a string. Actual value: " + allVarID);
+                        return;
+                    }
+
+                    if (typeof allQuantities !== 'string') {
+                        alert("Quantity data is not a string. Actual value: " + allQuantities);
+                        return;
+                    }
+
+                    allVarID = allVarID.includes('<br>') ? allVarID.split('<br>') : [allVarID];
+                    allQuantities = allQuantities.includes('<br>') ? allQuantities.split('<br>') : [allQuantities];
+
+                    if (allVarID.length !== allQuantities.length) {
+                        alert("Variation IDs and quantities do not match.");
+                        return; 
+                    }
+
+                    $.ajax({
+                        url: './includes/updateStatus.php',
+                        type: 'POST',
+                        data: {
+                            transaction_id: transactionId,
+                            type: 'cancel'
+                        },
+                        success: function (response) {
+                            var result = JSON.parse(response);
+                            if (result.status === 'success') {
+                                alert("Cancelled successfully");
+                                var variationData = [];
+                                for (var i = 0; i < allVarID.length; i++) {
+                                    variationData.push({
+                                        id: allVarID[i],
+                                        quantity: allQuantities[i]
+                                    });
+                                }
+                                $.ajax({
+                                    url: './includes/updateVariation.php',
+                                    type: 'POST',
+                                    data: {
+                                        variations: variationData 
+                                    },
+                                    success: function (quantityResponse) {
+                                        var quantityResult = JSON.parse(quantityResponse);
+                                        if (quantityResult.status === 'success') {
+                                            window.location.href = './cancelled.php';
+                                        } else {
+                                            alert("Error updating quantities: " + quantityResult.message);
+                                        }
+                                    },
+                                    error: function (xhr, status, error) {
+                                        console.error('Error updating quantities:', error);
+                                        alert('Failed to update quantities. Please try again later.');
+                                    }
+                                });
+                            } else {
+                                alert("Error: " + result.message);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error updating status:', error);
+                            alert('Failed to update status. Please try again later.');
+                        }
+                    });
                 });
                 $('.btnSubmit').on('click', function (e) {
                     e.preventDefault();
@@ -134,6 +215,7 @@ include './header.php';
                                 type: 'POST',
                                 success: function (deleteResponse) {
                                     console.log('Variations updated:', deleteResponse);
+                                    window.location.href = './toReceived.php';
                                 },
                                 error: function (xhr, status, error) {
                                     console.error('Error updating variations:', error);

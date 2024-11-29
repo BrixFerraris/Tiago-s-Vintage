@@ -1,5 +1,7 @@
 <?php
 include 'header.php';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
 ?>
 
 <!-- Main -->
@@ -10,9 +12,9 @@ include 'header.php';
 
 
 <main class="main-container">
-        <div class="main-title">
-            <p class="font-weight-bold">Log in</p>
-        </div>
+    <div class="main-title">
+        <p class="font-weight-bold">Log in</p>
+    </div>
 
     <!-- login -->
 
@@ -21,10 +23,10 @@ include 'header.php';
             <div class="form-group">
 
 
-            <div class="form-group">
-                <label for="username">Email:</label>
-                <input type="text" id="username" name="username" placeholder="Username" required>
-            </div>
+                <div class="form-group">
+                    <label for="username">Email:</label>
+                    <input type="text" id="username" name="username" placeholder="E-Mail" required>
+                </div>
 
                 <div class="form-group">
                     <label for="password">Password:</label>
@@ -32,39 +34,55 @@ include 'header.php';
                         <input type="password" id="password" name="password" placeholder="Password" required>
                         <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                     </div>
-                </div>  
+                </div>
 
-            <button name="submit" type="submit">Log in</button>
-            <div class="aabtm">
+                <button name="submit" type="submit">Log in</button>
+                <div class="aabtm">
 
-                <a href="./register.php" style="text-decoration: none;">Doesn't have an account? Click here to Register! </a>
-            </div>
-            
+                    <a href="./register.php" style="text-decoration: none;">Doesn't have an account? Click here to
+                        Register! </a>
+                </div>
+
 
         </form>
     </div>
-    </main>
+</main>
 
-    <!-- End Main -->
-
+<!-- End Main -->
 
 <script>
-
-    //shhow password
-
-    $(".toggle-password").click(function() {
-
-$(this).toggleClass("fa-eye fa-eye-slash");
-var input = $($(this).attr("toggle"));
-if (input.attr("type") == "password") {
-  input.attr("type", "text");
-} else {
-  input.attr("type", "password");
-}
-});
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        const results = regex.exec(window.location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+    const errorValue = getUrlParameter('error');
+    if (errorValue === "EmptyInput") {
+        alert("Empty input detected!");
+    } else if (errorValue === "PassNotMatching") {
+        alert("Passwords do not match!");
+    } else if (errorValue === "WrongLogin") {
+        alert("Invalid Username or Password");
+    } else if (errorValue === "none") {
+        alert("Success! No issues detected.");
+    }
+    $(".toggle-password").click(function () {
+        var userRole = "<?php echo $role; ?>";
+        if (userRole !== 'Customer' && userRole !== '') {
+            window.location.href = "../server/adminDashboard.php";
+        }
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
 </script>
 
 
-    <?php
+<?php
 include '../test/newFooter.php';
-?> 
+?>

@@ -1,5 +1,7 @@
 <?php
 include './header.php';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
 ?>
 <!-- Main Content -->
 <div class="container">
@@ -24,41 +26,51 @@ include './header.php';
 </div>
 <script>
     $(document).ready(function () {
+        var userRole = "<?php echo $role; ?>";
+        if (userRole !== 'Customer' && userRole !== '') {
+            window.location.href = "../server/adminDashboard.php";
+        }
         $.ajax({
             url: './includes/getOrders.php',
             type: 'GET',
             success: function (orders) {
                 console.log(orders);
-                $('#order-list').empty(); 
+                $('#order-list').empty();
                 if (orders.length === 0) {
                     $('#order-list').append('<h1>No Orders Yet</h1>');
                     return;
                 }
+                var cancelledOrders = orders.filter(order => order.status === 'Cancelled');
 
-                $.each(orders, function (index, order) {
+                if (cancelledOrders.length === 0) {
+                    $('#order-list').append('<h1>No Cancelled Orders</h1>');
+                    return;
+                }
+
+                $.each(cancelledOrders, function (index, order) {
                     var itemTitles = order.items.map(item => item.title).join(', ');
                     var itemSizes = order.items.map(item => item.size).join('<br>');
                     var totalQuantity = order.total_quantity;
                     var totalPrice = order.total_price;
 
                     var orderItem = `
-                <div class="order-item">
-                    <div class="item-details">
-                        <img src="../server/includes/uploads/${order.first_img}" alt="Product Image" style="width: 100px; height: auto;">
-                        <div>
-                            <h5>${itemTitles}</h5>
-                            <p>Size: <br> ${itemSizes}</p>
-                            <p>Quantity: ${totalQuantity}</p>
-                            <p>Total Items: ${totalQuantity}</p>
-                        </div>
+            <div class="order-item">
+                <div class="item-details">
+                    <img src="../server/includes/uploads/${order.first_img}" alt="Product Image" style="width: 100px; height: auto;">
+                    <div>
+                        <h5>${itemTitles}</h5>
+                        <p>Size: <br> ${itemSizes}</p>
+                        <p>Quantity: ${totalQuantity}</p>
+                        <p>Total Items: ${totalQuantity}</p>
                     </div>
-                    <div class="item-status">
-                        <p class="status ${order.status.toLowerCase()}">${order.status}</p>
-                    </div>
-                    <div class="item-price">
-                        <p>₱${totalPrice.toFixed(2)}</p>
-                    </div>
-                </div>`;
+                </div>
+                <div class="item-status">
+                    <p class="status ${order.status.toLowerCase()}">${order.status}</p>
+                </div>
+                <div class="item-price">
+                    <p>₱${totalPrice.toFixed(2)}</p>
+                </div>
+            </div>`;
                     $('#order-list').append(orderItem);
                 });
             },
@@ -116,29 +128,37 @@ include './header.php';
         text-decoration: underline;
     }
 
-   
+
 
     .tabs {
         display: flex;
-        justify-content: space-around; /* Align items to the left for scrolling */
-        gap: 10px; /* Space between buttons */
-        overflow-x: auto; /* Enable horizontal scrolling */
+        justify-content: space-around;
+        /* Align items to the left for scrolling */
+        gap: 10px;
+        /* Space between buttons */
+        overflow-x: auto;
+        /* Enable horizontal scrolling */
         padding: 10px;
-        white-space: nowrap; /* Prevent buttons from wrapping */
-        border-bottom: 1px solid #ddd; /* Optional: underline for aesthetics */
+        white-space: nowrap;
+        /* Prevent buttons from wrapping */
+        border-bottom: 1px solid #ddd;
+        /* Optional: underline for aesthetics */
     }
 
     .tabs::-webkit-scrollbar {
-        height: 8px; /* Height of the scrollbar */
+        height: 8px;
+        /* Height of the scrollbar */
     }
 
     .tabs::-webkit-scrollbar-thumb {
-        background: #ccc; /* Scrollbar color */
+        background: #ccc;
+        /* Scrollbar color */
         border-radius: 4px;
     }
 
     .tabs::-webkit-scrollbar-thumb:hover {
-        background: #bbb; /* Scrollbar hover color */
+        background: #bbb;
+        /* Scrollbar hover color */
     }
 
 
@@ -163,7 +183,8 @@ include './header.php';
         background-color: #ffffff;
         border-radius: 8px;
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-        overflow-x: auto; /* Enable horizontal scrolling */
+        overflow-x: auto;
+        /* Enable horizontal scrolling */
     }
 
     .order-item {
@@ -172,14 +193,17 @@ include './header.php';
         align-items: center;
         border-bottom: 1px solid #ddd;
         padding: 15px 0;
-        flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        flex-wrap: wrap;
+        /* Allow wrapping on smaller screens */
     }
 
     .item-details {
         display: flex;
         align-items: center;
-        flex: 1 1 60%; /* Flex item that adjusts on smaller screens */
-        min-width: 200px; /* Ensure minimum space for smaller screens */
+        flex: 1 1 60%;
+        /* Flex item that adjusts on smaller screens */
+        min-width: 200px;
+        /* Ensure minimum space for smaller screens */
     }
 
     .item-details img {
@@ -213,19 +237,24 @@ include './header.php';
     @media screen and (max-width: 768px) {
         .order-item {
             flex-direction: column;
-            align-items: flex-start; /* Align items to the left on smaller screens */
+            align-items: flex-start;
+            /* Align items to the left on smaller screens */
         }
 
         .item-details {
-            margin-bottom: 10px; /* Add spacing between rows */
+            margin-bottom: 10px;
+            /* Add spacing between rows */
         }
-        .item-details p{
-            margin: 10px; /* Add spacing between rows */
+
+        .item-details p {
+            margin: 10px;
+            /* Add spacing between rows */
         }
 
         .item-status,
         .item-price {
-            width: auto; /* Allow flexible width */
+            width: auto;
+            /* Allow flexible width */
             text-align: left;
         }
 
@@ -242,7 +271,8 @@ include './header.php';
         }
 
         .tab-button {
-            font-size: 14px; /* Smaller font size for smaller screens */
+            font-size: 14px;
+            /* Smaller font size for smaller screens */
             padding: 8px 15px;
         }
     }

@@ -11,32 +11,30 @@
 
 <body>
     <footer>
-    <div class="footer-info">
-        <span>Tiago's Vintage Boutique:</span>
-            <div class="social-icons">
-                <a href="https://www.facebook.com/profile.php?id=100063803240125"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.instagram.com/tiagos_vintage_/"><i class="fa-brands fa-instagram"></i></a>
-            </div>
+        <div class="footer-info">
+            <span>Tiago's Vintage Boutique:</span>
+
         </div>
         <div class="footer-container">
             <div class="rows">
                 <div class="row1"><img class="logo" src="../assets/tiagos-removebg-preview 1.png" alt="">
-                    <p id="about" >Tiago's Vintage provides a seamless online shopping experience for vintage enthusiasts, offering
+                    <p id="about">Tiago's Vintage provides a seamless online shopping experience for vintage
+                        enthusiasts, offering
                         a carefully curated selection of timeless pieces. With an intuitive interface and smooth
                         navigation, it ensures that finding and purchasing unique items is both enjoyable and
                         effortless.</p>
                 </div>
                 <div class="row3">
                     <h3>ADDRESS:</h3>
-                    <p id="address" ><i class="fas fa-location"></i> Bayan Luma, Imus City, Cavite</p>
-                   
+                    <p id="address"><i class="fas fa-location"></i> Bayan Luma, Imus City, Cavite</p>
+
                 </div>
                 <div class="row4">
                     <h3>CONTACT US:</h3>
-                    <p><a id="fb" href="" target="_blank" style="text-decoration: none; color:white"><i class="fa-brands fa-facebook"></i> Tiago's Vintage</a></p>
-                    <p><a id="ig" href="" target="_blank" style="text-decoration: none; color:white"><i class="fa-brands fa-instagram"></i> tiagos_vintage_</a></p>
-                    <p><a id="email" href="" style="text-decoration: none; color:white"><i class="fa-solid fa-envelope" ></i> TiagosVintage@gmail.com</a></p>
-                    <p id="contact" ><i class="fas fa-phone"></i> 0995 795 6315</p>
+                    <p><a id="fb" href="" target="_blank" style="text-decoration: none; color:white"> Tiago's Vintage</a></p>
+                    <p><a id="ig" href="" target="_blank" style="text-decoration: none; color:white"> tiagos_vintage_</a></p>
+                    <p><a id="email" href="" style="text-decoration: none; color:white"> TiagosVintage@gmail.com</a></p>
+                    <p id="contact">0995 795 6315</p>
 
                 </div>
                 <style>
@@ -45,12 +43,14 @@
                         width: 600px;
                         height: 350px;
                     }
+
                     .gmap_canvas {
                         overflow: hidden;
                         background: none !important;
                         width: 80%;
                         height: 80%;
                     }
+
                     .gmap_iframe {
                         width: 80% !important;
                         height: 80% !important;
@@ -61,34 +61,34 @@
         </div>
         <div class="footer-bottom">
             <p style="color:white;">© 2024 Copyright:
-                <a href="https://tiagos-vintage.store/client/landing.php">Tiagos-vintage.store</a>
+                <a href="https://www.tiago-vintage.helioho.st/client/landing.php">tiago-vintage.helioho.st</a>
             </p>
         </div>
     </footer>
-<script>
-$(document).ready(function() {
-    $.ajax({
-        url: 'http://localhost/tiago/server/includes/getCMS.php', 
-        method: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            if (data.error) {
-                console.log("CMS ERROR");
-            } else {
-                console.log(data);
-                $('#about').text(data.about);
-                $('#address').text(data.address);
-                $('#fb').attr('href', data.fb);
-                $('#ig').attr('href', data.ig);
-                $('#contact').text(data.number);
-                $('#email').attr('href','mailto:' + data.email);
-                $('#email').text(data.email);
-            }
-        },
-        error: function() {
-            $('#cms-title').text('Error loading data');
-        }
-    });
-});
-</script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: 'http://localhost/tiago/server/includes/getCMS.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.error) {
+                        console.log("CMS ERROR");
+                    } else {
+                        console.log(data);
+                        $('#about').text(data.about);
+                        $('#address').text(data.address);
+                        $('#fb').attr('href', data.fb);
+                        $('#ig').attr('href', data.ig);
+                        $('#contact').text(data.number);
+                        $('#email').attr('href', 'mailto:' + data.email);
+                        $('#email').text(data.email);
+                    }
+                },
+                error: function () {
+                    $('#cms-title').text('Error loading data');
+                }
+            });
+        });
+    </script>
 </body>

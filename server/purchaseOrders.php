@@ -6,9 +6,9 @@ if (isset($_SESSION["role"])) {
     if ($role === 'Super Admin') {
         include_once './includes/sidebar.php';
     } elseif ($role === 'Accept Orders') {
-        include_once './includes/sidebarAdd_Product.php';
+        include_once './includes/sidebarAccept_Order.php';
     } else {
-        header("location: adminDashboard.php");
+        header("location: http://localhost/tiago/client/landing.php");
         exit();
     }
 } else {
@@ -32,14 +32,12 @@ if (isset($_SESSION["role"])) {
         <div class="main-title">
             <p class="font-weight-bold">PURCHASE ORDERS</p>
         </div>
-
         <div class="content">
-
-
             <div class="search-sort-container">
                 <div class="filter-dropdown">
                     <select id="status-filter">
                         <option value="Pending">Pending</option>
+                        <option value="Check Payment">Check Payment</option>
                         <option value="Completed">Completed</option>
                         <option value="Ready For Pickup">Ready For Pickup</option>
                         <option value="Out For Delivery">Out For Delivery</option>
@@ -116,14 +114,14 @@ if (isset($_SESSION["role"])) {
                 $('#status-filter').change(function () {
                     var selectedStatus = $(this).val();
                     $.ajax({
-                        url: './includes/POsearch.php',
+                        url: './includes/searchPO.php',
                         type: 'GET',
                         data: { status: selectedStatus },
                         dataType: 'json',
                         success: function (response) {
                             $('#products tbody').empty();
                             const uniqueOrders = {};
-                            const validStatuses = ['Pending', 'Ready For Pickup', 'Completed', 'Check Payment', 'Out For Delivery'];
+                            const validStatuses = ['Pending', 'Ready For Pickup', 'Completed', 'Check Payment', 'Out For Delivery', 'Cancelled'];
                             if (response.order_items.length > 0) {
                                 response.order_items.forEach(function (purchaseOrder) {
                                     if (validStatuses.includes(purchaseOrder.status)) {

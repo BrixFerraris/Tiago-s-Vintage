@@ -1,6 +1,8 @@
 <?php
 
 include_once 'header.php';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
 ?>
 
 <!DOCTYPE html>
@@ -26,19 +28,15 @@ include_once 'header.php';
       <!-- Reviews will be dynamically injected here -->
     </div>
 
-    <!-- Pagination -->
-    <div class="pagination">
-      <a href="#" class="prev">Previous</a>
-      <a href="#" class="page-num">1</a>
-      <a href="#" class="page-num">2</a>
-      <a href="#" class="page-num">...</a>
-      <a href="#" class="next">Next</a>
-    </div>
   </div>
 </main>
 <!-- End Main -->
 <script>
   $(document).ready(function () {
+    var userRole = "<?php echo $role; ?>";
+    if (userRole !== 'Customer' && userRole !== '') {
+      window.location.href = "../server/adminDashboard.php";
+    }
     function fetchReviews() {
       $.ajax({
         url: '../serverFunctions.php',
@@ -48,39 +46,39 @@ include_once 'header.php';
         },
         dataType: 'json',
         success: function (response) {
+          $('#reviews-container').empty();
+          let hasVisibleReviews = false;
           response.forEach(function (review) {
-            if (review.visible == "true") {
-              $('#reviews-container').empty();
+            if (review.visible === "true") {
+              hasVisibleReviews = true;
               const reviewHtml = `
                             <div class="review">
                                 <h3>${review.username}</h3>
                                 <div class="review-header">
-                                    <span class="rating">${'★'.repeat(review.rating)}</span>
+                                    <span class="rating">${'★'.repeat(review.rate)}</span>
                                     <span class="date">${review.date}</span>
                                 </div>
                                 <div class="review-body">
                                     <p><strong>Product:</strong> ${review.product_title}</p>
                                     <p><strong>Variation:</strong> ${review.variation_name}</p>
                                     <p class="review-text">${review.review}</p>
-                                      ${review.img1 ? `<img src="./includes/uploads/${review.img1}" alt="Product Image" class="review-image">` : ''}
-                                      ${review.img2 ? `<img src="./includes/uploads/${review.img2}" alt="Product Image" class="review-image">` : ''}
-                                      ${review.img3 ? `<img src="./includes/uploads/${review.img3}" alt="Product Image" class="review-image">` : ''}
+                                    ${review.img1 ? `<img src="./includes/uploads/${review.img1}" alt="Product Image" class="review-image">` : ''}
+                                    ${review.img2 ? `<img src="./includes/uploads/${review.img2}" alt="Product Image" class="review-image">` : ''}
+                                    ${review.img3 ? `<img src="./includes/uploads/${review.img3}" alt="Product Image" class="review-image">` : ''}
                                 </div>
                             </div>
                         `;
               $('#reviews-container').append(reviewHtml);
-            } else {
-              response.forEach(function (review) {
-                const reviewHtml = `
-                            <div class="review">
-                                <h3>NO REVIEWS YET</h3>
-                            </div>
-                        `;
-                $('#reviews-container').append(reviewHtml);
-              });
             }
           });
-
+          if (!hasVisibleReviews) {
+            const noReviewsHtml = `
+                        <div class="review">
+                            <h3>NO REVIEWS YET</h3>
+                        </div>
+                    `;
+            $('#reviews-container').append(noReviewsHtml);
+          }
         },
         error: function (xhr, status, error) {
           $('#reviews-container').html('<p>Error fetching reviews: ' + error + '</p>');
@@ -88,7 +86,6 @@ include_once 'header.php';
       });
     }
 
-    // Fetch reviews on page load
     fetchReviews();
   });
 </script>

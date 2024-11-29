@@ -56,7 +56,7 @@ function createUser($conn,$UserName,$Lname,$Fname,$contact,$password){
     $sql = "INSERT INTO tbl_users(username, password, contact, firstName, lastName) VALUES(?, ?, ?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql)) {
-        header("location: ../landing.php?stmtFailed");
+        header("location: ../register.php?stmtFailed");
         exit();
     }
 
@@ -65,7 +65,7 @@ function createUser($conn,$UserName,$Lname,$Fname,$contact,$password){
     mysqli_stmt_bind_param($stmt, "sssss", $UserName, $hashedPass, $contact, $Fname, $Lname);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("location: ../landing.php?error=none");
+    header("location: ../login.php?error=none");
     exit();
 }
 
@@ -83,7 +83,7 @@ function loginUser ($conn, $uName, $pwd) {
     $UserExists = userExist($conn, $uName);
 
     if ($UserExists == false) {
-        header("location: ../landing.php?error=WrongLogin");
+        header("location: ../login.php?error=WrongLogin");
         exit();
     }
 
@@ -91,13 +91,14 @@ function loginUser ($conn, $uName, $pwd) {
     $checkPass = password_verify($pwd, $pwdHashed);
 
     if ($checkPass === false) {
-        header("location: ../landing.php?error=WrongLogin");
+        header("location: ../login.php?error=WrongLogin");
         exit();
     } else if ($checkPass === true) {
         session_start();
         $_SESSION["uID"] = $UserExists["id"]; 
         $_SESSION["username"] = $UserExists["username"];
         $_SESSION["role"] = $UserExists["role"];
+        $_SESSION["firstName"] = $UserExists["firstName"];
         $_SESSION["isLoggedIn"] = true;
         $role = $_SESSION["role"];
         if ($role === 'Super Admin') {
@@ -116,7 +117,7 @@ function loginUser ($conn, $uName, $pwd) {
             header("location: ../landing.php");
             exit();
         } else {
-            header("location: ../landing.php?error=UnexpectedRole");
+            header("location: ../login.php?error=UnexpectedRole");
             exit();
         }
     }

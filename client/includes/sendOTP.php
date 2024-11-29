@@ -17,13 +17,13 @@ function sendOTP($email, $otp) {
         $mail->isSMTP();                                            
         $mail->Host       = 'smtp.gmail.com';                   
         $mail->SMTPAuth   = true;                                  
-        $mail->Username   = 'tiagos.vintage.botique333@gmail.com';           
-        $mail->Password   = 'mojjwqlxnifwrfmn';              
+        $mail->Username   = 'tiago.vintage.botique333@gmail.com';           
+        $mail->Password   = 'ysyaubggajqftxkm';              
         $mail->SMTPSecure = 'ssl';     
         $mail->Port       = 465;   
         $mail->Priority = 1;                                
 
-        $mail->setFrom('tiagos.vintage.botique333@gmail.com', 'Tiago\'s Vintage Botique');
+        $mail->setFrom('tiago.vintage.botique333@gmail.com', 'Tiago\'s Vintage Botique');
         $mail->addAddress($email);                                 
         $mail->isHTML(true);
         $mail->Subject = 'Your OTP Code';

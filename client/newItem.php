@@ -4,6 +4,8 @@ $isLoggedIn = false;
 if (isset($_SESSION["uID"])) {
   $isLoggedIn = true;
 }
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
 ?>
 <div class="img-item">
   <div class="img-container">
@@ -73,7 +75,10 @@ if (isset($_SESSION["uID"])) {
     const url = new URL(window.location.href);
     const productID = url.searchParams.get('productID');
     const isLoggedIn = <?php echo json_encode($isLoggedIn); ?>;
-
+    var userRole = "<?php echo $role; ?>";
+        if (userRole !== 'Customer' && userRole !== '') {
+            window.location.href = "../server/adminDashboard.php";
+        }
     $('#product_id').val(productID);
 
     function loadVariations(idProducts) {

@@ -5,6 +5,8 @@ if (isset($_SESSION["role"])) {
   $role = $_SESSION["role"];
   if ($role === 'Super Admin') {
     include_once './includes/sidebar.php';
+  } elseif ($role === 'Change Contents') {
+    include_once './includes/sidebarChange_Contents.php';
   } else {
     header("location: adminDashboard.php");
     exit();
@@ -23,17 +25,6 @@ if (isset($_SESSION["role"])) {
 
   <div class="content">
     <div class="form-group sort">
-      <label for="sort">Sort</label>
-      <div class="sort">
-        <select id="sort" name="sort" required>
-
-          <option value="all">All</option>
-          <option value="visible">Visible</option>
-          <option value="hiddem">Hidden</option>
-
-        </select>
-      </div>
-      <!-- Review Section -->
       <div class="review-section">
         <div class="review">
           <h3>Juan Dela Cruz</h3>
@@ -60,15 +51,6 @@ if (isset($_SESSION["role"])) {
         </div>
         <!-- Duplicate the review div for additional reviews -->
       </div>
-
-      <!-- Pagination -->
-      <div class="pagination">
-        <a href="#" class="prev">Previous</a>
-        <a href="#" class="page-num">1</a>
-        <a href="#" class="page-num">2</a>
-        <a href="#" class="page-num">...</a>
-        <a href="#" class="next">Next</a>
-      </div>
     </div>
 </main>
 <!-- End Main -->
@@ -85,7 +67,7 @@ if (isset($_SESSION["role"])) {
           $('.review-section').empty();
           $.each(data, function (index, review) {
             console.log(review);
-            
+
             const reviewHtml = `
                         <div class="review">
                             <h3>${review.username}</h3>
@@ -102,8 +84,7 @@ if (isset($_SESSION["role"])) {
                                     ${review.img3 ? `<img src="../client/includes/uploads/${review.img3}" alt="Product Image" class="review-image">` : ''}
                             </div>
                             <div class="review-actions">
-                                <button data-id="${review.id}" class="btn-show">Show</button>
-                                <button data-id="${review.id}" class="btn-hide">Hide</button>
+                                <button data-id="${review.id}" class="${review.visible == "true" ? "btn-hide" : "btn-show"}">${review.visible == "true" ? "Hide" : "Show"}</button>
                             </div>
                         </div>
                     `;
@@ -123,7 +104,8 @@ if (isset($_SESSION["role"])) {
                   if (response.error) {
                     console.error("Error updating review visibility: ", response.error);
                   } else {
-                    fetchReviews(); // Refresh the reviews
+                    // alert("Success!");
+                    fetchReviews();
                   }
                 },
                 error: function (xhr, status, error) {
@@ -132,7 +114,6 @@ if (isset($_SESSION["role"])) {
               });
             });
 
-            // Separate event listener for the hide button
             $('.review-section').on('click', '.btn-hide', function () {
               const reviewId = $(this).data('id');
               $.ajax({
@@ -148,6 +129,7 @@ if (isset($_SESSION["role"])) {
                   if (response.error) {
                     console.error("Error updating review visibility: ", response.error);
                   } else {
+                    // alert("Success!");
                     fetchReviews(); // Refresh the reviews
                   }
                 },

@@ -34,7 +34,7 @@ if (isset($_SESSION["role"])) {
 
 <main class="main-container">
   <div class="main-title">
-    <p class="font-weight-bold">DASHBOARD</p>
+    <p class="font-weight-bold"><?php echo $role;?>DASHBOARD</p>
   </div>
 
   <div class="main-cards">

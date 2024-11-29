@@ -80,13 +80,11 @@ if (isset($_SESSION["role"])) {
       <div class="edit-product-title">
         <p class="font-weight-bold">Product Title</p>
         <input id="title" type="text" value="Davey Allison 28 Big Print" placeholder="Product Title">
-        <i class="fas fa-edit edit-icon"></i>
       </div>
 
       <div class="edit-product-price">
         <p class="font-weight-bold">Price</p>
         <input id="price" type="number" placeholder="Price">
-        <i class="fas fa-edit edit-icon"></i>
       </div>
 
       <div class="edit-product-category">

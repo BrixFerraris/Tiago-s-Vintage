@@ -8,7 +8,7 @@ $sql = "
 SELECT t.*, 
        p.title, p.category, p.img1, p.description, 
        u.firstName, u.lastName, u.contact, u.points,
-       v.variationName, v.width, v.length
+       v.variationName, v.width, v.length, v.id AS variation_ID
 FROM tbl_transactions t 
 INNER JOIN tbl_products p ON t.product_id = p.id 
 INNER JOIN tbl_users u ON t.user_id = u.id 
@@ -47,7 +47,8 @@ while ($row = $result->fetch_assoc()) {
         'quantity' => $row['quantity'],
         'price' => $row['total'], 
         'variationName' => $row['variationName'],
-        'size' => $row['width'] . 'W X ' . $row['length'] . " (" . $row['variationName'] . ") "
+        'size' => $row['width'] . 'W X ' . $row['length'] . " (" . $row['variationName'] . ") ",
+        'variationID' => $row['variation_ID']
     ];
     
     $orders[$transaction_id]['total_quantity'] += $row['quantity'];

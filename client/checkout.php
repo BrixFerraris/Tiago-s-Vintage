@@ -1,5 +1,7 @@
 <?php
 session_start();
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
 ?>
 
 <head>
@@ -62,6 +64,10 @@ session_start();
 </body>
 <script>
     $(document).ready(function () {
+        var userRole = "<?php echo $role; ?>";
+        if (userRole !== 'Customer' && userRole !== '') {
+            window.location.href = "../server/adminDashboard.php";
+        }
         let varID = [];
         let qty = [];
         let currentTotal = 0;

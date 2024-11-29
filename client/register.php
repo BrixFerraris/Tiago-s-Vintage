@@ -1,5 +1,7 @@
 <?php
 include 'header.php';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
 ?>
 
 <!-- Main -->
@@ -34,7 +36,7 @@ include 'header.php';
         </div>
 
         <div class="form-container">
-            <form action="./includes/register.php" method="post" enctype=" ">
+            <form id="registration-form" action="./includes/register.php" method="post" enctype=" ">
 
 
                 <div class="form-group">
@@ -140,7 +142,26 @@ include '../test/newFooter.php';
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('#register-btn').prop('disabled', true);
+        var userRole = "<?php echo $role; ?>";
+        if (userRole !== 'Customer' && userRole !== '') {
+            window.location.href = "../server/adminDashboard.php";
+        }
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            const results = regex.exec(window.location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+        const errorValue = getUrlParameter('error');
+        if (errorValue === "EmptyInput") {
+            alert("Empty input detected!");
+        } else if (errorValue === "PassNotMatching") {
+            alert("Passwords do not match!");
+        } else if (errorValue === "UsernameTaken") {
+            alert("Username is already taken!");
+        } else if (errorValue === "none") {
+            alert("Success! No issues detected.");
+        }
         let isValidOTP = false;
         let isTermsChecked = false;
         function showAlert(message) {
@@ -229,12 +250,15 @@ include '../test/newFooter.php';
                 }
             });
         });
-
+        $('#registration-form').on('submit', function (event) {
+            if (!isValidOTP || !isTermsChecked) {
+                event.preventDefault();
+                alert('You must check the terms and verify the OTP.');
+            }
+        });
         function enableRegisterButton() {
             if (isValidOTP && isTermsChecked) {
                 $('#register-btn').prop('disabled', false);
-            } else {
-                $('#register-btn').prop('disabled', true);
             }
         }
 

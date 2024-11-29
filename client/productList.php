@@ -1,5 +1,7 @@
 <?php
 include './header.php';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
 ?>
 
 <div class="box">
@@ -29,8 +31,8 @@ include './header.php';
   </div>
 
   <div id="fixed-grid" class="fixed-grid">
-  <!-- Existing product cells will be dynamically added here -->
-</div>
+    <!-- Existing product cells will be dynamically added here -->
+  </div>
 
 </div>
 
@@ -38,6 +40,10 @@ include './header.php';
 </div>
 <script>
   $(document).ready(function () {
+    var userRole = "<?php echo $role; ?>";
+    if (userRole !== 'Customer' && userRole !== '') {
+      window.location.href = "../server/adminDashboard.php";
+    }
     function getCategoryFromURL() {
       const params = new URLSearchParams(window.location.search);
       return params.get('category');

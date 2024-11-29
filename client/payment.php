@@ -1,9 +1,12 @@
 <?php
 include './header.php';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,7 +34,8 @@ include './header.php';
       margin-bottom: 20px;
     }
 
-    .qr-section, .receipt-section {
+    .qr-section,
+    .receipt-section {
       display: inline-block;
       vertical-align: top;
       width: 45%;
@@ -91,14 +95,14 @@ include './header.php';
     .btn:hover {
       background-color: #2d6a4f;
     }
-    
+
     .message {
       margin-top: 20px;
       color: green;
     }
-
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>Tiago's Vintage Payment</h1>
@@ -117,15 +121,22 @@ include './header.php';
         <button class="btn" type="submit" name="submit">Submit</button>
       </form>
     </div>
-    
+
     <?php
-      if (isset($_GET['message'])) {
-        echo "<p class='message'>" . htmlspecialchars($_GET['message']) . "</p>";
-      }
+    if (isset($_GET['message'])) {
+      echo "<p class='message'>" . htmlspecialchars($_GET['message']) . "</p>";
+    }
     ?>
   </div>
+  <script>
+    var userRole = "<?php echo $role; ?>";
+    if (userRole !== 'Customer' && userRole !== '') {
+      window.location.href = "../server/adminDashboard.php";
+    }
+  </script>
 </body>
+
 </html>
 <?php
 include '../test/newFooter.php';
-?> 
+?>

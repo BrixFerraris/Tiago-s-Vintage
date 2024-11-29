@@ -8,7 +8,9 @@ if (isset($_SESSION["role"])) {
     } elseif ($role === 'Add Product') {
         include_once './includes/sidebarAdd_Product.php';
     } elseif ($role === 'Accept Orders') {
-        include_once './includes/sidebarAccept_Order.php.php';
+        include_once './includes/sidebarAccept_Order.php';
+    } elseif ($role === 'Change Contents') {
+        include_once './includes/sidebarChange_Contents.php';
     } else {
         header("location: adminDashboard.php");
         exit();

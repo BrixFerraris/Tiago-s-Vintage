@@ -1,5 +1,7 @@
 <?php
 include 'header.php';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
 ?>
 
 <link rel="stylesheet" href="../CSS/landing.css">
@@ -10,12 +12,6 @@ include 'header.php';
     <h1 class="landing_text">Tiago's Vintage</h1>
 </div>
 
-<div class="products">
-    <p style="color: black;">NEW ARRIVALS</p>
-    <div id="products" class="product-items">
-
-    </div>
-</div>
 <section class="py-5">
     <div class="container">
         <div class="row gx-4 align-items-center justify-content-between">
@@ -38,16 +34,20 @@ include 'header.php';
             <div class="col-md-6 offset-md-1 order-1 order-md-2">
                 <div class="row gx-2 gx-lg-3">
                     <div class="col-6">
-                        <div class="mb-2"><img class="img-fluid rounded-3" src="../images/About-us picture.jpg"></div>
+                        <div class="mb-2"><img id="imgAbout1" class="img-fluid rounded-3"
+                                src="../images/About-us picture.jpg"></div>
                     </div>
                     <div class="col-6">
-                        <div class="mb-2"><img class="img-fluid rounded-3" src="../images/About-us picture.jpg"></div>
+                        <div class="mb-2"><img id="imgAbout2" class="img-fluid rounded-3"
+                                src="../images/About-us picture.jpg"></div>
                     </div>
                     <div class="col-6">
-                        <div class="mb-2"><img class="img-fluid rounded-3" src="../images/About-us picture.jpg"></div>
+                        <div class="mb-2"><img id="imgAbout3" class="img-fluid rounded-3"
+                                src="../images/About-us picture.jpg"></div>
                     </div>
                     <div class="col-6">
-                        <div class="mb-2"><img class="img-fluid rounded-3" src="../images/About-us picture.jpg"></div>
+                        <div class="mb-2"><img id="imgAbout4" class="img-fluid rounded-3"
+                                src="../images/About-us picture.jpg"></div>
                     </div>
                 </div>
             </div>
@@ -56,27 +56,11 @@ include 'header.php';
 </section>
 
 <script>
-    //Websocket connection
-    var conn = new WebSocket('ws://localhost:8080/ws/');
-    const productDiv = document.getElementById('products');
-    conn.onopen = function () {
-        conn.send(JSON.stringify({ type: 'loadProducts' }));
-    };
-
-    conn.onmessage = function (e) {
-        var product = JSON.parse(e.data);
-        console.log(product);
-        if (product.type === 'product') {
-            var newDiv = document.createElement('div');
-            newDiv.innerHTML = `
-                    <a href="./newItem.php?productID=${product.id}">
-                        <img src="../server/includes/uploads/${product.img1}" alt="" width="252" height="320">
-                    </a>
-                `;
-            productDiv.appendChild(newDiv);
-        }
-    };
     $(document).ready(function () {
+        var userRole = "<?php echo $role; ?>";
+        if (userRole !== 'Customer' && userRole !== '') {
+            window.location.href = "../server/adminDashboard.php";
+        }
         $.ajax({
             url: '../server/includes/getCMS.php',
             method: 'GET',
@@ -88,6 +72,10 @@ include 'header.php';
                     $('.landing_text').text(data.landing_text);
                     $('#about-us-info').text(data.about);
                     $('.bghaha').attr('src', '../server/includes/uploads/' + data.landing_bg).show();
+                    $('#imgAbout1').attr('src', '../server/includes/uploads/' + data.about_img).show();
+                    $('#imgAbout2').attr('src', '../server/includes/uploads/' + data.about_img2).show();
+                    $('#imgAbout3').attr('src', '../server/includes/uploads/' + data.about_img3).show();
+                    $('#imgAbout4').attr('src', '../server/includes/uploads/' + data.about_img4).show();
                 }
             },
             error: function () {

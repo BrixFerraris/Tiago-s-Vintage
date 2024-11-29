@@ -6,8 +6,8 @@ if (isset($_SESSION["role"])) {
     if ($role === 'Super Admin') {
         include_once './includes/sidebar.php';
     } elseif ($role === 'Change Contents') {
-        include_once './includes/sidebarAdd_Product.php';
-    } else {
+        include_once './includes/sidebarChange_Contents.php';
+    }  else {
         header("location: adminDashboard.php");
         exit();
     }

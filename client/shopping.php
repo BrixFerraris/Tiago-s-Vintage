@@ -1,5 +1,7 @@
 <?php
 include_once 'header.php';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
 ?>
 
 <div class="sc">

@@ -30,11 +30,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->isSMTP();                                            
                 $mail->Host       = 'smtp.gmail.com';                   
                 $mail->SMTPAuth   = true;                                  
-                $mail->Username   = 'tiagos.vintage.botique@gmail.com';           
-                $mail->Password   = 'mojjwqlxnifwrfmn';              
+                $mail->Username   = 'tiago.vintage.botique333@gmail.com';           
+                $mail->Password   = 'ysyaubggajqftxkm';              
                 $mail->SMTPSecure = 'ssl';     
-                $mail->Port       = 465; 
-                $mail->Priority = 1;
+                $mail->Port       = 465;   
+                $mail->Priority = 1; 
                 $mail->setFrom('tiagos.vintage.botique@gmail.com', 'Tiago\'s Vintage Botique');
                 $mail->addAddress($email, $username);
 

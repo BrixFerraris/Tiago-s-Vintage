@@ -18,6 +18,8 @@ if ($type === 'payment') {
     $status = 'Check Payment';
 } elseif ($type === 'complete') {
     $status = 'Completed';
+} elseif ($type === 'cancel') {
+    $status = 'Cancelled';
 } else {
     echo json_encode(["status" => "error", "message" => "Invalid type specified."]);
     exit;
@@ -28,7 +30,7 @@ $stmt->bind_param("ssi", $status, $transactionId, $userId);
 
 if ($stmt->execute()) {
     if ($type === 'complete') {
-        $countQuery = $conn->prepare(query: "SELECT COUNT(*) as completed_count FROM tbl_transactions WHERE transaction_id = ? AND user_id = ? AND status = 'Completed'");
+        $countQuery = $conn->prepare("SELECT COUNT(*) as completed_count FROM tbl_transactions WHERE transaction_id = ? AND user_id = ? AND status = 'Completed'");
         $countQuery->bind_param("si", $transactionId, $userId);
         $countQuery->execute();
         $countResult = $countQuery->get_result();

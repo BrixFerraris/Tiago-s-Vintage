@@ -1,5 +1,7 @@
 <?php
 include './header.php';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
 ?>
 
 <!-- Main Content -->
@@ -19,7 +21,7 @@ include './header.php';
         <div class="order-item">
             <div class="item-details">
                 <img src="shirt.png" alt="Product Image">
-                  <div>
+                <div>
                     <h5>Davey Allison 28 Big Print</h5>
                     <p>Size: 25W X 35L (Large)</p>
                     <p>Quantity: 1</p>
@@ -53,142 +55,148 @@ include './header.php';
             </div>
         </div>
 
-      <!-- Add more order items here as needed -->
-    
-    </div>
+        <!-- Add more order items here as needed -->
 
+    </div>
+    <script>
+        var userRole = "<?php echo $role; ?>";
+        if (userRole !== 'Customer' && userRole !== '') {
+            window.location.href = "../server/adminDashboard.php";
+        }
+    </script>
 </div>
 </body>
+
 </html>
 <style>
-    .item-details p{
-    font-size: small;
-}
+    .item-details p {
+        font-size: small;
+    }
 
-body {
-background-color: #f0f0f5;
-}
+    body {
+        background-color: #f0f0f5;
+    }
 
-.container {
-width: 80%;
-margin: 20px auto;
-background-color: white;
-padding: 20px;
-border-radius: 8px;
-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
+    .container {
+        width: 80%;
+        margin: 20px auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
 
-/* Navigation Bar */
+    /* Navigation Bar */
 
-.container p{
-    color: black;
-}
-.container p:hover{
-    cursor: default;
-}
-.menu {
-list-style: none;
-display: flex;
-justify-content: center;
-}
+    .container p {
+        color: black;
+    }
 
-.menu li {
-margin: 0 20px;
-}
+    .container p:hover {
+        cursor: default;
+    }
 
-.menu a {
-color: white;
-text-decoration: none;
-font-size: 16px;
-font-weight: bold;
-}
+    .menu {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+    }
 
-.menu a:hover {
-text-decoration: underline;
-}
+    .menu li {
+        margin: 0 20px;
+    }
 
-/* Tabs for Orders */
-.tabs {
-display: flex;
-justify-content: space-around;
-margin-bottom: 20px;
-}
+    .menu a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+    }
 
-.tab-button {
-background-color: #f0f0f5;
-border: none;
-padding: 10px 20px;
-font-size: 16px;
-cursor: pointer;
-}
+    .menu a:hover {
+        text-decoration: underline;
+    }
 
-.tab-button.active {
-background-color: #4CAF50;
-color: white;
-}
+    /* Tabs for Orders */
+    .tabs {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+    }
 
-/* Order Section */
+    .tab-button {
+        background-color: #f0f0f5;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
 
-.order-section {
-padding: 20px;
-background-color: #ffffff;
-border-radius: 8px;
-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
+    .tab-button.active {
+        background-color: #4CAF50;
+        color: white;
+    }
 
-.order-item {
-display: flex;
-justify-content: space-between;
-align-items: center;
-border-bottom: 1px solid #ddd;
-padding: 15px 0;
-}
+    /* Order Section */
 
-.item-details {
-display: flex;
-align-items: center;
-}
+    .order-section {
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
 
-.item-details img {
-width: 80px;
-height: 80px;
-margin-right: 15px;
-}
+    .order-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        padding: 15px 0;
+    }
 
-.item-status {
-width: 100px;
-text-align: center;
-}
+    .item-details {
+        display: flex;
+        align-items: center;
+    }
 
-.item-price {
-width: 100px;
-text-align: center;
-}
+    .item-details img {
+        width: 80px;
+        height: 80px;
+        margin-right: 15px;
+    }
 
-.item-actions {
-width: 150px;
-text-align: center;
-}
+    .item-status {
+        width: 100px;
+        text-align: center;
+    }
 
-/* To Ship status */
-.status.to-ship {
-color: #ff9900;
-font-weight: bold;
-}
+    .item-price {
+        width: 100px;
+        text-align: center;
+    }
 
-/* Button styles for "Track Order" */
-.track-now-btn {
-background-color: #ff9900;
-color: white;
-padding: 8px 16px;
-border: none;
-border-radius: 4px;
-cursor: pointer;
-}
+    .item-actions {
+        width: 150px;
+        text-align: center;
+    }
 
-.track-now-btn:hover {
-background-color: #e68a00;
-}
+    /* To Ship status */
+    .status.to-ship {
+        color: #ff9900;
+        font-weight: bold;
+    }
 
+    /* Button styles for "Track Order" */
+    .track-now-btn {
+        background-color: #ff9900;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
 
+    .track-now-btn:hover {
+        background-color: #e68a00;
+    }
 </style>

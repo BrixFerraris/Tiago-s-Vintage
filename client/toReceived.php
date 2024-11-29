@@ -1,5 +1,7 @@
 <?php
 include './header.php';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
 ?>
 
 <!-- Main Content -->
@@ -22,6 +24,10 @@ include './header.php';
 </div>
 <script>
     $(document).ready(function () {
+        var userRole = "<?php echo $role; ?>";
+        if (userRole !== 'Customer' && userRole !== '') {
+            window.location.href = "../server/adminDashboard.php";
+        }
         $.ajax({
             url: './includes/getOrders.php',
             type: 'GET',

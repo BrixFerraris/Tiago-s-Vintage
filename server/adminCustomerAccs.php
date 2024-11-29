@@ -4,6 +4,10 @@ if (isset($_SESSION["role"])) {
     $role = $_SESSION["role"];
     if ($role === 'Super Admin') {
         include_once './includes/sidebar.php';
+    } elseif ($role === 'Accept Orders') {
+        include_once './includes/sidebarAccept_Order.php';
+    } elseif ($role === 'Change Contents') {
+        include_once './includes/sidebarChange_Contents.php';
     } else {
         header("location: adminDashboard.php");
         exit();
@@ -87,7 +91,6 @@ if (isset($_SESSION["role"])) {
                     dataType: 'json',
                     success: function (data) {
                         console.log(data);
-
                         let rows = '';
                         data.forEach(function (item) {
                             rows += '<tr>';

@@ -1,12 +1,20 @@
+<?php
+if ($role != 'Accept Orders') {
+    header('Location: ../adminDashboard.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Tiago's Vintage</title>
 
     <!-- Montserrat Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link rel="icon" href="../assets/icons.ico" type="image/x-icon">
@@ -17,61 +25,62 @@
     <link rel="stylesheet" href="../CSS/addproduct.css">
     <link rel="stylesheet" href="../CSS/admindashboard.css">
     <link rel="stylesheet" href="../CSS/adminProduct.css">
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="grid-container">
 
-      <!-- Sidebar -->
-      <aside id="sidebar">
-        <div class="sidebar-title">
-          <div class="sidebar-brand">
-            <span class="material-icons-outlined">store</span> Tiago's Vintage
-          </div>
-        </div>
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <div class="sidebar-title">
+                <div class="sidebar-brand">
+                    <span class="material-icons-outlined">store</span> Tiago's Vintage
+                </div>
+            </div>
 
-        <ul class="sidebar-list">
-            <a href="./adminDashboard.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">dashboard</span> Dashboard
-                    
-                </li>
-            </a>
-            <a href="./product.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">inventory_2</span> Products
-                </li>
-            </a>
+            <ul class="sidebar-list">
+                <a href="./adminDashboard.php">
+                    <li class="sidebar-list-item">
+                        <span class="material-icons-outlined">dashboard</span> Dashboard
 
-            <a href="./purchaseOrders.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">add_shopping_cart</span> Purchase Orders
-                </li>
-            </a>
+                    </li>
+                </a>
+                <a href="./product.php">
+                    <li class="sidebar-list-item">
+                        <span class="material-icons-outlined">inventory_2</span> Products
+                    </li>
+                </a>
 
-            <a href="./adminCustomerAccs.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">groups</span> Customers Account
-                </li>
-            </a>
+                <a href="http://localhost/tiago/server/purchaseOrders.php">
+                    <li class="sidebar-list-item">
+                        <span class="material-icons-outlined">add_shopping_cart</span> Purchase Orders
+                    </li>
+                </a>
 
-            <a href="./reports.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">poll</span> Reports
-                </li>
-            </a>
+                <a href="./adminCustomerAccs.php">
+                    <li class="sidebar-list-item">
+                        <span class="material-icons-outlined">groups</span> Customers Account
+                    </li>
+                </a>
 
-            <a href="./category.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">category</span> Category
-                </li>
-            </a>
+                <a href="./reports.php">
+                    <li class="sidebar-list-item">
+                        <span class="material-icons-outlined">poll</span> Reports
+                    </li>
+                </a>
 
-            <a href="http://localhost/tiago/client/includes/logout.php">
-                <li class="sidebar-list-item">
-                    <span class="material-icons-outlined">logout</span> Logout
-                </li>
-            </a>
+                <a href="./category.php">
+                    <li class="sidebar-list-item">
+                        <span class="material-icons-outlined">category</span> Category
+                    </li>
+                </a>
 
-        </ul>
-      </aside>
-      <!-- End Sidebar -->
+                <a href="http://localhost/tiago/client/includes/logout.php">
+                    <li class="sidebar-list-item">
+                        <span class="material-icons-outlined">logout</span> Logout
+                    </li>
+                </a>
+
+            </ul>
+        </aside>
+        <!-- End Sidebar -->

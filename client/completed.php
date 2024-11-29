@@ -1,5 +1,7 @@
 <?php
 include './header.php';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
 ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 
@@ -58,6 +60,10 @@ include './header.php';
 </div>
 <script>
     $(document).ready(function () {
+        var userRole = "<?php echo $role; ?>";
+        if (userRole !== 'Customer' && userRole !== '') {
+            window.location.href = "../server/adminDashboard.php";
+        }
         $.ajax({
             url: './includes/getOrders.php',
             type: 'GET',
@@ -91,9 +97,9 @@ include './header.php';
                         </div>
                         <div class="item-actions">
                             <div id="review-action-${order.transaction_id}">
-                                ${order.reviewed === 'true' ? 
-                                    '<span>Reviewed</span>' : 
-                                    `<button data-variation="${order.variationName}" data-title="${order.title}" data-id="${order.transaction_id}" data-reviewed="${order.reviewed}" class="confirm-receive-btn">Write Review</button>`}
+                                ${order.reviewed === 'true' ?
+                                '<span>Reviewed</span>' :
+                                `<button data-variation="${order.variationName}" data-title="${order.title}" data-id="${order.transaction_id}" data-reviewed="${order.reviewed}" class="confirm-receive-btn">Write Review</button>`}
                             </div>
                         </div>
                     </div>`;
@@ -127,7 +133,7 @@ include './header.php';
             if (transID) {
                 $.ajax({
                     url: './updateReviewed.php',
-                    type: 'POST', 
+                    type: 'POST',
                     data: {
                         transaction_id: transID
                     },

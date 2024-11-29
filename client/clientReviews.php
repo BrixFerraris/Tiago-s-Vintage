@@ -1,30 +1,34 @@
 <?php
 include './header.php';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Reviews</title>
-    <link rel="stylesheet" href="../CSS/clientReviews.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Reviews</title>
+  <link rel="stylesheet" href="../CSS/clientReviews.css">
 </head>
+
 <body>
 
-<div class="reviews-container">
+  <div class="reviews-container">
     <h1>REVIEWS</h1>
-    
+
     <!-- Sort Options -->
     <div class="sort">
-        <label for="sort-options">Sort:</label>
-        <select id="sort-options" onchange="filterReviews()">
-            <option value="all">All</option>
-            <option value="rating">Rating</option>
-            <option value="date">Date</option>
-        </select>
+      <label for="sort-options">Sort:</label>
+      <select id="sort-options" onchange="filterReviews()">
+        <option value="all">All</option>
+        <option value="rating">Rating</option>
+        <option value="date">Date</option>
+      </select>
     </div>
-    
+
     <div class="review-section">
       <div class="review">
         <h3>Juan Dela Cruz</h3>
@@ -36,7 +40,9 @@ include './header.php';
           <p><strong>Appearance:</strong> Beautiful!</p>
           <p><strong>Material Quality:</strong> Original, High Quality</p>
           <p class="review-text">
-            I recently bought this essential T-shirt, and I'm super impressed! The quality is fantastic—it's made from really soft cotton that feels great against the skin. Perfect for hot weather because it's lightweight and breathable. I've worn it all day, and it still feels comfortable and doesn't stick to my body.
+            I recently bought this essential T-shirt, and I'm super impressed! The quality is fantastic—it's made from
+            really soft cotton that feels great against the skin. Perfect for hot weather because it's lightweight and
+            breathable. I've worn it all day, and it still feels comfortable and doesn't stick to my body.
           </p>
           <img src="../images/sample-item.png" alt="Product Image" class="review-image">
         </div>
@@ -45,13 +51,20 @@ include './header.php';
         </div>
       </div>
 
-</div>
+    </div>
+    <script>
+      var userRole = "<?php echo $role; ?>";
+      if (userRole !== 'Customer' && userRole !== '') {
+        window.location.href = "../server/adminDashboard.php";
+      }
+    </script>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>
 
 <?php
 include '../test/newFooter.php';
-?> 
+?>

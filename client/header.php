@@ -75,10 +75,6 @@
                                         <a class="nav-link" href="../client/reviews.php" style="color: white;">Reviews<span class="sr-only">(current)</span></a>
                                     </li>';
 
-                        echo '<li class="nav-item active">
-                                    <a class="nav-link" href="../client/contactUs.php" style="color: white; width:100px">Contact Us<span class="sr-only">(current)</span></a>
-                                    </li>';
-
                         echo '<li class="nav-item active" style="width: 190px; margin-top: 13px;">
                                 <div class="form-group" style="margin-top: 13px; position: relative;">
                                     <input type="text" 
@@ -105,7 +101,7 @@
                         echo '<li class="user-drop">
                                     <div class="dropdown user-dropdown">
                                         <a class="btn dropdown-toggle user-dropdown-toggle" style="background-color: #FFFFFF;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
-                            . $_SESSION['username'] . '
+                            . $_SESSION['firstName'] . '
                                         </a>
                                         <div class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuLink" id="drop-menu-user">
                                             <a class="dropdown-item" href="../client/toPay.php">Orders</a>
@@ -173,12 +169,6 @@
                         echo '<li class="nav-item active">
                                 <a class="nav-link" href="../client/reviews.php" style="color: white;">Reviews<span class="sr-only">(current)</span></a>
                             </li>';
-
-
-                        echo '<li class="nav-item active">
-                            <a class="nav-link" href="../client/contactUs.php" style="color: white; width:100px">Contact Us<span class="sr-only">(current)</span></a>
-                            </li>';
-
 
                             echo '<li class="nav-item active" style="width: 190px; margin-top: 13px;">
                             <div class="form-group" style="margin-top: 13px; position: relative;">

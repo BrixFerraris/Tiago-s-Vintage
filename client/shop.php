@@ -1,5 +1,7 @@
 <?php
 include 'header.php';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
 ?>
 
 <div class="containers">
@@ -162,6 +164,10 @@ include 'header.php';
     </style>
     <script>
         $(document).ready(function () {
+            var userRole = "<?php echo $role; ?>";
+            if (userRole !== 'Customer' && userRole !== '') {
+                window.location.href = "../server/adminDashboard.php";
+            }
             function fetchCategories() {
                 $.ajax({
                     url: '../server/includes/getCategories.php',

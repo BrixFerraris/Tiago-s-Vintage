@@ -1,5 +1,7 @@
 <?php
 include 'header.php';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
 $isLoggedIn = false;
 if (isset($_SESSION["uID"])) {
     $isLoggedIn = true;
@@ -30,7 +32,7 @@ if (isset($_SESSION["uID"])) {
 
     </div>
     <div class="item-total">
-        <p id="infoo">Subtotal:</p>
+        <p id="infoo">NO ITEMS IN YOUR CART YET</p>
         <!-- <button class="btnCancel">CONTINUE SHOPPING</button> -->
     </div>
 
@@ -40,6 +42,10 @@ include '../test/newFooter.php';
 ?>
 <script>
     $(document).ready(function () {
+        var userRole = "<?php echo $role; ?>";
+        if (userRole !== 'Customer' && userRole !== '') {
+            window.location.href = "../server/adminDashboard.php";
+        }
         const userId = $('#user_id').val();
         function fetchCart() {
             $.ajax({
@@ -76,11 +82,17 @@ include '../test/newFooter.php';
                         cartItemsContainer.append(cartItemHtml);
                         subtotal += item.price * item.quantity;
                     });
-
-                    const subtotalHtml = `
+                    if (response.length === 0) {
+                        const subtotalHtml = `
+                        <p id="subtotal">NO ITEMS IN YOUR CART YET</p>`;
+                        $('.item-total').html(subtotalHtml);
+                    } else {
+                        const subtotalHtml = `
                     <p id="subtotal">Subtotal: ₱${subtotal}</p>
                     <button class="btnCheckout">CHECKOUT</button>`;
-                    $('.item-total').html(subtotalHtml);
+                        $('.item-total').html(subtotalHtml);
+                    }
+
                 },
                 error: function (xhr, status, error) {
                     console.error('Error loading cart:', error);
@@ -88,7 +100,6 @@ include '../test/newFooter.php';
             });
         }
 
-        // Remove Item
         $(document).on('click', '.btnRemove', function () {
             const transactionID = $(this).data('id');
             $.ajax({
@@ -152,8 +163,7 @@ include '../test/newFooter.php';
 
 </script>
 <style>
-
-.cart-text {
+    .cart-text {
         margin-top: 50px;
         text-align: center;
     }
@@ -254,7 +264,7 @@ include '../test/newFooter.php';
 
     /* Responsive Design */
 
-   
+
     @media (max-width: 425px) {
         .cart-purchase {
             flex-direction: column;
@@ -269,9 +279,10 @@ include '../test/newFooter.php';
             font-size: 20px;
         }
 
-        .cart-text h2{
+        .cart-text h2 {
             font-size: 20px;
         }
+
         .incdec input {
             width: 30px;
             font-size: 12px;
@@ -292,5 +303,4 @@ include '../test/newFooter.php';
             font-size: 14px;
         }
     }
-
 </style>
