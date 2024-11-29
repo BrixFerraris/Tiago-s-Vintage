@@ -307,7 +307,7 @@ if (isset($_SESSION["role"])) {
   .modals {
     background-color: white;
     width: 40%;
-    height: 90%;
+    height: auto;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -375,7 +375,7 @@ if (isset($_SESSION["role"])) {
    @media (max-width: 768px) {
     .modals {
       width: 80%;
-      height: 70%;
+      height: auto;
       padding: 15px;
     }
 
@@ -401,7 +401,7 @@ if (isset($_SESSION["role"])) {
   @media (max-width: 480px) {
     .modals {
       width: 90%;
-      height: 60%;
+      height: auto;
       padding: 10px;
     }
 
