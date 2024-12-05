@@ -1,7 +1,9 @@
 <?php
 session_start();
 include_once './dbCon.php';
-
+$uID = $_SESSION['uID'];
+$amount = $_POST['amount'];
+$transID = $_POST['transID'];
 $targetDir = "uploads/";
 
 $fileExtension = pathinfo($_FILES['img1']['name'], PATHINFO_EXTENSION);
@@ -19,15 +21,13 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
     header("location: ../toPay.php?stmtFailed");
     exit();
 }
-$uID = $_SESSION['uID'];
-$amount = $_POST['amount'];
-$transID = $_POST['transID'];
+
 mysqli_stmt_bind_param($stmt, "ssis", $img1, $uID, $amount, $transID);
 if (mysqli_stmt_execute($stmt)) {
     mysqli_stmt_close($stmt);
-    header("location: ../toPay.php?error=none");
+    //header("location: ../toPay.php?error=none");
 } else {
-    header("location: ../toPay.php?executionFailed");
+    //header("location: ../toPay.php?executionFailed");
 }
 
 mysqli_close($conn);

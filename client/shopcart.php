@@ -54,6 +54,7 @@ include '../test/newFooter.php';
                 data: { type: 'loadCart', user_id: userId },
                 success: function (response) {
                     const cart = JSON.parse(response);
+					console.log(response);
                     const cartItemsContainer = $('.cart-items');
                     cartItemsContainer.html('');
                     let subtotal = 0;
@@ -82,7 +83,7 @@ include '../test/newFooter.php';
                         cartItemsContainer.append(cartItemHtml);
                         subtotal += item.price * item.quantity;
                     });
-                    if (response.length === 0) {
+                    if (response.length == 0) {
                         const subtotalHtml = `
                         <p id="subtotal">NO ITEMS IN YOUR CART YET</p>`;
                         $('.item-total').html(subtotalHtml);

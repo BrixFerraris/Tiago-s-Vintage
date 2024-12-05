@@ -40,7 +40,7 @@ if (isset($_SESSION["role"])) {
 <div class="modal-receipt">
     <div class="modals">
         <h2>Customer's Receipt</h2>
-        <img id="receiptImage" src="" alt="Receipt" width="30%" height="45%">
+        <img id="imageReceipt" src="" alt="Receipt" width="30%" height="45%">
         <h4 id="amountDisplay">Amount: </h4>
         <button class="btnBack">Back</button>
     </div>
@@ -313,7 +313,8 @@ if (isset($_SESSION["role"])) {
                 console.log(data);
                 if (data.length > 0) {
                     const payment = data[0];
-                    $('#receiptImage').attr('src', `../client/includes/uploads/${payment.receipt}`);
+					console.log(payment.receipt);
+					$('#imageReceipt').attr('src', '../client/includes/uploads/' + payment.receipt).show();
                     $('#amountDisplay').text(`Amount: ₱${payment.amount}`);
                     $('.modal-receipt').show();
                 } else {

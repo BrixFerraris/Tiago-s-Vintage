@@ -30,7 +30,6 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
             <input type="hidden" class="amount" name="amount" id="amount" value="">
             <input type="hidden" class="transID" name="transID" id="transID" value="">
             <input type="file" id="myFile" name="img1" required>
-            <input type="hidden" name="uID" id="uID">
             <div class="order-btn">
                 <button type="submit" class="btnSubmit">Submit</button>
                 <button type="button" class="btnBack">Back</button>
@@ -45,14 +44,14 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
             window.location.href = "../server/adminDashboard.php";
         }
         $.ajax({
-            url: 'http://localhost/tiago/server/includes/getCMS.php',
+            url: 'https://tiago-vintage.helioho.st/server/includes/getCMS.php',
             method: 'GET',
             dataType: 'json',
             success: function (data) {
                 if (data.error) {
                     $('#cms-title').text('Error loading title');
                 } else {
-                    $('.qr').attr('src', 'http://localhost/tiago/server/includes/uploads/' + data.qr).show();
+                    $('.qr').attr('src', 'https://www.tiago-vintage.helioho.st/server/includes/uploads/' + data.qr).show();
                 }
             },
             error: function () {
@@ -215,7 +214,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
                                 type: 'POST',
                                 success: function (deleteResponse) {
                                     console.log('Variations updated:', deleteResponse);
-                                    window.location.href = './toReceived.php';
+                                    // window.location.href = './toReceived.php';
                                 },
                                 error: function (xhr, status, error) {
                                     console.error('Error updating variations:', error);

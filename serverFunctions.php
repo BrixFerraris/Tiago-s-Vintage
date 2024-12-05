@@ -227,9 +227,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type'])) {
         $queryUpdateVariations = "UPDATE tbl_variations SET quantity = quantity - ? WHERE id = ?";
         $stmtUpdateVariations = $conn->prepare($queryUpdateVariations);
 
-        $queryUpdateVariations = "UPDATE tbl_variations SET quantity = quantity - ? WHERE id = ?";
-        $stmtUpdateVariations = $conn->prepare($queryUpdateVariations);
-
         $queryUpdateTransaction = "UPDATE tbl_transactions SET address = ?, grand_total = ?, transaction_id = ?, shipping = ?, discount = ?, status = ? WHERE user_id = ? AND status = 'Cart'";
         $stmtUpdateTransaction = $conn->prepare($queryUpdateTransaction);
 

@@ -37,6 +37,8 @@
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 
     <title class="cms-title">Tiago's Vintage Boutique</title>
 
@@ -192,8 +194,8 @@
     </div>
     <script>
         $(document).ready(function () {
-            $.ajax({
-                url: 'http://localhost/Tiago/client/includes/getNotification.php',
+            $.ajax({	
+                url: 'https://tiago-vintage.helioho.st/client/includes/getNotification.php',
                 type: 'GET',
                 success: function (data) {
                     console.log(data);
@@ -218,7 +220,7 @@
                                 const transactionId = $(this).data('trans_id'); 
                                 if (notification.status === 'Ready For Pickup' || notification.status === 'Out For Delivery') {
                                     $.ajax({
-                                        url: 'http://localhost/Tiago/server/includes/updateSeen.php',
+                                        url: './server/includes/updateSeen.php',
                                         method: 'POST',
                                         data: {
                                             transactionId: transactionId,
@@ -238,7 +240,7 @@
                                     });
                                 } else if (notification.status === 'Cancelled') {
                                     $.ajax({
-                                        url: 'http://localhost/Tiago/server/includes/updateSeen.php',
+                                        url: './server/includes/updateSeen.php',
                                         method: 'POST',
                                         data: {
                                             transactionId: transactionId,
@@ -269,7 +271,7 @@
                 }
             });
             $.ajax({
-                url: 'http://localhost/Tiago/client/includes/getAddCarts.php',
+                url: 'https://tiago-vintage.helioho.st/client/includes/getAddCarts.php',
                 type: 'GET',
                 success: function (data) {
                     var results = JSON.parse(data);
@@ -286,7 +288,7 @@
                 var query = $(this).val();
                 if (query.length > 0) {
                     $.ajax({
-                        url: 'http://localhost/Tiago/client/includes/searchProducts.php',
+                        url: 'https://tiago-vintage.helioho.st/client/includes/searchProducts.php',
                         type: 'GET',
                         data: { query: query },
                         success: function (data) {
@@ -585,7 +587,7 @@
 <script>
     $(document).ready(function () {
         $.ajax({
-            url: 'http://localhost/tiago/server/includes/getCMS.php',
+            url: 'https://tiago-vintage.helioho.st/server/includes/getCMS.php',
             method: 'GET',
             dataType: 'json',
             success: function (data) {

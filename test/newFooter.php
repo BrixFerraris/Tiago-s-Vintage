@@ -68,7 +68,7 @@
     <script>
         $(document).ready(function () {
             $.ajax({
-                url: 'http://localhost/tiago/server/includes/getCMS.php',
+                url: 'https://tiago-vintage.helioho.st/server/includes/getCMS.php',
                 method: 'GET',
                 dataType: 'json',
                 success: function (data) {
