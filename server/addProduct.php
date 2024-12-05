@@ -45,9 +45,13 @@ if (isset($_GET["error"])) {
             </div>
 
             <div class="form-group">
-                <label for="price">Price (PHP)</label>
+                <label for="price">Unit Price (PHP)</label>
                 <input type="number" id="price" name="price" placeholder="Price (PHP)" required pattern="^\d+(\.\d{2})?$"
-                    title="Enter a valid amount in PHP, e.g., 123.45">
+                    title="Enter a valid amount in PHP, e.g., 123.45"></input>
+
+                <label for="price">Retail Price (PHP)</label>
+                <input type="number" id="price" name="price" placeholder="Price (PHP)" required pattern="^\d+(\.\d{2})?$"
+                    title="Enter a valid amount in PHP, e.g., 123.45"></input>
             </div>
 
             <div class="form-group">
@@ -58,6 +62,11 @@ if (isset($_GET["error"])) {
                     <option value="Shoes">
                     <option value="Accessories">
                 </select>
+            </div>
+
+            <div class="form-group">
+                <label for="lowstock">Low Stock Alert</label>
+                <input type="number" id="lowstock" name="lowstock" placeholder="Low Stock"></input>
             </div>
 
             <div class="form-group">

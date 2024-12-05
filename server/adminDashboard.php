@@ -39,28 +39,34 @@ if (isset($_SESSION["role"])) {
 
   <div class="main-cards">
 
-    <div class="card">
+<a href="./product.php" style="text-decoration:none;">
+    <div class="card" >
       <div class="card-inner">
         <p class="text-primary">PRODUCTS</p>
       </div>
       <span id="total-products" class="text-primary font-weight-bold">249</span>
     </div>
+</a>
 
 
+<a href="./purchaseOrders.php" style="text-decoration:none;">
     <div class="card">
       <div class="card-inner">
         <p class="text-primary">SALES ORDERS</p>
       </div>
       <span id="total-sales-orders" class="text-primary font-weight-bold">79</span>
     </div>
+</a>
 
+
+<a href="./reports.php" style="text-decoration:none;">
     <div class="card">
       <div class="card-inner">
         <p class="text-primary">INVENTORY ALERTS</p>
       </div>
       <span id="inventory-alert" class="text-primary font-weight-bold">56</span>
     </div>
-
+</a>
   </div>
 
   <div class="charts" style=" display:flex; justify-content:center; align-items:center;">
