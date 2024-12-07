@@ -21,7 +21,62 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
             <!-- Order items will be dynamically inserted here -->
         </div>
     </div>
+
+    <div class="modal fade" id="issueModal" tabindex="-1" aria-labelledby="issueModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="issueModalLabel">Report an Issue</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="issueForm">
+                    <div class="mb-3">
+                        <label for="clientIssue" class="form-label">Issue</label>
+                        <input type="text" class="form-control" id="clientIssue" placeholder="Enter the issue" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="problemDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="problemDescription" rows="3" placeholder="Describe the problem" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="uploadImages" class="form-label">Upload Images (Max: 2)</label>
+                        <input type="file" class="form-control" id="uploadImages" accept="image/*" multiple>
+                        <small class="text-muted">You can upload up to 2 images.</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="submitIssue">Submit</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+</div>
+
+<script>
+    document.getElementById('uploadImages').addEventListener('change', function () {
+    if (this.files.length > 2) {
+        alert('You can only upload a maximum of 2 images.');
+        this.value = ''; // Clear the input
+    }
+});
+
+document.getElementById('submitIssue').addEventListener('click', function () {
+    const issueForm = document.getElementById('issueForm');
+    if (issueForm.checkValidity()) {
+        alert('Issue submitted successfully!');
+        issueForm.reset();
+        const modal = bootstrap.Modal.getInstance(document.getElementById('issueModal'));
+        modal.hide();
+    } else {
+        issueForm.reportValidity();
+    }
+});
+</script>
+
 <script>
     $(document).ready(function () {
         var userRole = "<?php echo $role; ?>";
@@ -57,6 +112,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
                                     <p>Total Price: ₱${totalPrice}</p>
                                 </div>
                                 <div class="item-action">
+                                    <button class="Replace" data-bs-toggle="modal" data-bs-target="#issueModal">Replace</button>
                                 </div>
                             </div>`;
                         $('#to-pay').append(orderItem);
@@ -235,9 +291,10 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
     }
 
     .item-actions {
-        width: 150px;
+        display: flex;
+        flex-direction: row;
+        width: 100px;
         text-align: center;
-        flex: 1 1 auto; /* Adjust width dynamically */
         margin-top: 10px; /* Add spacing for smaller screens */
     }
 
@@ -246,7 +303,8 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
         font-weight: bold;
     }
 
-    .confirm-receive-btn {
+    .confirm-receive-btn, .Replace {
+        margin-bottom: 10px;
         background-color: #0066cc;
         color: white;
         padding: 8px 16px;
@@ -257,6 +315,9 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
     }
 
     .confirm-receive-btn:hover {
+        background-color: #004c99;
+    }
+    .Replace:hover {
         background-color: #004c99;
     }
 
