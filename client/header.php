@@ -399,7 +399,7 @@
         }
 
         #notificationDropdownMenu {
-            min-width: 280px;
+            min-width: auto;
             /* Ensure the dropdown has a consistent size */
             max-height: 300px;
             /* Set a maximum height for the dropdown */
