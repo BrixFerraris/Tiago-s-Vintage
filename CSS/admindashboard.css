@@ -235,6 +235,17 @@ body {
     font-size: 22px;
     font-weight: 600;
   }
+
+  #lalagyan{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #month-select {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+  }
   
 /*NOTIFICATION*/
 /* Position the notification bell in the upper right */

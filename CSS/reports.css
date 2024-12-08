@@ -36,15 +36,27 @@
     height: auto; /* Set height to auto for responsiveness */
 }
 
+
+#date-selected {
+    display: block;
+    padding: 10px;
+    font-size: 16px;
+    color: #333; /* Text color */
+    background-color: #f9f9f9; /* Light gray background */
+    border: 2px solid #ccc; /* Default border */
+    border-radius: 8px; /* Rounded corners */
+  }
+
 .tables-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-top: 30px;
 }
 
 .table-section {
-    width: 30%;
-    min-width: 300px;
+    width: 24%;
+    min-width: 240px;
     margin-bottom: 20px;
 }
 

@@ -71,13 +71,19 @@ if (isset($_GET["error"])) {
 
             <div class="form-group">
                 <div class="media-upload">
+                    <label class="btn-upload-video">
+                        <span>Add Video (Flexing the Item)</span>
+                        <br>
+                        <input type="file" name="videoInput" accept="video/*" id="videoInput">
+                    </label>
+                    <small>(Supported formats: MP4, AVI, etc.)</small>
+
                     <label class="btn-upload-photo">
                         <span>Add Photo</span>
                         <br>
                         <input type="file" name="photoInput[]" accept="image/*" multiple id="photoInput" >
-                        
                     </label>
-                    <small>(Max 4 images)</small>
+                    <small>(Max 3 images)</small>
                 </div>
                 <div class="media-preview" id="photoPreview"></div>
             </div>
@@ -150,11 +156,11 @@ if (isset($_GET["error"])) {
     const files = Array.from(event.target.files);
 
     // Check how many more images can be added
-    const availableSlots = 4 - existingCount;
+    const availableSlots = 3 - existingCount;
 
     // Limit the selection to 3 images in total
     if (files.length > availableSlots) {
-        alert('You can upload a maximum of 4 images in total.');
+        alert('You can upload a maximum of 3 images in total.');
         event.target.value = ''; // Clear the file input if limit exceeded
         return;
     }
@@ -162,7 +168,7 @@ if (isset($_GET["error"])) {
     // Loop through each selected file and create an image preview
     let imageCount = existingCount; // Start counting from the existing images
     files.forEach(file => {
-        if (file.type.startsWith('image/') && imageCount < 4) {
+        if (file.type.startsWith('image/') && imageCount < 3) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 // Create a container for the image and the close button

@@ -58,6 +58,45 @@ if (isset($_SESSION["role"])) {
     </div>
 </div>
 
+<div class="modal-replace">
+    <div class="modals">
+
+        <h2>Request for replacement:</h2>
+
+        <label for="Issue">
+            <h3>Issue</h3>
+            <br>
+            <p>SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE</p>
+        </label>
+        
+
+        <label for="description">
+            <h3>Description</h3>
+            <br>
+            <p> SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE
+                SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE
+                SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE</p>
+        </label>
+        
+
+        <div class="media-preview" id="photoPreview">
+        <!-- dito nakalagay yung image na nilagay ng cutomer -->
+        <figure class="image" >
+          <img src="../assets/tiagos-removebg-preview 1.png">
+          <img src="../assets/tiagos-removebg-preview 1.png">
+        </figure>
+        </div>
+
+         <div class="btnss">
+            <button class="btnBack">Back</button>
+         </div>
+    </div>
+</div>
+
+
+
+
+
 
 <!-- Scripts -->
 <script>
@@ -124,9 +163,10 @@ if (isset($_SESSION["role"])) {
                 <p><strong>Order Number</strong><br><span id="trans_num">${transactionId}</span></p>
                 <p><strong>Name</strong><br><span id="customerName">${data.name}</span></p>
                 <p><strong>Address</strong><br><span id="address">${data.address}</span><br></p>
+                <p><strong>Email</strong><br><span id="email">${data.username}</span><br></p>
+                <p><strong>Contact No.</strong><br><span id="contact">${data.contact}</span></p>
                 <p><strong>Discount / Freebie</strong><br><span id="">${data.discount}</span><br></p>
                 <p><strong>Shipping</strong><br><span id="">${data.shipping}</span><br></p>
-                <p><strong>Contact No.</strong><br><span id="contact">${data.contact}</span></p>
             `;
 
                 let buttonsHTML = '';
@@ -134,6 +174,10 @@ if (isset($_SESSION["role"])) {
                     buttonsHTML = `
                     <button data-shipping="${data.shipping}" data-id="${transactionId}" class="btn-accept accept-btn">Accept</button>
                     <button class="show-btn">Show Receipt</button>
+
+                    <button class="show-replace-btn">Show Replace Info</button>
+
+
                     <button data-id="${transactionId}" class="decline-btn">Decline</button>
                 `;
                 } else if (data.status === 'Ready For Pickup') {
@@ -250,6 +294,19 @@ if (isset($_SESSION["role"])) {
                     });
                     modalClose2.addEventListener('click', function () {
                         modalBg2.classList.remove('modal-active');
+                    });
+
+
+                    // Modal for Replace
+                    var modalBtn3 = document.querySelector('.show-replace-btn');
+                    var modalBg3 = document.querySelector('.modal-replace');
+                    var modalClose3 = modalBg3.querySelector('.btnBack');
+
+                    modalBtn3.addEventListener('click', function () {
+                        modalBg3.classList.add('modal-active');
+                    });
+                    modalClose3.addEventListener('click', function () {
+                        modalBg3.classList.remove('modal-active');
                     });
 
                 $('.btnSubmit').click(function () {
@@ -387,6 +444,7 @@ if (isset($_SESSION["role"])) {
     .accept-btn,
     .decline-btn,
     .show-btn,
+    .show-replace-btn,
     .btnBack,
     .btnSubmit {
         padding: 10px 20px;
@@ -401,7 +459,7 @@ if (isset($_SESSION["role"])) {
         color: white;
     }
 
-    .show-btn {
+    .show-btn, .show-replace-btn {
         background-color: #0035d6;
         color: white;
     }
@@ -415,7 +473,7 @@ if (isset($_SESSION["role"])) {
 
 
     /* modal */
-    .modal-receipt {
+    .modal-receipt, .modal-replace {
         position: fixed;
         width: 100%;
         height: 100%;
@@ -481,7 +539,16 @@ if (isset($_SESSION["role"])) {
         border-radius: 10px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     }
+
     
+    .modal-replace .modals {
+        background-color: white;
+        width: 50%;
+        height: 70%;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
 
     .btnBack {
         margin-top: auto;
@@ -490,6 +557,15 @@ if (isset($_SESSION["role"])) {
         color: white;
     }
 
+    .modal-replace .modals label{
+        width: 80%;
+        height: auto;
+    } 
+
+    .image img{
+        height: 100px; 
+        width: 100px;
+    }
    /* Media Query for Laptops */
 @media (min-width: 1025px) and (max-width: 1440px) {
     .order-container {

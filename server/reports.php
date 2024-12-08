@@ -57,6 +57,41 @@ if (isset($_SESSION["role"])) {
 
 
             <div class="tables-container">
+
+
+                <!-- Sales Per Day -->
+                <div class="table-section">
+                    <div style="display: flex; justify-content: space-between;">
+                        <h2>Daily Sales</h2>
+                        <input id="date-selected" type="date">
+                    </div>
+                    <table id="">
+                        <thead>
+                            <tr>
+                                <th>Order Number</th>
+                                <th>Shipping</th>
+                                <th>Total Item/s</th>
+                                <th>Order Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>order 1</td>
+                                <td>Pickup</td>
+                                <td>3</td>
+                                <td>1,500.00</td>
+                            </tr>
+                            <tr>
+                                <td>order 2</td>
+                                <td>Delivery</td>
+                                <td>5</td>
+                                <td>11,000.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
                 <!-- Most Added to Cart Table -->
                 <div class="table-section">
                     <h2>Top 5 Added to Cart Items</h2>

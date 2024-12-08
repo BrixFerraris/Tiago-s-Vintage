@@ -36,12 +36,14 @@ if (isset($_SESSION["role"])) {
             <div class="search-sort-container">
                 <div class="filter-dropdown">
                     <select id="status-filter">
+                        <option value="All">All</option>
                         <option value="Pending">Pending</option>
                         <option value="Check Payment">Check Payment</option>
                         <option value="Completed">Completed</option>
                         <option value="Ready For Pickup">Ready For Pickup</option>
                         <option value="Out For Delivery">Out For Delivery</option>
                         <option value="Cancelled">Cancelled</option>
+                        <option value="Replace">Replace</option>
                     </select>
                 </div>
 

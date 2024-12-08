@@ -42,7 +42,7 @@ if (isset($_SESSION["role"])) {
       <div class="edit-product-variations">
         <div class="edit-product-variation">
           <form action="./includes/addVariation.php" method="post" enctype="multipart/form-data">
-            <input name="product_id" type="text" id="product_id">
+            <input name="product_id" type="hidden" id="product_id" >
             <label for="name">Name:</label>
             <input name="Name" type="text" id="name" value="">
         </div>
@@ -64,8 +64,8 @@ if (isset($_SESSION["role"])) {
         </div>
 
         <div class="edit-product-variation">
-          <label for="imgVar">Image</label>
-          <input type="file" id="imgVar" name="imgVar" accept="image/*" required>
+          <label for="vidVar">Video</label>
+          <input id="vidVar" name="imgVar" type="file" accept="video/*" required >
         </div>
       </div>
 

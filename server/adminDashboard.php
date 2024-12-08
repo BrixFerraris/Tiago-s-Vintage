@@ -34,7 +34,7 @@ if (isset($_SESSION["role"])) {
 
 <main class="main-container">
   <div class="main-title">
-    <p class="font-weight-bold"><?php echo $role;?>DASHBOARD</p>
+    <p class="font-weight-bold"><?php echo $role;?><br>DASHBOARD</p>
   </div>
 
   <div class="main-cards">
@@ -52,9 +52,18 @@ if (isset($_SESSION["role"])) {
 <a href="./purchaseOrders.php" style="text-decoration:none;">
     <div class="card">
       <div class="card-inner">
-        <p class="text-primary">SALES ORDERS</p>
+        <p class="text-primary">SALES ORDERS (DELIVERY)</p>
       </div>
       <span id="total-sales-orders" class="text-primary font-weight-bold">79</span>
+    </div>
+</a>
+
+<a href="./purchaseOrders.php" style="text-decoration:none;">
+    <div class="card">
+      <div class="card-inner">
+        <p class="text-primary">SALES ORDERS (PICK UP)</p>
+      </div>
+      <span id="" class="text-primary font-weight-bold">79</span>
     </div>
 </a>
 
@@ -72,7 +81,16 @@ if (isset($_SESSION["role"])) {
   <div class="charts" style=" display:flex; justify-content:center; align-items:center;">
 
     <div class="charts-card" style=" min-width:100%;">
-      <p class="chart-title">Top 5 Products</p>
+      <div id="lalagyan">
+        <p class="chart-title">Top 5 Products</p>
+        <select id="month-select">
+          <option value="Overall">Overall</option>
+          <option value="November">November 2024</option>
+          <option value="December">December 2024</option>
+          <!-- dapat kusa madadagdagan yung month kapag natapos na yung month na to -->
+        </select>
+      </div>
+
       <div id="bar-chart"></div>
     </div>
 
