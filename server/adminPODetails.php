@@ -81,10 +81,17 @@ if (isset($_SESSION["role"])) {
 
         <div class="media-preview" id="photoPreview">
         <!-- dito nakalagay yung image na nilagay ng cutomer -->
-        <figure class="image" >
-          <img src="../assets/tiagos-removebg-preview 1.png">
-          <img src="../assets/tiagos-removebg-preview 1.png">
-        </figure>
+        <figure class="image">
+    <img src="../assets/tiagos-removebg-preview 1.png" alt="Image 1" onclick="openModal(this)">
+    <img src="../assets/tiagos-removebg-preview 1.png" alt="Image 2" onclick="openModal(this)">
+  </figure>
+
+  <div id="imageModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img id="modalImage" class="modal-img" alt="Expanded View">
+    </div>
+  </div>
         </div>
 
          <div class="btnss">
@@ -95,7 +102,32 @@ if (isset($_SESSION["role"])) {
 
 
 
+<script>
+    // Open Modal
+function openModal(image) {
+  const modal = document.getElementById('imageModal');
+  const modalImage = document.getElementById('modalImage');
+  
+  // Set the source of the modal image to the clicked image
+  modalImage.src = image.src;
+  
+  modal.style.display = 'flex'; // Display modal
+}
 
+// Close Modal
+function closeModal() {
+  const modal = document.getElementById('imageModal');
+  modal.style.display = 'none'; // Hide modal
+}
+
+// Close modal when clicking outside modal content
+window.onclick = function(event) {
+  const modal = document.getElementById('imageModal');
+  if (event.target === modal) {
+    closeModal();
+  }
+};
+</script>
 
 
 <!-- Scripts -->
@@ -370,6 +402,46 @@ if (isset($_SESSION["role"])) {
 
 <!-- Custom Styles -->
 <style>
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  position: relative;
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.modal-img {
+  max-width: 100%;
+  max-height: 80vh;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #000;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Add hover effect for close button */
+.close:hover {
+  color: red;
+}
+
     .main-container {
         padding: 20px;
     }

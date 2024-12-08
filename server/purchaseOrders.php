@@ -75,6 +75,9 @@ if (isset($_SESSION["role"])) {
             <!-- End Main -->
         </div>
         </div>
+        </body>
+
+</html>
         <script>
             $(document).ready(function () {
                 loadPurchaseOrders();
@@ -192,9 +195,7 @@ if (isset($_SESSION["role"])) {
         </script>
         <script src="../test/sidebarToggle.js"></script>
 
-</body>
 
-</html>
 
 <style>
     /* Container for search and sort */

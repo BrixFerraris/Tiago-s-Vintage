@@ -8,22 +8,16 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
 
 ?>
 <div class="img-item">
-  <div class="img-container">
-    <div class="main-img">
-      <div>
-        <img id="img1" src="../assets/samplepic1.png" alt="">
-      </div>
-    </div>
-    <div class="sub-img">
-      <div>
-        <img id="img2" src="../assets/samplepic1.png" alt="">
-      </div>
-      <div><img id="img3" src="../assets/samplepic1.png" alt=""></div>
-      <div>
-        <img id="img4" src="" alt="">
-      </div>
-    </div>
+<div class="img-container">
+  <div class="main-img">
+    <video src="#"></video>
   </div>
+  <div class="sub-img">
+    <img id="img2" src="../assets/samplepic1.png" alt="Thumbnail 1">
+    <img id="img3" src="../assets/samplepic1.png" alt="Thumbnail 2">
+    <img id="img4" src="../assets/samplepic2.png" alt="Thumbnail 3">
+  </div>
+</div>
   <div class="details">
     <div class="details-infos">
       <h1 id="title-ko">
@@ -69,6 +63,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
   <img class="modal-content" id="img01">
   <div id="caption"></div>
 </div>
+
 
 <script>
   $(document).ready(function () {
@@ -252,13 +247,20 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
   }
 
   .img-container {
-    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 90%;
+    gap: 20px;
+    margin-bottom: 20px;
   }
 
   .main-img {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    margin-bottom: 20px;
   }
 
   #img1 {
@@ -285,14 +287,24 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
 
   .sub-img {
     display: flex;
-    flex-direction: row;
-    gap: 20px;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
   }
 
   .sub-img img {
+    width: 120px;
+    height: 100px;
     object-fit: cover;
-    position: flex;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
+  .sub-img img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
 
   /* Product details styles */
   .details {
