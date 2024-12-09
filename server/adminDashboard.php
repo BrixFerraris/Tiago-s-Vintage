@@ -34,48 +34,48 @@ if (isset($_SESSION["role"])) {
 
 <main class="main-container">
   <div class="main-title">
-    <p class="font-weight-bold"><?php echo $role;?><br>DASHBOARD</p>
+    <p class="font-weight-bold"><?php echo $role; ?><br>DASHBOARD</p>
   </div>
 
   <div class="main-cards">
 
-<a href="./product.php" style="text-decoration:none;">
-    <div class="card" >
-      <div class="card-inner">
-        <p class="text-primary">PRODUCTS</p>
+    <a href="./product.php" style="text-decoration:none;">
+      <div class="card">
+        <div class="card-inner">
+          <p class="text-primary">PRODUCTS</p>
+        </div>
+        <span id="total-products" class="text-primary font-weight-bold">249</span>
       </div>
-      <span id="total-products" class="text-primary font-weight-bold">249</span>
-    </div>
-</a>
+    </a>
 
 
-<a href="./purchaseOrders.php" style="text-decoration:none;">
-    <div class="card">
-      <div class="card-inner">
-        <p class="text-primary">SALES ORDERS (DELIVERY)</p>
+    <a href="./purchaseOrders.php" style="text-decoration:none;">
+      <div class="card">
+        <div class="card-inner">
+          <p class="text-primary">SALES ORDERS (DELIVERY)</p>
+        </div>
+        <span id="total-delivery" class="text-primary font-weight-bold">79</span>
       </div>
-      <span id="total-sales-orders" class="text-primary font-weight-bold">79</span>
-    </div>
-</a>
+    </a>
 
-<a href="./purchaseOrders.php" style="text-decoration:none;">
-    <div class="card">
-      <div class="card-inner">
-        <p class="text-primary">SALES ORDERS (PICK UP)</p>
+    <a href="./purchaseOrders.php" style="text-decoration:none;">
+      <div class="card">
+        <div class="card-inner">
+          <p class="text-primary">SALES ORDERS (PICK UP)</p>
+        </div>
+        <span id="total-pickup" class="text-primary font-weight-bold">79</span>
       </div>
-      <span id="" class="text-primary font-weight-bold">79</span>
-    </div>
-</a>
+    </a>
 
 
-<a href="./reports.php" style="text-decoration:none;">
-    <div class="card">
-      <div class="card-inner">
-        <p class="text-primary">INVENTORY ALERTS</p>
+    <a href="./reports.php" style="text-decoration:none;">
+      <div class="card">
+        <div class="card-inner">
+          <p class="text-primary">INVENTORY ALERTS</p>
+        </div>
+        <span id="inventory-alert" class="text-primary font-weight-bold">56</span>
       </div>
-      <span id="inventory-alert" class="text-primary font-weight-bold">56</span>
-    </div>
-</a>
+    </a>
   </div>
 
   <div class="charts" style=" display:flex; justify-content:center; align-items:center;">
@@ -83,12 +83,7 @@ if (isset($_SESSION["role"])) {
     <div class="charts-card" style=" min-width:100%;">
       <div id="lalagyan">
         <p class="chart-title">Top 5 Products</p>
-        <select id="month-select">
-          <option value="Overall">Overall</option>
-          <option value="November">November 2024</option>
-          <option value="December">December 2024</option>
-          <!-- dapat kusa madadagdagan yung month kapag natapos na yung month na to -->
-        </select>
+        <select id="month-select"></select>
       </div>
 
       <div id="bar-chart"></div>
@@ -105,6 +100,30 @@ if (isset($_SESSION["role"])) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
 <!-- Custom JS -->
 <script>
+  const monthSelect = document.getElementById('month-select');
+
+  const generateMonthOptions = () => {
+    const currentDate = new Date();
+    const options = [];
+
+    for (let i = 5; i >= 0; i--) {
+      const pastDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - i);
+      const month = pastDate.getMonth() + 1; 
+      const year = pastDate.getFullYear();
+      options.push(`<option value="${month.toString().padStart(2, '0')}-${year}">${pastDate.toLocaleString('default', { month: 'long' })} ${year}</option>`);
+    }
+
+    for (let i = 1; i <= 12; i++) {
+      const futureDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + i);
+      const month = futureDate.getMonth() + 1;
+      const year = futureDate.getFullYear();
+      options.push(`<option value="${month.toString().padStart(2, '0')}-${year}">${futureDate.toLocaleString('default', { month: 'long' })} ${year}</option>`);
+    }
+
+    monthSelect.innerHTML = `<option value="Overall">Overall</option>` + options.join('');
+  };
+
+  generateMonthOptions();
 
   let sidebarOpen = false;
   const sidebar = document.getElementById('sidebar');
@@ -125,9 +144,6 @@ if (isset($_SESSION["role"])) {
 
   // ---------- CHARTS ----------
 
-  // BAR CHART
-
-  // Your bar chart options
   const barChartOptions = {
     series: [
       {
@@ -169,10 +185,11 @@ if (isset($_SESSION["role"])) {
   const barChart = new ApexCharts(document.querySelector('#bar-chart'), barChartOptions);
   barChart.render();
 
-  const getTopProducts = () => {
+  const getTopProducts = (monthYear = 'Overall') => {
     $.ajax({
       type: 'GET',
       url: './includes/getTopProducts.php',
+      data: { monthYear: monthYear },
       dataType: 'json',
       success: function (response) {
         const productCounts = response.map(product => product.count);
@@ -183,68 +200,18 @@ if (isset($_SESSION["role"])) {
       },
       error: function (xhr, status, error) {
         console.error('AJAX Error: ', status, error);
-      }
+      },
     });
   };
+
+  // Event listener for dropdown change
+  $('#month-select').on('change', function () {
+    const selectedMonthYear = $(this).val();
+    getTopProducts(selectedMonthYear);
+  });
+
+  // Initial load
   getTopProducts();
-
-
-  // AREA CHART
-  const areaChartOptions = {
-    series: [
-      {
-        name: 'Purchase Orders',
-        data: [31, 40, 28, 51, 42, 109, 100],
-      },
-      {
-        name: 'Sales Orders',
-        data: [11, 32, 45, 32, 34, 52, 41],
-      },
-    ],
-    chart: {
-      height: 350,
-      type: 'area',
-      toolbar: {
-        show: false,
-      },
-    },
-    colors: ['#4f35a1', '#246dec'],
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: 'smooth',
-    },
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-    markers: {
-      size: 0,
-    },
-    yaxis: [
-      {
-        title: {
-          text: 'Purchase Orders',
-        },
-      },
-      {
-        opposite: true,
-        title: {
-          text: 'Sales Orders',
-        },
-      },
-    ],
-    tooltip: {
-      shared: true,
-      intersect: false,
-    },
-  };
-
-  const areaChart = new ApexCharts(
-    document.querySelector('#area-chart'),
-    areaChartOptions
-  );
-  areaChart.render();
-
-
 
   // notification
   document.querySelector('.notification-icon').addEventListener('click', function () {
@@ -266,8 +233,11 @@ if (isset($_SESSION["role"])) {
       method: 'GET',
       dataType: 'json',
       success: function (data) {
+        console.log(data);
+        $('#total-customers').text(data.customers);
         $('#total-products').text(data.unique_products);
-        $('#total-sales-orders').text(data.completed_transactions);
+        $('#total-delivery').text(data.completed_delivery);
+        $('#total-pickup').text(data.completed_pickup);
         $('#inventory-alert').text(data.low_stock_variations);
       }
     });
@@ -279,7 +249,7 @@ if (isset($_SESSION["role"])) {
         success: function (notifications) {
           const notificationList = $('#notification-list');
           notificationList.empty();
-          
+
           if (notifications.length === 0) {
             notificationList.append('<li>No new notifications</li>');
             return;
@@ -331,28 +301,28 @@ if (isset($_SESSION["role"])) {
 
     setInterval(fetchNotifications, 30000);
     $(document).on('click', '.seen-notif', function () {
-      const transactionId = $(this).data('transaction-id'); 
-      const variationId = $(this).data('variation-id'); 
+      const transactionId = $(this).data('transaction-id');
+      const variationId = $(this).data('variation-id');
 
       let tableToUpdate = '';
       if (variationId) {
         tableToUpdate = 'variations';
       } else {
-        tableToUpdate = 'transactions'; 
+        tableToUpdate = 'transactions';
       }
 
       $.ajax({
-        url: './includes/updateSeen.php', 
+        url: './includes/updateSeen.php',
         method: 'POST',
         data: {
           transactionId: transactionId,
           variationId: variationId,
-          table: tableToUpdate 
+          table: tableToUpdate
         },
         success: function (response) {
           if (response === 'success') {
             alert('Status updated successfully');
-            $(this).closest('li').remove(); 
+            $(this).closest('li').remove();
           } else {
             alert('Failed to update status');
           }

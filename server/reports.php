@@ -58,17 +58,14 @@ if (isset($_SESSION["role"])) {
 
             <div class="tables-container">
 
-
-                <!-- Sales Per Day -->
                 <div class="table-section">
                     <div style="display: flex; justify-content: space-between;">
                         <h2>Daily Sales</h2>
                         <input id="date-selected" type="date">
                     </div>
-                    <table id="">
+                    <table id="table-daily">
                         <thead>
                             <tr>
-                                <th>Order Number</th>
                                 <th>Shipping</th>
                                 <th>Total Item/s</th>
                                 <th>Order Amount</th>
@@ -76,16 +73,7 @@ if (isset($_SESSION["role"])) {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>order 1</td>
-                                <td>Pickup</td>
-                                <td>3</td>
-                                <td>1,500.00</td>
-                            </tr>
-                            <tr>
-                                <td>order 2</td>
-                                <td>Delivery</td>
-                                <td>5</td>
-                                <td>11,000.00</td>
+                                <td colspan="3">Loading...</td>
                             </tr>
                         </tbody>
                     </table>
@@ -166,7 +154,52 @@ if (isset($_SESSION["role"])) {
 </body>
 
 <script>
-    // Monthly Sales Chart
+    const dateInput = $('#date-selected'); 
+    const tableBody = $('#table-daily tbody'); 
+
+    const getDailySales = (selectedDate) => {
+        $.ajax({
+            type: 'GET',
+            url: './includes/getDailySales.php', 
+            data: { date: selectedDate }, 
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+                
+                tableBody.empty();
+
+                ['pickup', 'delivery'].forEach((shippingType) => {
+                    const count = response[shippingType]?.count || 0;
+                    const total = response[shippingType]?.total || 0.0;
+
+                    const row = `
+          <tr>
+            <td>${shippingType}</td>
+            <td>${count}</td>
+            <td>${total.toLocaleString()}</td>
+          </tr>
+        `;
+                    tableBody.append(row);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('AJAX Error: ', status, error);
+                tableBody.html('<tr><td colspan="3">Error loading data.</td></tr>');
+            }
+        });
+    };
+
+    dateInput.on('change', function () {
+        const selectedDate = $(this).val(); 
+        getDailySales(selectedDate); 
+    });
+
+    // Fetch sales data for today's date on page load
+    const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+    dateInput.val(today); // Set the date input's value to today
+    getDailySales(today); // Fetch sales for today's date
+
+
     const fetchMonthlySalesData = () => {
         $.ajax({
             type: 'GET',
