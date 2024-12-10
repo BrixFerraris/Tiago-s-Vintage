@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2024 at 11:43 PM
+-- Generation Time: Dec 10, 2024 at 03:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -103,27 +103,24 @@ INSERT INTO `tbl_payments` (`id`, `receipt`, `u_id`, `amount`, `transaction_numb
 CREATE TABLE `tbl_products` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `price` decimal(65,0) NOT NULL,
+  `unit_price` decimal(65,0) NOT NULL,
+  `retail_price` decimal(65,0) NOT NULL,
   `category` varchar(100) NOT NULL,
   `img1` varchar(255) DEFAULT NULL,
   `img2` varchar(255) DEFAULT NULL,
   `img3` varchar(255) DEFAULT NULL,
-  `img4` varchar(255) DEFAULT NULL,
+  `videoInput` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `date_added` timestamp NOT NULL DEFAULT current_timestamp()
+  `date_added` timestamp NOT NULL DEFAULT current_timestamp(),
+  `stock_alert` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_products`
 --
 
-INSERT INTO `tbl_products` (`id`, `title`, `price`, `category`, `img1`, `img2`, `img3`, `img4`, `description`, `date_added`) VALUES
-(13, 'Shoes', 121, 'Shoes', '66f478594a7301.68824789.png', '66f478594a73d2.50142593.png', '66f478594a73f6.26140937.png', '66f478594a7410.80062691.png', 'Testing', '2024-11-19 13:56:33'),
-(16, 'Black Rebel Trucker Cap', 350, 'Caps', '672a36995f89a2.89254776.png', '672a36995f8a49.56487798.png', '672a36995f8a56.33433437.png', '672a36995f8a74.31191657.png', 'No Issue\r\n\r\nGood Condition', '2024-11-19 13:56:33'),
-(17, 'Aby Fishing Vest', 1500, 'T-Shirts', '672a3dcae48df7.95342547.png', '672a3dcae490c2.96939939.png', '672a3dcae490e3.70819402.png', '672a3dcae49102.91925141.png', 'No issue\r\n\r\nGood Condition', '2024-11-19 13:56:33'),
-(18, 'Drew Billiard', 1200, 'T-Shirts', '672a404ea06663.74888283.png', '672a404ea06729.83635193.png', '672a404ea06733.37524058.png', '672a404ea06757.43684301.png', 'Issue:\r\nWashable Stain\r\n\r\nGood Condition', '2024-11-19 13:56:33'),
-(19, 'Ihihi Jorts', 850, 'Shorts', '672a4189779ee7.36543913.png', '672a4189779f65.21174711.png', '672a4189779f81.20596980.png', '672a4189779fa5.58966959.png', 'No Issue\r\n\r\nGreat Condition', '2024-11-19 13:56:33'),
-(21, 'hahaha 3 ', 221, 'T-Shirts', '6743099874aca2.91555287.png', '6743099874dbb0.48881728.png', '6743099874fed2.44347556.png', NULL, 'ajawjdna', '2024-11-24 11:10:16');
+INSERT INTO `tbl_products` (`id`, `title`, `unit_price`, `retail_price`, `category`, `img1`, `img2`, `img3`, `videoInput`, `description`, `date_added`, `stock_alert`) VALUES
+(23, 'Product title', 20, 200, 'T-Shirts', '1733838513_675846b14aaf47.55116172.png', '1733838513_675846b14affb6.11422803.png', '1733838513_675846b14b2448.25271017.png', '1733838513_675846b14b58d6.50061726.mkv', 'description', '2024-12-10 13:48:33', 5);
 
 -- --------------------------------------------------------
 
@@ -153,13 +150,13 @@ CREATE TABLE `tbl_reviews` (
 INSERT INTO `tbl_reviews` (`id`, `transactionID`, `product_title`, `variation_name`, `review`, `rate`, `username`, `img1`, `img2`, `img3`, `visible`, `date`) VALUES
 (2, '1732052340', 'Drew Billiard', 'White', 'wqeqeqeqeq', 2.000, 'amiel', '673d10b0bc09c6.35493435.jpg', NULL, NULL, 'true', '2024-11-20'),
 (3, '1732467393', 'Aby Fishing Vest', '5', 'hqhqhqzkxjcbnzkjx anu ba \'to gumana ka na pls', 2.000, 'amiellapid06@gmail.com', '67463725b32475.73777052.png', '67463725b365f8.73376371.png', '67463725b38c22.01034517.png', 'true', '2024-11-27'),
-(4, '1732467393', 'Aby Fishing Vest', '5', 'weqeqeq', 5.000, 'amiellapid06@gmail.com', '67463758e86b69.32172813.png', '67463758e8b1f1.50462292.png', '67463758e8d930.64699296.png', 'true', '2024-11-27'),
-(5, '1732467393', 'Aby Fishing Vest', '5', 'wewewewew', 4.000, 'amiellapid06@gmail.com', '674638589688d8.31705485.png', '6746385896b8c9.55398308.png', NULL, 'true', '2024-11-27'),
+(4, '1732467393', 'Aby Fishing Vest', '5', 'weqeqeq', 5.000, 'amiellapid06@gmail.com', '67463758e86b69.32172813.png', '67463758e8b1f1.50462292.png', '67463758e8d930.64699296.png', 'false', '2024-11-27'),
+(5, '1732467393', 'Aby Fishing Vest', '5', 'wewewewew', 4.000, 'amiellapid06@gmail.com', '674638589688d8.31705485.png', '6746385896b8c9.55398308.png', NULL, 'false', '2024-11-27'),
 (6, '1732467393', 'Aby Fishing Vest', '5', 'weqeqeq', 4.500, 'amiellapid06@gmail.com', '674638a2790770.46645346.png', NULL, NULL, 'true', '2024-11-27'),
 (7, '1732467393', 'Aby Fishing Vest', '5', 'awdawd', 4.500, 'amiellapid06@gmail.com', '674638ec575cf6.36853553.png', NULL, NULL, 'true', '2024-11-27'),
 (8, '1732467393', 'Aby Fishing Vest', '5', '', 1.000, 'amiellapid06@gmail.com', '67463b506cf086.27900839.jpg', NULL, NULL, 'true', '2024-11-27'),
 (9, '1732467393', 'Aby Fishing Vest', '5', 'awdqwqeq', 1.000, 'amiellapid06@gmail.com', '67463bb2c36227.22344951.jpg', NULL, NULL, 'true', '2024-11-27'),
-(10, '1732586346', 'Aby Fishing Vest', 'Brown', 'wqeqeqe', 5.000, 'amiellapid06@gmail.com', '67463d31a4b373.24918568.png', NULL, NULL, 'true', '2024-11-27');
+(10, '1732586346', 'Aby Fishing Vest', 'Brown', 'wqeqeqe', 5.000, 'amiellapid06@gmail.com', '67463d31a4b373.24918568.png', NULL, NULL, 'false', '2024-11-27');
 
 -- --------------------------------------------------------
 
@@ -193,7 +190,7 @@ CREATE TABLE `tbl_settings` (
 --
 
 INSERT INTO `tbl_settings` (`cms_id`, `title`, `logo`, `landing_bg`, `landing_text`, `about`, `terms`, `fb`, `ig`, `email`, `number`, `address`, `qr`, `footer`, `about_img`, `about_img2`, `about_img3`, `about_img4`) VALUES
-(1, 'Tiago\'s Vintage Boutique', '6745719a203149.86962530-1732604314.png', '672a317ea782d4.64406569-1730818430.jpg', 'Maulan Sale!!', 'qweqweqe', 'Welcome to Tiago\'s Vintage Boutique Ordering System. By placing an order through our system, you agree to the following terms and conditions:\r\n\r\n1. Payment\r\nWe only accept payments via Gcash. No other payment methods will be accepted.\r\nOnce an order is plWelcome to Tiago\'s Vintage Boutique Ordering System. By placing an order through our system, you agree to the following terms and conditions:\r\n\r\n1. Payment\r\nWe only accept payments via Gcash. No other payment methods will be accepted.\r\nOnce an order is plWelcome to Tiago\'s Vintage Boutique Ordering System. By placing an order through our system, you agree to the following terms and conditions:\r\n\r\n1. Payment\r\nWe only accept payments via Gcash. No other payment methods will be accepted.\r\nOnce an order is plWelcome to Tiago\'s Vintage Boutique Ordering System. By placing an order through our system, you agree to the following terms and conditions:\r\n\r\n1. Payment\r\nWe only accept payments via Gcash. No other payment methods will be accepted.\r\nOnce an order is plWelcome to Tiago\'s Vintage Boutique Ordering System. By placing an order through our system, you agree to the following terms and conditions:\r\n\r\n1. Payment\r\nWe only accept payments via Gcash. No other payment methods will be accepted.\r\nOnce an order is pl', 'https://www.facebook.com/profile.php?id=100063803240125', 'https://www.instagram.com/tiagos_vintage_/', 'vinceasdfghj@gmail.com', '0995 795 6315', 'Southboys Garage Bayan Luma 5 Imus Cavite ', '67451f63d4f539.72112300.jpg', 'qwewee', '6745a577681e37.31688169.png', '6745a577684ce4.98842817.png', '6745a577686bc6.32607911.jpg', '6745a5776884d3.46611149.png');
+(1, 'Tiago\'s Vintage Botique', '6745719a203149.86962530-1732604314.png', '672a317ea782d4.64406569-1730818430.jpg', 'Vintage Finds, Modern Vibes - Only at Tiago\'s', 'qweqweqe', 'Welcome to Tiago\'s Vintage Boutique Ordering System. By placing an order through our system, you agree to the following terms and conditions:\r\n\r\n1. Payment\r\nWe only accept payments via Gcash. No other payment methods will be accepted.\r\nOnce an order is plWelcome to Tiago\'s Vintage Boutique Ordering System. By placing an order through our system, you agree to the following terms and conditions:\r\n\r\n1. Payment\r\nWe only accept payments via Gcash. No other payment methods will be accepted.\r\nOnce an order is plWelcome to Tiago\'s Vintage Boutique Ordering System. By placing an order through our system, you agree to the following terms and conditions:\r\n\r\n1. Payment\r\nWe only accept payments via Gcash. No other payment methods will be accepted.\r\nOnce an order is plWelcome to Tiago\'s Vintage Boutique Ordering System. By placing an order through our system, you agree to the following terms and conditions:\r\n\r\n1. Payment\r\nWe only accept payments via Gcash. No other payment methods will be accepted.\r\nOnce an order is plWelcome to Tiago\'s Vintage Boutique Ordering System. By placing an order through our system, you agree to the following terms and conditions:\r\n\r\n1. Payment\r\nWe only accept payments via Gcash. No other payment methods will be accepted.\r\nOnce an order is pl', 'https://www.facebook.com/profile.php?id=100063803240125', 'https://www.instagram.com/tiagos_vintage_/', 'vinceasdfghj@gmail.com', '0995 795 6315', 'Southboys Garage Bayan Luma 5 Imus Cavite ', '67451f63d4f539.72112300.jpg', 'ehehehe', '6745a577681e37.31688169.png', '6745a577684ce4.98842817.png', '6745a577686bc6.32607911.jpg', '6745a5776884d3.46611149.png');
 
 -- --------------------------------------------------------
 
@@ -212,6 +209,7 @@ CREATE TABLE `tbl_transactions` (
   `total` int(255) NOT NULL,
   `grand_total` int(255) NOT NULL,
   `status` varchar(255) NOT NULL DEFAULT 'Cart',
+  `reason` varchar(255) NOT NULL,
   `discount` varchar(255) NOT NULL,
   `shipping` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
@@ -223,24 +221,8 @@ CREATE TABLE `tbl_transactions` (
 -- Dumping data for table `tbl_transactions`
 --
 
-INSERT INTO `tbl_transactions` (`id`, `transaction_id`, `product_id`, `variation_id`, `quantity`, `user_id`, `date`, `total`, `grand_total`, `status`, `discount`, `shipping`, `address`, `seen`, `reviewed`) VALUES
-(79, '1732052340_1', '18', '13', 2, '1', '2024-11-20 01:25:57', 2400, 6210, 'Pending', 'discount', 'pickup', 'wqeqzxczxczxc', 'true', 'false'),
-(80, '1732052340_1', '17', '17', 3, '1', '2024-11-20 01:25:57', 4500, 6210, 'Pending', 'discount', 'pickup', 'wqeqzxczxczxc', 'true', 'false'),
-(81, '', '18', '13', 2, '1', '2024-11-20 00:33:10', 2400, 0, 'Cart', '', '', '', 'false', 'false'),
-(82, '1732467393_11', '17', '17', 2, '11', '2024-11-26 21:26:56', 3000, 0, 'Completed', '', 'pickup', 'Imus, 80bucksqweq', 'true', 'true'),
-(84, '1732582595_5', '17', '16', 12, '5', '2024-11-26 01:49:41', 3000, 0, 'Check Payment', '', 'pickup', 'Imus, 80bucks', 'false', 'false'),
-(85, '1732586143_5', '18', '13', 1, '5', '2024-11-26 01:57:16', 1200, 0, 'Out For Delivery', '', 'delivery', 'hahanxcvxzcvzx', 'false', 'false'),
-(86, '1732586143_5', '17', '16', 1, '5', '2024-11-26 01:57:16', 1500, 0, 'Out For Delivery', '', 'delivery', 'hahanxcvxzcvzx', 'false', 'false'),
-(87, '1732586346_11', '17', '16', 2, '11', '2024-11-26 21:27:13', 3000, 0, 'Completed', '', 'pickup', 'nsnsns', 'true', 'true'),
-(88, '1732586363_11', '17', '16', 2, '11', '2024-11-26 03:20:54', 3000, 0, 'Completed', 'discount', 'delivery', 'bbbbb', 'true', 'false'),
-(89, '1732589762_11', '17', '16', 2, '11', '2024-11-26 04:56:55', 3000, 2700, 'Out For Delivery', 'discount', 'pickup', 'oikjnbaww', 'false', 'false'),
-(90, '1732590557_11', '19', '19', 2, '11', '2024-11-26 03:47:00', 1700, 1530, 'Completed', 'discount', 'pickup', 'zxczxc', 'false', 'false'),
-(91, '1732590607_11', '18', '13', 2, '11', '2024-11-26 03:45:56', 2400, 2400, 'Completed', '', 'pickup', 'asdaww', 'false', 'false'),
-(92, '1732603954_11', '13', '18', 4, '11', '2024-11-26 06:53:45', 363, 1676, 'Out For Delivery', 'discount', 'delivery', 'gawdaxz', 'false', 'false'),
-(93, '1732603954_11', '17', '16', 1, '11', '2024-11-26 06:53:45', 1500, 1676, 'Out For Delivery', 'discount', 'delivery', 'gawdaxz', 'false', 'false'),
-(94, '1732658870_11', '19', '19', 1, '11', '2024-11-26 22:07:57', 850, 765, 'Check Payment', 'discount', 'pickup', 'wwww', 'false', 'false'),
-(95, '1732659485_11', '17', '16', 1, '11', '2024-11-26 22:22:39', 1500, 1350, 'Check Payment', 'discount', 'pickup', '2213asdc', 'false', 'false'),
-(96, '1732660708_11', '13', '18', 1, '11', '2024-11-26 22:41:28', 121, 121, 'Completed', '', 'pickup', 'aw', 'false', 'false');
+INSERT INTO `tbl_transactions` (`id`, `transaction_id`, `product_id`, `variation_id`, `quantity`, `user_id`, `date`, `total`, `grand_total`, `status`, `reason`, `discount`, `shipping`, `address`, `seen`, `reviewed`) VALUES
+(109, '1733841362_11', '23', '22', 3, '11', '2024-12-10 14:36:02', 600, 600, 'Pending', '', '', 'pickup', '', 'false', 'false');
 
 -- --------------------------------------------------------
 
@@ -271,7 +253,8 @@ INSERT INTO `tbl_users` (`id`, `username`, `password`, `firstName`, `lastName`, 
 (5, 'amiel06', '$2y$10$4SFlJ4HEb5hC6aVzFXVWjerAnQKnvrMTSNOoqDi2xSh3JvdXareZi', 'Amiel Carhyl', 'Lapid', 'None', 'Super Admin', 0),
 (9, 'brix', '$2y$10$YsZlW0jjCQU7eUHxACvSxuo4oXDCvnLE9FWNmFo89BA9ndh1Gh6sa', 'Brix', 'Ferraris', 'None', 'Super Admin', 21),
 (10, 'clar123', '$2y$10$BdL6rnKfHdaIsPJs5yOxLuahrv6fEdK0fPZx0K9ZpxY1DESEwIt0W', 'clar', 'darius', '0954321311', 'Customer', 0),
-(11, 'amiellapid06@gmail.com', '$2y$10$pFr2eqlh/eTH98bAYFGopeApS7HG5LP5L9WmdheEcNwQdjmNAySt6', 'Amiel Carhyl', 'Lapid', '09940576891', 'Customer', 1);
+(11, 'amiellapid06@gmail.com', '$2y$10$pFr2eqlh/eTH98bAYFGopeApS7HG5LP5L9WmdheEcNwQdjmNAySt6', 'Amiel Carhyl', 'Lapid', '09940576891', 'Customer', 1),
+(15, 'adriel.cyril.lapid@gmail.com', '$2y$10$n05Vpnvh7EyyggvKZap2Me/rS8fR63CZaiisedKjkw4viDmDiX2hq', 'Adriel', 'Cyril', '09057687231', 'Customer', 0);
 
 -- --------------------------------------------------------
 
@@ -286,7 +269,7 @@ CREATE TABLE `tbl_variations` (
   `width` int(11) NOT NULL,
   `length` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `imgVar` varchar(255) NOT NULL,
+  `vid_variation` varchar(255) NOT NULL,
   `seen` varchar(255) NOT NULL DEFAULT 'false'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -294,14 +277,8 @@ CREATE TABLE `tbl_variations` (
 -- Dumping data for table `tbl_variations`
 --
 
-INSERT INTO `tbl_variations` (`id`, `product_id`, `variationName`, `width`, `length`, `quantity`, `imgVar`, `seen`) VALUES
-(11, 11, 'hehe', 23, 21, 8, '', 'false'),
-(12, 11, 'sample po', 21, 32, 18, '6706fc6b341d33.46212256.png', 'false'),
-(13, 18, 'White', 25, 26, 9, '672f2e5957e2b8.08065199.png', 'false'),
-(14, 11, 'White', 20, 20, 12, '672f3284d6fdc2.21053179.png', 'false'),
-(15, 12, 'White', 12, 32, 12, '673041f114e835.95422197.png', 'false'),
-(18, 13, 'Blue', 123, 12, 7, '6738a7e46919f0.14264527.webp', 'false'),
-(20, 11, 'Blue Jorts', 123, 32, 12, '6738a83aafff29.12445481.jpg', 'false');
+INSERT INTO `tbl_variations` (`id`, `product_id`, `variationName`, `width`, `length`, `quantity`, `vid_variation`, `seen`) VALUES
+(22, 23, 'sample po', 21, 23, 0, '1733838541_675846cda73dc9.51218269.mkv', 'false');
 
 --
 -- Indexes for dumped tables
@@ -375,7 +352,7 @@ ALTER TABLE `tbl_payments`
 -- AUTO_INCREMENT for table `tbl_products`
 --
 ALTER TABLE `tbl_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tbl_reviews`
@@ -393,19 +370,19 @@ ALTER TABLE `tbl_settings`
 -- AUTO_INCREMENT for table `tbl_transactions`
 --
 ALTER TABLE `tbl_transactions`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tbl_variations`
 --
 ALTER TABLE `tbl_variations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
