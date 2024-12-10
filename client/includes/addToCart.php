@@ -24,13 +24,13 @@ if ($resultCheck->num_rows > 0) {
     $stmtUpdate->execute();
     $stmtUpdate->close();
 } else {
-    $sql2 = "SELECT price FROM tbl_products WHERE id = ?";
+    $sql2 = "SELECT retail_price FROM tbl_products WHERE id = ?";
     $stmt2 = $conn->prepare($sql2);
     $stmt2->bind_param('i', $product_id);
     $stmt2->execute();
     $result2 = $stmt2->get_result();
     $row2 = $result2->fetch_assoc();
-    $total = $quantity * $row2['price'];
+    $total = $quantity * $row2['retail_price'];
 
     $sqlInsert = 'INSERT INTO tbl_transactions(product_id, quantity, user_id, date, total, variation_id) VALUES(?, ?, ?, NOW(), ?, ?)';
     $stmtInsert = $conn->prepare($sqlInsert);

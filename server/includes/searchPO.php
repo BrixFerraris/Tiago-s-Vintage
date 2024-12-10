@@ -1,15 +1,25 @@
 <?php
 require './dbCon.php';
+
 $status = isset($_GET['status']) ? $_GET['status'] : '';
 
-$sql = "SELECT t.*, p.*, u.firstName, u.lastName, u.id, u.username, u.points, u.contact 
-        FROM tbl_transactions t 
-        INNER JOIN tbl_products p ON t.product_id = p.id 
-        INNER JOIN tbl_users u ON t.user_id = u.id 
-        WHERE t.status = ?"; 
+if ($status === 'All') {
+    $sql = "SELECT t.*, p.*, u.firstName, u.lastName, u.id, u.username, u.points, u.contact 
+            FROM tbl_transactions t 
+            INNER JOIN tbl_products p ON t.product_id = p.id 
+            INNER JOIN tbl_users u ON t.user_id = u.id 
+            WHERE t.status != 'Cart'";
+    $stmt = $conn->prepare($sql);
+} else {
+    $sql = "SELECT t.*, p.*, u.firstName, u.lastName, u.id, u.username, u.points, u.contact 
+            FROM tbl_transactions t 
+            INNER JOIN tbl_products p ON t.product_id = p.id 
+            INNER JOIN tbl_users u ON t.user_id = u.id 
+            WHERE t.status = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('s', $status);
+}
 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('s', $status);
 $stmt->execute();
 $result = $stmt->get_result();
 

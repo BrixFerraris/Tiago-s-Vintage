@@ -195,7 +195,7 @@
     <script>
         $(document).ready(function () {
             $.ajax({	
-                url: 'https://tiago-vintage.helioho.st/client/includes/getNotification.php',
+                url: 'http://localhost/tiago/client/includes/getNotification.php',
                 type: 'GET',
                 success: function (data) {
                     console.log(data);
@@ -271,7 +271,7 @@
                 }
             });
             $.ajax({
-                url: 'https://tiago-vintage.helioho.st/client/includes/getAddCarts.php',
+                url: 'http://localhost/tiago/client/includes/getAddCarts.php',
                 type: 'GET',
                 success: function (data) {
                     var results = JSON.parse(data);
@@ -288,7 +288,7 @@
                 var query = $(this).val();
                 if (query.length > 0) {
                     $.ajax({
-                        url: 'https://tiago-vintage.helioho.st/client/includes/searchProducts.php',
+                        url: 'http://localhost/tiago/client/includes/searchProducts.php',
                         type: 'GET',
                         data: { query: query },
                         success: function (data) {
@@ -587,7 +587,7 @@
 <script>
     $(document).ready(function () {
         $.ajax({
-            url: 'https://tiago-vintage.helioho.st/server/includes/getCMS.php',
+            url: 'http://localhost/tiago/server/includes/getCMS.php',
             method: 'GET',
             dataType: 'json',
             success: function (data) {

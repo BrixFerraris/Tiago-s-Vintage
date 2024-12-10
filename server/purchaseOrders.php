@@ -49,7 +49,7 @@ if (isset($_SESSION["role"])) {
 
                 <div class="search-bar">
                     <input type="text" id="search-input" placeholder="Search Order" />
-                    <button id="search-btn"> <span class="material-icons-outlined">search</span></button>
+                    <button id="search-btn">Search</button>
                 </div>
             </div>
 
@@ -75,125 +75,129 @@ if (isset($_SESSION["role"])) {
             <!-- End Main -->
         </div>
         </div>
-        </body>
+</body>
 
 </html>
-        <script>
-            $(document).ready(function () {
-                loadPurchaseOrders();
-                function loadPurchaseOrders() {
-                    $.ajax({
-                        url: '../serverFunctions.php',
-                        type: 'POST',
-                        data: { type: 'loadPurchaseOrders' },
-                        success: function (response) {
-                            const purchaseOrders = JSON.parse(response);
-                            const table = $('#products');
-                            const uniqueOrders = {};
-                            const validStatuses = ['Pending', 'Ready For Pickup', 'Completed', 'Check Payment', 'Out For Delivery'];
-                            purchaseOrders.forEach(function (purchaseOrder) {
-                                if (validStatuses.includes(purchaseOrder.status)) {
-                                    const key = `${purchaseOrder.transaction_id}_${purchaseOrder.user_id}`;
-                                    if (!uniqueOrders[key]) {
-                                        uniqueOrders[key] = true;
-                                        const newRow = $('<tr></tr>');
-                                        newRow.append($('<td></td>').text(purchaseOrder.transaction_id));
-                                        newRow.append($('<td></td>').text(purchaseOrder.firstName + ' ' + purchaseOrder.lastName));
-                                        newRow.append($('<td></td>').text(purchaseOrder.address));
-                                        newRow.append($('<td></td>').text(purchaseOrder.shipping));
-                                        newRow.append($('<td></td>').text(purchaseOrder.discount));
-                                        newRow.append($('<td></td>').text(purchaseOrder.status));
-                                        newRow.on('click', function () {
-                                            window.location.href = 'adminPODetails.php?transaction_id=' + purchaseOrder.transaction_id;
-                                        });
-                                        table.append(newRow);
-                                    }
-                                }
-                            });
-                        },
-                        error: function (xhr, status, error) {
-                            console.error('Error loading purchase orders:', error);
-                        }
-                    });
-                }
-                $('#status-filter').change(function () {
-                    var selectedStatus = $(this).val();
-                    $.ajax({
-                        url: './includes/searchPO.php',
-                        type: 'GET',
-                        data: { status: selectedStatus },
-                        dataType: 'json',
-                        success: function (response) {
-                            $('#products tbody').empty();
-                            const uniqueOrders = {};
-                            const validStatuses = ['Pending', 'Ready For Pickup', 'Completed', 'Check Payment', 'Out For Delivery', 'Cancelled'];
-                            if (response.order_items.length > 0) {
-                                response.order_items.forEach(function (purchaseOrder) {
-                                    if (validStatuses.includes(purchaseOrder.status)) {
-                                        const key = `${purchaseOrder.transaction_id}_${purchaseOrder.user_id}`;
-                                        if (!uniqueOrders[key]) {
-                                            uniqueOrders[key] = true;
-                                            const newRow = $('<tr></tr>');
-                                            newRow.append($('<td></td>').text(purchaseOrder.transaction_id));
-                                            newRow.append($('<td></td>').text(purchaseOrder.firstName + ' ' + purchaseOrder.lastName));
-                                            newRow.append($('<td></td>').text(purchaseOrder.address));
-                                            newRow.append($('<td></td>').text(purchaseOrder.shipping));
-                                            newRow.append($('<td></td>').text(purchaseOrder.discount));
-                                            newRow.append($('<td></td>').text(purchaseOrder.status));
-                                            newRow.on('click', function () {
-                                                window.location.href = 'adminPODetails.php?transaction_id=' + purchaseOrder.transaction_id;
-                                            });
-                                            $('#products tbody').append(newRow);
-                                        }
-                                    }
+<script>
+    $(document).ready(function () {
+        loadPurchaseOrders();
+        fetchPurchaseOrders("All");
+        function loadPurchaseOrders() {
+            $.ajax({
+                url: '../serverFunctions.php',
+                type: 'POST',
+                data: { type: 'loadPurchaseOrders' },
+                success: function (response) {
+                    const purchaseOrders = JSON.parse(response);
+                    const table = $('#products');
+                    const uniqueOrders = {};
+                    const validStatuses = ['Pending', 'Ready For Pickup', 'Completed', 'Check Payment', 'Out For Delivery'];
+                    purchaseOrders.forEach(function (purchaseOrder) {
+                        if (validStatuses.includes(purchaseOrder.status)) {
+                            const key = `${purchaseOrder.transaction_id}_${purchaseOrder.user_id}`;
+                            if (!uniqueOrders[key]) {
+                                uniqueOrders[key] = true;
+                                const newRow = $('<tr></tr>');
+                                newRow.append($('<td></td>').text(purchaseOrder.transaction_id));
+                                newRow.append($('<td></td>').text(purchaseOrder.firstName + ' ' + purchaseOrder.lastName));
+                                newRow.append($('<td></td>').text(purchaseOrder.address));
+                                newRow.append($('<td></td>').text(purchaseOrder.shipping));
+                                newRow.append($('<td></td>').text(purchaseOrder.discount));
+                                newRow.append($('<td></td>').text(purchaseOrder.status));
+                                newRow.on('click', function () {
+                                    window.location.href = 'adminPODetails.php?transaction_id=' + purchaseOrder.transaction_id;
                                 });
-                            } else {
-                                $('#products tbody').append('<tr><td colspan="6">No results found for the selected status.</td></tr>');
+                                table.append(newRow);
                             }
-                        },
-                        error: function (xhr, status, error) {
-                            console.error('AJAX Error: ' + status + ' ' + error);
-                            $('#products tbody').append('<tr><td colspan="6">An error occurred while fetching data.</td></tr>');
                         }
                     });
-                });
-                $('#search-btn').on('click', function () {
-                    var searchQuery = $(this).val(); 
-                    if (searchQuery) { 
-                        $.ajax({
-                            url: './includes/POsearch.php', 
-                            type: 'GET',
-                            data: { query: searchQuery },
-                            dataType: 'json',
-                            success: function (response) {
-                                $('#products tbody').empty();
-                                if (response.length > 0) {
-                                    response.forEach(function (transaction) {
-                                        const newRow = $('<tr></tr>');
-                                        newRow.append($('<td></td>').text(transaction.transaction_id));
-                                        newRow.append($('<td></td>').text(transaction.firstName + ' ' + transaction .lastName));
-                                        newRow.append($('<td></td>').text(transaction.address));
-                                        newRow.append($('<td></td>').text(transaction.shipping));
-                                        newRow.append($('<td></td>').text(transaction.discount));
-                                        newRow.append($('<td></td>').text(transaction.status));
-                                        $('#products tbody').append(newRow);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error loading purchase orders:', error);
+                }
+            });
+        }
+        function fetchPurchaseOrders(selectedStatus) {
+            $.ajax({
+                url: './includes/searchPO.php',
+                type: 'GET',
+                data: { status: selectedStatus },
+                dataType: 'json',
+                success: function (response) {
+                    $('#products tbody').empty();
+                    const uniqueOrders = {};
+                    const validStatuses = ['Pending', 'Ready For Pickup', 'Completed', 'Check Payment', 'Out For Delivery', 'Cancelled'];
+                    if (response.order_items.length > 0) {
+                        response.order_items.forEach(function (purchaseOrder) {
+                            if (validStatuses.includes(purchaseOrder.status)) {
+                                const key = `${purchaseOrder.transaction_id}_${purchaseOrder.user_id}`;
+                                if (!uniqueOrders[key]) {
+                                    uniqueOrders[key] = true;
+                                    const newRow = $('<tr></tr>');
+                                    newRow.append($('<td></td>').text(purchaseOrder.transaction_id));
+                                    newRow.append($('<td></td>').text(purchaseOrder.firstName + ' ' + purchaseOrder.lastName));
+                                    newRow.append($('<td></td>').text(purchaseOrder.address));
+                                    newRow.append($('<td></td>').text(purchaseOrder.shipping));
+                                    newRow.append($('<td></td>').text(purchaseOrder.discount));
+                                    newRow.append($('<td></td>').text(purchaseOrder.status));
+                                    newRow.on('click', function () {
+                                        window.location.href = 'adminPODetails.php?transaction_id=' + purchaseOrder.transaction_id;
                                     });
-                                } else {
-                                    $('#products tbody').append('<tr><td colspan="6">No results found.</td></tr>');
+                                    $('#products tbody').append(newRow);
                                 }
-                            },
-                            error: function (xhr, status, error) {
-                                console.error('AJAX Error: ' + status + ' ' + error);
-                                $('#products tbody').append('<tr><td colspan="6">An error occurred while fetching data.</td></tr>');
                             }
                         });
                     } else {
-                        $('#products tbody').empty(); 
+                        $('#products tbody').append('<tr><td colspan="6">No results found for the selected status.</td></tr>');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX Error: ' + status + ' ' + error);
+                    $('#products tbody').append('<tr><td colspan="6">An error occurred while fetching data.</td></tr>');
+                }
+            });
+        }
+        $('#status-filter').change(function () {
+            var selectedStatus = $(this).val();
+            fetchPurchaseOrders(selectedStatus);
+        });
+        $(document).on('click', '#search-btn', function () {
+            var searchQuery = $('#search-input').val();
+            if (searchQuery) {
+                $.ajax({
+                    url: './includes/POsearch.php',
+                    type: 'GET',
+                    data: { query: searchQuery },
+                    dataType: 'json',
+                    success: function (response) {
+                        $('#products tbody').empty();
+                        if (response.length > 0) {
+                            response.forEach(function (transaction) {
+                                const newRow = $('<tr></tr>');
+                                newRow.append($('<td></td>').text(transaction.transaction_id));
+                                newRow.append($('<td></td>').text(transaction.firstName + ' ' + transaction.lastName));
+                                newRow.append($('<td></td>').text(transaction.address));
+                                newRow.append($('<td></td>').text(transaction.shipping));
+                                newRow.append($('<td></td>').text(transaction.discount));
+                                newRow.append($('<td></td>').text(transaction.status));
+                                $('#products tbody').append(newRow);
+                            });
+                        } else {
+                            $('#products tbody').append('<tr><td colspan="6">No results found.</td></tr>');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('AJAX Error: ' + status + ' ' + error);
+                        $('#products tbody').append('<tr><td colspan="6">An error occurred while fetching data.</td></tr>');
                     }
                 });
-            });
-        </script>
-        <script src="../test/sidebarToggle.js"></script>
+            } else {
+                $('#products tbody').empty();
+            }
+        });
+    });
+</script>
+<script src="../test/sidebarToggle.js"></script>
 
 
 

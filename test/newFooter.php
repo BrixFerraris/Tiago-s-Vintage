@@ -61,14 +61,14 @@
         </div>
         <div class="footer-bottom">
             <p style="color:white;">© 2024 Copyright:
-                <a href="https://www.tiago-vintage.helioho.st/client/landing.php">tiago-vintage.helioho.st</a>
+                <a href="http://localhost/tiago/client/landing.php">tiago-vintage.helioho.st</a>
             </p>
         </div>
     </footer>
     <script>
         $(document).ready(function () {
             $.ajax({
-                url: 'https://tiago-vintage.helioho.st/server/includes/getCMS.php',
+                url: 'http://localhost/tiago/server/includes/getCMS.php',
                 method: 'GET',
                 dataType: 'json',
                 success: function (data) {

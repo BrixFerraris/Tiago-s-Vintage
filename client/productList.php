@@ -92,7 +92,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
                         <img src="../server/includes/uploads/${product.img1}" alt="${product.title}" width="252" height="320">
                         <p>
                             <span class="has-text-primary has-text-weight-bold">${product.title}</span><br>
-                            <span class="has-text-primary has-text-weight-semibold">PHP ${product.price}</span>
+                            <span class="has-text-primary has-text-weight-semibold">PHP ${product.retail_price}</span>
                         </p>
                     </a>
                 </div>

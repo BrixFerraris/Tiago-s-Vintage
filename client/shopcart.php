@@ -67,7 +67,7 @@ include '../test/newFooter.php';
                             <div class="item-info">
                                 <h2 id="infoo">${item.title}</h2>
                                 <p id="infoo">${item.variationName}</p>
-                                <p id="infoo">₱${item.price}</p>
+                                <p id="infoo">₱${item.retail_price}</p>
                             </div>
                             <div class="item-quantity">
                                 <div class="incdec">
@@ -81,7 +81,7 @@ include '../test/newFooter.php';
                             </div>
                         </div>`;
                         cartItemsContainer.append(cartItemHtml);
-                        subtotal += item.price * item.quantity;
+                        subtotal += item.retail_price * item.quantity;
                     });
                     if (response.length == 0) {
                         const subtotalHtml = `

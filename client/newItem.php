@@ -8,16 +8,19 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
 
 ?>
 <div class="img-item">
-<div class="img-container">
-  <div class="main-img">
-    <video src="#"></video>
+  <div class="img-container">
+    <div class="main-img">
+      <video id="img4" width="500" height="280" controls>
+        <source id="videoSource" src="" type="video/mp4">
+        <em>Sorry, your browser doesn't support HTML5 video.</em>
+      </video>
+    </div>
+    <div class="sub-img">
+      <img id="img1" src="../assets/samplepic1.png" alt="Thumbnail 1">
+      <img id="img2" src="../assets/samplepic1.png" alt="Thumbnail 2">
+      <img id="img3" src="../assets/samplepic2.png" alt="Thumbnail 3">
+    </div>
   </div>
-  <div class="sub-img">
-    <img id="img2" src="../assets/samplepic1.png" alt="Thumbnail 1">
-    <img id="img3" src="../assets/samplepic1.png" alt="Thumbnail 2">
-    <img id="img4" src="../assets/samplepic2.png" alt="Thumbnail 3">
-  </div>
-</div>
   <div class="details">
     <div class="details-infos">
       <h1 id="title-ko">
@@ -71,9 +74,9 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
     const productID = url.searchParams.get('productID');
     const isLoggedIn = <?php echo json_encode($isLoggedIn); ?>;
     var userRole = "<?php echo $role; ?>";
-        if (userRole !== 'Customer' && userRole !== '') {
-            window.location.href = "../server/adminDashboard.php";
-        }
+    if (userRole !== 'Customer' && userRole !== '') {
+      window.location.href = "../server/adminDashboard.php";
+    }
     $('#product_id').val(productID);
 
     function loadVariations(idProducts) {
@@ -95,7 +98,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
             $.each(product.variations, function (index, variation) {
               const newDiv = $('<div>').addClass('edit-product-variation');
               newDiv.html(`
-                            <button class="variation" data-img="${variation.imgVar}" data-id="${variation.id}" data-quantity="${variation.quantity}">
+                            <button class="variation" data-img="${variation.vid_variation}" data-id="${variation.id}" data-quantity="${variation.quantity}">
                                 ${variation.width} X ${variation.length} (${variation.variationName})
                             </button>
                         `);
@@ -112,7 +115,8 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
               const variationID = $(this).data('id');
               const variationQuantity = $(this).data('quantity');
               const varIMG = $(this).data('img');
-              $('#img1').attr('src', '../server/includes/uploads/' + varIMG);
+              $('#videoSource').attr('src', '../server/includes/uploads/' + varIMG);
+              $('#img4')[0].load();
               $('#variationID').val(variationID);
               $('#quantity').attr('max', variationQuantity);
               $('#quantity-message').text(`Stocks Left: ${variationQuantity}`);
@@ -144,7 +148,8 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
             $('#img1').attr('src', '../server/includes/uploads/' + product.img1);
             $('#img2').attr('src', '../server/includes/uploads/' + product.img2);
             $('#img3').attr('src', '../server/includes/uploads/' + product.img3);
-            $('#img4').attr('src', '../server/includes/uploads/' + product.img4);
+            $('#videoSource').attr('src', '../server/includes/uploads/' + product.img4);
+            $('#img4')[0].load(); 
           }
         },
         error: function (xhr, status, error) {
@@ -287,9 +292,9 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
 
   .sub-img {
     display: flex;
-  gap: 15px;
-  justify-content: center;
-  flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .sub-img img {
@@ -301,10 +306,11 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
+
   .sub-img img:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-}
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
 
   /* Product details styles */
   .details {

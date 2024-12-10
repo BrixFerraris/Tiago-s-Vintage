@@ -192,7 +192,7 @@ if (isset($_SESSION["role"])) {
       newRow.insertCell(0).innerText = id;
       newRow.insertCell(1).innerHTML = '<img src="./includes/uploads/' + product.img1 + '" alt="Product Image">';
       newRow.insertCell(2).innerText = product.title;
-      newRow.insertCell(3).innerText = product.price;
+      newRow.insertCell(3).innerText = '₱'+product.unit_price;
       newRow.insertCell(4).innerText = product.category;
       newRow.insertCell(5).innerHTML = '<button class="edit-btn" data-id="' + product.id + '">Edit</button>';
       newRow.insertCell(6).innerHTML = '<button class="delete-btn" data-id="' + product.id + '">Delete</button>';

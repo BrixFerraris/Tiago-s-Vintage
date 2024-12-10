@@ -51,10 +51,10 @@ if (isset($_SESSION["role"])) {
     <div class="modals">
         <h2>Reason for Cancelation:</h2>
         <textarea id="cancelReason" placeholder="Enter your reason here..." rows="20" cols="50"></textarea>
-         <div class="btnss">
+        <div class="btnss">
             <button class="btnSubmit">Submit</button>
             <button class="btnBack">Back</button>
-         </div>
+        </div>
     </div>
 </div>
 
@@ -68,7 +68,7 @@ if (isset($_SESSION["role"])) {
             <br>
             <p>SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE</p>
         </label>
-        
+
 
         <label for="description">
             <h3>Description</h3>
@@ -77,26 +77,26 @@ if (isset($_SESSION["role"])) {
                 SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE
                 SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE</p>
         </label>
-        
+
 
         <div class="media-preview" id="photoPreview">
-        <!-- dito nakalagay yung image na nilagay ng cutomer -->
-        <figure class="image">
-    <img src="../assets/tiagos-removebg-preview 1.png" alt="Image 1" onclick="openModal(this)">
-    <img src="../assets/tiagos-removebg-preview 1.png" alt="Image 2" onclick="openModal(this)">
-  </figure>
+            <!-- dito nakalagay yung image na nilagay ng cutomer -->
+            <figure class="image">
+                <img src="../assets/tiagos-removebg-preview 1.png" alt="Image 1" onclick="openModal(this)">
+                <img src="../assets/tiagos-removebg-preview 1.png" alt="Image 2" onclick="openModal(this)">
+            </figure>
 
-  <div id="imageModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <img id="modalImage" class="modal-img" alt="Expanded View">
-    </div>
-  </div>
+            <div id="imageModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <img id="modalImage" class="modal-img" alt="Expanded View">
+                </div>
+            </div>
         </div>
 
-         <div class="btnss">
+        <div class="btnss">
             <button class="btnBack">Back</button>
-         </div>
+        </div>
     </div>
 </div>
 
@@ -104,29 +104,29 @@ if (isset($_SESSION["role"])) {
 
 <script>
     // Open Modal
-function openModal(image) {
-  const modal = document.getElementById('imageModal');
-  const modalImage = document.getElementById('modalImage');
-  
-  // Set the source of the modal image to the clicked image
-  modalImage.src = image.src;
-  
-  modal.style.display = 'flex'; // Display modal
-}
+    function openModal(image) {
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
 
-// Close Modal
-function closeModal() {
-  const modal = document.getElementById('imageModal');
-  modal.style.display = 'none'; // Hide modal
-}
+        // Set the source of the modal image to the clicked image
+        modalImage.src = image.src;
 
-// Close modal when clicking outside modal content
-window.onclick = function(event) {
-  const modal = document.getElementById('imageModal');
-  if (event.target === modal) {
-    closeModal();
-  }
-};
+        modal.style.display = 'flex'; // Display modal
+    }
+
+    // Close Modal
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.style.display = 'none'; // Hide modal
+    }
+
+    // Close modal when clicking outside modal content
+    window.onclick = function (event) {
+        const modal = document.getElementById('imageModal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
 </script>
 
 
@@ -145,8 +145,8 @@ window.onclick = function(event) {
                 console.log(data);
                 if (data.length > 0) {
                     const payment = data[0];
-					console.log(payment.receipt);
-					$('#imageReceipt').attr('src', '../client/includes/uploads/' + payment.receipt).show();
+                    console.log(payment.receipt);
+                    $('#imageReceipt').attr('src', '../client/includes/uploads/' + payment.receipt).show();
                     $('#amountDisplay').text(`Amount: ₱${payment.amount}`);
                     $('.modal-receipt').show();
                 } else {
@@ -163,11 +163,10 @@ window.onclick = function(event) {
             data: { type: 'loadPODetails', transaction_id: transactionId },
             dataType: 'json',
             success: function (data) {
-                console.log(data.status);
+                console.log(data);
                 const orderItemsContainer = document.querySelector('.order-items-container');
                 const orderItems = data.order_items;
                 orderItemsContainer.innerHTML = '';
-
                 orderItems.forEach((item) => {
                     const itemHTML = `
                     <div class="item">
@@ -175,7 +174,7 @@ window.onclick = function(event) {
                         <div class="item-detail">
                             <p class="item-name">${item.title}</p>
                             <p>x${item.quantity}</p>
-                            <p>₱${item.price}</p>
+                            <p>₱${item.retail_price}</p>
                         </div>
                     </div>
                 `;
@@ -293,7 +292,7 @@ window.onclick = function(event) {
                             username: username
                         },
                         success: function (response) {
-                            alert("Success");  
+                            alert("Success");
                         },
                         error: function (xhr, status, error) {
                             console.error('An error occurred:', error);
@@ -304,51 +303,57 @@ window.onclick = function(event) {
 
 
 
-                    // Modal for Receipt
-                    var modalBtn1 = document.querySelector('.show-btn');
-                    var modalBg1 = document.querySelector('.modal-receipt');
-                    var modalClose1 = modalBg1.querySelector('.btnBack');
+                // Modal for Receipt
+                var modalBtn1 = document.querySelector('.show-btn');
+                var modalBg1 = document.querySelector('.modal-receipt');
+                var modalClose1 = modalBg1.querySelector('.btnBack');
 
-                    modalBtn1.addEventListener('click', function () {
-                        modalBg1.classList.add('modal-active');
-                    });
-                    modalClose1.addEventListener('click', function () {
-                        modalBg1.classList.remove('modal-active');
-                    });
-                    
-                    // Modal for cancel
-                    var modalBtn2 = document.querySelector('.decline-btn');
-                    var modalBg2 = document.querySelector('.modal-cancel');
-                    var modalClose2 = modalBg2.querySelector('.btnBack');
+                modalBtn1.addEventListener('click', function () {
+                    modalBg1.classList.add('modal-active');
+                });
+                modalClose1.addEventListener('click', function () {
+                    modalBg1.classList.remove('modal-active');
+                });
 
-                    modalBtn2.addEventListener('click', function () {
-                        modalBg2.classList.add('modal-active');
-                    });
-                    modalClose2.addEventListener('click', function () {
-                        modalBg2.classList.remove('modal-active');
-                    });
+                // Modal for cancel
+                var modalBtn2 = document.querySelector('.decline-btn');
+                var modalBg2 = document.querySelector('.modal-cancel');
+                var modalClose2 = modalBg2.querySelector('.btnBack');
+
+                modalBtn2.addEventListener('click', function () {
+                    modalBg2.classList.add('modal-active');
+                });
+                modalClose2.addEventListener('click', function () {
+                    modalBg2.classList.remove('modal-active');
+                });
 
 
-                    // Modal for Replace
-                    var modalBtn3 = document.querySelector('.show-replace-btn');
-                    var modalBg3 = document.querySelector('.modal-replace');
-                    var modalClose3 = modalBg3.querySelector('.btnBack');
+                // Modal for Replace
+                var modalBtn3 = document.querySelector('.show-replace-btn');
+                var modalBg3 = document.querySelector('.modal-replace');
+                var modalClose3 = modalBg3.querySelector('.btnBack');
 
-                    modalBtn3.addEventListener('click', function () {
-                        modalBg3.classList.add('modal-active');
-                    });
-                    modalClose3.addEventListener('click', function () {
-                        modalBg3.classList.remove('modal-active');
-                    });
+                modalBtn3.addEventListener('click', function () {
+                    modalBg3.classList.add('modal-active');
+                });
+                modalClose3.addEventListener('click', function () {
+                    modalBg3.classList.remove('modal-active');
+                });
 
                 $('.btnSubmit').click(function () {
                     var transactionId = $(this).data('id');
+                    var cancelReason = $('#cancelReason').val();
+                    if (!cancelReason || cancelReason.trim() === '') {
+                        alert('Please provide a reason for cancellation.');
+                        return;
+                    }
                     $.ajax({
                         url: './includes/acceptOrder.php',
                         type: 'POST',
                         data: {
                             transaction_id: transactionId,
-                            action: 'decline'
+                            action: 'decline',
+                            cancel_reason: cancelReason
                         },
                         success: function (response) {
                             const result = JSON.parse(response);
@@ -365,16 +370,11 @@ window.onclick = function(event) {
                         }
                     });
                 });
+
             }
         });
     });
 
-    // modal
-
-
-
-
-    // SIDEBAR TOGGLE
     let sidebarOpen = false;
     const sidebar = document.getElementById('sidebar');
 
@@ -402,45 +402,45 @@ window.onclick = function(event) {
 
 <!-- Custom Styles -->
 <style>
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+    }
 
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  justify-content: center;
-  align-items: center;
-}
+    .modal-content {
+        position: relative;
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+    }
 
-.modal-content {
-  position: relative;
-  background: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  text-align: center;
-}
+    .modal-img {
+        max-width: 100%;
+        max-height: 80vh;
+    }
 
-.modal-img {
-  max-width: 100%;
-  max-height: 80vh;
-}
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #000;
+        font-size: 24px;
+        cursor: pointer;
+    }
 
-.close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: #000;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-/* Add hover effect for close button */
-.close:hover {
-  color: red;
-}
+    /* Add hover effect for close button */
+    .close:hover {
+        color: red;
+    }
 
     .main-container {
         padding: 20px;
@@ -531,7 +531,8 @@ window.onclick = function(event) {
         color: white;
     }
 
-    .show-btn, .show-replace-btn {
+    .show-btn,
+    .show-replace-btn {
         background-color: #0035d6;
         color: white;
     }
@@ -545,7 +546,8 @@ window.onclick = function(event) {
 
 
     /* modal */
-    .modal-receipt, .modal-replace {
+    .modal-receipt,
+    .modal-replace {
         position: fixed;
         width: 100%;
         height: 100%;
@@ -599,7 +601,7 @@ window.onclick = function(event) {
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     }
 
-    .modal-cancel .modals{
+    .modal-cancel .modals {
         background-color: white;
         width: 30%;
         height: 50%;
@@ -612,7 +614,7 @@ window.onclick = function(event) {
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     }
 
-    
+
     .modal-replace .modals {
         background-color: white;
         width: 50%;
@@ -629,117 +631,117 @@ window.onclick = function(event) {
         color: white;
     }
 
-    .modal-replace .modals label{
+    .modal-replace .modals label {
         width: 80%;
         height: auto;
-    } 
+    }
 
-    .image img{
-        height: 100px; 
+    .image img {
+        height: 100px;
         width: 100px;
     }
-   /* Media Query for Laptops */
-@media (min-width: 1025px) and (max-width: 1440px) {
-    .order-container {
-        flex-direction: row;
-        padding: 15px;
+
+    /* Media Query for Laptops */
+    @media (min-width: 1025px) and (max-width: 1440px) {
+        .order-container {
+            flex-direction: row;
+            padding: 15px;
+        }
+
+        .order-items-container,
+        .order-summary {
+            width: 48%;
+        }
+
+        .order-items-container {
+            padding: 15px;
+        }
+
+        .order-summary {
+            padding: 15px;
+        }
+
+        .item-img {
+            width: 80px;
+        }
     }
 
-    .order-items-container,
-    .order-summary {
-        width: 48%;
+    /* Media Query for Tablets */
+    @media (min-width: 768px) and (max-width: 1024px) {
+        .order-container {
+            flex-direction: column;
+            padding: 15px;
+        }
+
+        .order-items-container,
+        .order-summary {
+            width: 90%;
+            margin: 10px auto;
+        }
+
+        .order-items-container {
+            padding: 10px;
+        }
+
+        .order-summary {
+            padding: 10px;
+        }
+
+        .item-img {
+            width: 70px;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+            gap: 10px;
+        }
     }
 
-    .order-items-container {
-        padding: 15px;
-    }
+    /* Media Query for Mobile Devices */
+    @media (max-width: 767px) {
+        .order-container {
+            flex-direction: column;
+            padding: 10px;
+        }
 
-    .order-summary {
-        padding: 15px;
-    }
+        .order-items-container,
+        .order-summary {
+            width: 95%;
+            margin: 10px auto;
+        }
 
-    .item-img {
-        width: 80px;
-    }
-}
+        .order-items-container {
+            padding: 8px;
+        }
 
-/* Media Query for Tablets */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .order-container {
-        flex-direction: column;
-        padding: 15px;
-    }
+        .order-summary {
+            padding: 8px;
+        }
 
-    .order-items-container,
-    .order-summary {
-        width: 90%;
-        margin: 10px auto;
-    }
+        .item-img {
+            width: 60px;
+        }
 
-    .order-items-container {
-        padding: 10px;
-    }
+        .action-buttons {
+            flex-direction: column;
+            gap: 8px;
+        }
 
-    .order-summary {
-        padding: 10px;
-    }
+        .modals {
+            width: 90%;
+            height: auto;
+            padding: 15px;
+        }
 
-    .item-img {
-        width: 70px;
-    }
+        .modals img {
+            width: 150px;
+            height: auto;
+        }
 
-    .action-buttons {
-        flex-direction: column;
-        gap: 10px;
+        .btnBack {
+            width: 100%;
+        }
     }
-}
-
-/* Media Query for Mobile Devices */
-@media (max-width: 767px) {
-    .order-container {
-        flex-direction: column;
-        padding: 10px;
-    }
-
-    .order-items-container,
-    .order-summary {
-        width: 95%;
-        margin: 10px auto;
-    }
-
-    .order-items-container {
-        padding: 8px;
-    }
-
-    .order-summary {
-        padding: 8px;
-    }
-
-    .item-img {
-        width: 60px;
-    }
-
-    .action-buttons {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .modals {
-        width: 90%;
-        height: auto;
-        padding: 15px;
-    }
-
-    .modals img {
-        width: 150px;
-        height: auto;
-    }
-
-    .btnBack {
-        width: 100%;
-    }
-}
-
 </style>
 
 </html>

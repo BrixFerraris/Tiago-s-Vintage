@@ -83,16 +83,17 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
             type: 'POST',
             data: { type: 'loadCart', user_id: userID },
             success: function (response) {
+                console.log(response);
+                
                 try {
                     const orderSummary = JSON.parse(response);
                     let itemList = '';
                     let total = 0;
-
                     orderSummary.forEach(function (item) {
                         itemList += `
                         <li>
                             <img width="80px" height="80px" src="../server/includes/uploads/${item.img1}" alt="">
-                            ${item.title} - ₱${item.price} <br> x${item.quantity}                
+                            ${item.title} - ₱${item.retail_price} <br> x${item.quantity}                
                         </li>`;
                         total += item.total;
                         $('#name').text(`${item.firstName} ${item.lastName}`);

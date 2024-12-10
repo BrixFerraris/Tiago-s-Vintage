@@ -15,12 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode([
                 'type' => 'edit-product',
                 'title' => $row['title'],
-                'price' => $row['price'],
+                'price' => $row['retail_price'],
                 'description' => $row['description'],
                 'img1' => $row['img1'],
                 'img2' => $row['img2'],
                 'img3' => $row['img3'],
-                'img4' => $row['img4']
+                'img4' => $row['videoInput']
             ]);
         } else {
             echo json_encode(['error' => 'Product not found']);

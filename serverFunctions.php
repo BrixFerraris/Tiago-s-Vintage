@@ -85,7 +85,7 @@ function getCart($conn, $user_id)
     p.img1, 
     p.title, 
     v.variationName, 
-    p.price, 
+    p.retail_price, 
     p.id, 
     t.quantity, 
     u.firstName, 
