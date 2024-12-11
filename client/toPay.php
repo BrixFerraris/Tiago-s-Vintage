@@ -207,14 +207,13 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
                             type: 'payment'
                         },
                         success: function (response) {
-                            var res = JSON.parse(response);
                             alert('Success, please wait for an admin to verify your payment. It may take 30 minutes or more');
                             $.ajax({
                                 url: './includes/updateVariation.php',
                                 type: 'POST',
                                 success: function (deleteResponse) {
                                     console.log('Variations updated:', deleteResponse);
-                                    // window.location.href = './toReceived.php';
+                                    window.location.href = './toReceived.php';
                                 },
                                 error: function (xhr, status, error) {
                                     console.error('Error updating variations:', error);

@@ -25,9 +25,9 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 mysqli_stmt_bind_param($stmt, "ssis", $img1, $uID, $amount, $transID);
 if (mysqli_stmt_execute($stmt)) {
     mysqli_stmt_close($stmt);
-    //header("location: ../toPay.php?error=none");
+    header("location: ../toPay.php?error=none");
 } else {
-    //header("location: ../toPay.php?executionFailed");
+    header("location: ../toPay.php?executionFailed");
 }
 
 mysqli_close($conn);

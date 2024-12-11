@@ -126,7 +126,7 @@ if (isset($_SESSION["role"])) {
                 success: function (response) {
                     $('#products tbody').empty();
                     const uniqueOrders = {};
-                    const validStatuses = ['Pending', 'Ready For Pickup', 'Completed', 'Check Payment', 'Out For Delivery', 'Cancelled'];
+                    const validStatuses = ['Pending', 'Ready For Pickup', 'Completed', 'Check Payment', 'Out For Delivery', 'Cancelled', 'For Replacement'];
                     if (response.order_items.length > 0) {
                         response.order_items.forEach(function (purchaseOrder) {
                             if (validStatuses.includes(purchaseOrder.status)) {

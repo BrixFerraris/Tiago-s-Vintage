@@ -87,15 +87,12 @@ include '../test/newFooter.php';
                         const subtotalHtml = `
                         <p id="subtotal">NO ITEMS IN YOUR CART YET</p>`;
                         $('.item-total').html(subtotalHtml);
-                        //console.log("haha");
                         
                     } else {
                         const subtotalHtml = `
                     <p id="subtotal">Subtotal: ₱${subtotal}</p>
                     <button class="btnCheckout">CHECKOUT</button>`;
                         $('.item-total').html(subtotalHtml);
-                    // console.log("hehe");
-                    console.log(cart.length);
                     }
 
                 },

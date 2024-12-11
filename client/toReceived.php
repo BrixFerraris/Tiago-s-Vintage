@@ -23,58 +23,58 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
     </div>
 
     <div class="modal fade" id="issueModal" tabindex="-1" aria-labelledby="issueModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="issueModalLabel">Report an Issue</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="issueForm">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="issueModalLabel">Report an Issue</h5>
+                    <input type="text" class="form-control" id="input-transID" required>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                     <div class="mb-3">
                         <label for="clientIssue" class="form-label">Issue</label>
                         <input type="text" class="form-control" id="clientIssue" placeholder="Enter the issue" required>
                     </div>
                     <div class="mb-3">
                         <label for="problemDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="problemDescription" rows="3" placeholder="Describe the problem" required></textarea>
+                        <textarea class="form-control" id="problemDescription" rows="3"
+                            placeholder="Describe the problem" required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="uploadImages" class="form-label">Upload Images (Max: 2)</label>
                         <input type="file" class="form-control" id="uploadImages" accept="image/*" multiple>
                         <small class="text-muted">You can upload up to 2 images.</small>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" id="submitIssue">Submit</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="submitIssue">Submit</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </div>
 
 <script>
     document.getElementById('uploadImages').addEventListener('change', function () {
-    if (this.files.length > 2) {
-        alert('You can only upload a maximum of 2 images.');
-        this.value = ''; // Clear the input
-    }
-});
+        if (this.files.length > 2) {
+            alert('You can only upload a maximum of 2 images.');
+            this.value = ''; // Clear the input
+        }
+    });
 
-document.getElementById('submitIssue').addEventListener('click', function () {
-    const issueForm = document.getElementById('issueForm');
-    if (issueForm.checkValidity()) {
-        alert('Issue submitted successfully!');
-        issueForm.reset();
-        const modal = bootstrap.Modal.getInstance(document.getElementById('issueModal'));
-        modal.hide();
-    } else {
-        issueForm.reportValidity();
-    }
-});
+    document.getElementById('submitIssue').addEventListener('click', function () {
+        const issueForm = document.getElementById('issueForm');
+        if (issueForm.checkValidity()) {
+            alert('Issue submitted successfully!');
+            issueForm.reset();
+            const modal = bootstrap.Modal.getInstance(document.getElementById('issueModal'));
+            modal.hide();
+        } else {
+            issueForm.reportValidity();
+        }
+    });
 </script>
 
 <script>
@@ -112,44 +112,80 @@ document.getElementById('submitIssue').addEventListener('click', function () {
                                     <p>Total Price: ₱${totalPrice}</p>
                                 </div>
                                 <div class="item-action">
-                                    <button class="Replace" data-bs-toggle="modal" data-bs-target="#issueModal">Replace</button>
                                 </div>
                             </div>`;
                         $('#to-pay').append(orderItem);
                         var lastItemAction = $('#to-pay .order-item:last .item-action');
                         if (order.status === 'Ready For Pickup' || order.status === 'Out For Delivery') {
+                            lastItemAction.append(`<button class="btn-replace Replace" data-id="${order.transaction_id}" data-bs-toggle="modal" data-bs-target="#issueModal">Replace</button>`);
                             lastItemAction.append(`<button data-id="${order.transaction_id}" data-points=${order.points} class="confirm-receive-btn">Order Received</button>`);
                         } else if (order.status === 'Check Payment') {
                             lastItemAction.append('<p>Waiting for admin to confirm payment</p>');
                         }
                     }
-                $('.confirm-receive-btn').on('click', function () {
-                    var transactionId = $(this).data('id');
-                    var points = $(this).data('points');
-                    $.ajax({
-                        url: './includes/updateStatus.php',
-                        type: 'POST',
-                        data: {
-                            transaction_id: transactionId,
-                            type: 'complete',
-                            points:parseInt(points)
-                        },
-                        success: function (response) {
-                            var result = JSON.parse(response);
-                            alert("Completed transaction. Thank you!");
-                        },
-                        error: function (xhr, status, error) {
-                            console.error('Error updating status:', error);
-                            alert('An error occurred while updating the status.');
-                        }
+                    $('.confirm-receive-btn').on('click', function () {
+                        var transactionId = $(this).data('id');
+                        var points = $(this).data('points');
+                        $.ajax({
+                            url: './includes/updateStatus.php',
+                            type: 'POST',
+                            data: {
+                                transaction_id: transactionId,
+                                type: 'complete',
+                                points: parseInt(points)
+                            },
+                            success: function (response) {
+                                var result = JSON.parse(response);
+                                alert("Completed transaction. Thank you!");
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error updating status:', error);
+                                alert('An error occurred while updating the status.');
+                            }
+                        });
                     });
                 });
-            });
-    },
-        error: function (xhr, status, error) {
-            console.error('Error fetching orders:', error);
-        }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching orders:', error);
+            }
         });
+        $(document).on('click', '.btn-replace', function () {
+            var transactionId = $(this).data('id');
+            $('#input-transID').val(transactionId);
+        });
+        $(document).on('click', '#submitIssue', function (e) {
+            e.preventDefault(); 
+            const formData = new FormData();
+            formData.append('transaction_id', $('#input-transID').val());
+            formData.append('issue', $('#clientIssue').val());
+            formData.append('description', $('#problemDescription').val());
+            formData.append('type', 'replace');
+            const files = $('#uploadImages')[0].files;
+            for (let i = 0; i < files.length; i++) {
+                formData.append('uploadImages[]', files[i]);
+            }
+            $.ajax({
+                url: './includes/updateStatus.php',
+                type: 'POST',
+                data: formData,
+                processData: false, 
+                contentType: false, 
+                success: function (response) {
+                    const result = JSON.parse(response);
+                    if (result.status === 'success') {
+                        alert(result.message);
+                    } else {
+                        alert('Error: ' + result.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('An error occurred.');
+                }
+            });
+        });
+
     });
 </script>
 </body>
@@ -202,25 +238,33 @@ document.getElementById('submitIssue').addEventListener('click', function () {
 
     .tabs {
         display: flex;
-        justify-content: space-around; /* Align items to the left for scrolling */
-        gap: 10px; /* Space between buttons */
-        overflow-x: auto; /* Enable horizontal scrolling */
+        justify-content: space-around;
+        /* Align items to the left for scrolling */
+        gap: 10px;
+        /* Space between buttons */
+        overflow-x: auto;
+        /* Enable horizontal scrolling */
         padding: 10px;
-        white-space: nowrap; /* Prevent buttons from wrapping */
-        border-bottom: 1px solid #ddd; /* Optional: underline for aesthetics */
+        white-space: nowrap;
+        /* Prevent buttons from wrapping */
+        border-bottom: 1px solid #ddd;
+        /* Optional: underline for aesthetics */
     }
 
     .tabs::-webkit-scrollbar {
-        height: 8px; /* Height of the scrollbar */
+        height: 8px;
+        /* Height of the scrollbar */
     }
 
     .tabs::-webkit-scrollbar-thumb {
-        background: #ccc; /* Scrollbar color */
+        background: #ccc;
+        /* Scrollbar color */
         border-radius: 4px;
     }
 
     .tabs::-webkit-scrollbar-thumb:hover {
-        background: #bbb; /* Scrollbar hover color */
+        background: #bbb;
+        /* Scrollbar hover color */
     }
 
 
@@ -247,7 +291,8 @@ document.getElementById('submitIssue').addEventListener('click', function () {
         background-color: #ffffff;
         border-radius: 8px;
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-        overflow-x: auto; /* Enable horizontal scrolling if necessary */
+        overflow-x: auto;
+        /* Enable horizontal scrolling if necessary */
     }
 
     .order-item {
@@ -256,15 +301,19 @@ document.getElementById('submitIssue').addEventListener('click', function () {
         align-items: center;
         border-bottom: 1px solid #ddd;
         padding: 15px 0;
-        flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        flex-wrap: wrap;
+        /* Allow wrapping on smaller screens */
     }
 
     .item-details {
         display: flex;
         align-items: center;
-        flex: 1 1 60%; /* Ensure flexibility for smaller screens */
-        min-width: 200px; /* Set a minimum width to avoid collapsing */
-        margin-bottom: 10px; /* Add spacing between stacked rows */
+        flex: 1 1 60%;
+        /* Ensure flexibility for smaller screens */
+        min-width: 200px;
+        /* Set a minimum width to avoid collapsing */
+        margin-bottom: 10px;
+        /* Add spacing between stacked rows */
     }
 
     .item-details img {
@@ -281,13 +330,15 @@ document.getElementById('submitIssue').addEventListener('click', function () {
     .item-status {
         width: 100px;
         text-align: center;
-        flex: 1 1 auto; /* Adjust width dynamically */
+        flex: 1 1 auto;
+        /* Adjust width dynamically */
     }
 
     .item-price {
         width: 100px;
         text-align: center;
-        flex: 1 1 auto; /* Adjust width dynamically */
+        flex: 1 1 auto;
+        /* Adjust width dynamically */
     }
 
     .item-actions {
@@ -295,7 +346,8 @@ document.getElementById('submitIssue').addEventListener('click', function () {
         flex-direction: row;
         width: 100px;
         text-align: center;
-        margin-top: 10px; /* Add spacing for smaller screens */
+        margin-top: 10px;
+        /* Add spacing for smaller screens */
     }
 
     .status.to-receive {
@@ -303,7 +355,8 @@ document.getElementById('submitIssue').addEventListener('click', function () {
         font-weight: bold;
     }
 
-    .confirm-receive-btn, .Replace {
+    .confirm-receive-btn,
+    .Replace {
         margin-bottom: 10px;
         background-color: #0066cc;
         color: white;
@@ -311,12 +364,14 @@ document.getElementById('submitIssue').addEventListener('click', function () {
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        width: 100%; /* Ensure the button spans full width on smaller screens */
+        width: 100%;
+        /* Ensure the button spans full width on smaller screens */
     }
 
     .confirm-receive-btn:hover {
         background-color: #004c99;
     }
+
     .Replace:hover {
         background-color: #004c99;
     }
@@ -325,19 +380,24 @@ document.getElementById('submitIssue').addEventListener('click', function () {
     @media screen and (max-width: 768px) {
         .order-item {
             flex-direction: column;
-            align-items: flex-start; /* Align items to the left on smaller screens */
+            align-items: flex-start;
+            /* Align items to the left on smaller screens */
         }
 
         .item-details {
-            margin-bottom: 10px; /* Add spacing between rows */
+            margin-bottom: 10px;
+            /* Add spacing between rows */
         }
-        .item-details p{
-            margin: 10px; /* Add spacing between rows */
+
+        .item-details p {
+            margin: 10px;
+            /* Add spacing between rows */
         }
 
         .item-status,
         .item-price {
-            width: auto; /* Allow flexible width */
+            width: auto;
+            /* Allow flexible width */
             text-align: left;
         }
 
@@ -346,13 +406,15 @@ document.getElementById('submitIssue').addEventListener('click', function () {
             align-items: flex-start;
         }
     }
+
     @media (max-width: 768px) {
         .tabs {
             padding: 5px;
         }
 
         .tab-button {
-            font-size: 14px; /* Smaller font size for smaller screens */
+            font-size: 14px;
+            /* Smaller font size for smaller screens */
             padding: 8px 15px;
         }
     }
@@ -363,7 +425,6 @@ document.getElementById('submitIssue').addEventListener('click', function () {
             padding: 5px 10px;
         }
     }
-
 </style>
 <?php
 include '../test/newFooter.php';

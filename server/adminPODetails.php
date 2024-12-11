@@ -60,16 +60,12 @@ if (isset($_SESSION["role"])) {
 
 <div class="modal-replace">
     <div class="modals">
-
         <h2>Request for replacement:</h2>
-
         <label for="Issue">
             <h3>Issue</h3>
             <br>
             <p>SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE</p>
         </label>
-
-
         <label for="description">
             <h3>Description</h3>
             <br>
@@ -77,15 +73,11 @@ if (isset($_SESSION["role"])) {
                 SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE
                 SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE</p>
         </label>
-
-
         <div class="media-preview" id="photoPreview">
-            <!-- dito nakalagay yung image na nilagay ng cutomer -->
             <figure class="image">
                 <img src="../assets/tiagos-removebg-preview 1.png" alt="Image 1" onclick="openModal(this)">
                 <img src="../assets/tiagos-removebg-preview 1.png" alt="Image 2" onclick="openModal(this)">
             </figure>
-
             <div id="imageModal" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick="closeModal()">&times;</span>
@@ -93,7 +85,6 @@ if (isset($_SESSION["role"])) {
                 </div>
             </div>
         </div>
-
         <div class="btnss">
             <button class="btnBack">Back</button>
         </div>
@@ -133,6 +124,28 @@ if (isset($_SESSION["role"])) {
 <!-- Scripts -->
 <script>
     $(document).ready(function () {
+        $(document).on('click', '.show-btn, .show-replace-btn, .decline-btn', function () {
+            var $modalBg;
+            if ($(this).hasClass('decline-btn')) {
+                const idTrans = $(this).data('id');
+                $modalBg = $('.modal-cancel');
+                $('.btnSubmit').attr('data-id', idTrans);
+            } else if ($(this).hasClass('show-btn')) {
+                $modalBg = $('.modal-receipt');
+            } else if ($(this).hasClass('show-replace-btn')) {
+                $modalBg = $('.modal-replace');
+            }
+            $modalBg.addClass('modal-active');
+        });
+        $(document).on('click', '.modal .btnBack', function () {
+            $(this).closest('.modal').removeClass('modal-active');
+        });
+
+        $(document).on('click', '.modal-active', function (e) {
+            if ($(e.target).is('.modal-active')) {
+                $(this).removeClass('modal-active');
+            }
+        });
         const url = new URL(window.location.href);
         const params = new URLSearchParams(url.search);
         const transactionId = params.get('transaction_id');
@@ -205,11 +218,8 @@ if (isset($_SESSION["role"])) {
                     buttonsHTML = `
                     <button data-shipping="${data.shipping}" data-id="${transactionId}" class="btn-accept accept-btn">Accept</button>
                     <button class="show-btn">Show Receipt</button>
-
-                    <button class="show-replace-btn">Show Replace Info</button>
-
-
                     <button data-id="${transactionId}" class="decline-btn">Decline</button>
+
                 `;
                 } else if (data.status === 'Ready For Pickup') {
                     buttonsHTML = `
@@ -223,6 +233,8 @@ if (isset($_SESSION["role"])) {
                 `;
                 } else if (data.status === 'Pending') {
                     buttonsHTML = `<h1>Wait for customer's payment</h1>`;
+                } else if (data.status === 'For Replacement') {
+                    buttonsHTML = `<button class="show-replace-btn">Show Replace Info</button>`;
                 } else {
                     buttonsHTML = `<h1>Order status: ${data.status}</h1>`;
                 }
@@ -300,48 +312,6 @@ if (isset($_SESSION["role"])) {
                         }
                     });
                 });
-
-
-
-                // Modal for Receipt
-                var modalBtn1 = document.querySelector('.show-btn');
-                var modalBg1 = document.querySelector('.modal-receipt');
-                var modalClose1 = modalBg1.querySelector('.btnBack');
-
-                modalBtn1.addEventListener('click', function () {
-                    modalBg1.classList.add('modal-active');
-                });
-                modalClose1.addEventListener('click', function () {
-                    modalBg1.classList.remove('modal-active');
-                });
-
-                // Modal for cancel
-                var modalBtn2 = document.querySelector('.decline-btn');
-                var modalBg2 = document.querySelector('.modal-cancel');
-                var modalClose2 = modalBg2.querySelector('.btnBack');
-
-                modalBtn2.addEventListener('click', function () {
-                    const idTrans = $(this).data('id');
-                    modalBg2.classList.add('modal-active');
-                    $('.btnSubmit').attr('data-id', idTrans);
-                });
-                modalClose2.addEventListener('click', function () {
-                    modalBg2.classList.remove('modal-active');
-                });
-
-
-                // Modal for Replace
-                var modalBtn3 = document.querySelector('.show-replace-btn');
-                var modalBg3 = document.querySelector('.modal-replace');
-                var modalClose3 = modalBg3.querySelector('.btnBack');
-
-                modalBtn3.addEventListener('click', function () {
-                    modalBg3.classList.add('modal-active');
-                });
-                modalClose3.addEventListener('click', function () {
-                    modalBg3.classList.remove('modal-active');
-                });
-
                 $(document).on('click', '.btnSubmit', function () {
                     var transactionId = $(this).data('id');
                     var cancelReason = $('#cancelReason').val();

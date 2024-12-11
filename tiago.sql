@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2024 at 03:39 PM
+-- Generation Time: Dec 11, 2024 at 08:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -93,7 +93,9 @@ INSERT INTO `tbl_payments` (`id`, `receipt`, `u_id`, `amount`, `transaction_numb
 (29, '674646be84b155.42184705.png', '11', 765, '1732658870_11', '2024-11-27 06:07:58'),
 (30, '67464a30a42818.24728447.jpg', '11', 1350, '1732659485_11', '2024-11-27 06:22:40'),
 (31, '67464ded6b9ee9.88600381.png', '11', 121, '1732660708_11', '2024-11-27 06:38:37'),
-(32, '6759962c5272e2.51053140.png', '11', 600, '1733841362_11', '2024-12-11 21:39:56');
+(32, '6759962c5272e2.51053140.png', '11', 600, '1733841362_11', '2024-12-11 21:39:56'),
+(33, '6759cdc99dc043.90468180.png', '11', 600, '1733938623_11', '2024-12-12 01:37:13'),
+(34, '6759e68ec68bf4.59499943.png', '11', 600, '1733944701_11', '2024-12-12 03:22:54');
 
 -- --------------------------------------------------------
 
@@ -122,6 +124,29 @@ CREATE TABLE `tbl_products` (
 
 INSERT INTO `tbl_products` (`id`, `title`, `unit_price`, `retail_price`, `category`, `img1`, `img2`, `img3`, `videoInput`, `description`, `date_added`, `stock_alert`) VALUES
 (23, 'Product title', 20, 200, 'T-Shirts', '1733838513_675846b14aaf47.55116172.png', '1733838513_675846b14affb6.11422803.png', '1733838513_675846b14b2448.25271017.png', '1733838513_675846b14b58d6.50061726.mkv', 'description', '2024-12-10 13:48:33', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_replacements`
+--
+
+CREATE TABLE `tbl_replacements` (
+  `replacement_id` int(255) NOT NULL,
+  `transaction_id` varchar(255) NOT NULL,
+  `issue` varchar(255) NOT NULL,
+  `description` longtext NOT NULL,
+  `replacement_pID` varchar(255) NOT NULL,
+  `img1` longtext NOT NULL,
+  `img2` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_replacements`
+--
+
+INSERT INTO `tbl_replacements` (`replacement_id`, `transaction_id`, `issue`, `description`, `replacement_pID`, `img1`, `img2`) VALUES
+(7, '1733944701_11', 'punit', 'maliit', '', '1733945163_6759e74bdfd761.34862871.png', '1733945163_6759e74be00a19.57277721.png');
 
 -- --------------------------------------------------------
 
@@ -223,8 +248,7 @@ CREATE TABLE `tbl_transactions` (
 --
 
 INSERT INTO `tbl_transactions` (`id`, `transaction_id`, `product_id`, `variation_id`, `quantity`, `user_id`, `date`, `total`, `grand_total`, `status`, `reason`, `discount`, `shipping`, `address`, `seen`, `reviewed`) VALUES
-(109, '1733841362_11', '23', '22', 3, '11', '2024-12-11 14:02:19', 600, 600, 'Cancelled', 'ghehehehe bibiboboob', '', 'pickup', '', 'false', 'false'),
-(110, '1733926020_11', '23', '22', 3, '11', '2024-12-11 14:07:15', 600, 600, 'Cancelled', '', '', 'pickup', '', 'false', 'false');
+(113, '1733944701_11', '23', '22', 3, '11', '2024-12-11 19:26:03', 600, 600, 'For Replacement', '', '', 'pickup', '', 'false', 'false');
 
 -- --------------------------------------------------------
 
@@ -280,7 +304,7 @@ CREATE TABLE `tbl_variations` (
 --
 
 INSERT INTO `tbl_variations` (`id`, `product_id`, `variationName`, `width`, `length`, `quantity`, `vid_variation`, `seen`) VALUES
-(22, 23, 'sample po', 21, 23, 3, '1733838541_675846cda73dc9.51218269.mkv', 'false');
+(22, 23, 'sample po', 21, 23, 0, '1733838541_675846cda73dc9.51218269.mkv', 'false');
 
 --
 -- Indexes for dumped tables
@@ -303,6 +327,12 @@ ALTER TABLE `tbl_payments`
 --
 ALTER TABLE `tbl_products`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_replacements`
+--
+ALTER TABLE `tbl_replacements`
+  ADD PRIMARY KEY (`replacement_id`);
 
 --
 -- Indexes for table `tbl_reviews`
@@ -348,13 +378,19 @@ ALTER TABLE `tbl_categories`
 -- AUTO_INCREMENT for table `tbl_payments`
 --
 ALTER TABLE `tbl_payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `tbl_products`
 --
 ALTER TABLE `tbl_products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `tbl_replacements`
+--
+ALTER TABLE `tbl_replacements`
+  MODIFY `replacement_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_reviews`
@@ -372,7 +408,7 @@ ALTER TABLE `tbl_settings`
 -- AUTO_INCREMENT for table `tbl_transactions`
 --
 ALTER TABLE `tbl_transactions`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`

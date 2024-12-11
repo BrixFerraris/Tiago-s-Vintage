@@ -111,7 +111,7 @@ LEFT JOIN
         FROM tbl_transactions
         WHERE status = 'Completed'
         GROUP BY user_id
-    ) completed ON completed.user_id = t.user_id  -- Join subquery to get completed transaction count
+    ) completed ON completed.user_id = t.user_id 
 WHERE 
     t.user_id = ? AND t.status = 'Cart'
 ";
