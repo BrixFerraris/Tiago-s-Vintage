@@ -44,7 +44,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
             window.location.href = "../server/adminDashboard.php";
         }
         $.ajax({
-            url: 'https://tiago-vintage.helioho.st/server/includes/getCMS.php',
+            url: 'http://localhost/tiago/server/includes/getCMS.php',
             method: 'GET',
             dataType: 'json',
             success: function (data) {

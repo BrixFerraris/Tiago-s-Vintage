@@ -198,7 +198,7 @@
                 url: 'http://localhost/tiago/client/includes/getNotification.php',
                 type: 'GET',
                 success: function (data) {
-                    console.log(data);
+                    // console.log(data);
                     $('#notificationBadge').text(data.notification_count);
                     $('#notificationDropdownMenu').empty();
                     if (data.notifications.length > 0) {

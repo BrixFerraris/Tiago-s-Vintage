@@ -11,7 +11,7 @@ if (isset($_GET['category'])) {
                 CASE WHEN v.product_id IS NOT NULL THEN 1 ELSE 0 END as has_variations
             FROM tbl_products p
             LEFT JOIN tbl_variations v ON p.id = v.product_id
-            WHERE v.product_id IS NOT NULL
+            WHERE v.product_id IS NOT NULL AND v.quantity > 0
             GROUP BY p.id
         ");
     } else {
@@ -21,7 +21,7 @@ if (isset($_GET['category'])) {
                 CASE WHEN v.product_id IS NOT NULL THEN 1 ELSE 0 END as has_variations
             FROM tbl_products p
             LEFT JOIN tbl_variations v ON p.id = v.product_id
-            WHERE p.category = ? AND v.product_id IS NOT NULL
+            WHERE p.category = ? AND v.product_id IS NOT NULL AND v.quantity > 0
             GROUP BY p.id
         ");
         $stmt->bind_param("s", $category);

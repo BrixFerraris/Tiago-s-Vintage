@@ -54,7 +54,7 @@ include '../test/newFooter.php';
                 data: { type: 'loadCart', user_id: userId },
                 success: function (response) {
                     const cart = JSON.parse(response);
-					console.log(response);
+					//console.log(response.length);
                     const cartItemsContainer = $('.cart-items');
                     cartItemsContainer.html('');
                     let subtotal = 0;
@@ -83,15 +83,19 @@ include '../test/newFooter.php';
                         cartItemsContainer.append(cartItemHtml);
                         subtotal += item.retail_price * item.quantity;
                     });
-                    if (response.length == 0) {
+                    if (cart.length === 0) {
                         const subtotalHtml = `
                         <p id="subtotal">NO ITEMS IN YOUR CART YET</p>`;
                         $('.item-total').html(subtotalHtml);
+                        //console.log("haha");
+                        
                     } else {
                         const subtotalHtml = `
                     <p id="subtotal">Subtotal: ₱${subtotal}</p>
                     <button class="btnCheckout">CHECKOUT</button>`;
                         $('.item-total').html(subtotalHtml);
+                    // console.log("hehe");
+                    console.log(cart.length);
                     }
 
                 },

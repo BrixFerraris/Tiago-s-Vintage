@@ -321,7 +321,9 @@ if (isset($_SESSION["role"])) {
                 var modalClose2 = modalBg2.querySelector('.btnBack');
 
                 modalBtn2.addEventListener('click', function () {
+                    const idTrans = $(this).data('id');
                     modalBg2.classList.add('modal-active');
+                    $('.btnSubmit').attr('data-id', idTrans);
                 });
                 modalClose2.addEventListener('click', function () {
                     modalBg2.classList.remove('modal-active');
@@ -340,7 +342,7 @@ if (isset($_SESSION["role"])) {
                     modalBg3.classList.remove('modal-active');
                 });
 
-                $('.btnSubmit').click(function () {
+                $(document).on('click', '.btnSubmit', function () {
                     var transactionId = $(this).data('id');
                     var cancelReason = $('#cancelReason').val();
                     if (!cancelReason || cancelReason.trim() === '') {

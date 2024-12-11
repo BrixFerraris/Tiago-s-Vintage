@@ -91,7 +91,7 @@ function getCart($conn, $user_id)
     u.firstName, 
     u.lastName, 
     u.contact,
-    COALESCE(completed.completedTransactions, 0) AS completedTransactions,  -- Count of completed transactions
+    COALESCE(completed.completedTransactions, 0) AS completedTransactions,
     t.total, 
     u.id AS userId, 
     t.id AS transactionId,

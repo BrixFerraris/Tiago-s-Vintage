@@ -75,7 +75,7 @@
                     if (data.error) {
                         console.log("CMS ERROR");
                     } else {
-                        console.log(data);
+                        // console.log(data);
                         $('#about').text(data.about);
                         $('#address').text(data.address);
                         $('#fb').attr('href', data.fb);
