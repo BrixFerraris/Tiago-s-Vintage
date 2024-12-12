@@ -27,7 +27,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="issueModalLabel">Report an Issue</h5>
-                    <input type="text" class="form-control" id="input-transID" required>
+                    <input type="hidden" class="form-control" id="input-transID" required>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -89,7 +89,6 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
             dataType: 'json',
             success: function (orders) {
                 $('.item-action').empty();
-
                 $.each(orders, function (index, order) {
                     var itemTitles = order.items.map(item => item.title).join(', ');
                     var itemSizes = order.items.map(item => item.size).join('<br>');
@@ -116,7 +115,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
                             </div>`;
                         $('#to-pay').append(orderItem);
                         var lastItemAction = $('#to-pay .order-item:last .item-action');
-                        if (order.status === 'Ready For Pickup' || order.status === 'Out For Delivery') {
+                        if (order.status === 'Ready For Pickup' || order.status === 'Out For Delivery' || order.status === 'For Replacement') {
                             lastItemAction.append(`<button class="btn-replace Replace" data-id="${order.transaction_id}" data-bs-toggle="modal" data-bs-target="#issueModal">Replace</button>`);
                             lastItemAction.append(`<button data-id="${order.transaction_id}" data-points=${order.points} class="confirm-receive-btn">Order Received</button>`);
                         } else if (order.status === 'Check Payment') {
@@ -175,6 +174,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
                     const result = JSON.parse(response);
                     if (result.status === 'success') {
                         alert(result.message);
+                        location.reload();
                     } else {
                         alert('Error: ' + result.message);
                     }

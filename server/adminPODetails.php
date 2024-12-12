@@ -64,12 +64,13 @@ if (isset($_SESSION["role"])) {
         <label for="Issue">
             <h3>Issue</h3>
             <br>
-            <p>SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE</p>
+            <p id="issueIto">SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE
+            </p>
         </label>
         <label for="description">
             <h3>Description</h3>
             <br>
-            <p> SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE
+            <p id="descriptionIto"> SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE
                 SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE
                 SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE SAMPLESAMPLE</p>
         </label>
@@ -149,6 +150,53 @@ if (isset($_SESSION["role"])) {
         const url = new URL(window.location.href);
         const params = new URLSearchParams(url.search);
         const transactionId = params.get('transaction_id');
+        if (transactionId) {
+            // Fetch the replacement data
+            $.ajax({
+                url: './includes/getReplacements.php',
+                type: 'POST',
+                data: {
+                    transaction_id: transactionId
+                },
+                success: function (response) {
+                    try {
+                        const result = JSON.parse(response);
+
+                        if (result.status === 'success') {
+                            const replacements = result.data;
+
+                            if (replacements.length > 0) {
+                                const replacement = replacements[0];
+
+                                $('#issueIto').text(replacement.issue);
+                                $('#descriptionIto').text(replacement.description);
+                                let imagesHTML = '';
+                                if (replacement.img1) {
+                                    imagesHTML += `<img src="../client/includes/uploads/${replacement.img1}" alt="Image 1" onclick="openModal(this)">`;
+                                }
+                                if (replacement.img2) {
+                                    imagesHTML += `<img src="../client/includes/uploads/${replacement.img2}" alt="Image 2" onclick="openModal(this)">`;
+                                }
+                                $('#photoPreview .image').html(imagesHTML);
+                            } else {
+                                alert('No replacement data found for this transaction.');
+                            }
+                        } else {
+                            alert('Error: ' + result.message);
+                        }
+                    } catch (error) {
+                        console.error('Error parsing JSON:', error);
+                        alert('An error occurred while processing the response.');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching replacement data:', error);
+                    alert('An error occurred while fetching replacement data.');
+                }
+            });
+        } else {
+            alert('No transaction ID found in the URL.');
+        }
         $.ajax({
             url: './includes/getPayments.php',
             type: 'GET',
