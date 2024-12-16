@@ -107,7 +107,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
             buttonDiv.on('click', '.variation', function () {
               if (!isLoggedIn) {
                 alert('Please log in to add to cart!');
-                window.location.href = "./register.php";
+                window.location.href = "./login.php";
                 return;
               }
               buttonDiv.find('.variation').removeClass('selected');
@@ -268,14 +268,14 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
     margin-bottom: 20px;
   }
 
-  #img1 {
-    width: 400px;
-    height: 500px;
+  #img4 {
+    width: 480px;
+    height: 350px;
   }
 
+  #img1,
   #img2,
-  #img3,
-  #img4 {
+  #img3 {
     width: 200px;
     height: 190px;
   }
@@ -561,14 +561,14 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
       width: 50%;
     }
 
-    #img1 {
+    #img4 {
       width: 250px !important;
       height: 370px !important;
     }
 
     #img2,
     #img3,
-    #img4 {
+    #img1 {
       width: 95px !important;
       height: 120px !important;
     }
@@ -613,14 +613,14 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
       justify-content: center;
     }
 
-    #img1 {
-      width: 300px;
+    #img4 {
+      width: 470px;
       height: 400px;
     }
 
     #img2,
     #img3,
-    #img4 {
+    #img1 {
       width: 120px;
       height: 140px;
     }
@@ -632,14 +632,14 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
       width: 80%;
     }
 
-    #img1 {
-      width: 400px;
-      height: 550px;
+    #img4 {
+      width: 450px;
+      height: 280px;
     }
 
     #img2,
     #img3,
-    #img4 {
+    #img1 {
       width: 150px;
       height: 150px;
     }
