@@ -23,7 +23,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
     <div class="modals1">
         <h2>Payment Method</h2>
         <h6>Scan to pay</h6>
-        <img src="../assets/QR.png" class="qr" alt="" width="180px" height="210px">
+        <img src="../images/qrCode.jpg" class="qr" alt="" width="180px" height="210px">
         <h4 class="amount">Amount: <span id="amountValue">1500</span></h4>
         <p>We accept Gcash only. After scanning the QR code, please put the receipt in the box given.</p>
         <form id="paymentForm" action="./includes/clientPay.php" method="POST" enctype="multipart/form-data">

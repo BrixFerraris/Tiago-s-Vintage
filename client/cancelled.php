@@ -52,6 +52,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
                     var itemSizes = order.items.map(item => item.size).join('<br>');
                     var totalQuantity = order.total_quantity;
                     var totalPrice = order.total_price;
+                    var reason = order.reason ? order.reason : "No reason provided"; // Default message if reason is null or undefined
 
                     var orderItem = `
             <div class="order-item">
@@ -66,6 +67,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
                 </div>
                 <div class="item-status">
                     <p class="status ${order.status.toLowerCase()}">${order.status}</p>
+                <p>Reason: ${reason}</p>
                 </div>
                 <div class="item-price">
                     <p>₱${totalPrice.toFixed(2)}</p>

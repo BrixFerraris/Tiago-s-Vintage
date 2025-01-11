@@ -657,8 +657,8 @@ if (isset($_SESSION["role"])) {
     }
 
     .image img {
-        height: 100px;
-        width: 100px;
+        height: 200px;
+        width: 200px;
     }
 
     /* Media Query for Laptops */

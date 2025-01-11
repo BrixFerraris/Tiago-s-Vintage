@@ -27,6 +27,7 @@ while ($row = $result->fetch_assoc()) {
             'transaction_id' => $transaction_id,
             'items' => [],
             'status' => $row['status'], 
+            'reason' => $row['reason'],
             'total_quantity' => 0,
             'total_price' => 0, 
             'first_img' => $row['img1'], 
